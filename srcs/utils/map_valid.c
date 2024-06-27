@@ -9,13 +9,14 @@ void	open_map(t_game *game, char *file)
 		perror("Error \n fd open error");
 	if (check_map_cub(file) == 1)
 	{
-		perror("Error \n no .cub file");
+		printf("Error no .cub file\n");
 		exit(0);
 	}
 	space_map(game, fd);
 	close(fd);
 	fd = open(file, O_RDONLY);
 	get_map(game, fd);
+	//printf("height %d \n width %d \n", game->map.height, game->map.width);
 	close(fd);
 }
 
@@ -27,9 +28,12 @@ int	check_map_cub(char *file)
 	i = 0;
 	while (file[i] != '\0')
 		i++;
+	i--;
 	if (file[i] != 'b' || file[i - 1] != 'u' || file[i - 2] != 'c'
 		|| file[i - 3] != '.')
+	{
 		return (1);
+	}
 	return (0);
 }
 
@@ -60,7 +64,6 @@ int	walls_check(t_game *game)
 }
 
 
-
 void	space_map(t_game *game, int fd)
 {
 	char	*line;
@@ -78,6 +81,24 @@ void	space_map(t_game *game, int fd)
 	}
 	game->map.map = (char **)malloc(sizeof(line) * i);
 	game->map.height = i;
+}
+
+static void	print_map(t_game *game)
+{
+	int	x;
+	int	y = 0;
+
+	while(y < game->map.height)
+	{
+		x = 0;
+		while(x < game->map.width)
+		{
+			printf("%c", game->map.map[y][x]);
+			x++;
+		}
+		printf("\n");
+		y++;
+	}
 }
 
 void	get_map(t_game *game, int fd)
@@ -100,9 +121,15 @@ void	get_map(t_game *game, int fd)
 		i++;
 		line_str = get_next_line(fd);
 	}
+	printf("height %d \n width %d \n", game->map.height, game->map.width);
+	print_map(game);
 	if ((walls_check(game)) == 1)
 	{
 		perror("Error walls fail\n");
 		exit(1);
 	}
 }
+
+
+// tests so anpassen, dass andere werte nicht beruecksichtigt werden und in map einlesen
+// dann walls check anpassen und spaces beruecksichtigen
