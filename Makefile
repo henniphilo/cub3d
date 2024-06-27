@@ -10,33 +10,30 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
 RM = rm -f
 
-SRC =
+MAIN = main
+
+SRC = $(addprefix srcs/, $(addsuffix .c, $(MAIN)))
 
 OBJ = $(SRC:.c=.o)
 
 all: setup $(NAME)
 
 %.o: %.c
-	$(CC) $(CFLAGS) -Iinclude -Ilibft -I/usr/include -Imlx_linux -IMLX42/include/MLX42 -O3 -c $< -o $@
+	$(CC) $(CFLAGS) -Iinclude -I$(LIBFT) -I/usr/include -Imlx_linux -I$(LIB)/include/MLX42 -O3 -c $< -o $@
 
 $(NAME): $(OBJ) $(LIB)/$(LIBA) $(LIBFT)/$(LIBFA)
-	$(CC) $(CFLAGS) $(OBJ) -L$(LIB) $(LIBFT)/$(LIBFA) -L/usr/MLX42 -lmlx42 -ldl -lglfw -lm -lpthread -o $(NAME)
-
+	$(CC) $(CFLAGS) $(OBJ) -L$(LIB) -lmlx42 -L$(LIBFT) -lft -ldl -lglfw -lm -lpthread -o $(NAME)
 
 $(LIBFT)/$(LIBFA):
-	@$(MAKE) -C $(LIBFT)
-
-$(LIBFT)/%.o: $(LIBFT)/%.c
-	$(CC) $(CFLAGS) -I$(LIBFT) -c $< -o $@
+	$(MAKE) -C $(LIBFT)
 
 debug: $(OBJ) $(LIBFT)/$(LIBFA)
-	$(CC) $(CFLAGS) -L$(LIBFT) $(RFLAG) $(OBJ) -ldl -lft -g3 -fsanitize=address -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJ) -L$(LIBFT) -lft -ldl -lmlx42 -g3 -fsanitize=address -o $(NAME)
 
 clean:
-	make -C $(LIB) clean
-	make -C $(LIBFT) clean
+	$(MAKE) -C $(LIB) clean
+	$(MAKE) -C $(LIBFT) clean
 	$(RM) $(OBJ)
-
 
 fclean: clean
 	make -C $(LIBFT) fclean
