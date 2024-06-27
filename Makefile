@@ -10,7 +10,7 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
 RM = rm -f
 
-SRC =
+SRC = main.c
 
 OBJ = $(SRC:.c=.o)
 
