@@ -10,9 +10,7 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
 RM = rm -f
 
-MAIN = main
-
-SRC = $(addprefix srcs/, $(addsuffix .c, $(MAIN)))
+SRC = srcs/main.c
 
 OBJ = $(SRC:.c=.o)
 
