@@ -3,14 +3,27 @@
 
 # include "../libft/libft.h"
 # include "../libft/get_next_line.h"
-# include "structs.h"
+//# include "MLX42.h"
 # include "../MLX42/include/MLX42/MLX42.h"
+# include "structs.h"
 # include <stdio.h>      // printf
 # include <stdlib.h>     // malloc, free, exit
 # include <unistd.h>     // write, access, fork, execve, dup2, pipe, etc.
 # include <errno.h>      // perror, strerror
 # include <stdlib.h>     // getenv
 # include <stddef.h>	 // Null
+# include <math.h>
+
+/* Map Parsing */
+int		check_map_cub(char *file);
+int		walls_check(t_game *game);
+void	open_map(t_game *game, char *file);
+void	space_map(t_game *game, int fd);
+void	get_map(t_game *game, int fd);
+
+
+
+
 
 
 # endif
