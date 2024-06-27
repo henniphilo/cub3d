@@ -10,11 +10,12 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
 RM = rm -f
 
-MAIN = cub3d
+# MAIN = cub3d
+MAIN = main
 UTILS = map_valid
 
-# SRC = $(addsuffix .c, $(MAIN))
-SRC = $(addprefix srcs/, $(addsuffix .c, $(MAIN))) \
+SRC = $(addsuffix .c, $(MAIN))
+#SRC = $(addprefix srcs/, $(addsuffix .c, $(MAIN))) \
 			$(addsuffix .c, $(addprefix srcs/utils/, $(UTILS))) \
 
 OBJ = $(SRC:.c=.o)
