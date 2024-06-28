@@ -13,17 +13,19 @@
 # include <stdlib.h>     // getenv
 # include <stddef.h>	 // Null
 # include <math.h>
+# include <string.h>
 
 /* Map Parsing */
 int		check_map_cub(char *file);
 int		walls_check(t_game *game);
-int		cub_input(t_game *game);
-char	*get_path(char *line, const char *direction);
+int		map_input_check(t_game *game);
+char	*get_from_map(char *line, const char *direction);
+void	which_color(t_game *game);
+void	cub_input(t_game *game);
 void	open_map(t_game *game, char *file);
 void	space_map(t_game *game, int fd);
 void	get_map(t_game *game, int fd);
 void	print_map(t_game *game);
-int		map_input_check(t_game *game);
 void	free_data(t_game *game);
 
 

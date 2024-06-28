@@ -16,19 +16,21 @@ typedef struct s_map
 
 }	t_map;
 
-typedef struct s_texture
+typedef struct s_look
 {
 	char	*NO;
 	char	*SO;
 	char	*WE;
 	char	*EA;
-}	t_texture;
+	char	*floor;
+	char	*ceiling;
+}	t_look;
 
 typedef struct s_game
 {
 	mlx_t		*mlx_ptr;
 	t_map		map;
-	t_texture	texture;
+	t_look		look;
 
 }	t_game;
 

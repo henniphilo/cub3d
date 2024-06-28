@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pbencze <pbencze@student.42berlin.de>      +#+  +:+       +#+         #
+#    By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/02 15:58:16 by hwiemann          #+#    #+#              #
-#    Updated: 2024/05/15 13:41:09 by pbencze          ###   ########.fr        #
+#    Updated: 2024/06/28 13:13:31 by hwiemann         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ ft_strlcat.c \
 ft_strlcpy.c \
 ft_strlen.c \
 ft_strncmp.c \
+ft_strncpy.c \
 ft_strnstr.c \
 ft_strrchr.c \
 ft_strtrim.c \
