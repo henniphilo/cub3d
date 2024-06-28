@@ -14,6 +14,13 @@
 # include <stddef.h>	 // Null
 # include <math.h>
 
+/* Constants */
+#define WINDOW_WIDTH 800
+#define WINDOW_HEIGHT 600
+#define TILE_SIZE 64
+#define MOVE_SPEED 0.5
+#define ROT_SPEED 0.05
+
 /* Map Parsing */
 int		check_map_cub(char *file);
 int		walls_check(t_game *game);
