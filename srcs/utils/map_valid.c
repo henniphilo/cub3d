@@ -247,20 +247,30 @@ int	walls_check(t_game *game)
 	while (i < game->map.x_axis[0])
 	{
 		if(map[0][i] != '1')
+		{
+			printf("Top border error at position (0, %d): map[0][%d] = %c\n", i, i, map[0][i]);
 			return (1);
+		}
 		i++;
 	}
 	i = 0;
 	while (i < game->map.x_axis[height - 1])
 	{
-		if (map[height - 1][i] != '1')
+		if (map[height - 1][i] != '1' && map[height - 1][i] != '\n')
+		{
+			printf("Bottom border error at position (%d, %d): map[%d][%d] = %c\n", height - 1, i, height - 1, i, map[height - 1][i]);
 			return (1);
+		}
 		i++;
 	}
 	while (j < height - 1)
 	{
 		if (map[j][0] != '1' || map[j][game->map.x_axis[j] - 1] != '1')
+		{
+			printf("Left border error at position (%d, 0): map[%d][0] = %c\n", j, j, map[j][0]);
+			printf("Right border error at position (%d, %d): map[%d][%d] = %c\n", j, game->map.x_axis[j] - 1, j, game->map.x_axis[j] - 1, map[j][game->map.x_axis[j] - 1]);
 			return (1);
+		}
 		j++;
 	}
 	return (0);
