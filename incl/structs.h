@@ -10,26 +10,31 @@
 
 typedef struct s_map
 {
+	char	**cub;
 	char	**map;
 	int		height;
 	int		width;
-
+	int		y_axis;
+	int		*x_axis;
 }	t_map;
 
-typedef struct s_texture
+//kann dann in textures umgewandelt werden
+typedef struct s_look
 {
 	char	*NO;
 	char	*SO;
 	char	*WE;
 	char	*EA;
-}	t_texture;
+	char	*floor;
+	char	*ceiling;
+}	t_look;
 
 typedef struct s_game
 {
 	mlx_t		*mlx_ptr;
 	t_map		map;
-	t_texture	texture;
-	t_scene	scene;
+	t_look		look;
+
 }	t_game;
 
 typedef struct s_scene
