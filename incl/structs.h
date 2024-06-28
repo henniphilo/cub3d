@@ -34,6 +34,7 @@ typedef struct s_game
 	mlx_t		*mlx_ptr;
 	t_map		map;
 	t_look		look;
+	t_scene		scene;
 
 }	t_game;
 
