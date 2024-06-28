@@ -54,10 +54,10 @@ char	*get_from_cub(char *line, const char *direction)
 	dir_ptr = ft_strnstr(line, direction, len);
 	if (dir_ptr != NULL)
 	{
-		path_start = dir_ptr + ft_strlen(direction) + 1;
-		path_end = path_start;
+		path_start = dir_ptr + ft_strlen(direction);
 		while (*path_start == ' ')
 			path_start++;
+		path_end = path_start;
 		while (*path_end != ' ' && *path_end != '\n' && *path_end != '\0')
 			path_end++;
 		len = path_end - path_start;
@@ -130,41 +130,47 @@ void	actual_map(t_game *game)
 	int		is_line;
 	char	*line;
 
-	y = 0;
 	map_start = 0;
 	while (map_start < game->map.height)
 	{
 		line = game->map.cub[map_start];
 		is_line = 1;
+		y = 0;
 		while (line[y] != '\0')
 		{
-			if (line[y] != ' ' && line[y] != '1')
+			if (line[y] != ' ' && line[y] != '1' && line[y] != '\n')
 			{
 					is_line = 0;
 					break;
 			}
 			y++;
 		}
-		if (is_line)
+		if (is_line && y > 1)
+		{
 			break ;
+		}
 		map_start++;
 	}
 	game->map.y_axis = game->map.height - map_start;
 	game->map.map = (char **)malloc(sizeof(char *) * (game->map.y_axis + 1));
-	if (!game->map.map)
+	game->map.x_axis = (int *)malloc(sizeof(int) * game->map.y_axis);
+	if (!game->map.map || !game->map.x_axis)
 	{
-		printf("Malloc Error in map \n");
+		printf("Malloc Error in map or x_axis\n");
 		exit (1);
 	}
 	y = 0;
+//	printf("y_axis: %d\n", game->map.y_axis);
 	while (y < game->map.y_axis)
 	{
 		game->map.map[y] = ft_strdup(game->map.cub[map_start + y]);
+		game->map.x_axis[y] = ft_strlen(game->map.map[y]);
 		if (!game->map.map[y])
 		{
 			printf("Error in dup line \n");
 			exit (1);
 		}
+	//	printf("Map line %d: %s", y, game->map.map[y]);
 		y++;
 	}
 	game->map.map[game->map.y_axis] = NULL;
@@ -186,6 +192,11 @@ int	map_input_check(t_game *game)
 	{
 		free_data(game);
 		return (1);
+	}
+	if ((walls_check(game)) == 1)
+	{
+		perror("Error walls fail\n");
+		exit(1);
 	}
 	return (0);
 }
@@ -221,27 +232,34 @@ void	free_data(t_game *game)
 	free(game->look.ceiling);
 	free(game->look.floor);
 }
-
+//jede y reihe durchschauen ob x von 1 begrenzt
 int	walls_check(t_game *game)
 {
 	char	**map;
 	int		i;
 	int		j;
+	int		height;
 
 	i = 0;
-	j = 0;
+	j = 1;
+	height = game->map.y_axis;
 	map = game->map.map;
-	while (i < game->map.width)
+	while (i < game->map.x_axis[0])
 	{
-		if (map[(game->map.height) - 1][0] != '1' || map[0][i] != '1'
-			|| map[game->map.height - 1][i] != '1')
+		if(map[0][i] != '1')
 			return (1);
 		i++;
 	}
-	while (j < game->map.height)
+	i = 0;
+	while (i < game->map.x_axis[height - 1])
 	{
-		if (map[j][0] != '1' || map[0][(game->map.width) - 1] != '1'
-			|| map[j][game->map.width - 1] != '1')
+		if (map[height - 1][i] != '1')
+			return (1);
+		i++;
+	}
+	while (j < height - 1)
+	{
+		if (map[j][0] != '1' || map[j][game->map.x_axis[j] - 1] != '1')
 			return (1);
 		j++;
 	}
@@ -314,14 +332,5 @@ void	get_map(t_game *game, int fd)
 		line_str = get_next_line(fd);
 	}
 	printf("height %d \n width %d \n", game->map.height, game->map.width);
-//	print_map(game);
-	// if ((walls_check(game)) == 1)
-	// {
-	// 	perror("Error walls fail\n");
-	// 	exit(1);
-	// }
+	//print_map(game);
 }
-
-
-// tests so anpassen, dass andere werte nicht beruecksichtigt werden und in map einlesen
-// dann walls check anpassen und spaces beruecksichtigen

@@ -15,7 +15,7 @@ typedef struct s_map
 	int		height;
 	int		width;
 	int		y_axis;
-	int		x_axis;
+	int		*x_axis;
 }	t_map;
 
 //kann dann in textures umgewandelt werden
