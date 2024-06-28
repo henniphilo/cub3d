@@ -1,16 +1,7 @@
-#include <unistd.h>
-#include <stdio.h>
-#include <math.h>
-#include "../libft/libft.h"
-#include "../MLX42/include/MLX42/MLX42.h"
+#include "../incl/cub3d.h"
 
-#define WINDOW_WIDTH 800
-#define WINDOW_HEIGHT 600
 #define MAP_WIDTH 10
 #define MAP_HEIGHT 10
-#define TILE_SIZE 64
-#define MOVE_SPEED 0.5
-#define ROT_SPEED 0.05
 
 int world_map[MAP_WIDTH][MAP_HEIGHT] = {
     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},

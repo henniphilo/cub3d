@@ -29,7 +29,25 @@ typedef struct s_game
 	mlx_t		*mlx_ptr;
 	t_map		map;
 	t_texture	texture;
-
+	t_scene	scene;
 }	t_game;
+
+typedef struct s_scene
+{
+
+	double	cameraX;
+	double	rayDirX;
+	double	rayDirY;
+	int		mapX;
+	int		mapY;
+	double	sideDistX;
+	double	sideDistY;
+	double	deltaDistX;
+	double	deltaDistY;
+	double	perpWallDist;
+	int		stepX;
+	int		stepY;
+	int		hit;
+}	t_scene;
 
 #endif
