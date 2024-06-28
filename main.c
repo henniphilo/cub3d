@@ -1,8 +1,4 @@
-#include <unistd.h>
-#include <stdio.h>
-#include <math.h>
-#include "../libft/libft.h"
-#include "../MLX42/include/MLX42/MLX42.h"
+#include "../incl/cub3d.h"
 
 #define MAP_WIDTH 10
 #define MAP_HEIGHT 10
