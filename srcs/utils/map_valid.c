@@ -12,7 +12,7 @@ void	open_map(t_game *game, char *file)
 		printf("Error no .cub file\n");
 		exit(0);
 	}
-	space_map(game, fd);
+	space_cub(game, fd);
 	close(fd);
 	fd = open(file, O_RDONLY);
 	get_map(game, fd);
@@ -54,8 +54,10 @@ char	*get_from_cub(char *line, const char *direction)
 	dir_ptr = ft_strnstr(line, direction, len);
 	if (dir_ptr != NULL)
 	{
-		path_start = line + ft_strlen(direction) + 1;
+		path_start = dir_ptr + ft_strlen(direction) + 1;
 		path_end = path_start;
+		while (*path_start == ' ')
+			path_start++;
 		while (*path_end != ' ' && *path_end != '\n' && *path_end != '\0')
 			path_end++;
 		len = path_end - path_start;
@@ -76,21 +78,21 @@ void	cub_input(t_game *game)
 	y = 0;
 	while (y < game->map.height)
 	{
-		if (ft_strncmp(game->map.map[y], "NO ", 3) == 0)
+		if (ft_strncmp(game->map.cub[y], "NO ", 3) == 0)
 		{
-			game->look.NO = get_from_cub(game->map.map[y], "NO");
+			game->look.NO = get_from_cub(game->map.cub[y], "NO");
 		}
-		if (ft_strncmp(game->map.map[y], "SO ", 3) == 0)
+		if (ft_strncmp(game->map.cub[y], "SO ", 3) == 0)
 		{
-			game->look.SO = get_from_cub(game->map.map[y], "SO");
+			game->look.SO = get_from_cub(game->map.cub[y], "SO");
 		}
-		if (ft_strncmp(game->map.map[y], "WE ", 3) == 0)
+		if (ft_strncmp(game->map.cub[y], "WE ", 3) == 0)
 		{
-			game->look.WE = get_from_cub(game->map.map[y], "WE");
+			game->look.WE = get_from_cub(game->map.cub[y], "WE");
 		}
-		if (ft_strncmp(game->map.map[y], "EA ", 3) == 0)
+		if (ft_strncmp(game->map.cub[y], "EA ", 3) == 0)
 		{
-			game->look.EA = get_from_cub(game->map.map[y], "EA");
+			game->look.EA = get_from_cub(game->map.cub[y], "EA");
 		}
 		y++;
 	}
@@ -107,13 +109,13 @@ void	which_color(t_game *game)
 	y = 0;
 	while (y < game->map.height)
 	{
-		if (ft_strncmp(game->map.map[y], "F ", 2) == 0)
+		if (ft_strncmp(game->map.cub[y], "F ", 2) == 0)
 		{
-			game->look.floor = get_from_cub(game->map.map[y], "F");
+			game->look.floor = get_from_cub(game->map.cub[y], "F");
 		}
-		if (ft_strncmp(game->map.map[y], "C ", 2) == 0)
+		if (ft_strncmp(game->map.cub[y], "C ", 2) == 0)
 		{
-			game->look.ceiling = get_from_cub(game->map.map[y], "C");
+			game->look.ceiling = get_from_cub(game->map.cub[y], "C");
 		}
 		y++;
 	}
@@ -121,11 +123,66 @@ void	which_color(t_game *game)
 	printf("ceiling: %s\n", game->look.ceiling);
 }
 
+void	actual_map(t_game *game)
+{
+	int		y;
+	int		map_start;
+	int		y_axis;
+	int		is_line;
+	char	*line;
+
+
+	y = 0;
+	map_start = 0;
+	while (map_start < game->map.height)
+	{
+		line = game->map.cub[map_start];
+		is_line = 1;
+		while (line[y] != '\0')
+		{
+			if (line[y] != ' ' && line[y] != '1')
+			{
+					is_line = 0;
+					break;
+			}
+			y++;
+		}
+		if (is_line)
+			break ;
+		map_start++;
+	}
+	y_axis = game->map.height - map_start;
+	game->map.map = (char **)malloc(sizeof(char *) * (y_axis + 1));
+	if (!game->map.map)
+	{
+		printf("Malloc Error in map \n");
+		exit (1);
+	}
+	y = 0;
+	while (y < y_axis)
+	{
+		game->map.map[y] = ft_strdup(game->map.cub[map_start + y]);
+		if (!game->map.map[y])
+		{
+			printf("Error in dup line \n");
+			exit (1);
+		}
+		y++;
+	}
+	game->map.map[y_axis] = NULL;
+	printf("Map:\n");
+	for (y = 0; y < y_axis; y++) {
+		printf("%s", game->map.map[y]);
+	}
+}
+
 
 int	map_input_check(t_game *game)
 {
 	cub_input(game);
 	which_color(game);
+	actual_map(game);
+	free_cub(game);
 	if(!game->look.EA || !game->look.NO || !game->look.SO
 		|| !game->look.WE || !game->look.ceiling || !game->look.floor)
 	{
@@ -133,6 +190,19 @@ int	map_input_check(t_game *game)
 		return (1);
 	}
 	return (0);
+}
+
+void	free_cub(t_game *game)
+{
+	int	i;
+
+	i = 0;
+	while (i < game->map.height)
+	{
+		free(game->map.cub[i]);
+		i++;
+	}
+	free(game->map.cub);
 }
 
 void	free_data(t_game *game)
@@ -169,8 +239,7 @@ int	walls_check(t_game *game)
 	return (0);
 }
 
-
-void	space_map(t_game *game, int fd)
+void	space_cub(t_game *game, int fd)
 {
 	char	*line;
 	int		i;
@@ -179,14 +248,17 @@ void	space_map(t_game *game, int fd)
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
-		if (!(line))
-			perror("Error\n gnl problem");
 		free(line);
 		i++;
 		line = get_next_line(fd);
 	}
-	game->map.map = (char **)malloc(sizeof(line) * i);
+	game->map.cub = (char **)malloc(sizeof(char *) * (i + 1));
 	game->map.height = i;
+	if (!game->map.cub)
+	{
+		printf("Malloc Error in space cub \n");
+		exit (1);
+	}
 }
 
 void	print_map(t_game *game)
@@ -221,8 +293,13 @@ void	get_map(t_game *game, int fd)
 			perror("Error map not readable\n");
 			exit(1);
 		}
+		game->map.cub[i] = ft_strdup(line_str);
+		if (!game->map.cub[i])
+		{
+			printf("Error in dup line\n");
+			exit (1);
+		}
 		game->map.width = (ft_strlen(line_str) - 1);
-		game->map.map[i] = ft_strdup(line_str);
 		free(line_str);
 		i++;
 		line_str = get_next_line(fd);

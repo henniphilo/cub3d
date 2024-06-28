@@ -10,12 +10,15 @@
 
 typedef struct s_map
 {
+	char	**cub;
 	char	**map;
 	int		height;
 	int		width;
-
+	int		y_axis;
+	int		x_axis;
 }	t_map;
 
+//kann dann in textures umgewandelt werden
 typedef struct s_look
 {
 	char	*NO;
