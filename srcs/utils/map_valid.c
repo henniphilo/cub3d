@@ -127,10 +127,8 @@ void	actual_map(t_game *game)
 {
 	int		y;
 	int		map_start;
-	int		y_axis;
 	int		is_line;
 	char	*line;
-
 
 	y = 0;
 	map_start = 0;
@@ -151,15 +149,15 @@ void	actual_map(t_game *game)
 			break ;
 		map_start++;
 	}
-	y_axis = game->map.height - map_start;
-	game->map.map = (char **)malloc(sizeof(char *) * (y_axis + 1));
+	game->map.y_axis = game->map.height - map_start;
+	game->map.map = (char **)malloc(sizeof(char *) * (game->map.y_axis + 1));
 	if (!game->map.map)
 	{
 		printf("Malloc Error in map \n");
 		exit (1);
 	}
 	y = 0;
-	while (y < y_axis)
+	while (y < game->map.y_axis)
 	{
 		game->map.map[y] = ft_strdup(game->map.cub[map_start + y]);
 		if (!game->map.map[y])
@@ -169,9 +167,9 @@ void	actual_map(t_game *game)
 		}
 		y++;
 	}
-	game->map.map[y_axis] = NULL;
+	game->map.map[game->map.y_axis] = NULL;
 	printf("Map:\n");
-	for (y = 0; y < y_axis; y++) {
+	for (y = 0; y < game->map.y_axis; y++) {
 		printf("%s", game->map.map[y]);
 	}
 }
@@ -207,10 +205,21 @@ void	free_cub(t_game *game)
 
 void	free_data(t_game *game)
 {
+	int	i;
+
+	i = 0;
+	while (i < game->map.y_axis)
+	{
+		free(game->map.map[i]);
+		i++;
+	}
+	free(game->map.map);
 	free(game->look.NO);
 	free(game->look.SO);
 	free(game->look.WE);
 	free(game->look.EA);
+	free(game->look.ceiling);
+	free(game->look.floor);
 }
 
 int	walls_check(t_game *game)
