@@ -13,12 +13,22 @@ typedef struct s_map
 	char	**map;
 	int		height;
 	int		width;
+
 }	t_map;
+
+typedef struct s_texture
+{
+	char	*NO;
+	char	*SO;
+	char	*WE;
+	char	*EA;
+}	t_texture;
 
 typedef struct s_game
 {
-	mlx_t	*mlx_ptr;
-	t_map	map;
+	mlx_t		*mlx_ptr;
+	t_map		map;
+	t_texture	texture;
 
 }	t_game;
 

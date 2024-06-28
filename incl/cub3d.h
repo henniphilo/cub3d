@@ -17,10 +17,14 @@
 /* Map Parsing */
 int		check_map_cub(char *file);
 int		walls_check(t_game *game);
+int		cub_input(t_game *game);
+char	*get_path(char *line, const char *direction);
 void	open_map(t_game *game, char *file);
 void	space_map(t_game *game, int fd);
 void	get_map(t_game *game, int fd);
-
+void	print_map(t_game *game);
+int		map_input_check(t_game *game);
+void	free_data(t_game *game);
 
 
 

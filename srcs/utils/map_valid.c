@@ -37,6 +37,73 @@ int	check_map_cub(char *file)
 	return (0);
 }
 
+char	*get_path(char *line, const char *direction)
+{
+	char	*path;
+	char	*path_start;
+	char	*dir_ptr;
+	int		line_len;
+
+	line_len = ft_strlen(line);
+	dir_ptr = ft_strnstr(line, direction, line_len);
+	if (dir_ptr != NULL)
+	{
+		path_start = line + 3;
+		path = ft_strdup(path_start);
+		return (path);
+	}
+	return (NULL);
+}
+
+void	cub_input(t_game *game)
+{
+	int	y;
+
+	y = 0;
+	while (y < game->map.height)
+	{
+		if (ft_stnrcmp(game->map.map[y], "NO ./", 3) == 0)
+		{
+			game->texture.NO = get_path(game->map.map[y], "NO");
+		}
+		if (ft_strncmp(game->map.map[y], "SO ./", 3) == 0)
+		{
+			game->texture.SO = get_path(game->map.map[y], "SO");
+		}
+		if (ft_strncmp(game->map.map[y], "WE ./", 3) == 0)
+		{
+			game->texture.WE = get_path(game->map.map[y], "WE");
+		}
+		if (ft_strncmp(game->map.map[y], "EA ./", 3) == 0)
+		{
+			game->texture.EA = get_path(game->map.map[y], "EA");
+		}
+		y++;
+	}
+	printf("NO: %s\n", game->texture.NO);
+	printf("SO: %s\n", game->texture.SO);
+	printf("WE: %s\n", game->texture.WE);
+	printf("EA: %s\n", game->texture.EA);
+}
+
+int	map_input_check(t_game *game)
+{
+	if(!game->texture.EA || !game->texture.NO || !game->texture.SO
+		|| !game->texture.WE)
+	{
+		free_data(game);
+		return (1);
+	}
+}
+
+void	free_data(t_game *game)
+{
+	free(game->texture.NO);
+	free(game->texture.SO);
+	free(game->texture.WE);
+	free(game->texture.EA);
+}
+
 int	walls_check(t_game *game)
 {
 	char	**map;
@@ -83,7 +150,7 @@ void	space_map(t_game *game, int fd)
 	game->map.height = i;
 }
 
-static void	print_map(t_game *game)
+void	print_map(t_game *game)
 {
 	int	x;
 	int	y = 0;
