@@ -33,9 +33,16 @@ void	actual_map(t_game *game);
 void	print_map(t_game *game);
 void	free_data(t_game *game);
 void	free_cub(t_game *game);
+void	get_textures(t_game *game);
+void	get_img(t_game *game);
+void	clean_texture(t_game *game);
+void	clean_img(t_game *game);
 
-
-
+/* Mini-Map*/
+void	mm_get_img(t_game *game);
+void	mm_get_textures(t_game *game);
+void	draw_mini_map(t_game *game, int x, int y);
+void	mini_map_init(t_game *game);
 
 
 # endif

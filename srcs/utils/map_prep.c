@@ -51,31 +51,4 @@ void	get_cub(t_game *game, int fd)
 	//print_map(game);
 }
 
-char	*get_from_cub(char *line, const char *direction)
-{
-	char	*path;
-	char	*path_start;
-	char	*path_end;
-	char	*dir_ptr;
-	int		len;
 
-	len = ft_strlen(line);
-	dir_ptr = ft_strnstr(line, direction, len);
-	if (dir_ptr != NULL)
-	{
-		path_start = dir_ptr + ft_strlen(direction);
-		while (*path_start == ' ')
-			path_start++;
-		path_end = path_start;
-		while (*path_end != ' ' && *path_end != '\n' && *path_end != '\0')
-			path_end++;
-		len = path_end - path_start;
-		path = (char *)malloc(len + 1);
-		if (!path)
-			return (NULL);
-		ft_strncpy(path, path_start, len);
-		path[len] = '\0';
-		return (path);
-	}
-	return (NULL);
-}

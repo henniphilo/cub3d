@@ -12,10 +12,10 @@ void	open_map(t_game *game, char *file)
 		printf("Error no .cub file\n");
 		exit(0);
 	}
-	space_cub(game, fd);
+	space_cub(game, fd); //hier hight init
 	close(fd);
 	fd = open(file, O_RDONLY);
-	get_cub(game, fd);
+	get_cub(game, fd); //hier width init
 	if (map_input_check(game) == 1)
 	{
 		printf("input error \n");
