@@ -25,8 +25,7 @@ void	open_map(t_game *game, char *file)
 	close(fd);
 }
 
-
-void	actual_map(t_game *game)
+int	get_map_start(t_game *game)
 {
 	int		y;
 	int		map_start;
@@ -54,6 +53,11 @@ void	actual_map(t_game *game)
 		}
 		map_start++;
 	}
+	return (map_start);
+}
+
+void	space_map(t_game *game, int map_start)
+{
 	game->map.y_axis = game->map.height - map_start;
 	game->map.map = (char **)malloc(sizeof(char *) * (game->map.y_axis + 1));
 	game->map.x_axis = (int *)malloc(sizeof(int) * game->map.y_axis);
@@ -62,8 +66,13 @@ void	actual_map(t_game *game)
 		printf("Malloc Error in map or x_axis\n");
 		exit (1);
 	}
+}
+
+void	init_map(t_game *game, int map_start)
+{
+	int	y;
+
 	y = 0;
-//	printf("y_axis: %d\n", game->map.y_axis);
 	while (y < game->map.y_axis)
 	{
 		game->map.map[y] = ft_strdup(game->map.cub[map_start + y]);
@@ -73,15 +82,23 @@ void	actual_map(t_game *game)
 			printf("Error in dup line \n");
 			exit (1);
 		}
-	//	printf("Map line %d: %s", y, game->map.map[y]);
 		y++;
 	}
 	game->map.map[game->map.y_axis] = NULL;
-	printf("Map:\n");
-	for (y = 0; y < game->map.y_axis; y++) {
-		printf("%s", game->map.map[y]);
-	}
 }
+
+void	actual_map(t_game *game)
+{
+	int	map_start;
+
+	map_start = get_map_start(game);
+	space_map(game, map_start);
+	init_map(game, map_start);
+}
+	// printf("Map:\n");
+	// for (y = 0; y < game->map.y_axis; y++) {
+	// 	printf("%s", game->map.map[y]);
+	// }
 
 void	print_map(t_game *game)
 {

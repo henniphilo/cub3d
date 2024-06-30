@@ -12,9 +12,9 @@ RM = rm -f
 
 MAIN = cub3d
 #MAIN = main
-UTILS = map_valid map_prep map_init map_checks clean_up
+UTILS = map_valid map_prep map_init map_checks wall_check clean_up
 
-SRC = $(addsuffix .c, $(MAIN))
+#SRC = $(addsuffix .c, $(MAIN))
 SRC = $(addprefix srcs/, $(addsuffix .c, $(MAIN))) \
 			$(addsuffix .c, $(addprefix srcs/utils/, $(UTILS))) \
 
