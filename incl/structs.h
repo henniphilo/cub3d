@@ -8,14 +8,21 @@
 #define TILE_SIZE 64
 #define SSIZE 15
 
+typedef struct s_sprite
+{
+	int			pos_x;
+	int			pos_y;
+}	t_sprite;
+
 typedef struct s_map
 {
-	char	**cub;
-	char	**map;
-	int		height;
-	int		width;
-	int		y_axis;
-	int		*x_axis;
+	char		**cub;
+	char		**map;
+	int			height;
+	int			width;
+	int			y_axis;
+	int			*x_axis;
+	t_sprite	player;
 }	t_map;
 
 //kann dann in textures umgewandelt werden
@@ -29,13 +36,40 @@ typedef struct s_look
 	char	*ceiling;
 }	t_look;
 
+typedef struct s_texture
+{
+	mlx_texture_t	*NO;
+	mlx_texture_t	*SO;
+	mlx_texture_t	*WE;
+	mlx_texture_t	*EA;
+	mlx_texture_t	*floor;
+	mlx_texture_t	*ceiling;
+	mlx_texture_t	*wall;
+	mlx_texture_t	*player;
+	mlx_texture_t	*target;
+}	t_texture;
+
+typedef struct s_image
+{
+	mlx_image_t	*NO;
+	mlx_image_t	*SO;
+	mlx_image_t	*WE;
+	mlx_image_t	*EA;
+	mlx_image_t	*floor;
+	mlx_image_t	*ceiling;
+	mlx_image_t	*wall;
+	mlx_image_t	*player;
+	mlx_image_t	*target;
+}	t_image;
+
 typedef struct s_game
 {
 	mlx_t		*mlx_ptr;
 	t_map		map;
 	t_look		look;
 	t_scene		scene;
-
+	t_texture	tex;
+	t_image		img;
 }	t_game;
 
 typedef struct s_scene
