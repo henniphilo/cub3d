@@ -44,6 +44,7 @@ void	mm_get_img(t_game *game);
 void	mm_get_textures(t_game *game);
 void	draw_mini_map(t_game *game, int x, int y);
 void	mini_map_init(t_game *game);
-
+void	key_hook(mlx_key_data_t key, void *ptr);
+void	transparent_minimap(t_game *game);
 
 # endif

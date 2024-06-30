@@ -33,7 +33,6 @@ void	draw_mini_map(t_game *game, int x, int y)
 	}
 	else if (game->map.map[y][x] == 'E')
 	{
-		printf("target gefunden\n");
 		mlx_image_to_window(game->mlx_ptr, game->img.target,
 			(x * SSIZE), (y * SSIZE));
 	}
@@ -57,7 +56,7 @@ void	mini_map_init(t_game *game)
 	int	y;
 
 	y = 0;
-	mm_get_img(game);
+	//mm_get_img(game);
 	while (y < game->map.y_axis)
 	{
 		x = 0;
@@ -68,4 +67,34 @@ void	mini_map_init(t_game *game)
 		}
 		y++;
 	}
+}
+
+void	transparent_minimap(t_game *game)
+{
+	int	x;
+	int	y;
+	int	mm_size;
+
+	mm_size = 5;
+	y = 0;
+	while (y < mm_size)
+	{
+			for (x = 0; x < mm_size; x++)
+		{
+			// Beispielkoordinaten für die Mini-Map
+			int map_x = game->map.player.pos_x - mm_size / 2 + x;
+			int map_y = game->map.player.pos_y - mm_size / 2 + y;
+
+			// Grenzen prüfen
+			if (map_x >= 0 && map_y >= 0 && map_x < game->map.width && map_y < game->map.height)
+			{
+				if (game->map.map[map_y][map_x] == '1')
+					mlx_image_to_window(game->mlx_ptr, game->img.wall, x * SSIZE, y * SSIZE);
+				else
+					mlx_image_to_window(game->mlx_ptr, game->img.floor, x * SSIZE, y * SSIZE);
+			}
+		}
+	}
+	// Zeichne den Spieler auf der Mini-Map
+	mlx_image_to_window(game->mlx_ptr, game->img.player, mm_size / 2 * SSIZE, mm_size / 2 * SSIZE);
 }

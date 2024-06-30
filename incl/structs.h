@@ -9,8 +9,8 @@
 #define SSIZE 15
 
 /* Constants */
-#define WINDOW_WIDTH 800
-#define WINDOW_HEIGHT 600
+// #define WINDOW_WIDTH 800
+// #define WINDOW_HEIGHT 600
 #define MOVE_SPEED 0.5
 #define ROT_SPEED 0.05
 
@@ -68,16 +68,6 @@ typedef struct s_image
 	mlx_image_t	*target;
 }	t_image;
 
-typedef struct s_game
-{
-	mlx_t		*mlx_ptr;
-	t_map		map;
-	t_look		look;
-	t_scene		scene;
-	t_texture	tex;
-	t_image		img;
-}	t_game;
-
 typedef struct s_scene
 {
 
@@ -95,5 +85,17 @@ typedef struct s_scene
 	int		stepY;
 	int		hit;
 }	t_scene;
+
+typedef struct s_game
+{
+	mlx_t		*mlx_ptr;
+	t_map		map;
+	t_look		look;
+	t_scene		scene;
+	t_texture	tex;
+	t_image		img;
+}	t_game;
+
+
 
 #endif
