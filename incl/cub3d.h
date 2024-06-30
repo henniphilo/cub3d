@@ -24,7 +24,7 @@ void	which_color(t_game *game);
 void	cub_input(t_game *game);
 void	open_map(t_game *game, char *file);
 void	space_cub(t_game *game, int fd);
-void	get_map(t_game *game, int fd);
+void	get_cub(t_game *game, int fd);
 void	print_map(t_game *game);
 void	free_data(t_game *game);
 void	actual_map(t_game *game);
