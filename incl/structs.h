@@ -8,6 +8,12 @@
 #define TILE_SIZE 64
 #define SSIZE 15
 
+/* Constants */
+#define WINDOW_WIDTH 800
+#define WINDOW_HEIGHT 600
+#define MOVE_SPEED 0.5
+#define ROT_SPEED 0.05
+
 typedef struct s_sprite
 {
 	int			pos_x;
