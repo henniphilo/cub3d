@@ -1,5 +1,8 @@
 #include "../../incl/cub3d.h"
 
+// need to look int mlx_texture_t struct and calculate pixels to distance
+
+
 // void	get_textures(t_game *game)
 // {
 // 	game->tex.NO = mlx_load_png(game->look.NO);
@@ -13,6 +16,7 @@
 // 		exit(1);
 // 	}
 // }
+
 
 // void	get_img(t_game *game)
 // {
