@@ -8,6 +8,10 @@
 		"pushswap.h": "c",
 		"cstring": "c",
 		"typeinfo": "c",
-		"so_long.h": "c"
+		"so_long.h": "c",
+		"atomic": "c",
+		"cstdint": "c",
+		"random": "c",
+		"*.tcc": "c"
 	}
 }

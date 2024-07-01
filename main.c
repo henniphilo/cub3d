@@ -117,8 +117,114 @@ void render_scene(mlx_image_t* image)
 	}
 }
 
+// static void	player_no_one(t_game *game, int y, int x)
+// {
+// 	int	pos_x;
+// 	int	pos_y;
+
+// 	pos_x = game->map.player.pos_x;
+// 	pos_y = game->map.player.pos_y;
+// 	if (game->map.map[pos_y + y][pos_x + x] != '1')
+// 	{
+// 		pos_y += y;
+// 		pos_x += x;
+// 	}
+// 	if (game->map.map[game->map.player.pos_y][game->map.player.pos_x] != 'E')
+// 	//	update_player_pos(game, game->map.player.pos_x, game->map.player.pos_y);
+// 		mlx_image_to_window(game->mlx_ptr, game->img.floor,
+// 			(game->map.player.pos_x * SSIZE), (game->map.player.pos_y * SSIZE));
+// 	mlx_image_to_window(game->mlx_ptr, game->img.player, (pos_x * SSIZE),
+// 		(pos_y * SSIZE));
+// 	game->map.player.pos_x = pos_x;
+// 	game->map.player.pos_y = pos_y;
+// }
+
+// static int	get_y(mlx_key_data_t key)
+// {
+// 	if (key.key == MLX_KEY_UP || key.key == MLX_KEY_W)
+// 	{
+// 		return (-1);
+// 	}
+// 	else if (key.key == MLX_KEY_DOWN || key.key == MLX_KEY_S)
+// 	{
+// 		return (1);
+// 	}
+// 	else
+// 		return (0);
+// }
+
+// static int	get_x( mlx_key_data_t key)
+// {
+// 	if (key.key == MLX_KEY_LEFT || key.key == MLX_KEY_A)
+// 	{
+// 		return (-1);
+// 	}
+// 	else if (key.key == MLX_KEY_RIGHT || key.key == MLX_KEY_D)
+// 	{
+// 		return (1);
+// 	}
+// 	else
+// 		return (0);
+// }
+/*
+void	key_hook(mlx_key_data_t keydata, void *ptr)
+{
+	t_game	*game;
+	int			x;
+	int			y;
+
+	x = 0;
+	y = 0;
+	game = ptr;
+	if (keydata.action == MLX_RELEASE)
+	{
+		if (keydata.key == MLX_KEY_ESCAPE)
+			end_game(game);
+		else
+		{
+			y = get_y(keydata);
+			x = get_x(keydata);
+		}
+		player_no_one(game, y, x);
+	}
+}*/
+
+// static void	end_game(t_game *game)
+// {
+// 	mlx_close_window(game->mlx_ptr);
+// }
+
+static void	game_init(t_game *game)
+{
+	game->mlx_ptr = mlx_init(WINDOW_WIDTH, WINDOW_HEIGHT, "Raycaster", true);
+	if (!(game->mlx_ptr))
+	{
+		printf ("mlx ptr error \n");
+		exit (1);
+	}
+}
+
+
 void key_hook(mlx_key_data_t keydata, void* param) {
-    mlx_t   *mlx = (mlx_t *)param;
+    // t_game	*game;
+	// int			x;
+	// int			y;
+
+	// x = 0;
+	// y = 0;
+	// game = param;
+     mlx_t   *mlx = (mlx_t *)param;
+    // if (keydata.action == MLX_RELEASE)
+	// {
+	// 	if (keydata.key == MLX_KEY_ESCAPE)
+	// 		end_game(game);
+	// 	else
+	// 	{
+	// 		y = get_y(keydata);
+	// 		x = get_x(keydata);
+	// 	}
+	// 	player_no_one(game, y, x);
+	// }
     if (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT) {
         if (keydata.key == MLX_KEY_W) {
             // Move forward
@@ -167,6 +273,14 @@ void loop_hook(void* param) {
     render_scene(image);
 }
 
+static void	hook(void *ptr)
+{
+	t_game	*game;
+
+	game = ptr;
+	//transparent_minimap(game);
+}
+/*
 int main(void) {
     mlx_t* mlx = mlx_init(WINDOW_WIDTH, WINDOW_HEIGHT, "Raycaster", true);
     if (!mlx) {
@@ -190,4 +304,36 @@ int main(void) {
     mlx_terminate(mlx);
 
     return EXIT_SUCCESS;
+}
+*/
+int	main(int argc, char **argv)
+{
+	t_game	game;
+	char	*file;
+
+	if (argc == 2)
+	{
+		file = argv[1];
+		open_map(&game, file);
+		game_init(&game);
+        mlx_image_t* image = mlx_new_image(game.mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
+        if (!image) {
+            fprintf(stderr, "Failed to create image\n");
+            return EXIT_FAILURE;
+        }
+	//	mm_get_img(&game);
+	//	mini_map_init(&game);
+        mlx_image_to_window(game.mlx_ptr, image, 0, 0);
+		mlx_loop_hook(game.mlx_ptr, &hook, &game);
+		mlx_key_hook(game.mlx_ptr, &key_hook, &game);
+		mlx_loop(game.mlx_ptr);
+		//printf("hello cub3d :)\n");
+		free_data(&game);
+        mlx_delete_image(game.mlx_ptr, image);
+		clean_img(&game);
+		mlx_terminate(game.mlx_ptr);
+	}
+	else
+		printf("please select map \n");
+	return (0);
 }

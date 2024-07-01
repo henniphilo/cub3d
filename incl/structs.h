@@ -6,11 +6,10 @@
 #define MAP_WIDTH 10
 #define MAP_HEIGHT 10
 #define TILE_SIZE 64
-#define SSIZE 15
+#define SSIZE 10
 
 /* Constants */
-// #define WINDOW_WIDTH 800
-// #define WINDOW_HEIGHT 600
+
 #define MOVE_SPEED 0.5
 #define ROT_SPEED 0.05
 
@@ -19,6 +18,14 @@ typedef struct s_sprite
 	int			pos_x;
 	int			pos_y;
 }	t_sprite;
+
+typedef struct s_color
+{
+	uint8_t	r;
+	uint8_t	g;
+	uint8_t	b;
+	uint8_t	a;
+}	t_color;
 
 typedef struct s_map
 {
@@ -55,6 +62,8 @@ typedef struct s_texture
 	mlx_texture_t	*target;
 }	t_texture;
 
+//image als untergrund der so gross ist wie unser window
+
 typedef struct s_image
 {
 	mlx_image_t	*NO;
@@ -66,6 +75,8 @@ typedef struct s_image
 	mlx_image_t	*wall;
 	mlx_image_t	*player;
 	mlx_image_t	*target;
+	int			c_floor;
+	int			c_ceiling;
 }	t_image;
 
 typedef struct s_scene
@@ -89,6 +100,7 @@ typedef struct s_scene
 typedef struct s_game
 {
 	mlx_t		*mlx_ptr;
+	mlx_image_t	*image;
 	t_map		map;
 	t_look		look;
 	t_scene		scene;

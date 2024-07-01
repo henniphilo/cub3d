@@ -1,30 +1,24 @@
 #include "../../incl/cub3d.h"
 
-// static void	update_player_pos(t_game *game, int old_x, int old_y)
-// {
-// 	//mlx_image_to_window(game->mlx_ptr, game->img.floor, (old_x * SSIZE), (old_y * SSIZE));
-// 	mlx_image_to_window(game->mlx_ptr, game->img.player, (game->map.player.pos_x * SSIZE),
-// 		(game->map.player.pos_y * SSIZE));
-// }
 
 static void	player_no_one(t_game *game, int y, int x)
 {
-	int	pos_x;
-	int	pos_y;
+	int		pos_x;
+	int		pos_y;
+	t_color	c_floor = {255, 255, 255, 255};
+	t_color	c_player = {0, 0, 255, 255};
 
 	pos_x = game->map.player.pos_x;
 	pos_y = game->map.player.pos_y;
+	put_block(game->image, c_floor, pos_x, pos_y);
 	if (game->map.map[pos_y + y][pos_x + x] != '1')
 	{
 		pos_y += y;
 		pos_x += x;
 	}
-	if (game->map.map[game->map.player.pos_y][game->map.player.pos_x] != 'E')
-	//	update_player_pos(game, game->map.player.pos_x, game->map.player.pos_y);
-		mlx_image_to_window(game->mlx_ptr, game->img.floor,
-			(game->map.player.pos_x * SSIZE), (game->map.player.pos_y * SSIZE));
-	mlx_image_to_window(game->mlx_ptr, game->img.player, (pos_x * SSIZE),
-		(pos_y * SSIZE));
+	// if (game->map.map[game->map.player.pos_y][game->map.player.pos_x] != 'E')
+	// 	put_block(game->image, c_floor, pos_x, pos_y);
+	put_block(game->image, c_player, pos_x, pos_y);
 	game->map.player.pos_x = pos_x;
 	game->map.player.pos_y = pos_y;
 }
@@ -82,3 +76,4 @@ void	key_hook(mlx_key_data_t key, void *ptr)
 		player_no_one(game, y, x);
 	}
 }
+

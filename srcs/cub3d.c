@@ -29,7 +29,7 @@ int	main(int argc, char **argv)
 		file = argv[1];
 		open_map(&game, file);
 		game_init(&game);
-		mm_get_img(&game);
+	//	mm_get_img(&game);
 		mini_map_init(&game);
 		mlx_loop_hook(game.mlx_ptr, &hook, &game);
 		mlx_key_hook(game.mlx_ptr, &key_hook, &game);
