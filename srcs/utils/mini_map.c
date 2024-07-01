@@ -1,58 +1,5 @@
 #include "../../incl/cub3d.h"
 
-// void	mm_get_textures(t_game *game)
-// {
-// 	game->tex.wall = mlx_load_png("./img/mm_wall.png");
-// 	game->tex.player = mlx_load_png("./img/mm_player.png");
-// 	game->tex.floor = mlx_load_png("./img/mm_floor.png");
-// 	game->tex.target = mlx_load_png("./img/mm_target.png");
-// 	if (!(game->tex.wall) || !(game->tex.player) || !(game->tex.floor)
-// 		|| !(game->tex.target))
-// 	{
-// 		printf("Error minimap texture load\n");
-// 		exit(1);
-// 	}
-// }
-
-// void	mm_get_img(t_game *game)
-// {
-// 	mm_get_textures(game);
-// 	game->img.wall = mlx_texture_to_image(game->mlx_ptr, game->tex.wall);
-// 	game->img.player = mlx_texture_to_image(game->mlx_ptr, game->tex.player);
-// 	game->img.floor = mlx_texture_to_image(game->mlx_ptr, game->tex.floor);
-// 	game->img.target = mlx_texture_to_image(game->mlx_ptr, game->tex.target);
-// 	clean_texture(game);
-// }
-
-//anstatt bilder pixel verwenden
-
-
-// void	draw_mini_map(t_game *game, int x, int y)
-// {
-// 	if (game->map.map[y][x] == '1')
-// 	{
-// 		mlx_image_to_window(game->mlx_ptr, game->img.wall, (x * SSIZE),
-// 			(y * SSIZE));
-// 	}
-// 	else if (game->map.map[y][x] == 'E')
-// 	{
-// 		mlx_image_to_window(game->mlx_ptr, game->img.target,
-// 			(x * SSIZE), (y * SSIZE));
-// 	}
-// 	else if (game->map.map[y][x] == 'P')
-// 	{
-// 		game->map.player.pos_y = y;
-// 		game->map.player.pos_x = x;
-// 		mlx_image_to_window(game->mlx_ptr, game->img.player,
-// 			(x * SSIZE), (y * SSIZE));
-// 	}
-// 	else if (game->map.map[y][x] == '0')
-// 	{
-// 		mlx_image_to_window(game->mlx_ptr, game->img.floor,
-// 			(x * SSIZE), (y * SSIZE));
-// 	}
-// }
-
 void	mini_map_init(t_game *game)
 {
 	int			x;
@@ -110,16 +57,10 @@ void	draw_mini_map(t_game *game, mlx_image_t *img, int x, int y)
 		color = player;
 	}
 	else if (game->map.map[y][x] == '0')
-	{
+
 		color = floor;
-	}
 	else
-	{
-		color.r = 0;
-		color.g = 0;
-		color.b = 0;
-		color.a = 0;
-	}
+		color = int_to_color(get_color_int(game->look.ceiling));
 	put_block(img, color, x, y);
 }
 
@@ -159,5 +100,3 @@ void	fill_half(mlx_image_t *img, t_color color, int start_y, int end_y)
 		y++;
 	}
 }
-
-
