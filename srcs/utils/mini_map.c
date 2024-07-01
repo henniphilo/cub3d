@@ -57,21 +57,14 @@ void	mini_map_init(t_game *game)
 {
 	int			x;
 	int			y;
-	t_color		c_ceiling;
-	t_color		c_floor;
 
 	game->image = mlx_new_image(game->mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
 	if (!game->image) {
 		printf("Bild Erstellung fehlgeschlagen\n");
 		return ;
 	}
-	game->img.c_ceiling = get_color_int(game->look.ceiling);
-	game->img.c_floor = get_color_int(game->look.floor);
-	c_ceiling = int_to_color(game->img.c_ceiling);
-	c_floor = int_to_color(game->img.c_floor);
-	fill_half(game->image, c_ceiling, 0, WINDOW_HEIGHT / 2);
-	fill_half(game->image, c_floor, WINDOW_HEIGHT / 2, WINDOW_HEIGHT);
 	y = 0;
+	//mm_get_img(game);
 	while (y < game->map.y_axis)
 	{
 		x = 0;
@@ -142,22 +135,47 @@ void	put_block(mlx_image_t *img, t_color color, int x, int y)
 
 }
 
-void	fill_half(mlx_image_t *img, t_color color, int start_y, int end_y)
+void	put_pixel(mlx_image_t *img, int x, int y, t_color color)
 {
-	int	x;
-	int	y;
+	int		pixel_i;
 
-	y = start_y;
-	while (y < end_y)
-	{
-		x = 0;
-		while (x < (int)img->width)
-		{
-			put_pixel(img, x, y, color);
-			x++;
-		}
-		y++;
-	}
+	if (x < 0 || x >= (int)img->width || y < 0 || y >= (int)img->height)
+		return ;
+	pixel_i = (y * img->width + x) * 4;
+	img->pixels[pixel_i] = color.r;
+	img->pixels[pixel_i + 1] = color.g;
+	img->pixels[pixel_i + 2] = color.b;
+	img->pixels[pixel_i + 3] = color.a;
 }
 
 
+
+// void	transparent_minimap(t_game *game)
+// {
+// 	int	x;
+// 	int	y;
+// 	int	mm_size;
+
+// 	mm_size = 5;
+// 	y = 0;
+// 	while (y < mm_size)
+// 	{
+// 			for (x = 0; x < mm_size; x++)
+// 		{
+// 			// Beispielkoordinaten für die Mini-Map
+// 			int map_x = game->map.player.pos_x - mm_size / 2 + x;
+// 			int map_y = game->map.player.pos_y - mm_size / 2 + y;
+
+// 			// Grenzen prüfen
+// 			if (map_x >= 0 && map_y >= 0 && map_x < game->map.width && map_y < game->map.height)
+// 			{
+// 				if (game->map.map[map_y][map_x] == '1')
+// 					mlx_image_to_window(game->mlx_ptr, game->img.wall, x * SSIZE, y * SSIZE);
+// 				else
+// 					mlx_image_to_window(game->mlx_ptr, game->img.floor, x * SSIZE, y * SSIZE);
+// 			}
+// 		}
+// 	}
+// 	// Zeichne den Spieler auf der Mini-Map
+// 	mlx_image_to_window(game->mlx_ptr, game->img.player, mm_size / 2 * SSIZE, mm_size / 2 * SSIZE);
+// }
