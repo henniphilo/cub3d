@@ -27,7 +27,7 @@ char	get_direction(mlx_key_data_t key, char cur_direct)
 {
 	if (key.key == MLX_KEY_RIGHT || key.key == MLX_KEY_D)
 	{
-		if (cur_direct == 'N')
+		if (cur_direct == 'N' )
 			return ('E');
 		if (cur_direct == 'E')
 			return ('S');
