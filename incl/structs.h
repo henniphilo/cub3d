@@ -1,18 +1,6 @@
 #ifndef STRUCTS_H
 # define STRUCTS_H
 
-#define WINDOW_HEIGHT 800
-#define WINDOW_WIDTH 600
-#define MAP_WIDTH 10
-#define MAP_HEIGHT 10
-#define TILE_SIZE 64
-#define SSIZE 10
-
-/* Constants */
-
-#define MOVE_SPEED 0.5
-#define ROT_SPEED 0.05
-
 typedef struct s_sprite
 {
 	int			pos_x;
@@ -80,16 +68,6 @@ typedef struct s_image
 	int			c_ceiling;
 }	t_image;
 
-typedef struct s_render_data
-{
-	t_player		player;
-	t_camera		camera;
-	t_ray			ray;
-	t_raycast		raycast;
-	int				flag_hit;
-	int				flag_side;
-}					t_render_data;
-
 typedef struct s_camera
 {
 	double			cameraX;
@@ -127,15 +105,25 @@ typedef struct s_player
 	double			dir_y;
 }					t_player;
 
+typedef struct s_render_data
+{
+	t_player		player;
+	t_camera		camera;
+	t_ray			ray;
+	t_raycast		raycast;
+	int				flag_hit;
+	int				flag_side;
+}					t_render_data;
+
 typedef struct s_game
 {
 	mlx_t			*mlx_ptr;
-	mlx_image_t		*image;
+	mlx_image_t		*img;
 	t_map			map;
 	t_look			look;
 	t_render_data	render_data;
 	t_texture		tex;
-	t_image			*img;
+	t_image			image;
 }					t_game;
 
 #endif

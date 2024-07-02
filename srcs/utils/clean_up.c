@@ -37,7 +37,7 @@ void	free_string_arr(char **string_arr)
 	int	i;
 
 	i = 0;
-	while (i < string_arr)
+	while (string_arr[i])
 	{
 		free(string_arr[i]);
 		i++;

@@ -15,19 +15,10 @@
 # include <string.h>
 # include <unistd.h> // write, access, fork, execve, dup2, pipe, etc.
 
-# define WINDOW_HEIGHT 800
-# define WINDOW_WIDTH 600
 # define MAP_WIDTH 10
 # define MAP_HEIGHT 10
 # define TILE_SIZE 64
 # define SSIZE 15
-
-# define WINDOW_WIDTH 800
-# define WINDOW_HEIGHT 600
-# define MAP_WIDTH 10
-# define MAP_HEIGHT 10
-# define MOVE_SPEED 0.5
-# define ROT_SPEED 0.05
 
 /* Constants */
 # define WINDOW_WIDTH 800
