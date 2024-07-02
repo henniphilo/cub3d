@@ -31,3 +31,36 @@ void	free_data(t_game *game)
 	free(game->look.ceiling);
 	free(game->look.floor);
 }
+
+void	free_string_arr(char **string_arr)
+{
+	int	i;
+
+	i = 0;
+	while (i < string_arr)
+	{
+		free(string_arr[i]);
+		i++;
+	}
+	free(string_arr);
+}
+
+int	terminate_game(t_game *game, int exit_code)
+{
+	if (game)
+	{
+		if (game->mlx_ptr)
+		{
+			if (game->img)
+				mlx_delete_image(game->mlx_ptr, game->img);
+			mlx_terminate(game->mlx_ptr);
+		}
+		if (game->map.cub)
+			free_string_arr(game->map.cub);
+		if (game->map.map)
+			free_string_arr(game->map.map);
+		if (game->map.x_axis)
+			free(game->map.x_axis);
+	}
+	return (exit_code);
+}
