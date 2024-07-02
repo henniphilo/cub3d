@@ -9,6 +9,9 @@
 		"cstring": "c",
 		"typeinfo": "c",
 		"so_long.h": "c",
-		"cub3d.h": "c"
+		"atomic": "c",
+		"cstdint": "c",
+		"random": "c",
+		"*.tcc": "c"
 	}
 }

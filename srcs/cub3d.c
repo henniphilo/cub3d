@@ -5,6 +5,7 @@ static void	hook(void *ptr)
 	t_game	*game;
 
 	game = ptr;
+	//transparent_minimap(game);
 }
 
 static void	game_init(t_game *game)
@@ -28,9 +29,10 @@ int	main(int argc, char **argv)
 		file = argv[1];
 		open_map(&game, file);
 		game_init(&game);
+	//	mm_get_img(&game);
 		mini_map_init(&game);
 		mlx_loop_hook(game.mlx_ptr, &hook, &game);
-	//	mlx_key_hook(game.mlx_ptr, &key_hook, &game);
+		mlx_key_hook(game.mlx_ptr, &key_hook, &game);
 		mlx_loop(game.mlx_ptr);
 		//printf("hello cub3d :)\n");
 		free_data(&game);
