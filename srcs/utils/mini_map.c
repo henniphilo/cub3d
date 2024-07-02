@@ -4,21 +4,14 @@ void	mini_map_init(t_game *game)
 {
 	int			x;
 	int			y;
-	t_color		c_ceiling;
-	t_color		c_floor;
 
 	game->image = mlx_new_image(game->mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
 	if (!game->image) {
 		printf("Bild Erstellung fehlgeschlagen\n");
 		return ;
 	}
-	game->img.c_ceiling = get_color_int(game->look.ceiling);
-	game->img.c_floor = get_color_int(game->look.floor);
-	c_ceiling = int_to_color(game->img.c_ceiling);
-	c_floor = int_to_color(game->img.c_floor);
-	fill_half(game->image, c_ceiling, 0, WINDOW_HEIGHT / 2);
-	fill_half(game->image, c_floor, WINDOW_HEIGHT / 2, WINDOW_HEIGHT);
 	y = 0;
+	//mm_get_img(game);
 	while (y < game->map.y_axis)
 	{
 		x = 0;
