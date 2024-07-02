@@ -17,6 +17,7 @@ typedef struct s_sprite
 {
 	int			pos_x;
 	int			pos_y;
+	char		direction;
 }	t_sprite;
 
 typedef struct s_color

@@ -34,20 +34,22 @@ void	actual_map(t_game *game);
 void	print_map(t_game *game);
 void	free_data(t_game *game);
 void	free_cub(t_game *game);
-void	get_textures(t_game *game);
-void	get_img(t_game *game);
+// void	get_textures(t_game *game);
+// void	get_img(t_game *game);
 void	clean_texture(t_game *game);
 void	clean_img(t_game *game);
 
 /* Mini-Map*/
-void	mm_get_img(t_game *game);
-void	mm_get_textures(t_game *game);
+// void	mm_get_img(t_game *game);
+// void	mm_get_textures(t_game *game);
 void	draw_mini_map(t_game *game, mlx_image_t *img, int x, int y);
 void	mini_map_init(t_game *game);
 void	key_hook(mlx_key_data_t key, void *ptr);
 void	put_pixel(mlx_image_t *img, int x, int y, t_color color);
 void	put_block(mlx_image_t *img, t_color color, int x, int y);
 void	fill_half(mlx_image_t *img, t_color color, int start_y, int end_y);
+void	player_dir(t_game *game, int x, int y);
+char	get_direction(mlx_key_data_t key, char cur_direct);
 int		get_color_int(const char *color_str);
 t_color	int_to_color(int color);
 

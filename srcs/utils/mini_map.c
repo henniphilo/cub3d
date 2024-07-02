@@ -43,25 +43,34 @@ void	draw_mini_map(t_game *game, mlx_image_t *img, int x, int y)
 	t_color		color;
 
 	if (game->map.map[y][x] == '1')
-	{
 		color = wall;
-	}
 	else if (game->map.map[y][x] == 'E')
-	{
 		color = target;
-	}
-	else if (game->map.map[y][x] == 'P')
+	else if (game->map.map[y][x] == 'N' || game->map.map[y][x] == 'E'
+		|| game->map.map[y][x] == 'W' || game->map.map[y][x] == 'S')
 	{
-		game->map.player.pos_y = y;
-		game->map.player.pos_x = x;
+		player_dir(game, x, y);
 		color = player;
 	}
 	else if (game->map.map[y][x] == '0')
-
 		color = floor;
 	else
 		color = int_to_color(get_color_int(game->look.ceiling));
 	put_block(img, color, x, y);
+}
+
+void	player_dir(t_game *game, int x, int y)
+{
+	if (game->map.map[y][x] == 'N')
+		game->map.player.direction = 'N';
+	else if (game->map.map[y][x] == 'E')
+		game->map.player.direction = 'E';
+	else if (game->map.map[y][x] == 'S')
+		game->map.player.direction = 'S';
+	else if (game->map.map[y][x] == 'W')
+		game->map.player.direction = 'W';
+	game->map.player.pos_y = y;
+	game->map.player.pos_x = x;
 }
 
 void	put_block(mlx_image_t *img, t_color color, int x, int y)
@@ -80,7 +89,6 @@ void	put_block(mlx_image_t *img, t_color color, int x, int y)
 		}
 		i++;
 	}
-
 }
 
 void	fill_half(mlx_image_t *img, t_color color, int start_y, int end_y)

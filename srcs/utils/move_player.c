@@ -16,12 +16,43 @@ static void	player_no_one(t_game *game, int y, int x)
 		pos_y += y;
 		pos_x += x;
 	}
-	// if (game->map.map[game->map.player.pos_y][game->map.player.pos_x] != 'E')
-	// 	put_block(game->image, c_floor, pos_x, pos_y);
 	put_block(game->image, c_player, pos_x, pos_y);
 	game->map.player.pos_x = pos_x;
 	game->map.player.pos_y = pos_y;
+	printf("player direction: %c \n", game->map.player.direction);
 }
+
+char	get_direction(mlx_key_data_t key, char cur_direct)
+{
+	if (key.key == MLX_KEY_RIGHT || key.key == MLX_KEY_D)
+	{
+		if (cur_direct == 'N')
+			return ('E');
+		if (cur_direct == 'E')
+			return ('S');
+		if (cur_direct == 'S')
+			return ('W');
+		if (cur_direct == 'W')
+			return ('N');
+	}
+	else if (key.key == MLX_KEY_LEFT || key.key == MLX_KEY_A)
+	{
+		if (cur_direct == 'N')
+			return ('W');
+		if (cur_direct == 'E')
+			return ('N');
+		if (cur_direct == 'S')
+			return ('E');
+		if (cur_direct == 'W')
+			return ('S');
+	}
+	else if (key.key == MLX_KEY_UP || key.key == MLX_KEY_W)
+		return ('N');
+	else if (key.key == MLX_KEY_DOWN || key.key == MLX_KEY_S)
+		return ('S');
+	return (cur_direct);
+}
+
 static void	end_game(t_game *game)
 {
 	mlx_close_window(game->mlx_ptr);
@@ -72,6 +103,7 @@ void	key_hook(mlx_key_data_t key, void *ptr)
 		{
 			y = get_y(key);
 			x = get_x(key);
+			game->map.player.direction = get_direction(key, game->map.player.direction);
 		}
 		player_no_one(game, y, x);
 	}
