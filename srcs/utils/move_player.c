@@ -20,6 +20,7 @@ static void	player_no_one(t_game *game, int y, int x)
 	game->map.player.pos_x = pos_x;
 	game->map.player.pos_y = pos_y;
 	printf("player direction: %c \n", game->map.player.direction);
+	draw_dir(game, pos_x, pos_y, c_player);
 }
 
 char	get_direction(mlx_key_data_t key, char cur_direct)
