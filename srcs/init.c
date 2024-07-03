@@ -3,7 +3,7 @@
 t_game	*init_mlx(t_game *game)
 {
 	mlx_t		*mlx;
-	mlx_image_t	*image;
+	mlx_image_t	*img;
 
 	if (!game)
 	{
@@ -17,24 +17,26 @@ t_game	*init_mlx(t_game *game)
 		ft_putendl_fd("Failed to initialize MLX42", STDERR_FILENO);
 		return (NULL);
 	}
-	image = mlx_new_image(mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
-	if (!image)
+	img = mlx_new_image(mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+	if (!img)
 	{
 		ft_putendl_fd("Failed to create image", STDERR_FILENO);
 		return (NULL);
 	}
+	game->img = img;
+	game->mlx_ptr = mlx;
 	return (game);
 }
 
-t_map	*init_map__(t_game *game, char *cub_file)
+t_game	*init_map__(t_game *game, char *cub_file)
 {
 	open_map(game, cub_file);
 	if (!game->map.map)
 		return (NULL);
-	return (game->map.map);
+	return (game);
 }
 
-t_player	*init_player(t_game *game)
+t_game	*init_player(t_game *game)
 {
 	t_player	player;
 
@@ -44,10 +46,10 @@ t_player	*init_player(t_game *game)
 	player.dir_x = -1.0;
 		// TODO: translate NO SE WE EA into direction vector
 	player.dir_y = 0.0;
-	return (&player);
+	return (game);
 }
 
-t_camera	*init_camera(t_game *game)
+t_game	*init_camera(t_game *game)
 {
 	t_camera camera;
 
@@ -55,5 +57,5 @@ t_camera	*init_camera(t_game *game)
 
 	camera.plane_x = 0.0;
 	camera.plane_y = 0.66;
-	return (&camera);
+	return (game);
 }

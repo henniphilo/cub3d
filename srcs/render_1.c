@@ -36,8 +36,8 @@ void	perform_dda(t_render_data *render_data, t_map *map_data)
 	}
 }
 
-void	calculate_wall_distance_and_height(mlx_image_t *image,
-		t_render_data *render_data)
+void	calculate_wall_distance_and_height(t_render_data *render_data,
+		mlx_image_t *image)
 {
 	t_raycast	raycast;
 	t_ray		ray;
@@ -47,13 +47,11 @@ void	calculate_wall_distance_and_height(mlx_image_t *image,
 	ray = render_data->ray;
 	raycast = render_data->raycast;
 	if (render_data->flag_side == 0)
-		raycast.perp_wall_dist
-			= (ray.grid_pos_x - player.pos_x + (1 - ray.step_x) / 2)
-			/ ray.ray_dir_x;
+		raycast.perp_wall_dist = (ray.grid_pos_x - player.pos_x + (1
+					- ray.step_x) / 2) / ray.ray_dir_x;
 	else
-		raycast.perp_wall_dist
-			= (ray.grid_pos_y - player.pos_y + (1 - ray.step_y) / 2)
-			/ ray.ray_dir_y;
+		raycast.perp_wall_dist = (ray.grid_pos_y - player.pos_y + (1
+					- ray.step_y) / 2) / ray.ray_dir_y;
 	raycast.line_height = (int)(image->height / raycast.perp_wall_dist);
 	raycast.draw_start = -raycast.line_height / 2 + image->height / 2;
 	if (raycast.draw_start < 0)

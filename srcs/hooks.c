@@ -1,6 +1,6 @@
 #include "../incl/cub3d.h"
 
-static void	move(mlx_key_data_t keydata, t_map map_data,
+static void	move(t_map map_data,
 		t_render_data *render_data, int direction)
 {
 	t_player player;
@@ -16,8 +16,7 @@ static void	move(mlx_key_data_t keydata, t_map map_data,
 			* direction;
 }
 
-static void	rotate(mlx_key_data_t keydata, t_map map_data,
-		t_render_data *render_data, int direction)
+static void	rotate(t_render_data *render_data, int direction)
 {
 	double		old_dir_x;
 	double		old_plane_x;
@@ -40,7 +39,7 @@ static void	rotate(mlx_key_data_t keydata, t_map map_data,
 		+ camera.plane_y * cos(ROT_SPEED * direction);
 }
 
-void	key_hook(mlx_key_data_t keydata, void *param)
+void	key_hook_(mlx_key_data_t keydata, void *param)
 {
 	t_game			*game_data;
 	t_render_data	render_data;
@@ -52,13 +51,13 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 	if (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT)
 	{
 		if (keydata.key == MLX_KEY_W)
-			move(keydata, map_data, &render_data, 1);
+			move(map_data, &render_data, 1);
 		if (keydata.key == MLX_KEY_S)
-			move(keydata, map_data, &render_data, -1);
+			move(map_data, &render_data, -1);
 		if (keydata.key == MLX_KEY_A)
-			rotate(keydata, map_data, &render_data, 1);
+			rotate(&render_data, 1);
 		if (keydata.key == MLX_KEY_D)
-			rotate(keydata, map_data, &render_data, -1);
+			rotate(&render_data, -1);
 		if (keydata.key == MLX_KEY_ESCAPE)
 			mlx_close_window(game_data->mlx_ptr);
 	}

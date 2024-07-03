@@ -64,14 +64,14 @@ int		get_color_int(const char *color_str);
 t_color	int_to_color(int color);
 
 /* Hooks */
-void		key_hook(mlx_key_data_t keydata, void *param);
+void		key_hook_(mlx_key_data_t keydata, void *param);
 void		loop_hook(void *param);
 
 /* Initialize structs */
-t_map		*init_map__(t_game *game, char *cub_file);
-mlx_t		*init_mlx(t_game *game);
-t_player	*init_player(t_game *game);
-t_camera	*init_camera(t_game *game);
+t_game		*init_map__(t_game *game, char *cub_file);
+t_game		*init_mlx(t_game *game);
+t_game	*init_player(t_game *game);
+t_game	*init_camera(t_game *game);
 
 /* Rendering */
 void		render_image(t_game *game);
@@ -80,5 +80,11 @@ void		setup_render_params(uint32_t x, t_render_data *render_data,
 
 /* Cleanup */
 int			terminate_game(t_game *game, int exit_code);
+
+/* Argument checks */
+void	args_check(int argc, char **argv);
+
+
+
 
 #endif

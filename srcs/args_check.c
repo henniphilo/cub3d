@@ -7,6 +7,9 @@ void	args_check(int argc, char **argv)
 		perror("Usage: ./cube [mapfile.cub]");
 		exit(EXIT_FAILURE);
 	}
-	if (!check_file_ending_cub(argv[1]))
-		return (terminate_game(NULL, EXIT_FAILURE));
+	if (check_file_ending_cub(argv[1]))
+	{
+		perror("Error: Input file is not .cub");
+		terminate_game(NULL, EXIT_FAILURE);
+	}
 }

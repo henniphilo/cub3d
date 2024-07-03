@@ -41,5 +41,5 @@ void    setup_render_params(uint32_t  x, t_render_data *render_data, mlx_image_t
     ray.delta_dist_x = fabs(1 / ray.ray_dir_x);
     ray.delta_dist_y = fabs(1 / ray.ray_dir_y);
     render_data->flag_hit = 0;
-    calculate_initial_side_flag_distances(render_data);
+    calculate_initial_side_distances(render_data);
 }
