@@ -49,8 +49,8 @@ void	clean_img(t_game *game)
 	// mlx_delete_image(game->mlx_ptr, game->img.SO);
 	// mlx_delete_image(game->mlx_ptr, game->img.EA);
 	// mlx_delete_image(game->mlx_ptr, game->img.WE);
-	mlx_delete_image(game->mlx_ptr, game->img.wall);
-	mlx_delete_image(game->mlx_ptr, game->img.player);
-	mlx_delete_image(game->mlx_ptr, game->img.target);
+	mlx_delete_image(game->mlx_ptr, game->image.wall);
+	mlx_delete_image(game->mlx_ptr, game->image.player);
+	mlx_delete_image(game->mlx_ptr, game->image.target);
 }
 

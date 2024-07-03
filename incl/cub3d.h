@@ -1,28 +1,37 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include "../libft/libft.h"
 # include "../libft/get_next_line.h"
+# include "../libft/libft.h"
 //# include "MLX42.h"
 # include "../MLX42/include/MLX42/MLX42.h"
 # include "structs.h"
-# include <stdio.h>      // printf
-# include <stdlib.h>     // malloc, free, exit
-# include <unistd.h>     // write, access, fork, execve, dup2, pipe, etc.
-# include <errno.h>      // perror, strerror
-# include <stdlib.h>     // getenv
-# include <stddef.h>	 // Null
+# include <errno.h> // perror, strerror
 # include <math.h>
+# include <stddef.h> // Null
+# include <stdio.h>  // printf
+# include <stdlib.h> // malloc, free, exit
+# include <stdlib.h> // getenv
 # include <string.h>
+# include <unistd.h> // write, access, fork, execve, dup2, pipe, etc.
 
+# define MAP_WIDTH 10
+# define MAP_HEIGHT 10
+# define TILE_SIZE 64
+# define SSIZE 15
+
+/* Constants */
+# define WINDOW_WIDTH 800
+# define WINDOW_HEIGHT 600
+# define MOVE_SPEED 0.5
+# define ROT_SPEED 0.05
 
 /* Map Parsing */
-
-int		check_map_cub(char *file);
-int		walls_check(t_game *game);
-int		map_input_check(t_game *game);
-int		get_map_start(t_game *game);
-char	*get_from_cub(char *line, const char *direction);
+int			check_file_ending_cub(char *file);
+int			walls_check(t_game *game);
+int			map_input_check(t_game *game);
+int			get_map_start(t_game *game);
+char		*get_from_cub(char *line, const char *direction);
 
 void	which_color(t_game *game);
 void	cub_input(t_game *game);
@@ -56,5 +65,28 @@ char	get_direction(mlx_key_data_t key, char cur_direct);
 int		get_color_int(const char *color_str);
 t_color	int_to_color(int color);
 
+/* Hooks */
+void		key_hook_(mlx_key_data_t keydata, void *param);
+void		loop_hook(void *param);
 
-# endif
+/* Initialize structs */
+t_game		*init_map__(t_game *game, char *cub_file);
+t_game		*init_mlx(t_game *game);
+t_game	*init_player(t_game *game);
+t_game	*init_camera(t_game *game);
+
+/* Rendering */
+void		render_image(t_game *game);
+void		setup_render_params(uint32_t x, t_render_data *render_data,
+				mlx_image_t *image);
+
+/* Cleanup */
+int			terminate_game(t_game *game, int exit_code);
+
+/* Argument checks */
+void	args_check(int argc, char **argv);
+
+
+
+
+#endif

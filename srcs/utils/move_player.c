@@ -10,13 +10,13 @@ static void	player_no_one(t_game *game, int y, int x)
 
 	pos_x = game->map.player.pos_x;
 	pos_y = game->map.player.pos_y;
-	put_block(game->image, c_floor, pos_x, pos_y);
+	put_block(game->img, c_floor, pos_x, pos_y);
 	if (game->map.map[pos_y + y][pos_x + x] != '1')
 	{
 		pos_y += y;
 		pos_x += x;
 	}
-	put_block(game->image, c_player, pos_x, pos_y);
+	put_block(game->img, c_player, pos_x, pos_y);
 	game->map.player.pos_x = pos_x;
 	game->map.player.pos_y = pos_y;
 	printf("player direction: %c \n", game->map.player.direction);

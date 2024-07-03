@@ -7,29 +7,29 @@ void	mini_map_init(t_game *game)
 	t_color		c_ceiling;
 	t_color		c_floor;
 
-	game->image = mlx_new_image(game->mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
-	if (!game->image) {
+	game->img = mlx_new_image(game->mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
+	if (!game->img) {
 		printf("Bild Erstellung fehlgeschlagen\n");
 		return ;
 	}
-	game->img.c_ceiling = get_color_int(game->look.ceiling);
-	game->img.c_floor = get_color_int(game->look.floor);
-	c_ceiling = int_to_color(game->img.c_ceiling);
-	c_floor = int_to_color(game->img.c_floor);
-	fill_half(game->image, c_ceiling, 0, WINDOW_HEIGHT / 2);
-	fill_half(game->image, c_floor, WINDOW_HEIGHT / 2, WINDOW_HEIGHT);
+	game->image.c_ceiling = get_color_int(game->look.ceiling);
+	game->image.c_floor = get_color_int(game->look.floor);
+	c_ceiling = int_to_color(game->image.c_ceiling);
+	c_floor = int_to_color(game->image.c_floor);
+	fill_half(game->img, c_ceiling, 0, WINDOW_HEIGHT / 2);
+	fill_half(game->img, c_floor, WINDOW_HEIGHT / 2, WINDOW_HEIGHT);
 	y = 0;
 	while (y < game->map.y_axis)
 	{
 		x = 0;
 		while (x < game->map.x_axis[y])
 		{
-			draw_mini_map(game, game->image, x, y);
+			draw_mini_map(game, game->img, x, y);
 			x++;
 		}
 		y++;
 	}
-	mlx_image_to_window(game->mlx_ptr, game->image, 0, 0);
+	mlx_image_to_window(game->mlx_ptr, game->img, 0, 0);
 }
 
 // image to image funktion bauen damit die map ueber der anderen liegen kann

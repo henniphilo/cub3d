@@ -48,7 +48,7 @@ void	get_cub(t_game *game, int fd)
 		line_str = get_next_line(fd);
 	}
 	printf("height %d \n width %d \n", game->map.height, game->map.width);
-	//print_map(game);
+	// print_map(game);
 }
 
 

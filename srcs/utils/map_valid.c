@@ -7,7 +7,7 @@ void	open_map(t_game *game, char *file)
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 		perror("Error \n fd open error");
-	if (check_map_cub(file) == 1)
+	if (check_file_ending_cub(file) == 1)
 	{
 		printf("Error no .cub file\n");
 		exit(0);

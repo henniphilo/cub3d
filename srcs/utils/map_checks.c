@@ -20,7 +20,7 @@ int	map_input_check(t_game *game)
 	return (0);
 }
 
-int	check_map_cub(char *file)
+int	check_file_ending_cub(char *file)
 {
 	int	i;
 
