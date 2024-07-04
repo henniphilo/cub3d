@@ -2,22 +2,26 @@
 
 t_game	*mini_map_init(t_game *game)
 {
-	int			x;
-	int			y;
+
 	t_color		c_ceiling;
 	t_color		c_floor;
 
-	// game->img = mlx_new_image(game->mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
-	// if (!game->img) {
-	// 	printf("Bild Erstellung fehlgeschlagen\n");
-	// 	return (NULL);
-	// }
 	game->image.c_ceiling = get_color_int(game->look.ceiling);
 	game->image.c_floor = get_color_int(game->look.floor);
 	c_ceiling = int_to_color(game->image.c_ceiling);
 	c_floor = int_to_color(game->image.c_floor);
 	fill_half(game->img, c_ceiling, 0, WINDOW_HEIGHT / 2);
 	fill_half(game->img, c_floor, WINDOW_HEIGHT / 2, WINDOW_HEIGHT);
+	mini_map_to_screen(game);
+	mlx_image_to_window(game->mlx_ptr, game->img, 0, 0);
+	return (game);
+}
+
+void	mini_map_to_screen(t_game *game)
+{
+	int		x;
+	int		y;
+
 	y = 0;
 	while (y < game->map.y_axis)
 	{
@@ -29,8 +33,6 @@ t_game	*mini_map_init(t_game *game)
 		}
 		y++;
 	}
-	mlx_image_to_window(game->mlx_ptr, game->img, 0, 0);
-	return (game);
 }
 
 // image to image funktion bauen damit die map ueber der anderen liegen kann
@@ -91,7 +93,7 @@ void	draw_dir(t_game *game, int x, int y, t_color color)
 		if (mapX < 0 || mapX >= game->map.x_axis[mapY] || mapY < 0 || mapY >= game->map.y_axis
 			|| game->map.map[mapY][mapX] == '1')
 			break ;
-		put_pixel(game->image, x * SSIZE, y * SSIZE, color);
+		put_pixel(game->img, x * SSIZE, y * SSIZE, color);
 	}
 }
 
