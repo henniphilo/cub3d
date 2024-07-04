@@ -1,17 +1,17 @@
 #include "../../incl/cub3d.h"
 
-void	mini_map_init(t_game *game)
+t_game	*mini_map_init(t_game *game)
 {
 	int			x;
 	int			y;
 	t_color		c_ceiling;
 	t_color		c_floor;
 
-	game->img = mlx_new_image(game->mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
-	if (!game->img) {
-		printf("Bild Erstellung fehlgeschlagen\n");
-		return ;
-	}
+	// game->img = mlx_new_image(game->mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
+	// if (!game->img) {
+	// 	printf("Bild Erstellung fehlgeschlagen\n");
+	// 	return (NULL);
+	// }
 	game->image.c_ceiling = get_color_int(game->look.ceiling);
 	game->image.c_floor = get_color_int(game->look.floor);
 	c_ceiling = int_to_color(game->image.c_ceiling);
@@ -30,6 +30,7 @@ void	mini_map_init(t_game *game)
 		y++;
 	}
 	mlx_image_to_window(game->mlx_ptr, game->img, 0, 0);
+	return (game);
 }
 
 // image to image funktion bauen damit die map ueber der anderen liegen kann
