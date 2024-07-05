@@ -42,13 +42,14 @@ t_game	*init_player(t_game *game)
 	t_player	*player;
 
 	player = &game->render_data.player;
-	player->pos_x = game->map.player.pos_x;
-	player->pos_y = game->map.player.pos_y;
 	player->prev_pos_x = player->pos_x;
 	player->prev_pos_y = player->pos_y;
-	player->dir_x = -1.0;
-		// TODO: translate NO SE WE EA into direction vector
-	player->dir_y = 0.0;
+	player->dir_x = 0.0;
+	player->dir_y = 1.0;
+
+	init_player_direction(game);
+	player->pos_x = 4;
+	player->pos_y = 4;
 	return (game);
 }
 
@@ -63,7 +64,36 @@ void	init_player_direction(t_game *game)
 		x = 0;
 		while (x < game->map.x_axis[y])
 		{
-			player_dir(game, x, y);
+			char direction = game->map.map[y][x];
+
+			if (direction == 'N')
+			{
+				game->render_data.player.dir_x = 0.0;
+				game->render_data.player.dir_y = -1.0;
+				game->map.player.pos_y = y;
+				game->map.player.pos_x = x;
+			}
+			else if (direction == 'E')
+			{
+				game->render_data.player.dir_x = 1.0;
+				game->render_data.player.dir_y = 0.0;
+				game->map.player.pos_y = y;
+				game->map.player.pos_x = x;
+			}
+			else if (direction == 'S')
+			{
+				game->render_data.player.dir_x = 0.0;
+				game->render_data.player.dir_y = 1.0;
+				game->map.player.pos_y = y;
+				game->map.player.pos_x = x;
+			}
+			else if (direction == 'W')
+			{
+				game->render_data.player.dir_x = -1.0;
+				game->render_data.player.dir_y = 0.0;
+				game->map.player.pos_y = y;
+				game->map.player.pos_x = x;
+			}
 			x++;
 		}
 		y++;

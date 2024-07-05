@@ -31,7 +31,7 @@ void	perform_dda(t_render_data *render_data, t_map *map_data)
 			ray->grid_pos_y += ray->step_y;
 			render_data->flag_side = 1;
 		}
-		if (map_data->map[ray->grid_pos_x][ray->grid_pos_y] > '0')
+		if (map_data->map[ray->grid_pos_x][ray->grid_pos_y] == '1')
 			render_data->flag_hit = 1;
 	}
 }

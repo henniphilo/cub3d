@@ -5,7 +5,7 @@ int	main(int argc, char **argv)
 	t_game game;
 
 	args_check(argc, argv);
-	if (!(init_map__(&game, argv[1]) && init_mlx(&game) && mini_map_init(&game)
+	if (!(init_map__(&game, argv[1]) && init_mlx(&game)
 		 &&  init_player(&game)	&& init_camera(&game)))
 		return (terminate_game(&game, EXIT_FAILURE));
 	mlx_key_hook(game.mlx_ptr, key_hook_, &game);

@@ -30,11 +30,11 @@
 void	get_textures(t_game *game);
 
 /* Map Parsing */
-int			check_file_ending_cub(char *file);
-int			walls_check(t_game *game);
-int			map_input_check(t_game *game);
-int			get_map_start(t_game *game);
-char		*get_from_cub(char *line, const char *direction);
+int		check_file_ending_cub(char *file);
+int		walls_check(t_game *game);
+int		map_input_check(t_game *game);
+int		get_map_start(t_game *game);
+char	*get_from_cub(char *line, const char *direction);
 
 void	which_color(t_game *game);
 void	cub_input(t_game *game);
@@ -68,30 +68,27 @@ void	mini_map_to_screen(t_game *game);
 char	get_direction(mlx_key_data_t key, char cur_direct);
 int		get_color_int(const char *color_str);
 t_color	int_to_color(int color);
-
+void	init_player_direction(t_game *game);
 
 /* Hooks */
-void		key_hook_(mlx_key_data_t keydata, void *param);
-void		loop_hook(void *param);
+void	key_hook_(mlx_key_data_t keydata, void *param);
+void	loop_hook(void *param);
 
 /* Initialize structs */
-t_game		*init_map__(t_game *game, char *cub_file);
-t_game		*init_mlx(t_game *game);
+t_game	*init_map__(t_game *game, char *cub_file);
+t_game	*init_mlx(t_game *game);
 t_game	*init_player(t_game *game);
 t_game	*init_camera(t_game *game);
 
 /* Rendering */
-void		render_image(t_game *game);
-void		setup_render_params(uint32_t x, t_render_data *render_data,
-				mlx_image_t *image);
+void	render_image(t_game *game);
+void	setup_render_params(uint32_t x, t_render_data *render_data,
+			mlx_image_t *image);
 
 /* Cleanup */
-int			terminate_game(t_game *game, int exit_code);
+int		terminate_game(t_game *game, int exit_code);
 
 /* Argument checks */
 void	args_check(int argc, char **argv);
-
-
-
 
 #endif

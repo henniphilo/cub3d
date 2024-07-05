@@ -40,22 +40,22 @@ static void	rotate(t_render_data *render_data, int direction)
 }
 
 
-static void	player_n1_move(t_game *game, t_map map_data,
-		t_render_data *render_data, int direction)
-{
-	t_color		c_floor = {255, 255, 255, 255};
-	t_color		c_player = {0, 0, 255, 255};
-	t_player	*player;
+// static void	player_n1_move(t_game *game, t_map map_data,
+// 		t_render_data *render_data, int direction)
+// {
+// 	t_color		c_floor = {255, 255, 255, 255};
+// 	t_color		c_player = {0, 0, 255, 255};
+// 	t_player	*player;
 
-	player = &game->render_data.player;
-	printf("pos_x %d und pos_y %d \n", (int)player->pos_x, (int)player->pos_y);
-	put_block(game->img, c_floor, (int)player->pos_x, (int)player->pos_y);
-	move(map_data, render_data, direction);
-	put_block(game->img, c_player, (int)player->pos_x, (int)player->pos_y);
+// 	player = &game->render_data.player;
+// 	printf("pos_x %d und pos_y %d \n", (int)player->pos_x, (int)player->pos_y);
+// 	put_block(game->img, c_floor, (int)player->pos_x, (int)player->pos_y);
+// 	move(map_data, render_data, direction);
+// 	put_block(game->img, c_player, (int)player->pos_x, (int)player->pos_y);
 
-		//printf("player direction: %c \n", game->map.player.direction);
-	//draw_dir(game, pos_x, pos_y, c_player);
-}
+// 		//printf("player direction: %c \n", game->map.player.direction);
+// 	//draw_dir(game, pos_x, pos_y, c_player);
+// }
 
 void	key_hook_(mlx_key_data_t keydata, void *param)
 {
@@ -70,14 +70,14 @@ void	key_hook_(mlx_key_data_t keydata, void *param)
 	{
 		if (keydata.key == MLX_KEY_W)
 		{
-			player_n1_move(game_data, map_data, render_data, 1);
-		//	move(map_data, render_data, 1);
+			// player_n1_move(game_data, map_data, render_data, 1);
+			move(map_data, render_data, 1);
 			ft_putendl_fd("W", STDERR_FILENO);
 		}
 		if (keydata.key == MLX_KEY_S)
 		{
-			player_n1_move(game_data, map_data, render_data, -1);
-		//	move(map_data, render_data, -1);
+			// player_n1_move(game_data, map_data, render_data, -1);
+			move(map_data, render_data, -1);
 			ft_putendl_fd("S", STDERR_FILENO);
 		}
 		if (keydata.key == MLX_KEY_A)
