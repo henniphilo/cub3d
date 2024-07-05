@@ -55,7 +55,9 @@ void	draw_mini_map(t_game *game, mlx_image_t *img, int x, int y)
 	else if (game->map.map[y][x] == 'N' || game->map.map[y][x] == 'E'
 		|| game->map.map[y][x] == 'W' || game->map.map[y][x] == 'S')
 	{
-		player_dir(game, x, y);
+		game->map.player.pos_y = y;
+		game->map.player.pos_x = x;
+		player_dir(game, x, y); // das evt wo anders initialisieren?
 		color = player;
 	}
 	else if (game->map.map[y][x] == '0')
@@ -104,15 +106,29 @@ void	draw_dir(t_game *game, int x, int y, t_color color)
 void	player_dir(t_game *game, int x, int y)
 {
 	if (game->map.map[y][x] == 'N')
+	{
 		game->map.player.direction = 'N';
+		game->render_data.player.dir_x = 0.0;
+		game->render_data.player.dir_y = -1.0;
+	}
 	else if (game->map.map[y][x] == 'E')
+	{
 		game->map.player.direction = 'E';
+		game->render_data.player.dir_x = 1.0;
+		game->render_data.player.dir_y = 0.0;
+	}
 	else if (game->map.map[y][x] == 'S')
+	{
 		game->map.player.direction = 'S';
+		game->render_data.player.dir_x = 0.0;
+		game->render_data.player.dir_y = 1.0;
+	}
 	else if (game->map.map[y][x] == 'W')
+	{
 		game->map.player.direction = 'W';
-	game->map.player.pos_y = y;
-	game->map.player.pos_x = x;
+		game->render_data.player.dir_x = -1.0;
+		game->render_data.player.dir_y = 0.0;
+	}
 }
 
 void	put_block(mlx_image_t *img, t_color color, int x, int y)

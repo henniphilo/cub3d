@@ -52,6 +52,11 @@ t_game	*init_player(t_game *game)
 	return (game);
 }
 
+void	init_direction()
+{
+	
+}
+
 t_game	*init_camera(t_game *game)
 {
 	t_camera *camera;
