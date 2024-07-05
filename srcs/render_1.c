@@ -6,7 +6,7 @@
 /*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 19:07:31 by vketteni          #+#    #+#             */
-/*   Updated: 2024/07/05 11:17:12 by hwiemann         ###   ########.fr       */
+/*   Updated: 2024/07/05 14:19:21 by hwiemann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,23 +61,47 @@ void	calculate_wall_distance_and_height(t_render_data *render_data,
 		raycast->draw_end = image->height - 1;
 }
 //das verwenden fuer textures drawing
+// void	draw_line(int x, t_render_data *render_data, mlx_image_t *image)
+// {
+// 	uint32_t	color;
+// 	t_raycast	*raycast;
+// 	int			y;
+
+// 	raycast = &render_data->raycast;
+// 	//color = 0xFFFF0000;  // Rot
+// 	 color = 0xFF0000FF;  // Blau
+// 	//color = 0xFF00FF00;  // Grün
+// 	if (render_data->flag_side == 1)
+// 		color = color / 2;
+// 	y = raycast->draw_start;
+// 	while (y < raycast->draw_end)
+// 	{
+// 		image->pixels[(y * image->width + x) * 4 + 0] = (color >> 24) & 0xFF;
+// 		image->pixels[(y * image->width + x) * 4 + 1] = (color >> 16) & 0xFF;
+// 		image->pixels[(y * image->width + x) * 4 + 2] = (color >> 8) & 0xFF;
+// 		image->pixels[(y * image->width + x) * 4 + 3] = color & 0xFF;
+// 		y++;
+// 	}
+// }
+
 void	draw_line(int x, t_render_data *render_data, mlx_image_t *image)
 {
-	uint32_t	color;
+	t_color		color = {0, 0, 155, 255};
+	t_color		color_side = {100, 0, 155, 255};
 	t_raycast	*raycast;
 	int			y;
 
 	raycast = &render_data->raycast;
-	color = 0xFF0000FF;
+
 	if (render_data->flag_side == 1)
-		color = color / 2;
+		color = color_side;
 	y = raycast->draw_start;
 	while (y < raycast->draw_end)
 	{
-		image->pixels[(y * image->width + x) * 4 + 0] = (color >> 24) & 0xFF;
-		image->pixels[(y * image->width + x) * 4 + 1] = (color >> 16) & 0xFF;
-		image->pixels[(y * image->width + x) * 4 + 2] = (color >> 8) & 0xFF;
-		image->pixels[(y * image->width + x) * 4 + 3] = color & 0xFF;
+		image->pixels[(y * image->width + x) * 4 + 0] = color.r;
+		image->pixels[(y * image->width + x) * 4 + 1] = color.g;
+		image->pixels[(y * image->width + x) * 4 + 2] = color.b;
+		image->pixels[(y * image->width + x) * 4 + 3] = color.a;
 		y++;
 	}
 }

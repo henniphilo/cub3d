@@ -15,3 +15,7 @@ int	main(int argc, char **argv)
 	mlx_terminate(game.mlx_ptr);
 	return (EXIT_SUCCESS);
 }
+
+//wenn a oder d lang genug gedrueckt einmal um die achse drehen?
+//abstand nicht richtig berechnet muss
+//geht nicht nach linksrechts muss auf directions beruhen
