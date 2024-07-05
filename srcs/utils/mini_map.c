@@ -12,6 +12,7 @@ t_game	*mini_map_init(t_game *game)
 	c_floor = int_to_color(game->image.c_floor);
 	fill_half(game->img, c_ceiling, 0, WINDOW_HEIGHT / 2);
 	fill_half(game->img, c_floor, WINDOW_HEIGHT / 2, WINDOW_HEIGHT);
+	mini_map_to_screen(game);
 	mlx_image_to_window(game->mlx_ptr, game->img, 0, 0);
 	return (game);
 }

@@ -6,7 +6,7 @@
 /*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 19:07:31 by vketteni          #+#    #+#             */
-/*   Updated: 2024/07/05 15:11:43 by hwiemann         ###   ########.fr       */
+/*   Updated: 2024/07/05 18:13:41 by hwiemann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,14 +96,14 @@ void	draw_line(int x, t_render_data *render_data, mlx_image_t *image, mlx_textur
 		if (tex)
 		{
 			uint32_t color_tex = ((uint32_t*)tex->pixels)[tex->width * texY + render_data->raycast.tex_x];
-			uint8_t a = (color_tex >> 24) & 0xFF;
-			uint8_t r = (color_tex >> 16) & 0xFF;
+			uint8_t r = (color_tex >> 24) & 0xFF;
+			uint8_t b = (color_tex >> 16) & 0xFF;
 			uint8_t g = (color_tex >> 8) & 0xFF;
-			uint8_t b = color_tex & 0xFF;
+			uint8_t a = (color_tex >> 0) & 0xFF;
 			image->pixels[(y * image->width + x) * 4 + 0] = a;
-			image->pixels[(y * image->width + x) * 4 + 1] = r;
-			image->pixels[(y * image->width + x) * 4 + 2] = g;
-			image->pixels[(y * image->width + x) * 4 + 3] = b;
+			image->pixels[(y * image->width + x) * 4 + 1] = g;
+			image->pixels[(y * image->width + x) * 4 + 2] = b;
+			image->pixels[(y * image->width + x) * 4 + 3] = r;
 
 		}
 		else
