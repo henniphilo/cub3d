@@ -6,7 +6,7 @@
 /*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 19:07:31 by vketteni          #+#    #+#             */
-/*   Updated: 2024/07/05 11:17:12 by hwiemann         ###   ########.fr       */
+/*   Updated: 2024/07/05 14:19:21 by hwiemann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,37 +60,19 @@ void	calculate_wall_distance_and_height(t_render_data *render_data,
 	raycast->draw_end = raycast->line_height / 2 + image->height / 2;
 	if (raycast->draw_end >= (int)image->height)
 		raycast->draw_end = image->height - 1;
-	if (render_data->flag_side == 0)
-		wall_x = render_data->player.pos_y + render_data->raycast.perp_wall_dist
-			* render_data->ray.ray_dir_y;
-	else
-		wall_x = render_data->player.pos_x + render_data->raycast.perp_wall_dist
-			* render_data->ray.ray_dir_x;
-	wall_x -= floor(wall_x);
-	render_data->raycast.tex_x = (int)(wall_x * (double)tex->width);
-	if (render_data->flag_side == 0 && render_data->ray.ray_dir_x > 0)
-		render_data->raycast.tex_x = tex->width - render_data->raycast.tex_x
-			- 1;
-	if (render_data->flag_side == 1 && render_data->ray.ray_dir_y < 0)
-		render_data->raycast.tex_x = tex->width - render_data->raycast.tex_x
-			- 1;
-	render_data->raycast.tex_step_size = 1.0 * tex->height
-		/ render_data->raycast.line_height;
-	render_data->raycast.tex_pos = (render_data->raycast.draw_start
-			- image->height / 2 + render_data->raycast.line_height / 2)
-		* render_data->raycast.tex_step_size;
 }
-
-void	draw_line(int x, t_render_data *render_data, mlx_image_t *images, mlx_texture_t *texture)
+//das verwenden fuer textures drawing
+void	draw_line(int x, t_render_data *render_data, mlx_image_t *image, mlx_texture_t *tex)
 {
-	uint32_t	color;
+	t_color		color = {0, 0, 155, 255};
+	t_color		color_side = {100, 0, 155, 255};
 	t_raycast	*raycast;
 	int			y;
 
 	raycast = &render_data->raycast;
-	color = 0xFF0000FF;
+
 	if (render_data->flag_side == 1)
-		color = color / 2;
+		color = color_side;
 	y = raycast->draw_start;
 	while (y < raycast->draw_end)
 	{
@@ -98,10 +80,10 @@ void	draw_line(int x, t_render_data *render_data, mlx_image_t *images, mlx_textu
         render_data->raycast.tex_pos += render_data->raycast.tex_step_size;
         uint32_t color = ((uint32_t*)texture->pixels)[texture->width * texY + render_data->raycast.tex_x];
         
-		images->pixels[(y * images->width + x) * 4 + 0] = (color >> 24) & 0xFF;
-		images->pixels[(y * images->width + x) * 4 + 1] = (color >> 16) & 0xFF;
-		images->pixels[(y * images->width + x) * 4 + 2] = (color >> 8) & 0xFF;
-		images->pixels[(y * images->width + x) * 4 + 3] = color & 0xFF;
+		images->pixels[(y * images->width + x) * 4 + 0] = color.r;
+		images->pixels[(y * images->width + x) * 4 + 1] = color.g;
+		images->pixels[(y * images->width + x) * 4 + 2] = color.b;
+		images->pixels[(y * images->width + x) * 4 + 3] = color.a;
 		y++;
 	}
 }

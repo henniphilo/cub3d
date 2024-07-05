@@ -98,6 +98,7 @@ void	loop_hook(void *param)
 	t_game	*game_data = (t_game *)param;
 	t_player	*player = &game_data->render_data.player;
 
+	render_image(game_data);
 	if ((int)player->prev_pos_x != (int)player->pos_x ||
 		(int)player->prev_pos_y != (int)player->pos_y)
 	{
@@ -105,5 +106,4 @@ void	loop_hook(void *param)
 		player->prev_pos_y = player->pos_x;
 		mini_map_to_screen(game_data);
 	}
-	render_image(game_data);
 }
