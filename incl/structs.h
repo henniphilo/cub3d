@@ -27,7 +27,7 @@ typedef struct s_map
 	t_sprite		player;
 }					t_map;
 
-// kann dann in textures umgewandelt werden
+// kann dann in tex umgewandelt werden
 typedef struct s_look
 {
 	char			*NO;
@@ -51,9 +51,9 @@ typedef struct s_textures
 	mlx_texture_t	*target;
 }	t_textures;
 
-//images als untergrund der so gross ist wie unser window
+//image als untergrund der so gross ist wie unser window
 
-typedef struct s_images
+typedef struct s_image
 {
 	mlx_image_t	*NO;
 	mlx_image_t	*SO;
@@ -66,7 +66,7 @@ typedef struct s_images
 	mlx_image_t	*target;
 	int			c_floor;
 	int			c_ceiling;
-}	t_images;
+}	t_image;
 
 typedef struct s_camera
 {
@@ -127,8 +127,8 @@ typedef struct s_game
 	t_map			map;
 	t_look			look;
 	t_render_data	render_data;
-	t_textures		textures;
-	t_images		images;
+	t_textures		tex;
+	t_image		image;
 }					t_game;
 
 #endif

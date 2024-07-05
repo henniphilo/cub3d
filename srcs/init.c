@@ -20,7 +20,7 @@ t_game	*init_mlx(t_game *game)
 	img = mlx_new_image(mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
 	if (!img)
 	{
-		ft_putendl_fd("Failed to create images", STDERR_FILENO);
+		ft_putendl_fd("Failed to create image", STDERR_FILENO);
 		return (NULL);
 	}
 	game->img = img;

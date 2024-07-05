@@ -123,20 +123,20 @@ void	render_image(t_game *game)
 	{
 		setup_render_params(x, render_data, img);
 		perform_dda(render_data, &game->map);
-		selected_texture = game->textures.wall;
+		selected_texture = game->tex.wall;
 		if (render_data->flag_side == 0)
 		{
 			if (render_data->ray.ray_dir_x > 0)
-				selected_texture = game->textures.floor;
+				selected_texture = game->tex.floor;
 			else
-				selected_texture = game->textures.ceiling;
+				selected_texture = game->tex.ceiling;
 		}
 		else
 		{
 			if (render_data->ray.ray_dir_y > 0)
-				selected_texture = game->textures.target;
+				selected_texture = game->tex.target;
 			else
-				selected_texture = game->textures.player;
+				selected_texture = game->tex.player;
 		}
 		calculate_wall_distance_and_height(render_data, img, selected_texture);
 		draw_line(x, render_data, img, selected_texture);
