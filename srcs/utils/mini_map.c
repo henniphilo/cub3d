@@ -21,6 +21,7 @@ void	mini_map_to_screen(t_game *game)
 {
 	int		x;
 	int		y;
+	t_color c_player = {0, 0, 255, 255};
 
 	y = 0;
 	while (y < game->map.y_axis)
@@ -33,6 +34,8 @@ void	mini_map_to_screen(t_game *game)
 		}
 		y++;
 	}
+	put_block(game->img, c_player, (int)game->render_data.player.pos_x,
+		(int)game->render_data.player.pos_y);
 }
 
 // image to image funktion bauen damit die map ueber der anderen liegen kann

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_1.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vketteni <vketteni@student.42berlin.d      +#+  +:+       +#+        */
+/*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 19:07:31 by vketteni          #+#    #+#             */
-/*   Updated: 2024/07/02 19:07:33 by vketteni         ###   ########.fr       */
+/*   Updated: 2024/07/05 11:17:12 by hwiemann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	calculate_wall_distance_and_height(t_render_data *render_data,
 	if (raycast->draw_end >= (int)image->height)
 		raycast->draw_end = image->height - 1;
 }
-
+//das verwenden fuer textures drawing
 void	draw_line(int x, t_render_data *render_data, mlx_image_t *image)
 {
 	uint32_t	color;

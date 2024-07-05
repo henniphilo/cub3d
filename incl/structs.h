@@ -3,8 +3,8 @@
 
 typedef struct s_sprite
 {
-	int			pos_x;
-	int			pos_y;
+	double			pos_x;
+	double			pos_y;
 	char		direction;
 }	t_sprite;
 
@@ -101,6 +101,8 @@ typedef struct s_player
 {
 	double			pos_x;
 	double			pos_y;
+	double			prev_pos_x;
+	double			prev_pos_y;
 	double			dir_x;
 	double			dir_y;
 }					t_player;

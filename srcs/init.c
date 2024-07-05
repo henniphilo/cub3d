@@ -44,6 +44,8 @@ t_game	*init_player(t_game *game)
 	player = &game->render_data.player;
 	player->pos_x = game->map.player.pos_x;
 	player->pos_y = game->map.player.pos_y;
+	player->prev_pos_x = player->pos_x;
+	player->prev_pos_y = player->pos_y;
 	player->dir_x = -1.0;
 		// TODO: translate NO SE WE EA into direction vector
 	player->dir_y = 0.0;
