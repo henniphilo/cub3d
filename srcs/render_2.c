@@ -24,7 +24,7 @@ void calculate_initial_side_distances(t_render_data* render_data) {
 }
 
 
-void    setup_render_params(uint32_t  x, t_render_data *render_data, mlx_image_t* image)
+void    setup_render_params(uint32_t  x, t_render_data *render_data, mlx_image_t* images)
 {
 	t_ray		*ray;
 	t_camera	*camera;
@@ -33,7 +33,7 @@ void    setup_render_params(uint32_t  x, t_render_data *render_data, mlx_image_t
 	ray = &render_data->ray;
 	camera = &render_data->camera;
 	player = &render_data->player;
-    camera->cameraX = 2 * x / (double)image->width - 1;
+    camera->cameraX = 2 * x / (double)images->width - 1;
     ray->ray_dir_x = player->dir_x + camera->plane_x * camera->cameraX;
     ray->ray_dir_y = player->dir_y + camera->plane_y * camera->cameraX;
     ray->grid_pos_x = (int)player->pos_x;

@@ -31,13 +31,13 @@ double planeX = 0.0;
 double planeY = 0.66;     // 66 is the tangent of half the FOV (for a 60-degree FOV)
 
 // Function to render the scene
-void render_scene(mlx_image_t* image) {
-    // Clear the image
-    memset(image->pixels, 0, image->width * image->height * 4);
+void render_scene(mlx_image_t* images) {
+    // Clear the images
+    memset(images->pixels, 0, images->width * images->height * 4);
 
     // Raycasting logic
-    for (int x = 0; x < image->width; x++) {
-        double cameraX = 2 * x / (double)image->width - 1; // X-coordinate in camera space
+    for (int x = 0; x < images->width; x++) {
+        double cameraX = 2 * x / (double)images->width - 1; // X-coordinate in camera space
         double rayDirX = playerDirX + planeX * cameraX;
         double rayDirY = playerDirY + planeY * cameraX;
 
@@ -88,21 +88,21 @@ void render_scene(mlx_image_t* image) {
         if (side == 0) perpWallDist = (mapX - playerPosX + (1 - stepX) / 2) / rayDirX;
         else perpWallDist = (mapY - playerPosY + (1 - stepY) / 2) / rayDirY;
 
-        int lineHeight = (int)(image->height / perpWallDist);
+        int lineHeight = (int)(images->height / perpWallDist);
 
-        int drawStart = -lineHeight / 2 + image->height / 2;
+        int drawStart = -lineHeight / 2 + images->height / 2;
         if (drawStart < 0) drawStart = 0;
-        int drawEnd = lineHeight / 2 + image->height / 2;
-        if (drawEnd >= image->height) drawEnd = image->height - 1;
+        int drawEnd = lineHeight / 2 + images->height / 2;
+        if (drawEnd >= images->height) drawEnd = images->height - 1;
 
         uint32_t color = 0xFF0000FF;
         if (side == 1) color = color / 2;
 
         for (int y = drawStart; y < drawEnd; y++) {
-            image->pixels[(y * image->width + x) * 4 + 0] = (color >> 24) & 0xFF;
-            image->pixels[(y * image->width + x) * 4 + 1] = (color >> 16) & 0xFF;
-            image->pixels[(y * image->width + x) * 4 + 2] = (color >> 8) & 0xFF;
-            image->pixels[(y * image->width + x) * 4 + 3] = color & 0xFF;
+            images->pixels[(y * images->width + x) * 4 + 0] = (color >> 24) & 0xFF;
+            images->pixels[(y * images->width + x) * 4 + 1] = (color >> 16) & 0xFF;
+            images->pixels[(y * images->width + x) * 4 + 2] = (color >> 8) & 0xFF;
+            images->pixels[(y * images->width + x) * 4 + 3] = color & 0xFF;
         }
     }
 }
@@ -154,8 +154,8 @@ void key_hook(mlx_key_data_t keydata, void* param) {
 }
 
 void loop_hook(void* param) {
-    mlx_image_t* image = (mlx_image_t*)param; // Cast param to mlx_image_t pointer
-    render_scene(image);
+    mlx_image_t* images = (mlx_image_t*)param; // Cast param to mlx_image_t pointer
+    render_scene(images);
 }
 
 int main(void) {
@@ -165,19 +165,19 @@ int main(void) {
         return EXIT_FAILURE;
     }
 
-    mlx_image_t* image = mlx_new_image(mlx, _WINDOW_WIDTH, _WINDOW_HEIGHT);
-    if (!image) {
-        fprintf(stderr, "Failed to create image\n");
+    mlx_image_t* images = mlx_new_image(mlx, _WINDOW_WIDTH, _WINDOW_HEIGHT);
+    if (!images) {
+        fprintf(stderr, "Failed to create images\n");
         return EXIT_FAILURE;
     }
 
-    mlx_image_to_window(mlx, image, 0, 0);
+    mlx_image_to_window(mlx, images, 0, 0);
     mlx_key_hook(mlx, key_hook, mlx); // Pass mlx as param to key_hook
-    mlx_loop_hook(mlx, loop_hook, image); // Pass image as param to loop_hook
+    mlx_loop_hook(mlx, loop_hook, images); // Pass images as param to loop_hook
 
     mlx_loop(mlx); // Enter the MLX loop, which handles rendering and events
 
-    mlx_delete_image(mlx, image);
+    mlx_delete_image(mlx, images);
     mlx_terminate(mlx);
 
     return EXIT_SUCCESS;

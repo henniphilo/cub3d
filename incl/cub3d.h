@@ -26,6 +26,9 @@
 # define MOVE_SPEED 0.5
 # define ROT_SPEED 0.05
 
+/* Textures */
+void	get_textures(t_game *game);
+
 /* Map Parsing */
 int			check_file_ending_cub(char *file);
 int			walls_check(t_game *game);
@@ -80,7 +83,7 @@ t_game	*init_camera(t_game *game);
 /* Rendering */
 void		render_image(t_game *game);
 void		setup_render_params(uint32_t x, t_render_data *render_data,
-				mlx_image_t *image);
+				mlx_image_t *images);
 
 /* Cleanup */
 int			terminate_game(t_game *game, int exit_code);

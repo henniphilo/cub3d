@@ -45,10 +45,10 @@ void	clean_texture(t_game *game)
 
 void	clean_img(t_game *game)
 {
-	// mlx_delete_image(game->mlx_ptr, game->img.NO);
-	// mlx_delete_image(game->mlx_ptr, game->img.SO);
-	// mlx_delete_image(game->mlx_ptr, game->img.EA);
-	// mlx_delete_image(game->mlx_ptr, game->img.WE);
+	mlx_delete_image(game->mlx_ptr, game->image.NO);
+	mlx_delete_image(game->mlx_ptr, game->image.SO);
+	mlx_delete_image(game->mlx_ptr, game->image.EA);
+	mlx_delete_image(game->mlx_ptr, game->image.WE);
 	mlx_delete_image(game->mlx_ptr, game->image.wall);
 	mlx_delete_image(game->mlx_ptr, game->image.player);
 	mlx_delete_image(game->mlx_ptr, game->image.target);

@@ -38,7 +38,7 @@ void	mini_map_to_screen(t_game *game)
 		(int)game->render_data.player.pos_y);
 }
 
-// image to image funktion bauen damit die map ueber der anderen liegen kann
+// images to images funktion bauen damit die map ueber der anderen liegen kann
 
 void	draw_mini_map(t_game *game, mlx_image_t *img, int x, int y)
 {

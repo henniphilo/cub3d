@@ -38,7 +38,7 @@ typedef struct s_look
 	char			*ceiling;
 }					t_look;
 
-typedef struct s_texture
+typedef struct s_textures
 {
 	mlx_texture_t	*NO;
 	mlx_texture_t	*SO;
@@ -49,11 +49,11 @@ typedef struct s_texture
 	mlx_texture_t	*wall;
 	mlx_texture_t	*player;
 	mlx_texture_t	*target;
-}	t_texture;
+}	t_textures;
 
-//image als untergrund der so gross ist wie unser window
+//images als untergrund der so gross ist wie unser window
 
-typedef struct s_image
+typedef struct s_images
 {
 	mlx_image_t	*NO;
 	mlx_image_t	*SO;
@@ -66,7 +66,7 @@ typedef struct s_image
 	mlx_image_t	*target;
 	int			c_floor;
 	int			c_ceiling;
-}	t_image;
+}	t_images;
 
 typedef struct s_camera
 {
@@ -81,6 +81,9 @@ typedef struct s_raycast
 	int				draw_start;
 	int				draw_end;
 	double			perp_wall_dist;
+	int				tex_x;
+	double			tex_pos;
+	double			tex_step_size;
 }					t_raycast;
 
 typedef struct s_ray
@@ -124,8 +127,8 @@ typedef struct s_game
 	t_map			map;
 	t_look			look;
 	t_render_data	render_data;
-	t_texture		tex;
-	t_image			image;
+	t_textures		textures;
+	t_images		images;
 }					t_game;
 
 #endif
