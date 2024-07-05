@@ -44,8 +44,8 @@ t_game	*init_player(t_game *game)
 	player = &game->render_data.player;
 	player->prev_pos_x = player->pos_x;
 	player->prev_pos_y = player->pos_y;
-	player->dir_x = 0.0;
-	player->dir_y = 1.0;
+	// player->dir_x = 0.0;
+	// player->dir_y = 1.0;
 
 	init_player_direction(game);
 	player->pos_x = 4;
@@ -70,6 +70,8 @@ void	init_player_direction(t_game *game)
 			{
 				game->render_data.player.dir_x = 0.0;
 				game->render_data.player.dir_y = -1.0;
+				game->render_data.camera.plane_x = -0.66;
+				game->render_data.camera.plane_y = 0;
 				game->map.player.pos_y = y;
 				game->map.player.pos_x = x;
 			}
@@ -77,6 +79,8 @@ void	init_player_direction(t_game *game)
 			{
 				game->render_data.player.dir_x = 1.0;
 				game->render_data.player.dir_y = 0.0;
+				game->render_data.camera.plane_x = 0.;
+				game->render_data.camera.plane_y = -0.66;
 				game->map.player.pos_y = y;
 				game->map.player.pos_x = x;
 			}
@@ -84,6 +88,8 @@ void	init_player_direction(t_game *game)
 			{
 				game->render_data.player.dir_x = 0.0;
 				game->render_data.player.dir_y = 1.0;
+				game->render_data.camera.plane_x = 0.66;
+				game->render_data.camera.plane_y = 0;
 				game->map.player.pos_y = y;
 				game->map.player.pos_x = x;
 			}
@@ -91,6 +97,8 @@ void	init_player_direction(t_game *game)
 			{
 				game->render_data.player.dir_x = -1.0;
 				game->render_data.player.dir_y = 0.0;
+				game->render_data.camera.plane_x = 0;
+				game->render_data.camera.plane_y = -0.66;
 				game->map.player.pos_y = y;
 				game->map.player.pos_x = x;
 			}
@@ -100,13 +108,31 @@ void	init_player_direction(t_game *game)
 	}	
 }
 
-t_game	*init_camera(t_game *game)
-{
-	t_camera *camera;
+// t_game	*init_camera(t_game *game)
+// {
+// 	t_camera *camera;
 
-	camera = &game->render_data.camera;
+// 	camera = &game->render_data.camera;
 
-	camera->plane_x = 0.0;
-	camera->plane_y = 0.66;
-	return (game);
-}
+// 	if (game->map.player.direction == 'N')
+// 	{
+// 		camera->plane_x = 0.66;
+// 		camera->plane_y = 0;
+// 	}
+// 	if (game->map.player.direction == 'W')
+// 	{
+// 		camera->plane_x = 0.0;
+// 		camera->plane_y = -0.66;
+// 	}
+// 	if (game->map.player.direction == 'E')
+// 	{
+// 		camera->plane_x = 0.0;
+// 		camera->plane_y = 0.66;
+// 	}
+// 	if (game->map.player.direction == 'S')
+// 	{
+// 		camera->plane_x = -0.66;
+// 		camera->plane_y = 0.0;
+// 	}
+// 	return (game);
+// }
