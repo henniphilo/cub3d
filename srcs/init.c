@@ -52,9 +52,22 @@ t_game	*init_player(t_game *game)
 	return (game);
 }
 
-void	init_direction()
+void	init_player_direction(t_game *game)
 {
-	
+	int		x;
+	int		y;
+
+	y = 0;
+	while (y < game->map.y_axis)
+	{
+		x = 0;
+		while (x < game->map.x_axis[y])
+		{
+			player_dir(game, x, y);
+			x++;
+		}
+		y++;
+	}	
 }
 
 t_game	*init_camera(t_game *game)

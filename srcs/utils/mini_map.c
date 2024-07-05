@@ -12,7 +12,6 @@ t_game	*mini_map_init(t_game *game)
 	c_floor = int_to_color(game->image.c_floor);
 	fill_half(game->img, c_ceiling, 0, WINDOW_HEIGHT / 2);
 	fill_half(game->img, c_floor, WINDOW_HEIGHT / 2, WINDOW_HEIGHT);
-	mini_map_to_screen(game);
 	mlx_image_to_window(game->mlx_ptr, game->img, 0, 0);
 	return (game);
 }
@@ -108,26 +107,18 @@ void	player_dir(t_game *game, int x, int y)
 	if (game->map.map[y][x] == 'N')
 	{
 		game->map.player.direction = 'N';
-		game->render_data.player.dir_x = 0.0;
-		game->render_data.player.dir_y = -1.0;
 	}
 	else if (game->map.map[y][x] == 'E')
 	{
 		game->map.player.direction = 'E';
-		game->render_data.player.dir_x = 1.0;
-		game->render_data.player.dir_y = 0.0;
 	}
 	else if (game->map.map[y][x] == 'S')
 	{
 		game->map.player.direction = 'S';
-		game->render_data.player.dir_x = 0.0;
-		game->render_data.player.dir_y = 1.0;
 	}
 	else if (game->map.map[y][x] == 'W')
 	{
 		game->map.player.direction = 'W';
-		game->render_data.player.dir_x = -1.0;
-		game->render_data.player.dir_y = 0.0;
 	}
 }
 
