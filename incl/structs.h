@@ -30,13 +30,14 @@ typedef struct s_map
 // kann dann in tex umgewandelt werden
 typedef struct s_look
 {
-	char			*NO;
-	char			*SO;
-	char			*WE;
-	char			*EA;
-	char			*floor;
-	char			*ceiling;
-}					t_look;
+	char		*NO;
+	char		*SO;
+	char		*WE;
+	char		*EA;
+	char		*floor;
+	char		*ceiling;
+	char		first_dir;
+}	t_look;
 
 typedef struct s_textures
 {
@@ -51,7 +52,6 @@ typedef struct s_textures
 	mlx_texture_t	*target;
 }	t_textures;
 
-//image als untergrund der so gross ist wie unser window
 
 typedef struct s_image
 {

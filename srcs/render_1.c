@@ -6,7 +6,7 @@
 /*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 19:07:31 by vketteni          #+#    #+#             */
-/*   Updated: 2024/07/06 19:29:42 by hwiemann         ###   ########.fr       */
+/*   Updated: 2024/07/06 22:19:37 by hwiemann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,15 +62,15 @@ void	calculate_wall_distance_and_height(t_render_data *render_data,
 		raycast->draw_end = image->height - 1;
 
 	if (render_data->flag_side == 0)
-		wall_x = render_data->player.pos_y + render_data->raycast.perp_wall_dist * render_data->ray.ray_dir_y;
+		wall_x = player->pos_y + raycast->perp_wall_dist * ray->ray_dir_y;
 	else
-		wall_x = render_data->player.pos_x + render_data->raycast.perp_wall_dist * render_data->ray.ray_dir_x;
+		wall_x = player->pos_x + raycast->perp_wall_dist * ray->ray_dir_x;
 	wall_x -= floor(wall_x);
 
 	render_data->raycast.tex_x = (int)(wall_x * (double)tex->width);
-	if (render_data->flag_side == 0 && render_data->ray.ray_dir_x > 0)
+	if (render_data->flag_side == 0 && ray->ray_dir_x > 0)
 		render_data->raycast.tex_x = tex->width - render_data->raycast.tex_x - 1;
-	if (render_data->flag_side == 1 && render_data->ray.ray_dir_y < 0)
+	if (render_data->flag_side == 1 && ray->ray_dir_y < 0)
 		render_data->raycast.tex_x = tex->width - render_data->raycast.tex_x - 1;
 
 	render_data->raycast.tex_step_size = 1.0 * tex->height / render_data->raycast.line_height;
@@ -129,6 +129,7 @@ void	render_image(t_game *game)
 	get_textures(game);
 	ft_memset(img->pixels, 0, img->width * img->height * 4);
 	mini_map_init(game);
+
 	x = 0;
 	while (x < img->width)
 	{

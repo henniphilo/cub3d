@@ -15,10 +15,8 @@ int	main(int argc, char **argv)
 	return (EXIT_SUCCESS);
 }
 
-// wenn a oder d lang genug gedrueckt einmal um die achse drehen?
-// geht nicht nach linksrechts muss auf directions beruhen
-//minimap muss nach direction angepasst werden und sich dahin bewegen
-// wo player position?
-// sieht nicht Nord bild wenn nach norden startet
+//minimap muss nach direction angepasst werden und sich dahin bewegen (tut es aber nicht smooth)
 // muss noch minimap nach vorne holen
 // klappt noch nicht mit mm im hook loop
+// wenn  player pos init in render_data.player dann als pointer ubergeben buggt aber beim laufen in alle richtungen nicht wenn hard coded
+// bilder spiegelverkehrt projiziert wenn nicht norden warum?

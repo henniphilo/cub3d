@@ -59,6 +59,7 @@ void	init_player_direction(t_game *game)
 {
 	int		x;
 	int		y;
+	char	direction;
 	t_render_data	*render_data;
 
 	render_data = &game->render_data;
@@ -68,7 +69,7 @@ void	init_player_direction(t_game *game)
 		x = 0;
 		while (x < game->map.x_axis[y])
 		{
-			char direction = game->map.map[y][x];
+			direction = game->map.map[y][x];
 
 			if (direction == 'N')
 			{
@@ -80,6 +81,7 @@ void	init_player_direction(t_game *game)
 				// game->map.player.pos_x = x;
 				render_data->player.pos_x = x;
 				render_data->player.pos_y = y;
+				game->look.first_dir = direction;
 			}
 			else if (direction == 'E')
 			{
@@ -91,6 +93,7 @@ void	init_player_direction(t_game *game)
 				// game->map.player.pos_x = x;
 				render_data->player.pos_x = x;
 				render_data->player.pos_y = y;
+				game->look.first_dir = direction;
 			}
 			else if (direction == 'S')
 			{
@@ -102,22 +105,25 @@ void	init_player_direction(t_game *game)
 				// game->map.player.pos_x = x;
 				render_data->player.pos_x = x;
 				render_data->player.pos_y = y;
+				game->look.first_dir = direction;
 			}
 			else if (direction == 'W')
 			{
 				game->render_data.player.dir_x = -1.0;
 				game->render_data.player.dir_y = 0.0;
 				game->render_data.camera.plane_x = 0;
-				game->render_data.camera.plane_y = -0.66;
+				game->render_data.camera.plane_y = 0.66;
 				// game->map.player.pos_y = y;
 				// game->map.player.pos_x = x;
 				render_data->player.pos_x = x;
 				render_data->player.pos_y = y;
+				game->look.first_dir = direction;
 			}
 			x++;
 		}
 		y++;
 	}
+	printf("first dir is %c\n", game->look.first_dir);
 }
 
 // t_game	*init_camera(t_game *game)
