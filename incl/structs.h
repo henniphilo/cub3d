@@ -128,7 +128,7 @@ typedef struct s_game
 	t_look			look;
 	t_render_data	render_data;
 	t_textures		tex;
-	t_image		image;
+	t_image			image;
 }					t_game;
 
 #endif
