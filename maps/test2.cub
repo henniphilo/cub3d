@@ -1,7 +1,7 @@
-NO ./img/riesig1000.png
-SO ./img/riesig1000.png
+NO ./img/NO1000.png
+SO ./img/SO1000.png
 WE ./img/riesig1000.png
-EA ./img/riesig1000.png
+EA ./img/EA1000.png
 F 55,130,250
 C 80,230,250
 

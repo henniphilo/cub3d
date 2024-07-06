@@ -16,5 +16,9 @@ int	main(int argc, char **argv)
 }
 
 // wenn a oder d lang genug gedrueckt einmal um die achse drehen?
-// abstand nicht richtig berechnet muss
 // geht nicht nach linksrechts muss auf directions beruhen
+//minimap muss nach direction angepasst werden und sich dahin bewegen
+// wo player position?
+// sieht nicht Nord bild wenn nach norden startet
+// muss noch minimap nach vorne holen
+// klappt noch nicht mit mm im hook loop
