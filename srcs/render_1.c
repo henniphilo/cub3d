@@ -6,7 +6,7 @@
 /*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 19:07:31 by vketteni          #+#    #+#             */
-/*   Updated: 2024/07/07 14:48:06 by hwiemann         ###   ########.fr       */
+/*   Updated: 2024/07/07 18:09:36 by hwiemann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,9 +139,9 @@ void	render_image(t_game *game)
 		if (render_data->flag_side == 0)
 		{
 			if (render_data->ray.ray_dir_x > 0)
-				selected_texture = game->tex.EA;
-			else
 				selected_texture = game->tex.WE;
+			else
+				selected_texture = game->tex.EA;
 		}
 		else
 		{

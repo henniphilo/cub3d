@@ -6,6 +6,9 @@ static void	move(t_map map_data,
 	t_player	*player;
 
 	player = &render_data->player;
+//	printf("map [%c][%c]\n", map_data.map[(int)(player->pos_x + player->dir_x
+//			* MOVE_SPEED)][(int)player->pos_y], map_data.map[(int)player->pos_x][(int)(player->pos_y
+//			+ player->dir_y * MOVE_SPEED)]);
 	if (map_data.map[(int)(player->pos_x + player->dir_x
 			* MOVE_SPEED)][(int)player->pos_y] == '0')
 		player->pos_x += player->dir_x * MOVE_SPEED
@@ -52,7 +55,10 @@ static void	player_n1_move(t_game *game, t_map map_data,
 //	printf("pos_x %.2f und pos_y %.2f \n", player->pos_x, player->pos_y);
 	put_block_double(game->img, c_floor, player->pos_x, player->pos_y);
 	move(map_data, render_data, direction);
-	put_block_double(game->img, c_player, player->pos_x, player->pos_y);
+	if ((map_data.map[(int)(player->pos_x + player->dir_x
+			* MOVE_SPEED)][(int)player->pos_y] == '0') && (map_data.map[(int)player->pos_x][(int)(player->pos_y
+			+ player->dir_y * MOVE_SPEED)] == '0'))
+		put_block_double(game->img, c_player, player->pos_x, player->pos_y);
 
 		//printf("player direction: %c \n", game->map.player.direction);
 	//draw_dir(game, pos_x, pos_y, c_player);
