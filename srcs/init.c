@@ -45,6 +45,7 @@ t_game	*init_player(t_game *game)
 	// player->dir_x = 0.0;
 	// player->dir_y = 1.0;
 
+	init_player_pos(game);
 	player->prev_pos_x = player->pos_x;
 	player->prev_pos_y = player->pos_y;
 	init_player_direction(game);

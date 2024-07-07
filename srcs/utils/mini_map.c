@@ -12,7 +12,7 @@ t_game	*mini_map_init(t_game *game)
 	c_floor = int_to_color(game->image.c_floor);
 	fill_half(game->img, c_ceiling, 0, WINDOW_HEIGHT / 2);
 	fill_half(game->img, c_floor, WINDOW_HEIGHT / 2, WINDOW_HEIGHT);
-	mini_map_to_screen(game);
+//	mini_map_to_screen(game);
 	mlx_image_to_window(game->mlx_ptr, game->img, 0, 0);
 	return (game);
 }
@@ -21,7 +21,7 @@ void	mini_map_to_screen(t_game *game)
 {
 	int		x;
 	int		y;
-//	t_color c_player = {0, 0, 255, 255};
+	t_color c_player = {0, 0, 255, 255};
 
 	y = 0;
 	while (y < game->map.y_axis)
@@ -34,8 +34,32 @@ void	mini_map_to_screen(t_game *game)
 		}
 		y++;
 	}
-	//put_block(game->img, c_player, (int)game->render_data.player.pos_x,
-	//	(int)game->render_data.player.pos_y);
+	put_block_double(game->img, c_player, game->render_data.player.pos_x,
+		game->render_data.player.pos_y);
+}
+
+void	init_player_pos(t_game *game)
+{
+	int		x;
+	int		y;
+
+	y = 0;
+	while (y < game->map.y_axis)
+	{
+		x = 0;
+		while (x < game->map.x_axis[y])
+		{
+			if (game->map.map[y][x] == 'N' || game->map.map[y][x] == 'E'
+				|| game->map.map[y][x] == 'W' || game->map.map[y][x] == 'S')
+			{
+				game->map.player.pos_y = y;
+				game->map.player.pos_x = x;
+				break ;
+			}
+			x++;
+		}
+		y++;
+	}
 }
 
 // images to images funktion bauen damit die map ueber der anderen liegen kann
@@ -44,7 +68,7 @@ void	draw_mini_map(t_game *game, mlx_image_t *img, int x, int y)
 {
 	t_color		wall = {0,0,0,255};
 	t_color		target = {255, 0, 0, 255};
-	t_color		player = {0, 0, 255, 255};
+//	t_color		player = {0, 0, 255, 255};
 	t_color		floor = {255, 255, 255, 255};
 	t_color		color;
 
@@ -55,10 +79,11 @@ void	draw_mini_map(t_game *game, mlx_image_t *img, int x, int y)
 	else if (game->map.map[y][x] == 'N' || game->map.map[y][x] == 'E'
 		|| game->map.map[y][x] == 'W' || game->map.map[y][x] == 'S')
 	{
-		game->map.player.pos_y = y;
-		game->map.player.pos_x = x;
-		player_dir(game, x, y); // das evt wo anders initialisieren?
-		color = player;
+		// game->map.player.pos_y = y;
+		// game->map.player.pos_x = x;
+	//	player_dir(game, x, y); // das evt wo anders initialisieren?
+		color = floor;
+	//	color = player;
 	}
 	else if (game->map.map[y][x] == '0')
 		color = floor;
@@ -145,18 +170,19 @@ void	put_block_double(mlx_image_t *img, t_color color, double x, double y)
 {
 	int	i;
 	int	j;
-	int	ix;
-	int	iy;
+	double	ix;
+	double	iy;
 
 	i = 0;
-	ix = (int)(x * SSIZE);
-	iy = (int)(y * SSIZE);
-	while (i <= SSIZE)
+	ix = (x * SSIZE);
+	iy = (y * SSIZE);
+	//printf("Drawing block at (%.2f, %.2f) for player at (%.2f, %.2f)\n", ix, iy, x, y); // Debugging
+	while (i < SSIZE)
 	{
 		j = 0;
-		while (j <= SSIZE)
+		while (j < SSIZE)
 		{
-			put_pixel(img, ix + i, iy + j, color);
+			put_pixel_double(img, ix + i, iy + j, color);
 			j++;
 		}
 		i++;

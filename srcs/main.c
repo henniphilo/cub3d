@@ -7,8 +7,8 @@ int	main(int argc, char **argv)
 	args_check(argc, argv);
 	if (!(init_map__(&game, argv[1]) && init_mlx(&game) && init_player(&game)))
 		return (terminate_game(&game, EXIT_FAILURE));
-	mlx_key_hook(game.mlx_ptr, key_hook_, &game);
 	mlx_loop_hook(game.mlx_ptr, loop_hook, &game);
+	mlx_key_hook(game.mlx_ptr, key_hook_, &game);
 	mlx_loop(game.mlx_ptr);
 	//terminate_game(&game, 0);
 	mlx_delete_image(game.mlx_ptr, game.img);

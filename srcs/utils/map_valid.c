@@ -16,7 +16,7 @@ void	open_map(t_game *game, char *file)
 	close(fd);
 	fd = open(file, O_RDONLY);
 	get_cub(game, fd); //hier width init
-	if (map_input_check(game) == 1)
+	if (map_input_check(game) == 1) //hier drin wird actual map erstellt
 	{
 		printf("input error \n");
 		exit (1);

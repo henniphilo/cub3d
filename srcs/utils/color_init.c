@@ -13,6 +13,24 @@ void	put_pixel(mlx_image_t *img, int x, int y, t_color color)
 	img->pixels[pixel_i + 2] = color.b;
 	img->pixels[pixel_i + 3] = color.a;
 }
+void	put_pixel_double(mlx_image_t *img, double x, double y, t_color color)
+{
+	int		pixel_i;
+	int		ix;
+	int		iy;
+
+	ix = (int)x;
+	iy = (int)y;
+
+	if (ix < 0 || ix >= (int)img->width || iy < 0 || iy >= (int)img->height)
+		return ;
+	pixel_i = (iy * img->width + ix) * 4;
+	img->pixels[pixel_i] = color.r;
+	img->pixels[pixel_i + 1] = color.g;
+	img->pixels[pixel_i + 2] = color.b;
+	img->pixels[pixel_i + 3] = color.a;
+}
+
 
 
 static int	get_color_value(const char *color_str, int *index)

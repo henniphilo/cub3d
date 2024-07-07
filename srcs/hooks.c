@@ -14,6 +14,7 @@ static void	move(t_map map_data,
 			+ player->dir_y * MOVE_SPEED)] == '0')
 		player->pos_y += player->dir_y * MOVE_SPEED
 			* direction;
+	printf("New pos_x %.2f, pos_y %.2f\n", player->pos_x, player->pos_y); // Debugging
 }
 
 static void	rotate(t_render_data *render_data, int direction)
@@ -48,7 +49,7 @@ static void	player_n1_move(t_game *game, t_map map_data,
 	t_player	*player;
 
 	player = &game->render_data.player;
-	printf("pos_x %.2f und pos_y %.2f \n", player->pos_x, player->pos_y);
+//	printf("pos_x %.2f und pos_y %.2f \n", player->pos_x, player->pos_y);
 	put_block_double(game->img, c_floor, player->pos_x, player->pos_y);
 	move(map_data, render_data, direction);
 	put_block_double(game->img, c_player, player->pos_x, player->pos_y);
@@ -99,14 +100,14 @@ void	key_hook_(mlx_key_data_t keydata, void *param)
 void	loop_hook(void *param)
 {
 	t_game	*game_data = (t_game *)param;
-	t_player	*player = &game_data->render_data.player;
+	//t_player	*player = &game_data->render_data.player;
 
-	if ((int)player->prev_pos_x != (int)player->pos_x ||
-		(int)player->prev_pos_y != (int)player->pos_y)
-	{
-		player->prev_pos_x = player->pos_x;
-		player->prev_pos_y = player->pos_x;
-		mini_map_to_screen(game_data);
-	}
+	// if ((int)player->prev_pos_x != (int)player->pos_x ||
+	// 	(int)player->prev_pos_y != (int)player->pos_y)
+	// {
+	// 	player->prev_pos_x = player->pos_x;
+	// 	player->prev_pos_y = player->pos_x;
+//	}
 	render_image(game_data);
+	mini_map_to_screen(game_data);
 }

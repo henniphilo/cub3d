@@ -18,7 +18,7 @@
 # define MAP_WIDTH 10
 # define MAP_HEIGHT 10
 # define TILE_SIZE 64
-# define SSIZE 15
+# define SSIZE 10
 
 /* Constants */
 # define WINDOW_WIDTH 800
@@ -51,6 +51,7 @@ void	free_cub(t_game *game);
 // void	get_img(t_game *game);
 void	clean_texture(t_game *game);
 void	clean_img(t_game *game);
+void	init_player_pos(t_game *game);
 
 /* Mini-Map*/
 
@@ -58,6 +59,7 @@ void	clean_img(t_game *game);
 // void	mm_get_textures(t_game *game);
 void	draw_mini_map(t_game *game, mlx_image_t *img, int x, int y);
 void	key_hook(mlx_key_data_t key, void *ptr);
+void	put_pixel_double(mlx_image_t *img, double x, double y, t_color color);
 void	put_pixel(mlx_image_t *img, int x, int y, t_color color);
 void	put_block(mlx_image_t *img, t_color color, int x, int y);
 void	fill_half(mlx_image_t *img, t_color color, int start_y, int end_y);
