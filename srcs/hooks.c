@@ -48,10 +48,10 @@ static void	player_n1_move(t_game *game, t_map map_data,
 	t_player	*player;
 
 	player = &game->render_data.player;
-	printf("pos_x %d und pos_y %d \n", (int)player->pos_x, (int)player->pos_y);
-	put_block(game->img, c_floor, (int)player->pos_x, (int)player->pos_y);
+	printf("pos_x %.2f und pos_y %.2f \n", player->pos_x, player->pos_y);
+	put_block_double(game->img, c_floor, player->pos_x, player->pos_y);
 	move(map_data, render_data, direction);
-	put_block(game->img, c_player, (int)player->pos_x, (int)player->pos_y);
+	put_block_double(game->img, c_player, player->pos_x, player->pos_y);
 
 		//printf("player direction: %c \n", game->map.player.direction);
 	//draw_dir(game, pos_x, pos_y, c_player);
@@ -89,7 +89,10 @@ void	key_hook_(mlx_key_data_t keydata, void *param)
 			rotate(render_data, -1);ft_putendl_fd("D", STDERR_FILENO);
 		}
 		if (keydata.key == MLX_KEY_ESCAPE)
+		{
+			free_data(game_data);
 			mlx_close_window(game_data->mlx_ptr);
+		}
 	}
 }
 

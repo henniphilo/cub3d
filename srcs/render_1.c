@@ -6,7 +6,7 @@
 /*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 19:07:31 by vketteni          #+#    #+#             */
-/*   Updated: 2024/07/06 22:19:37 by hwiemann         ###   ########.fr       */
+/*   Updated: 2024/07/07 14:48:06 by hwiemann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,4 +154,5 @@ void	render_image(t_game *game)
 		draw_line(x, render_data, img, selected_texture);
 		x++;
 	}
+	clean_texture(game);
 }

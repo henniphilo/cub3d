@@ -17,12 +17,18 @@ void	free_data(t_game *game)
 {
 	int	i;
 
+	printf("in free data\n");
 	i = 0;
 	while (i < game->map.y_axis)
 	{
 		free(game->map.map[i]);
 		i++;
 	}
+	if (game->map.x_axis)
+			free(game->map.x_axis);
+	// if (game->map.cub)
+	// 		free_string_arr(game->map.cub);
+	//clean_texture(game);
 	free(game->map.map);
 	free(game->look.NO);
 	free(game->look.SO);
@@ -49,6 +55,7 @@ int	terminate_game(t_game *game, int exit_code)
 {
 	if (game)
 	{
+		free_data(game);
 		if (game->mlx_ptr)
 		{
 			if (game->img)

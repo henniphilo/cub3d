@@ -21,7 +21,7 @@ void	mini_map_to_screen(t_game *game)
 {
 	int		x;
 	int		y;
-	t_color c_player = {0, 0, 255, 255};
+//	t_color c_player = {0, 0, 255, 255};
 
 	y = 0;
 	while (y < game->map.y_axis)
@@ -34,8 +34,8 @@ void	mini_map_to_screen(t_game *game)
 		}
 		y++;
 	}
-	put_block(game->img, c_player, (int)game->render_data.player.pos_x,
-		(int)game->render_data.player.pos_y);
+	//put_block(game->img, c_player, (int)game->render_data.player.pos_x,
+	//	(int)game->render_data.player.pos_y);
 }
 
 // images to images funktion bauen damit die map ueber der anderen liegen kann
@@ -135,6 +135,28 @@ void	put_block(mlx_image_t *img, t_color color, int x, int y)
 		while (j <= SSIZE)
 		{
 			put_pixel(img, x * SSIZE + i, y * SSIZE + j, color);
+			j++;
+		}
+		i++;
+	}
+}
+
+void	put_block_double(mlx_image_t *img, t_color color, double x, double y)
+{
+	int	i;
+	int	j;
+	int	ix;
+	int	iy;
+
+	i = 0;
+	ix = (int)(x * SSIZE);
+	iy = (int)(y * SSIZE);
+	while (i <= SSIZE)
+	{
+		j = 0;
+		while (j <= SSIZE)
+		{
+			put_pixel(img, ix + i, iy + j, color);
 			j++;
 		}
 		i++;
