@@ -1,6 +1,6 @@
 #include "../incl/cub3d.h"
 
-static void	move(t_map map_data,
+static void	move(t_game *game, t_map map_data,
 		t_render_data *render_data, int direction)
 {
 	t_player	*player;
@@ -10,11 +10,13 @@ static void	move(t_map map_data,
 //			* MOVE_SPEED)][(int)player->pos_y], map_data.map[(int)player->pos_x][(int)(player->pos_y
 //			+ player->dir_y * MOVE_SPEED)]);
 	if (map_data.map[(int)(player->pos_x + player->dir_x
-			* MOVE_SPEED)][(int)player->pos_y] == '0')
+			* MOVE_SPEED)][(int)player->pos_y] == '0' || map_data.map[(int)(player->pos_x + player->dir_x
+			* MOVE_SPEED)][(int)player->pos_y] == game->look.first_dir)
 		player->pos_x += player->dir_x * MOVE_SPEED
 			* direction;
 	if (map_data.map[(int)player->pos_x][(int)(player->pos_y
-			+ player->dir_y * MOVE_SPEED)] == '0')
+			+ player->dir_y * MOVE_SPEED)] == '0' || map_data.map[(int)player->pos_x][(int)(player->pos_y
+			+ player->dir_y * MOVE_SPEED)] == game->look.first_dir)
 		player->pos_y += player->dir_y * MOVE_SPEED
 			* direction;
 	printf("New pos_x %.2f, pos_y %.2f\n", player->pos_x, player->pos_y); // Debugging
@@ -54,10 +56,12 @@ static void	player_n1_move(t_game *game, t_map map_data,
 	player = &game->render_data.player;
 //	printf("pos_x %.2f und pos_y %.2f \n", player->pos_x, player->pos_y);
 	put_block_double(game->img, c_floor, player->pos_x, player->pos_y);
-	move(map_data, render_data, direction);
+	move(game, map_data, render_data, direction);
 	if ((map_data.map[(int)(player->pos_x + player->dir_x
-			* MOVE_SPEED)][(int)player->pos_y] == '0') && (map_data.map[(int)player->pos_x][(int)(player->pos_y
-			+ player->dir_y * MOVE_SPEED)] == '0'))
+			* MOVE_SPEED)][(int)player->pos_y] == '0' || map_data.map[(int)(player->pos_x + player->dir_x
+			* MOVE_SPEED)][(int)player->pos_y] == game->look.first_dir) && (map_data.map[(int)player->pos_x][(int)(player->pos_y
+			+ player->dir_y * MOVE_SPEED)] == '0' || map_data.map[(int)player->pos_x][(int)(player->pos_y
+			+ player->dir_y * MOVE_SPEED)] == game->look.first_dir))
 		put_block_double(game->img, c_player, player->pos_x, player->pos_y);
 
 		//printf("player direction: %c \n", game->map.player.direction);
