@@ -80,3 +80,12 @@ char	*get_from_cub(char *line, const char *direction)
 	}
 	return (NULL);
 }
+
+t_game	*init_map__(t_game *game, char *cub_file)
+{
+	open_map(game, cub_file);
+
+	if (!game->map.map)
+		return (NULL);
+	return (game);
+}
