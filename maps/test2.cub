@@ -2,8 +2,8 @@ NO ./img/NO10001.png
 SO ./img/SO10001.png
 WE ./img/riesig1000.png
 EA ./img/EA10001.png
-DOOR ./img/door.png
-TARGET ./img/fish.png
+DOOR ./img/algen.png
+TARGET ./img/fish500.png
 F 55,130,250
 C 80,230,250
 
