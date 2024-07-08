@@ -27,6 +27,10 @@ void	cub_input(t_game *game)
 		{
 			game->look.door = get_from_cub(game->map.cub[y], "DOOR");
 		}
+		if (ft_strncmp(game->map.cub[y], "TARGET ", 7) == 0)
+		{
+			game->look.target = get_from_cub(game->map.cub[y], "TARGET");
+		}
 		y++;
 	}
 	printf("NO: %s\n", game->look.NO);
@@ -34,6 +38,7 @@ void	cub_input(t_game *game)
 	printf("WE: %s\n", game->look.WE);
 	printf("EA: %s\n", game->look.EA);
 	printf("Door: %s\n", game->look.door);
+	printf("Target: %s\n", game->look.target);
 }
 
 void	which_color(t_game *game)

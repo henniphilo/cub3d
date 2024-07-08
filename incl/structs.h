@@ -37,6 +37,7 @@ typedef struct s_look
 	char		*floor;
 	char		*ceiling;
 	char		*door;
+	char		*target;
 	char		first_dir;
 }	t_look;
 
@@ -115,6 +116,7 @@ typedef struct s_render_data
 	t_raycast		raycast;
 	int				flag_hit;
 	int				flag_hit_door;
+	int				flag_hit_target;
 	int				flag_side;
 }					t_render_data;
 

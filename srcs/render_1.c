@@ -6,7 +6,7 @@
 /*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 19:07:31 by vketteni          #+#    #+#             */
-/*   Updated: 2024/07/08 12:28:03 by hwiemann         ###   ########.fr       */
+/*   Updated: 2024/07/08 14:35:49 by hwiemann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	perform_dda(t_render_data *render_data, t_map *map_data)
 
 	ray = &render_data->ray;
 	render_data->flag_hit_door = 0;
+	render_data->flag_hit_target = 0;
 	render_data->flag_hit = 0;
 	while (render_data->flag_hit == 0)
 	{
@@ -39,6 +40,11 @@ void	perform_dda(t_render_data *render_data, t_map *map_data)
 		{
 			render_data->flag_hit = 1;
 			render_data->flag_hit_door = 1;
+		}
+		if (map_data->map[ray->grid_pos_x][ray->grid_pos_y] == 'T')
+		{
+			render_data->flag_hit = 1;
+			render_data->flag_hit_target = 1;
 		}
 	}
 }
@@ -90,6 +96,7 @@ void	draw_line(int x, t_render_data *render_data, mlx_image_t *image, mlx_textur
 	t_color		color_side = {100, 0, 155, 255};
 	t_raycast	*raycast;
 	int			y;
+	int			texY;
 
 	raycast = &render_data->raycast;
 
@@ -98,7 +105,7 @@ void	draw_line(int x, t_render_data *render_data, mlx_image_t *image, mlx_textur
 	y = raycast->draw_start;
 	while (y < raycast->draw_end)
 	{
-		int texY = (int)render_data->raycast.tex_pos & (tex->height - 1);
+		texY = (int)render_data->raycast.tex_pos & (tex->height - 1);
 		render_data->raycast.tex_pos += render_data->raycast.tex_step_size;
 		if (tex)
 		{
@@ -107,11 +114,13 @@ void	draw_line(int x, t_render_data *render_data, mlx_image_t *image, mlx_textur
 			uint8_t b = (color_tex >> 16) & 0xFF;
 			uint8_t g = (color_tex >> 8) & 0xFF;
 			uint8_t a = (color_tex >> 0) & 0xFF;
-			image->pixels[(y * image->width + x) * 4 + 0] = a;
-			image->pixels[(y * image->width + x) * 4 + 1] = g;
-			image->pixels[(y * image->width + x) * 4 + 2] = b;
-			image->pixels[(y * image->width + x) * 4 + 3] = r;
-
+			if (r != 0 || g != 0 || b != 0)
+			{
+				image->pixels[(y * image->width + x) * 4 + 0] = a;
+				image->pixels[(y * image->width + x) * 4 + 1] = g;
+				image->pixels[(y * image->width + x) * 4 + 2] = b;
+				image->pixels[(y * image->width + x) * 4 + 3] = r;
+			}
 		}
 		else
 		{
@@ -164,7 +173,15 @@ void	render_image(t_game *game)
 			calculate_wall_distance_and_height(render_data, img, selected_texture);
 			draw_line(x, render_data, img, selected_texture);
 		}
+		if (render_data->flag_hit_target == 1)
+		{
+			selected_texture = game->tex.target;
+			calculate_wall_distance_and_height(render_data, img, selected_texture);
+			draw_line(x, render_data, img, selected_texture);
+		}
 		x++;
 	}
 	clean_texture(game);
 }
+
+//void	render_extra()
