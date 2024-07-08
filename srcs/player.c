@@ -44,12 +44,12 @@ t_game	*init_player(t_game *game)
 			{
 				set_player_dir(direction, game);
 				set_player_pos(x, y, game);
-				return ;
+				return (game);
 			}
 			x++;
 		}
 		y++;
 	}
 	printf("first dir is %c\n", game->look.first_dir);
-	return (game);
+	return (NULL);
 }
