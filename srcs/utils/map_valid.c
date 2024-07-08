@@ -95,10 +95,7 @@ void	actual_map(t_game *game)
 	space_map(game, map_start);
 	init_map(game, map_start);
 }
-	// printf("Map:\n");
-	// for (y = 0; y < game->map.y_axis; y++) {
-	// 	printf("%s", game->map.map[y]);
-	// }
+
 
 void	print_map(t_game *game)
 {

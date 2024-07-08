@@ -6,7 +6,7 @@
 /*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 19:07:31 by vketteni          #+#    #+#             */
-/*   Updated: 2024/07/07 18:09:36 by hwiemann         ###   ########.fr       */
+/*   Updated: 2024/07/08 12:28:03 by hwiemann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	perform_dda(t_render_data *render_data, t_map *map_data)
 	t_ray	*ray;
 
 	ray = &render_data->ray;
+	render_data->flag_hit_door = 0;
+	render_data->flag_hit = 0;
 	while (render_data->flag_hit == 0)
 	{
 		if (ray->side_dist_x < ray->side_dist_y)
@@ -33,6 +35,11 @@ void	perform_dda(t_render_data *render_data, t_map *map_data)
 		}
 		if (map_data->map[ray->grid_pos_x][ray->grid_pos_y] == '1')
 			render_data->flag_hit = 1;
+		if (map_data->map[ray->grid_pos_x][ray->grid_pos_y] == 'D')
+		{
+			render_data->flag_hit = 1;
+			render_data->flag_hit_door = 1;
+		}
 	}
 }
 
@@ -135,8 +142,10 @@ void	render_image(t_game *game)
 	{
 		setup_render_params(x, render_data, img);
 		perform_dda(render_data, &game->map);
-		selected_texture = game->tex.wall;
-		if (render_data->flag_side == 0)
+		selected_texture = NULL;
+		if (render_data->flag_hit_door == 1)
+			selected_texture = game->tex.door;
+		else if (render_data->flag_side == 0)
 		{
 			if (render_data->ray.ray_dir_x > 0)
 				selected_texture = game->tex.WE;
@@ -150,8 +159,11 @@ void	render_image(t_game *game)
 			else
 				selected_texture = game->tex.NO;
 		}
-		calculate_wall_distance_and_height(render_data, img, selected_texture);
-		draw_line(x, render_data, img, selected_texture);
+		if (selected_texture != NULL)
+		{
+			calculate_wall_distance_and_height(render_data, img, selected_texture);
+			draw_line(x, render_data, img, selected_texture);
+		}
 		x++;
 	}
 	clean_texture(game);
