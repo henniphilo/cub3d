@@ -68,7 +68,7 @@ void	draw_mini_map(t_game *game, mlx_image_t *img, int x, int y)
 {
 	t_color		wall = {0,0,0,255};
 	t_color		target = {255, 0, 0, 255};
-//	t_color		player = {0, 0, 255, 255};
+	t_color		door = {0, 50, 100, 255};
 	t_color		floor = {255, 255, 255, 255};
 	t_color		color;
 
@@ -76,15 +76,11 @@ void	draw_mini_map(t_game *game, mlx_image_t *img, int x, int y)
 		color = wall;
 	else if (game->map.map[y][x] == 'E')
 		color = target;
+	else if (game->map.map[y][x] == 'D')
+		color = door;
 	else if (game->map.map[y][x] == 'N' || game->map.map[y][x] == 'E'
 		|| game->map.map[y][x] == 'W' || game->map.map[y][x] == 'S')
-	{
-		// game->map.player.pos_y = y;
-		// game->map.player.pos_x = x;
-	//	player_dir(game, x, y); // das evt wo anders initialisieren?
 		color = floor;
-	//	color = player;
-	}
 	else if (game->map.map[y][x] == '0')
 		color = floor;
 	else

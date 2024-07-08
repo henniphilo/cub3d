@@ -42,17 +42,10 @@ t_game	*init_player(t_game *game)
 	t_player	*player;
 
 	player = &game->render_data.player;
-	// player->dir_x = 0.0;
-	// player->dir_y = 1.0;
-
 	init_player_pos(game);
 	player->prev_pos_x = player->pos_x;
 	player->prev_pos_y = player->pos_y;
 	init_player_direction(game);
-	// player->pos_x = game->map.player.pos_x;
-	// player->pos_y = game->map.player.pos_y;
-	// player->pos_x = 4;
-	// player->pos_y = 4;
 	return (game);
 }
 
@@ -78,8 +71,6 @@ void	init_player_direction(t_game *game)
 				game->render_data.player.dir_y = -1.0;
 				game->render_data.camera.plane_x = -0.66;
 				game->render_data.camera.plane_y = 0;
-				// game->map.player.pos_y = y;
-				// game->map.player.pos_x = x;
 				render_data->player.pos_x = x;
 				render_data->player.pos_y = y;
 				game->look.first_dir = direction;
@@ -90,8 +81,6 @@ void	init_player_direction(t_game *game)
 				game->render_data.player.dir_y = 0.0;
 				game->render_data.camera.plane_x = 0.;
 				game->render_data.camera.plane_y = -0.66;
-				// game->map.player.pos_y = y;
-				// game->map.player.pos_x = x;
 				render_data->player.pos_x = x;
 				render_data->player.pos_y = y;
 				game->look.first_dir = direction;
@@ -102,8 +91,6 @@ void	init_player_direction(t_game *game)
 				game->render_data.player.dir_y = 1.0;
 				game->render_data.camera.plane_x = 0.66;
 				game->render_data.camera.plane_y = 0;
-				// game->map.player.pos_y = y;
-				// game->map.player.pos_x = x;
 				render_data->player.pos_x = x;
 				render_data->player.pos_y = y;
 				game->look.first_dir = direction;
@@ -114,8 +101,6 @@ void	init_player_direction(t_game *game)
 				game->render_data.player.dir_y = 0.0;
 				game->render_data.camera.plane_x = 0;
 				game->render_data.camera.plane_y = 0.66;
-				// game->map.player.pos_y = y;
-				// game->map.player.pos_x = x;
 				render_data->player.pos_x = x;
 				render_data->player.pos_y = y;
 				game->look.first_dir = direction;

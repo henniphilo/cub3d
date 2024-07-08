@@ -23,12 +23,17 @@ void	cub_input(t_game *game)
 		{
 			game->look.EA = get_from_cub(game->map.cub[y], "EA");
 		}
+		if (ft_strncmp(game->map.cub[y], "DOOR ", 5) == 0)
+		{
+			game->look.door = get_from_cub(game->map.cub[y], "DOOR");
+		}
 		y++;
 	}
 	printf("NO: %s\n", game->look.NO);
 	printf("SO: %s\n", game->look.SO);
 	printf("WE: %s\n", game->look.WE);
 	printf("EA: %s\n", game->look.EA);
+	printf("Door: %s\n", game->look.door);
 }
 
 void	which_color(t_game *game)
