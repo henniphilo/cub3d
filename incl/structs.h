@@ -5,8 +5,11 @@ typedef struct s_sprite
 {
 	double			pos_x;
 	double			pos_y;
-	char		direction;
+	int				open_door;
+	int				got_target;
+	char			direction;
 }	t_sprite;
+
 
 typedef struct s_color
 {
@@ -27,7 +30,6 @@ typedef struct s_map
 	t_sprite		player;
 }					t_map;
 
-// kann dann in tex umgewandelt werden
 typedef struct s_look
 {
 	char		*NO;
@@ -39,7 +41,7 @@ typedef struct s_look
 	char		*door;
 	char		*target;
 	char		first_dir;
-}	t_look;
+}					t_look;
 
 typedef struct s_textures
 {
@@ -50,7 +52,7 @@ typedef struct s_textures
 	mlx_texture_t	*door;
 	mlx_texture_t	*player;
 	mlx_texture_t	*target;
-}	t_textures;
+}					t_textures;
 
 
 typedef struct s_image
@@ -64,7 +66,7 @@ typedef struct s_image
 	mlx_image_t	*target;
 	int			c_floor;
 	int			c_ceiling;
-}	t_image;
+}					t_image;
 
 typedef struct s_camera
 {
@@ -108,12 +110,15 @@ typedef struct s_player
 	double			dir_y;
 }					t_player;
 
+
+
 typedef struct s_render_data
 {
 	t_player		player;
 	t_camera		camera;
 	t_ray			ray;
 	t_raycast		raycast;
+	t_sprite		sprites;
 	int				flag_hit;
 	int				flag_hit_door;
 	int				flag_hit_target;

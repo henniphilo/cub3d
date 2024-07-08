@@ -86,6 +86,7 @@ t_game	*init_map__(t_game *game, char *cub_file);
 t_game	*init_mlx(t_game *game);
 t_game	*init_player(t_game *game);
 t_game	*init_camera(t_game *game);
+void	init_data(t_game *game);
 
 /* Rendering */
 void	render_image(t_game *game);

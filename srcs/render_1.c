@@ -6,7 +6,7 @@
 /*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 19:07:31 by vketteni          #+#    #+#             */
-/*   Updated: 2024/07/08 14:35:49 by hwiemann         ###   ########.fr       */
+/*   Updated: 2024/07/08 16:54:03 by hwiemann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,12 @@ void	perform_dda(t_render_data *render_data, t_map *map_data)
 		}
 		if (map_data->map[ray->grid_pos_x][ray->grid_pos_y] == '1')
 			render_data->flag_hit = 1;
-		if (map_data->map[ray->grid_pos_x][ray->grid_pos_y] == 'D')
+		if (map_data->map[ray->grid_pos_x][ray->grid_pos_y] == 'D' && render_data->sprites.open_door != 1)
 		{
 			render_data->flag_hit = 1;
 			render_data->flag_hit_door = 1;
 		}
-		if (map_data->map[ray->grid_pos_x][ray->grid_pos_y] == 'T')
+		if (map_data->map[ray->grid_pos_x][ray->grid_pos_y] == 'T' && render_data->sprites.got_target != 1)
 		{
 			render_data->flag_hit = 1;
 			render_data->flag_hit_target = 1;
@@ -152,9 +152,8 @@ void	render_image(t_game *game)
 		setup_render_params(x, render_data, img);
 		perform_dda(render_data, &game->map);
 		selected_texture = NULL;
-		if (render_data->flag_hit_door == 1)
-			selected_texture = game->tex.door;
-		else if (render_data->flag_side == 0)
+
+		if (render_data->flag_side == 0)
 		{
 			if (render_data->ray.ray_dir_x > 0)
 				selected_texture = game->tex.WE;
@@ -173,9 +172,15 @@ void	render_image(t_game *game)
 			calculate_wall_distance_and_height(render_data, img, selected_texture);
 			draw_line(x, render_data, img, selected_texture);
 		}
-		if (render_data->flag_hit_target == 1)
+		if (render_data->flag_hit_target == 1 && render_data->sprites.got_target != 1)
 		{
 			selected_texture = game->tex.target;
+			calculate_wall_distance_and_height(render_data, img, selected_texture);
+			draw_line(x, render_data, img, selected_texture);
+		}
+		if (render_data->flag_hit_door == 1 && render_data->sprites.open_door != 1)
+		{
+			selected_texture = game->tex.door;
 			calculate_wall_distance_and_height(render_data, img, selected_texture);
 			draw_line(x, render_data, img, selected_texture);
 		}
