@@ -52,6 +52,10 @@ void	free_cub(t_game *game);
 void	clean_texture(t_game *game);
 void	clean_img(t_game *game);
 void	init_player_pos(t_game *game);
+void	set_north(t_game *game);
+void	set_south(t_game *game);
+void	set_east(t_game *game);
+void	set_west(t_game *game);
 
 /* Mini-Map*/
 
@@ -66,7 +70,7 @@ void	fill_half(mlx_image_t *img, t_color color, int start_y, int end_y);
 void	player_dir(t_game *game, int x, int y);
 void	draw_dir(t_game *game, int x, int y, t_color color);
 void	mini_map_to_screen(t_game *game);
-void	init_player_direction(t_game *game);
+void	init_position_and_direction(t_game *game);
 void	put_block_double(mlx_image_t *img, t_color color, double x, double y);
 char	get_direction(mlx_key_data_t key, char cur_direct);
 int		get_color_int(const char *color_str);
