@@ -80,7 +80,7 @@ void	calculate_wall_distance_and_height(t_render_data *render_data,
 		wall_x = player->pos_x + raycast->perp_wall_dist * ray->ray_dir_x;
 	wall_x -= floor(wall_x);
 
-	render_data->raycast.tex_x = (int)(wall_x * (double)tex->width);
+	render_data->raycast.tex_x = (int)(wall_x * (double)tex->width) % tex->width;
 	if (render_data->flag_side == 0 && ray->ray_dir_x > 0)
 		render_data->raycast.tex_x = tex->width - render_data->raycast.tex_x - 1;
 	if (render_data->flag_side == 1 && ray->ray_dir_y < 0)
@@ -89,6 +89,28 @@ void	calculate_wall_distance_and_height(t_render_data *render_data,
 	render_data->raycast.tex_step_size = 1.0 * tex->height / render_data->raycast.line_height;
 	render_data->raycast.tex_pos = (render_data->raycast.draw_start - image->height / 2 + render_data->raycast.line_height / 2) * render_data->raycast.tex_step_size;
 }
+
+// void draw_line(int x, t_render_data *render_data, mlx_image_t *image, mlx_texture_t *tex)
+// {
+//     t_raycast *raycast = &render_data->raycast;
+//     int y = raycast->draw_start;
+//     int texY;
+//     while (y < raycast->draw_end)
+//     {
+//         texY = (int)render_data->raycast.tex_pos & (tex->height - 1);
+//         render_data->raycast.tex_pos += render_data->raycast.tex_step_size;
+//         uint32_t color_tex = ((uint32_t*)tex->pixels)[tex->width * texY + render_data->raycast.tex_x];
+//         uint8_t r = (color_tex >> 24) & 0xFF;
+//         uint8_t g = (color_tex >> 16) & 0xFF;
+//         uint8_t b = (color_tex >> 8) & 0xFF;
+//         uint8_t a = (color_tex) & 0xFF;
+//         image->pixels[(y * image->width + x) * 4 + 0] = a;
+//         image->pixels[(y * image->width + x) * 4 + 1] = b;
+//         image->pixels[(y * image->width + x) * 4 + 2] = g;
+//         image->pixels[(y * image->width + x) * 4 + 3] = r;
+//         y++;
+//     }
+// }
 
 void	draw_line(int x, t_render_data *render_data, mlx_image_t *image, mlx_texture_t *tex)
 {
@@ -105,7 +127,7 @@ void	draw_line(int x, t_render_data *render_data, mlx_image_t *image, mlx_textur
 	y = raycast->draw_start;
 	while (y < raycast->draw_end)
 	{
-		texY = (int)render_data->raycast.tex_pos & (tex->height - 1);
+		texY = (int)render_data->raycast.tex_pos;// & (tex->height - 1);
 		render_data->raycast.tex_pos += render_data->raycast.tex_step_size;
 		if (tex)
 		{
@@ -189,4 +211,3 @@ void	render_image(t_game *game)
 	clean_texture(game);
 }
 
-//void	render_extra()
