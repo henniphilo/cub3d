@@ -173,7 +173,7 @@ void	key_hook_(mlx_key_data_t keydata, void *param)
 	game_data = (t_game *)param;
 	render_data = &game_data->render_data;
 	map_data = game_data->map;
-	if (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT)
+	if (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT || keydata.action == MLX_RELEASE)
 	{
 		if (keydata.key == MLX_KEY_W)
 		{
