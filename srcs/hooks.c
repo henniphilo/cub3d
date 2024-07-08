@@ -1,14 +1,29 @@
 #include "../incl/cub3d.h"
 
+static void	sideways(t_game *game, t_map map_data, t_render_data *render_data, int direction)
+{
+	t_player	*player;
+	double		side_dir_x;
+	double		side_dir_y;
+
+	player = &render_data->player;
+	side_dir_x = player->dir_y;
+	side_dir_y = player->dir_x;
+	if (map_data.map[(int)(player->pos_x + side_dir_x * MOVE_SPEED)][(int)player->pos_y] == '0' ||
+			map_data.map[(int)(player->pos_x + side_dir_x * MOVE_SPEED)][(int)player->pos_y] == game->look.first_dir)
+		player->pos_x += side_dir_x * MOVE_SPEED * direction;
+	if (map_data.map[(int)(player->pos_x)][(int)(player->pos_y + side_dir_y * MOVE_SPEED)] == '0' ||
+			map_data.map[(int)(player->pos_x)][(int)(player->pos_y + side_dir_y * MOVE_SPEED)] == game->look.first_dir)
+		player->pos_y += side_dir_y * MOVE_SPEED * direction;
+	printf("New pos_x %.2f, pos_y %.2f\n", player->pos_x, player->pos_y); // Debugging
+}
+
 static void	move(t_game *game, t_map map_data,
 		t_render_data *render_data, int direction)
 {
 	t_player	*player;
 
 	player = &render_data->player;
-//	printf("map [%c][%c]\n", map_data.map[(int)(player->pos_x + player->dir_x
-//			* MOVE_SPEED)][(int)player->pos_y], map_data.map[(int)player->pos_x][(int)(player->pos_y
-//			+ player->dir_y * MOVE_SPEED)]);
 	if (map_data.map[(int)(player->pos_x + player->dir_x
 			* MOVE_SPEED)][(int)player->pos_y] == '0' || map_data.map[(int)(player->pos_x + player->dir_x
 			* MOVE_SPEED)][(int)player->pos_y] == game->look.first_dir)
@@ -45,6 +60,27 @@ static void	rotate(t_render_data *render_data, int direction)
 		+ camera->plane_y * cos(ROT_SPEED * direction);
 }
 
+
+static void	player_n1_sideways(t_game *game, t_map map_data,
+		t_render_data *render_data, int direction)
+{
+	t_color		c_floor = {255, 255, 255, 255};
+	t_color		c_player = {0, 0, 255, 255};
+	t_player	*player;
+	double		side_dir_x;
+	double		side_dir_y;
+
+	player = &game->render_data.player;
+	side_dir_x = player->dir_y;
+	side_dir_y = player->dir_x;
+	put_block_double(game->img, c_floor, player->pos_x, player->pos_y);
+	sideways(game, map_data, render_data, direction);
+	if ((map_data.map[(int)(player->pos_x + side_dir_x * MOVE_SPEED)][(int)player->pos_y] == '0' ||
+			map_data.map[(int)(player->pos_x + side_dir_x * MOVE_SPEED)][(int)player->pos_y] == game->look.first_dir)
+			&& (map_data.map[(int)(player->pos_x)][(int)(player->pos_y + side_dir_y * MOVE_SPEED)] == '0' ||
+			map_data.map[(int)(player->pos_x)][(int)(player->pos_y + side_dir_y * MOVE_SPEED)] == game->look.first_dir))
+		put_block_double(game->img, c_player, player->pos_x, player->pos_y);
+}
 
 static void	player_n1_move(t_game *game, t_map map_data,
 		t_render_data *render_data, int direction)
@@ -93,11 +129,23 @@ void	key_hook_(mlx_key_data_t keydata, void *param)
 		}
 		if (keydata.key == MLX_KEY_A)
 		{
-			rotate(render_data, 1);ft_putendl_fd("A", STDERR_FILENO);
+			player_n1_sideways(game_data, map_data, render_data, -1);
+			ft_putendl_fd("A", STDERR_FILENO);
 		}
 		if (keydata.key == MLX_KEY_D)
 		{
-			rotate(render_data, -1);ft_putendl_fd("D", STDERR_FILENO);
+			player_n1_sideways(game_data, map_data, render_data, 1);
+			ft_putendl_fd("D", STDERR_FILENO);
+		}
+		if (keydata.key == MLX_KEY_LEFT)
+		{
+			rotate(render_data, 1);
+			ft_putendl_fd("Left", STDERR_FILENO);
+		}
+		if (keydata.key == MLX_KEY_RIGHT)
+		{
+			rotate(render_data, -1);
+			ft_putendl_fd("Right", STDERR_FILENO);
 		}
 		if (keydata.key == MLX_KEY_ESCAPE)
 		{
