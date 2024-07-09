@@ -33,8 +33,8 @@ void	mini_map_to_screen(t_game *game)
 		}
 		y++;
 	}
-	put_block_double(game->img, c_player, game->render_data.player.pos_x,
-		game->render_data.player.pos_y);
+	put_block_double(game->img, c_player, game->render_data.player.pos_y,
+		game->render_data.player.pos_x);
 }
 
 static void	init_target(t_game *game, double x, double y, int id)
@@ -169,8 +169,6 @@ void	init_sprites(t_game *game)
 	t_render_data	*render_data = &game->render_data;
 	check_sprites(game, render_data, 0);
 	check_sprites(game, render_data, 1);
-	// game->render_data.ta_sprites = malloc(game->target_count * sizeof(t_sprite));
-	// game->render_data.do_sprites = malloc(game->door_count * sizeof(t_sprite));
 }
 
 void	draw_mini_map(t_game *game, mlx_image_t *img, int x, int y)
