@@ -39,33 +39,25 @@ void	mini_map_to_screen(t_game *game)
 
 static void	init_target(t_game *game, double x, double y, int id)
 {
-	t_sprite	sprite;
-
-	sprite = game->render_data.ta_sprites[id];
-	sprite.got_target = 0;
-	sprite.pos_x = x;
-	sprite.pos_y = y;
+	game->render_data.ta_sprites[id].id = id;
+	game->render_data.ta_sprites[id].got_target = 0;
+	game->render_data.ta_sprites[id].pos_x = x;
+	game->render_data.ta_sprites[id].pos_y = y;
 }
 
 static void	init_door(t_game *game, double x, double y, int id)
 {
-	t_sprite	sprite;
-
-	sprite = game->render_data.do_sprites[id];
-	sprite.open_door = 0;
-	sprite.pos_x = x;
-	sprite.pos_y = y;
+	game->render_data.do_sprites[id].id = id;
+	game->render_data.do_sprites[id].open_door = 0;
+	game->render_data.do_sprites[id].pos_x = x;
+	game->render_data.do_sprites[id].pos_y = y;
 }
 
-void	init_sprites(t_game *game)
+static void	init_count(t_game *game)
 {
 	int		x;
 	int		y;
 
-	game->render_data.ta_sprites = malloc(game->target_count * sizeof(t_sprite));
-	game->render_data.do_sprites = malloc(game->door_count * sizeof(t_sprite));
-	game->target_count = 0;
-	game->door_count = 0;
 	y = 0;
 	while (y < game->map.y_axis)
 	{
@@ -75,17 +67,56 @@ void	init_sprites(t_game *game)
 			if (game->map.map[y][x] == 'T')
 			{
 				game->target_count += 1;
-				init_target(game, x, y, game->target_count);
 			}
 			else if (game->map.map[y][x] == 'D')
 			{
 				game->door_count += 1;
-				init_door(game, x, y, game->door_count);
 			}
 			x++;
 		}
 		y++;
 	}
+	printf(" %d insgesamt targets \n", game->target_count);
+	printf(" %d insgesamt doors \n", game->door_count);
+}
+
+void	init_sprites(t_game *game)
+{
+	int		x;
+	int		y;
+	int		i;
+	int		j;
+
+	printf("in init sprites\n");
+	init_count(game);
+	game->render_data.ta_sprites = malloc(game->target_count * sizeof(t_sprite));
+	game->render_data.do_sprites = malloc(game->door_count * sizeof(t_sprite));
+	i = 0;
+	j = 0;
+	y = 0;
+	while (y < game->map.y_axis)
+	{
+		x = 0;
+		while (x < game->map.x_axis[y])
+		{
+			if (i < game->target_count && game->map.map[y][x] == 'T')
+			{
+				printf("wir haben %d targets \n", i);
+				init_target(game, x, y, i);
+				i += 1;
+			}
+			if (j < game->door_count && game->map.map[y][x] == 'D')
+			{
+				printf("wir haben %d doors \n", j);
+				init_door(game, x, y, j);
+				j += 1;
+			}
+			x++;
+		}
+		y++;
+	}
+	// game->render_data.ta_sprites = malloc(game->target_count * sizeof(t_sprite));
+	// game->render_data.do_sprites = malloc(game->door_count * sizeof(t_sprite));
 }
 
 void	draw_mini_map(t_game *game, mlx_image_t *img, int x, int y)

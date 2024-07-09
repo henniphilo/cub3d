@@ -5,7 +5,7 @@ static int	is_door_open(t_game *game, t_render_data *render_data, int x, int y)
 	int	i;
 
 	i = 0;
-	while (i <= game->door_count)
+	while (i < game->door_count)
 	{
 		if((int)render_data->do_sprites[i].pos_x == x && (int)render_data->do_sprites[i].pos_y == y)
 			return(render_data->do_sprites[i].open_door);
@@ -19,7 +19,7 @@ static int	is_get_target(t_game *game, t_render_data *render_data, int x, int y)
 	int	i;
 
 	i = 0;
-	while (i <= game->target_count)
+	while (i < game->target_count)
 	{
 		if((int)render_data->ta_sprites[i].pos_x == x && (int)render_data->ta_sprites[i].pos_y == y)
 			return(render_data->ta_sprites[i].got_target);
@@ -56,21 +56,6 @@ static void	sideways(t_game *game, t_map map_data, t_render_data *render_data, i
 		{
 			player->pos_y += side_dir_y * MOVE_SPEED * direction;
 		}
-
-	// if (map_data.map[(int)(player->pos_x + side_dir_x * MOVE_SPEED)][(int)player->pos_y] == '0' ||
-	// 		map_data.map[(int)(player->pos_x + side_dir_x * MOVE_SPEED)][(int)player->pos_y] == game->look.first_dir)
-	// 	player->pos_x += side_dir_x * MOVE_SPEED * direction;
-	// if (map_data.map[(int)(player->pos_x)][(int)(player->pos_y + side_dir_y * MOVE_SPEED)] == '0' ||
-	// 		map_data.map[(int)(player->pos_x)][(int)(player->pos_y + side_dir_y * MOVE_SPEED)] == game->look.first_dir)
-	// 	player->pos_y += side_dir_y * MOVE_SPEED * direction;
-	// if (map_data.map[(int)(player->pos_x + side_dir_x * MOVE_SPEED)][(int)player->pos_y] == 'D' && is_door_open(render_data, (int)(player->pos_x + side_dir_x * MOVE_SPEED), (int)player->pos_y))
-	// 	player->pos_x += side_dir_x * MOVE_SPEED * direction;
-	// if (map_data.map[(int)(player->pos_x)][(int)(player->pos_y + side_dir_y * MOVE_SPEED)] == 'D' && render_data->sprites.open_door == 1)
-	// 	player->pos_y += side_dir_y * MOVE_SPEED * direction;
-	// if (map_data.map[(int)(player->pos_x + side_dir_x * MOVE_SPEED)][(int)player->pos_y] == 'T' && render_data->sprites.got_target == 1)
-	// 	player->pos_x += side_dir_x * MOVE_SPEED * direction;
-	// if (map_data.map[(int)(player->pos_x)][(int)(player->pos_y + side_dir_y * MOVE_SPEED)] == 'T' && render_data->sprites.got_target == 1)
-	// 	player->pos_y += side_dir_y * MOVE_SPEED * direction;
 	printf("New pos_x %.2f, pos_y %.2f\n", player->pos_x, player->pos_y); // Debugging
 }
 
@@ -98,24 +83,6 @@ static void	move(t_game *game, t_map map_data,
 		{
 			player->pos_y += player->dir_y * MOVE_SPEED * direction;
 		}
-	// if (map_data.map[(int)(player->pos_x + player->dir_x
-	// 		* MOVE_SPEED)][(int)player->pos_y] == '0' || map_data.map[(int)(player->pos_x + player->dir_x
-	// 		* MOVE_SPEED)][(int)player->pos_y] == game->look.first_dir)
-	// 	player->pos_x += player->dir_x * MOVE_SPEED
-	// 		* direction;
-	// if (map_data.map[(int)player->pos_x][(int)(player->pos_y
-	// 		+ player->dir_y * MOVE_SPEED)] == '0' || map_data.map[(int)player->pos_x][(int)(player->pos_y
-	// 		+ player->dir_y * MOVE_SPEED)] == game->look.first_dir)
-	// 	player->pos_y += player->dir_y * MOVE_SPEED
-	// 		* direction;
-	// if (map_data.map[(int)(player->pos_x + player->dir_x * MOVE_SPEED)][(int)player->pos_y] == 'D' && render_data->sprites.open_door == 1)
-	// 	player->pos_x += player->dir_x * MOVE_SPEED * direction;
-	// if (map_data.map[(int)player->pos_x][(int)(player->pos_y + player->dir_y * MOVE_SPEED)] == 'D' && render_data->sprites.open_door == 1)
-	// 	player->pos_y += player->dir_y * MOVE_SPEED * direction;
-	// if (map_data.map[(int)(player->pos_x + player->dir_x * MOVE_SPEED)][(int)player->pos_y] == 'T' && render_data->sprites.got_target == 1)
-	// 	player->pos_x += player->dir_x * MOVE_SPEED * direction;
-	// if (map_data.map[(int)player->pos_x][(int)(player->pos_y + player->dir_y * MOVE_SPEED)] == 'T' && render_data->sprites.got_target == 1)
-	// 	player->pos_y += player->dir_y * MOVE_SPEED * direction;
 	printf("New pos_x %.2f, pos_y %.2f\n", player->pos_x, player->pos_y); // Debugging
 }
 
@@ -207,13 +174,13 @@ static void	open_doors(t_game *game_data, t_render_data *render_data, t_map map_
 	player = &game_data->render_data.player;
 	x = (int)(player->pos_x + player->dir_x * MOVE_SPEED);
 	y = (int)(player->pos_y + player->dir_y * MOVE_SPEED);
-	if (render_data->do_sprites->open_door == 0)
+	if (render_data->do_sprites->open_door == 0) //problematisch
 	{
 		i = 0;
 		if ((map_data.map[(int)player->pos_x][y] == 'D') || map_data.map[x][(int)player->pos_y] == 'D')
 		{
 		//	render_data->sprites.open_door = 1;
-			while (i <= game_data->door_count)
+			while (i < game_data->door_count)
 			{
 				if (game_data->render_data.do_sprites[i].pos_x == x && game_data->render_data.do_sprites[i].pos_y == y)
 				{
@@ -221,6 +188,7 @@ static void	open_doors(t_game *game_data, t_render_data *render_data, t_map map_
 					printf("door open\n");
 					break ;
 				}
+				i++;
 			}
 		}
 	}
@@ -239,10 +207,10 @@ static void	get_target(t_game *game_data, t_render_data *render_data, t_map map_
 	if (render_data->ta_sprites->got_target == 0)
 	{
 		i = 0;
-		if ((map_data.map[(int)player->pos_x][y] == 'D') || map_data.map[x][(int)player->pos_y] == 'D')
+		if ((map_data.map[(int)player->pos_x][y] == 'T') || map_data.map[x][(int)player->pos_y] == 'T')
 		{
 		//	render_data->sprites.open_door = 1;
-			while (i <= game_data->door_count)
+			while (i < game_data->door_count)
 			{
 				if (game_data->render_data.ta_sprites[i].pos_x == x && game_data->render_data.do_sprites[i].pos_y == y)
 				{
@@ -250,6 +218,7 @@ static void	get_target(t_game *game_data, t_render_data *render_data, t_map map_
 					printf("got target\n");
 					break ;
 				}
+				i++;
 			}
 		}
 	}

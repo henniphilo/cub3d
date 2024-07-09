@@ -32,6 +32,8 @@ t_game	*init_player(t_game *game)
 	int		x;
 	int		y;
 	char	direction;
+
+	printf("in init player\n");
 	y = 0;
 	while (y < game->map.y_axis)
 	{
@@ -50,7 +52,6 @@ t_game	*init_player(t_game *game)
 		}
 		y++;
 	}
-	init_sprites(game);
 	printf("first dir is %c\n", game->look.first_dir);
 	return (NULL);
 }

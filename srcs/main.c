@@ -42,6 +42,7 @@ int	main(int argc, char **argv)
 	init_data(&game);
 	if (!(init_map__(&game, argv[1]) && init_mlx(&game) && init_player(&game)))
 		return (terminate_game(&game, EXIT_FAILURE));
+	init_sprites(&game);
 	mlx_loop_hook(game.mlx_ptr, loop_hook, &game);
 	mlx_key_hook(game.mlx_ptr, key_hook_, &game);
 	mlx_loop(game.mlx_ptr);
