@@ -36,10 +36,10 @@ static void	sideways(t_game *game, t_map map_data, t_render_data *render_data, i
 
 	player = &render_data->player;
 	side_dir_x = player->dir_y;
-	side_dir_y = player->dir_x;
+	side_dir_y = -player->dir_x;
 
-	if (map_data.map[(int)(player->pos_x + side_dir_x * MOVE_SPEED)][(int)player->pos_y] == '0'
-		|| map_data.map[(int)(player->pos_x + side_dir_x * MOVE_SPEED)][(int)player->pos_y] == game->look.first_dir
+	if (map_data.map[(int)(player->pos_x + side_dir_x * MOVE_SPEED * direction)][(int)player->pos_y] == '0'
+		|| map_data.map[(int)(player->pos_x + side_dir_x * MOVE_SPEED * direction)][(int)player->pos_y] == game->look.first_dir
 		|| (map_data.map[(int)(player->pos_x + side_dir_x * MOVE_SPEED)][(int)player->pos_y] == 'D' &&
 			is_door_open(game, render_data, (int)(player->pos_x + side_dir_x * MOVE_SPEED), (int)player->pos_y))
 		|| (map_data.map[(int)(player->pos_x + side_dir_x * MOVE_SPEED)][(int)player->pos_y] == 'T' &&
@@ -47,8 +47,8 @@ static void	sideways(t_game *game, t_map map_data, t_render_data *render_data, i
 		{
 			player->pos_x += side_dir_x * MOVE_SPEED * direction;
 		}
-	if (map_data.map[(int)(player->pos_x)][(int)(player->pos_y + side_dir_y * MOVE_SPEED)] == '0'
-		|| map_data.map[(int)(player->pos_x)][(int)(player->pos_y + side_dir_y * MOVE_SPEED)] == game->look.first_dir
+	if (map_data.map[(int)(player->pos_x)][(int)(player->pos_y + side_dir_y * MOVE_SPEED * direction)] == '0'
+		|| map_data.map[(int)(player->pos_x)][(int)(player->pos_y + side_dir_y * MOVE_SPEED * direction)] == game->look.first_dir
 		|| (map_data.map[(int)(player->pos_x)][(int)(player->pos_y + side_dir_y * MOVE_SPEED)] == 'D' &&
 			is_door_open(game, render_data, (int)player->pos_x, (int)(player->pos_y + side_dir_y * MOVE_SPEED)))
 		|| (map_data.map[(int)(player->pos_x)][(int)(player->pos_y + side_dir_y * MOVE_SPEED)] == 'T' &&
@@ -80,11 +80,11 @@ static void	move(t_game *game, t_map map_data,
 	t_player	*player;
 
 	player = &render_data->player;
-	if (map_data.map[(int)(player->pos_x + player->dir_x * MOVE_SPEED)][(int)player->pos_y] == '0'
-		|| map_data.map[(int)(player->pos_x + player->dir_x * MOVE_SPEED)][(int)player->pos_y] == game->look.first_dir
+	if (map_data.map[(int)(player->pos_x + player->dir_x * MOVE_SPEED * direction)][(int)player->pos_y] == '0'
+		|| map_data.map[(int)(player->pos_x + player->dir_x * MOVE_SPEED * direction)][(int)player->pos_y] == game->look.first_dir
 		|| (map_data.map[(int)(player->pos_x + player->dir_x * MOVE_SPEED)][(int)player->pos_y] == 'D' &&
-			is_door_open(game, render_data, (int)(player->pos_x + player->dir_x * MOVE_SPEED), (int)player->pos_y))
-		|| (map_data.map[(int)(player->pos_x + player->dir_x * MOVE_SPEED)][(int)player->pos_y] == 'T' &&
+			is_door_open(game, render_data, (int)(player->pos_x + player->dir_x * MOVE_SPEED * direction), (int)player->pos_y))
+		|| (map_data.map[(int)(player->pos_x + player->dir_x * MOVE_SPEED * direction)][(int)player->pos_y] == 'T' &&
 			is_get_target(game, render_data, (int)(player->pos_x + player->dir_x * MOVE_SPEED), (int)player->pos_y)))
 		{
 			player->pos_x += player->dir_x * MOVE_SPEED * direction;
@@ -318,14 +318,7 @@ void	key_hook_(mlx_key_data_t keydata, void *param)
 void	loop_hook(void *param)
 {
 	t_game	*game_data = (t_game *)param;
-	//t_player	*player = &game_data->render_data.player;
 
-	// if ((int)player->prev_pos_x != (int)player->pos_x ||
-	// 	(int)player->prev_pos_y != (int)player->pos_y)
-	// {
-	// 	player->prev_pos_x = player->pos_x;
-	// 	player->prev_pos_y = player->pos_x;
-//	}
 	render_image(game_data);
 	mini_map_to_screen(game_data);
 }
