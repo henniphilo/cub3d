@@ -6,13 +6,41 @@
 /*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 19:07:31 by vketteni          #+#    #+#             */
-/*   Updated: 2024/07/08 16:54:03 by hwiemann         ###   ########.fr       */
+/*   Updated: 2024/07/09 12:35:16 by hwiemann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-void	perform_dda(t_render_data *render_data, t_map *map_data)
+static int	is_door_open(t_game *game, t_render_data *render_data, int x, int y)
+{
+	int	i;
+
+	i = 0;
+	while (i <= game->door_count)
+	{
+		if((int)render_data->do_sprites[i].pos_x == x && (int)render_data->do_sprites[i].pos_y == y)
+			return(render_data->do_sprites[i].open_door);
+		i++;
+	}
+	return (1);
+}
+
+static int	is_get_target(t_game *game, t_render_data *render_data, int x, int y)
+{
+	int	i;
+
+	i = 0;
+	while (i <= game->target_count)
+	{
+		if((int)render_data->ta_sprites[i].pos_x == x && (int)render_data->ta_sprites[i].pos_y == y)
+			return(render_data->ta_sprites[i].got_target);
+		i++;
+	}
+	return (1);
+}
+
+void	perform_dda(t_game *game, t_render_data *render_data, t_map *map_data)
 {
 	t_ray	*ray;
 
@@ -36,15 +64,21 @@ void	perform_dda(t_render_data *render_data, t_map *map_data)
 		}
 		if (map_data->map[ray->grid_pos_x][ray->grid_pos_y] == '1')
 			render_data->flag_hit = 1;
-		if (map_data->map[ray->grid_pos_x][ray->grid_pos_y] == 'D' && render_data->sprites.open_door != 1)
+		else if (map_data->map[ray->grid_pos_x][ray->grid_pos_y] == 'D')
 		{
-			render_data->flag_hit = 1;
-			render_data->flag_hit_door = 1;
+			if (!is_door_open(game, render_data, ray->grid_pos_x, ray->grid_pos_y))
+			{
+				render_data->flag_hit = 1;
+				render_data->flag_hit_door = 1;
+			}
 		}
-		if (map_data->map[ray->grid_pos_x][ray->grid_pos_y] == 'T' && render_data->sprites.got_target != 1)
+		else if (map_data->map[ray->grid_pos_x][ray->grid_pos_y] == 'T')
 		{
-			render_data->flag_hit = 1;
-			render_data->flag_hit_target = 1;
+			if (!is_get_target(game, render_data, ray->grid_pos_x, ray->grid_pos_y))
+			{
+				render_data->flag_hit = 1;
+				render_data->flag_hit_target = 1;
+			}
 		}
 	}
 }
@@ -150,7 +184,7 @@ void	render_image(t_game *game)
 	while (x < img->width)
 	{
 		setup_render_params(x, render_data, img);
-		perform_dda(render_data, &game->map);
+		perform_dda(game, render_data, &game->map);
 		selected_texture = NULL;
 
 		if (render_data->flag_side == 0)
@@ -172,14 +206,16 @@ void	render_image(t_game *game)
 			calculate_wall_distance_and_height(render_data, img, selected_texture);
 			draw_line(x, render_data, img, selected_texture);
 		}
-		if (render_data->flag_hit_target == 1 && render_data->sprites.got_target != 1)
+		if (render_data->flag_hit_target == 1)
 		{
+			if (!is_get_target(game, render_data, render_data->ray.grid_pos_x, render_data->ray.grid_pos_y))
 			selected_texture = game->tex.target;
 			calculate_wall_distance_and_height(render_data, img, selected_texture);
 			draw_line(x, render_data, img, selected_texture);
 		}
-		if (render_data->flag_hit_door == 1 && render_data->sprites.open_door != 1)
+		if (render_data->flag_hit_door == 1)
 		{
+			if (!is_door_open(game, render_data, render_data->ray.grid_pos_x, render_data->ray.grid_pos_y))
 			selected_texture = game->tex.door;
 			calculate_wall_distance_and_height(render_data, img, selected_texture);
 			draw_line(x, render_data, img, selected_texture);
@@ -189,4 +225,3 @@ void	render_image(t_game *game)
 	clean_texture(game);
 }
 
-//void	render_extra()

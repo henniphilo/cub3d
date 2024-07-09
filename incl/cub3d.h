@@ -67,12 +67,9 @@ void	put_pixel_double(mlx_image_t *img, double x, double y, t_color color);
 void	put_pixel(mlx_image_t *img, int x, int y, t_color color);
 void	put_block(mlx_image_t *img, t_color color, int x, int y);
 void	fill_half(mlx_image_t *img, t_color color, int start_y, int end_y);
-void	player_dir(t_game *game, int x, int y);
-void	draw_dir(t_game *game, int x, int y, t_color color);
 void	mini_map_to_screen(t_game *game);
 void	init_position_and_direction(t_game *game);
 void	put_block_double(mlx_image_t *img, t_color color, double x, double y);
-char	get_direction(mlx_key_data_t key, char cur_direct);
 int		get_color_int(const char *color_str);
 t_color	int_to_color(int color);
 t_game	*mini_map_init(t_game *game);
@@ -86,7 +83,9 @@ t_game	*init_map__(t_game *game, char *cub_file);
 t_game	*init_mlx(t_game *game);
 t_game	*init_player(t_game *game);
 t_game	*init_camera(t_game *game);
+void	init_sprites(t_game *game);
 void	init_data(t_game *game);
+void	init_sprite_count(t_game *game);
 
 /* Rendering */
 void	render_image(t_game *game);

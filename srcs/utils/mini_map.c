@@ -12,7 +12,6 @@ t_game	*mini_map_init(t_game *game)
 	c_floor = int_to_color(game->image.c_floor);
 	fill_half(game->img, c_ceiling, 0, WINDOW_HEIGHT / 2);
 	fill_half(game->img, c_floor, WINDOW_HEIGHT / 2, WINDOW_HEIGHT);
-//	mini_map_to_screen(game);
 	mlx_image_to_window(game->mlx_ptr, game->img, 0, 0);
 	return (game);
 }
@@ -38,31 +37,56 @@ void	mini_map_to_screen(t_game *game)
 		game->render_data.player.pos_y);
 }
 
-void	init_player_pos(t_game *game)
+static void	init_target(t_game *game, double x, double y, int id)
+{
+	t_sprite	sprite;
+
+	sprite = game->render_data.ta_sprites[id];
+	sprite.got_target = 0;
+	sprite.pos_x = x;
+	sprite.pos_y = y;
+}
+
+static void	init_door(t_game *game, double x, double y, int id)
+{
+	t_sprite	sprite;
+
+	sprite = game->render_data.do_sprites[id];
+	sprite.open_door = 0;
+	sprite.pos_x = x;
+	sprite.pos_y = y;
+}
+
+void	init_sprites(t_game *game)
 {
 	int		x;
 	int		y;
 
+	game->render_data.ta_sprites = malloc(game->target_count * sizeof(t_sprite));
+	game->render_data.do_sprites = malloc(game->door_count * sizeof(t_sprite));
+	game->target_count = 0;
+	game->door_count = 0;
 	y = 0;
 	while (y < game->map.y_axis)
 	{
 		x = 0;
 		while (x < game->map.x_axis[y])
 		{
-			if (game->map.map[y][x] == 'N' || game->map.map[y][x] == 'E'
-				|| game->map.map[y][x] == 'W' || game->map.map[y][x] == 'S')
+			if (game->map.map[y][x] == 'T')
 			{
-				game->map.player.pos_y = y;
-				game->map.player.pos_x = x;
-				break ;
+				game->target_count += 1;
+				init_target(game, x, y, game->target_count);
+			}
+			else if (game->map.map[y][x] == 'D')
+			{
+				game->door_count += 1;
+				init_door(game, x, y, game->door_count);
 			}
 			x++;
 		}
 		y++;
 	}
 }
-
-// images to images funktion bauen damit die map ueber der anderen liegen kann
 
 void	draw_mini_map(t_game *game, mlx_image_t *img, int x, int y)
 {

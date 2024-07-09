@@ -117,7 +117,8 @@ typedef struct s_render_data
 	t_camera		camera;
 	t_ray			ray;
 	t_raycast		raycast;
-	t_sprite		sprites;
+	t_sprite		*ta_sprites;
+	t_sprite		*do_sprites;
 	int				flag_hit;
 	int				flag_hit_door;
 	int				flag_hit_target;
@@ -133,6 +134,8 @@ typedef struct s_game
 	t_render_data	render_data;
 	t_textures		tex;
 	t_image			image;
+	int				door_count;
+	int				target_count;
 }					t_game;
 
 #endif
