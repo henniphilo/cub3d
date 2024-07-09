@@ -80,6 +80,57 @@ static void	init_count(t_game *game)
 	printf(" %d insgesamt doors \n", game->door_count);
 }
 
+static void	check_sprites(t_game *game_data, t_render_data *render_data, int sprite_type)
+{
+	t_sprite	*sprite_array;
+	int			sprite_count;
+	int			i;
+
+	if (sprite_type == 0) // Checking door sprites
+	{
+		sprite_array = render_data->do_sprites;
+		sprite_count = game_data->door_count;
+	}
+	else // Checking target sprites
+	{
+		sprite_array = render_data->ta_sprites;
+		sprite_count = game_data->target_count;
+	}
+
+	i = 0;
+	while (i < sprite_count)
+	{
+		switch (sprite_type)
+		{
+			case 0: // Example case for doors
+				if (sprite_array[i].open_door)
+				{
+					printf("Door at (%.2f, %.2f) is open\n", sprite_array[i].pos_x, sprite_array[i].pos_y);
+				}
+				else
+				{
+					printf("Door at (%.2f, %.2f) is closed\n", sprite_array[i].pos_x, sprite_array[i].pos_y);
+				}
+				break;
+			case 1: // Example case for targets
+				if (sprite_array[i].got_target)
+				{
+					printf("Target at (%.2f, %.2f) is acquired\n", sprite_array[i].pos_x, sprite_array[i].pos_y);
+				}
+				else
+				{
+					printf("Target at (%.2f, %.2f) is not acquired\n", sprite_array[i].pos_x, sprite_array[i].pos_y);
+				}
+				break;
+			// Add other cases as needed for different sprite types
+			default:
+				printf("Unknown sprite type at (%.2f, %.2f)\n", sprite_array[i].pos_x, sprite_array[i].pos_y);
+				break;
+		}
+		i++;
+	}
+}
+
 void	init_sprites(t_game *game)
 {
 	int		x;
@@ -115,6 +166,9 @@ void	init_sprites(t_game *game)
 		}
 		y++;
 	}
+	t_render_data	*render_data = &game->render_data;
+	check_sprites(game, render_data, 0);
+	check_sprites(game, render_data, 1);
 	// game->render_data.ta_sprites = malloc(game->target_count * sizeof(t_sprite));
 	// game->render_data.do_sprites = malloc(game->door_count * sizeof(t_sprite));
 }
