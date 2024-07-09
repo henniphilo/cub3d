@@ -7,7 +7,6 @@ typedef struct s_sprite
 	double			pos_y;
 	int				open_door;
 	int				got_target;
-	char			direction;
 }	t_sprite;
 
 

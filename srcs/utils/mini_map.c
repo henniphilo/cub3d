@@ -88,62 +88,6 @@ void	draw_mini_map(t_game *game, mlx_image_t *img, int x, int y)
 	put_block(img, color, x, y);
 }
 
-// void	draw_dir(t_game *game, int x, int y, t_color color)
-// {
-// 	//int	i;
-// 	int	dx;
-// 	int	dy;
-// 	int startX = x * SSIZE;
-// 	int startY = y * SSIZE;
-
-// 	//i = 0;
-// 	dx = 0;
-// 	dy = 0;
-// 	printf("in draw dir\n und dir is %c \n", game->map.player.direction);
-// 	printf("x is %d und y %d\n", x, y);
-// 	if (game->map.player.direction == 'N')
-// 		dy = -1;
-// 	else if (game->map.player.direction == 'S')
-// 		dy = 1;
-// 	else if (game->map.player.direction == 'E')
-// 		dx = -1;
-// 	else if (game->map.player.direction == 'W')
-// 		dx = 1;
-// 	while (1)
-// 	{
-// 		startX += dx;
-// 		startY += dy;
-// 		int mapX = startX / SSIZE;
-// 		int mapY = startY / SSIZE;
-
-// 		if (mapX < 0 || mapX >= game->map.x_axis[mapY] || mapY < 0 || mapY >= game->map.y_axis
-// 			|| game->map.map[mapY][mapX] == '1')
-// 			break ;
-// 		put_pixel(game->img, x * SSIZE, y * SSIZE, color);
-// 	}
-// }
-
-
-void	player_dir(t_game *game, int x, int y)
-{
-	if (game->map.map[y][x] == 'N')
-	{
-		game->map.player.direction = 'N';
-	}
-	else if (game->map.map[y][x] == 'E')
-	{
-		game->map.player.direction = 'E';
-	}
-	else if (game->map.map[y][x] == 'S')
-	{
-		game->map.player.direction = 'S';
-	}
-	else if (game->map.map[y][x] == 'W')
-	{
-		game->map.player.direction = 'W';
-	}
-}
-
 void	put_block(mlx_image_t *img, t_color color, int x, int y)
 {
 	int	i;
