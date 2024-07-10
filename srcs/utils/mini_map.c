@@ -153,13 +153,13 @@ void	init_sprites(t_game *game)
 			if (i < game->target_count && game->map.map[y][x] == 'T')
 			{
 				printf("wir haben %d targets \n", i);
-				init_target(game, x, y, i);
+				init_target(game, y, x, i);
 				i += 1;
 			}
 			if (j < game->door_count && game->map.map[y][x] == 'D')
 			{
 				printf("wir haben %d doors \n", j);
-				init_door(game, x, y, j);
+				init_door(game, y, x, j);
 				j += 1;
 			}
 			x++;
@@ -174,15 +174,15 @@ void	init_sprites(t_game *game)
 void	draw_mini_map(t_game *game, mlx_image_t *img, int x, int y)
 {
 	t_color		wall = {0,0,0,255};
-	t_color		target = {255, 0, 0, 255};
+//	t_color		target = {255, 0, 0, 255};
 	t_color		door = {0, 50, 100, 255};
 	t_color		floor = {255, 255, 255, 255};
 	t_color		color;
 
 	if (game->map.map[y][x] == '1')
 		color = wall;
-	else if (game->map.map[y][x] == 'E')
-		color = target;
+	// else if (game->map.map[y][x] == 'E')
+	// 	color = target;
 	else if (game->map.map[y][x] == 'D')
 		color = door;
 	else if (game->map.map[y][x] == 'N' || game->map.map[y][x] == 'E'

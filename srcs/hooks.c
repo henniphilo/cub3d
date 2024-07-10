@@ -21,7 +21,7 @@ static int	is_get_target(t_game *game, t_render_data *render_data, int x, int y)
 	i = 0;
 	while (i < game->target_count)
 	{
-		if((int)render_data->ta_sprites[i].pos_x == y && (int)render_data->ta_sprites[i].pos_y == x)
+		if((int)render_data->ta_sprites[i].pos_x == x && (int)render_data->ta_sprites[i].pos_y == y)
 			return(render_data->ta_sprites[i].got_target);
 		i++;
 	}
@@ -35,8 +35,12 @@ static void	sideways(t_game *game, t_map map_data, t_render_data *render_data, i
 	double		side_dir_y;
 
 	player = &render_data->player;
-	side_dir_x = player->dir_y;
-	side_dir_y = -player->dir_x;
+	side_dir_x = (player->dir_y);
+	side_dir_y = -(player->dir_x);
+	printf("vorher pos %.2f, pos_y %.2f\n", player->pos_x, player->pos_y);
+	printf("side_dir_x %.2f side_dir_y %.2f \n", side_dir_x, side_dir_y);
+	printf("player dir_x %.2f player_dir_y %.2f \n", player->dir_x, (player->dir_y));
+	printf("direction %d \n", direction);
 
 	if (map_data.map[(int)(player->pos_x + side_dir_x * MOVE_SPEED * direction)][(int)player->pos_y] == '0'
 		|| map_data.map[(int)(player->pos_x + side_dir_x * MOVE_SPEED * direction)][(int)player->pos_y] == game->look.first_dir
@@ -54,7 +58,7 @@ static void	sideways(t_game *game, t_map map_data, t_render_data *render_data, i
 		|| (map_data.map[(int)(player->pos_x)][(int)(player->pos_y + side_dir_y * MOVE_SPEED)] == 'T' &&
 			is_get_target(game, render_data, (int)player->pos_x, (int)(player->pos_y + side_dir_y * MOVE_SPEED))))
 		{
-			player->pos_y += side_dir_y * MOVE_SPEED * direction;
+			player->pos_y += side_dir_y * MOVE_SPEED * (direction);
 		}
 	printf("New pos_x %.2f, pos_y %.2f\n", player->pos_x, player->pos_y); // Debugging
 }
@@ -201,13 +205,14 @@ static void	get_target(t_game *game_data, t_map map_data)
 	player = &game_data->render_data.player;
 	x = (int)(player->pos_x + player->dir_x * MOVE_SPEED);
 	y = (int)(player->pos_y + player->dir_y * MOVE_SPEED);
+	printf("target x: %d y: %d \n", x, y);
 	i = 0;
 	if ((map_data.map[(int)player->pos_x][y] == 'T') || map_data.map[x][(int)player->pos_y] == 'T')
 	{
 	//	render_data->sprites.open_door = 1;
 		while (i < game_data->target_count)
 		{
-			if (game_data->render_data.ta_sprites[i].pos_x == y && game_data->render_data.do_sprites[i].pos_y == x)
+			if (game_data->render_data.ta_sprites[i].pos_x == x && game_data->render_data.ta_sprites[i].pos_y == y)
 			{
 				game_data->render_data.ta_sprites[i].got_target = 1;
 				printf("got target\n");

@@ -27,7 +27,7 @@ typedef struct s_map
 	int				width;
 	int				y_axis;
 	int				*x_axis;
-	t_sprite		player;
+//	t_sprite		player;
 }					t_map;
 
 typedef struct s_look
