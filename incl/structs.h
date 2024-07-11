@@ -40,6 +40,8 @@ typedef struct s_look
 	char		*ceiling;
 	char		*door;
 	char		*target;
+	char		*bubbles;
+	char		*sand;
 	char		first_dir;
 }					t_look;
 
@@ -52,18 +54,15 @@ typedef struct s_textures
 	mlx_texture_t	*door;
 	mlx_texture_t	*player;
 	mlx_texture_t	*target;
+	mlx_texture_t	*bubbles;
+	mlx_texture_t	*sand;
 }					t_textures;
 
 
 typedef struct s_image
 {
-	mlx_image_t	*NO;
-	mlx_image_t	*SO;
-	mlx_image_t	*WE;
-	mlx_image_t	*EA;
-	mlx_image_t	*door;
-	mlx_image_t	*player;
-	mlx_image_t	*target;
+	mlx_image_t	*bubbles;
+	mlx_image_t	*sand;
 	int			c_floor;
 	int			c_ceiling;
 }					t_image;

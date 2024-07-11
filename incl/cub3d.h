@@ -14,6 +14,7 @@
 # include <stdlib.h> // getenv
 # include <string.h>
 # include <unistd.h> // write, access, fork, execve, dup2, pipe, etc.
+# include <time.h>
 
 # define MAP_WIDTH 10
 # define MAP_HEIGHT 10
@@ -66,7 +67,8 @@ void	key_hook(mlx_key_data_t key, void *ptr);
 void	put_pixel_double(mlx_image_t *img, double x, double y, t_color color);
 void	put_pixel(mlx_image_t *img, int x, int y, t_color color);
 void	put_block(mlx_image_t *img, t_color color, int x, int y);
-void	fill_half(mlx_image_t *img, t_color color, int start_y, int end_y);
+void	fill_half(t_game *game, t_color color, int start_y, int end_y);
+void	add_look(t_game *game, mlx_image_t *img, int start_y, int end_y);
 void	mini_map_to_screen(t_game *game);
 void	init_position_and_direction(t_game *game);
 void	put_block_double(mlx_image_t *img, t_color color, double x, double y);

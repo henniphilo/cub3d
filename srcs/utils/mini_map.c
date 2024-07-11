@@ -10,8 +10,8 @@ t_game	*mini_map_init(t_game *game)
 	game->image.c_floor = get_color_int(game->look.floor);
 	c_ceiling = int_to_color(game->image.c_ceiling);
 	c_floor = int_to_color(game->image.c_floor);
-	fill_half(game->img, c_ceiling, 0, WINDOW_HEIGHT / 2);
-	fill_half(game->img, c_floor, WINDOW_HEIGHT / 2, WINDOW_HEIGHT);
+	fill_half(game, c_ceiling, 0, WINDOW_HEIGHT / 2);
+	fill_half(game, c_floor, WINDOW_HEIGHT / 2, WINDOW_HEIGHT);
 	mlx_image_to_window(game->mlx_ptr, game->img, 0, 0);
 	return (game);
 }
@@ -236,7 +236,17 @@ void	put_block_double(mlx_image_t *img, t_color color, double x, double y)
 	}
 }
 
-void	fill_half(mlx_image_t *img, t_color color, int start_y, int end_y)
+static void	init_bg_img(t_game *game)
+{
+	game->tex.bubbles = mlx_load_png(game->look.bubbles);
+	game->tex.sand = mlx_load_png(game->look.sand);
+	game->image.bubbles = mlx_texture_to_image(game->mlx_ptr, game->tex.bubbles);
+	game->image.sand = mlx_texture_to_image(game->mlx_ptr, game->tex.sand);
+	mlx_delete_texture(game->tex.bubbles);
+	mlx_delete_texture(game->tex.sand);
+}
+
+void	fill_half(t_game *game, t_color color, int start_y, int end_y)
 {
 	int	x;
 	int	y;
@@ -245,11 +255,37 @@ void	fill_half(mlx_image_t *img, t_color color, int start_y, int end_y)
 	while (y < end_y)
 	{
 		x = 0;
-		while (x < (int)img->width)
+		while (x < (int)game->img->width)
 		{
-			put_pixel(img, x, y, color);
+			put_pixel(game->img, x, y, color);
 			x++;
 		}
 		y++;
+	}
+	init_bg_img(game);
+	add_look(game, game->image.bubbles, start_y, end_y);
+}
+
+static int	random_int(int min, int max)
+{
+	return (min + rand() % (max - min + 1));
+}
+
+
+void	add_look(t_game *game, mlx_image_t *img, int start_y, int end_y)
+{
+	int	rand_x;
+	int	rand_y;
+	int	i;
+	int	num_pic;
+
+	i = 0;
+	num_pic = random_int(2, 10);
+	while (i < num_pic)
+	{
+		rand_x = random_int(0, game->img->width);
+		rand_y = random_int(start_y, end_y - game->img->height);
+		mlx_image_to_window(game->mlx_ptr, img, rand_x, rand_y);
+		i++;
 	}
 }

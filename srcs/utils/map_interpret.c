@@ -13,7 +13,7 @@ void	get_textures(t_game *game)
 	game->tex.door = mlx_load_png(game->look.door);
 	game->tex.target = mlx_load_png(game->look.target);
 	if (!(game->tex.NO) || !(game->tex.SO) || !(game->tex.WE)
-		|| !(game->tex.EA) || !(game->tex.door) || !(game->tex.target))
+		|| !(game->tex.EA) || !(game->tex.door) || !(game->tex.target) || !(game->tex.bubbles))
 	{
 		printf("Error texture load\n");
 		exit(1);
@@ -44,6 +44,7 @@ void	clean_texture(t_game *game)
 	mlx_delete_texture(game->tex.EA);
 	mlx_delete_texture(game->tex.door);
 	mlx_delete_texture(game->tex.target);
+
 	// mlx_delete_texture(game->tex.wall);
 	// mlx_delete_texture(game->tex.player);
 	// mlx_delete_texture(game->tex.target);
@@ -51,12 +52,7 @@ void	clean_texture(t_game *game)
 
 void	clean_img(t_game *game)
 {
-	mlx_delete_image(game->mlx_ptr, game->image.NO);
-	mlx_delete_image(game->mlx_ptr, game->image.SO);
-	mlx_delete_image(game->mlx_ptr, game->image.EA);
-	mlx_delete_image(game->mlx_ptr, game->image.WE);
-	mlx_delete_image(game->mlx_ptr, game->image.door);
-	mlx_delete_image(game->mlx_ptr, game->image.player);
-	mlx_delete_image(game->mlx_ptr, game->image.target);
+	//mlx_delete_image(game->mlx_ptr, game->image.sand);
+	mlx_delete_image(game->mlx_ptr, game->image.bubbles);
 }
 

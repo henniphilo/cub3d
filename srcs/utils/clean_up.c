@@ -34,6 +34,8 @@ void	free_data(t_game *game)
 	free(game->look.SO);
 	free(game->look.WE);
 	free(game->look.EA);
+	free(game->look.bubbles);
+	free(game->look.target);
 	free(game->look.door);
 	free(game->look.ceiling);
 	free(game->look.floor);
