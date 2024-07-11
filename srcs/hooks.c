@@ -113,6 +113,39 @@ static void	rotate(t_render_data *render_data, int direction)
 		+ camera->plane_y * cos(ROT_SPEED * direction);
 }
 
+static void	close_doors(t_game *game_data, t_map map_data)
+{
+	t_player	*player;
+	int			x;
+	int			y;
+	int			i;
+
+	player = &game_data->render_data.player;
+	x = (int)(player->pos_x + player->dir_x * MOVE_SPEED);
+	y = (int)(player->pos_y + player->dir_y * MOVE_SPEED);
+	i = 0;
+	// printf("Player position: pos_x = %.2f, pos_y = %.2f\n", player->pos_x, player->pos_y);
+	// printf("Checking positions: [%d][%d+1], [%d+1][%d], [%d][%d-1], [%d-1][%d]\n", (int)player->pos_x, y, x, (int)player->pos_y, (int)player->pos_x, y, x, (int)player->pos_y);
+	if ((x >= 0 && x < map_data.width) && (y >= 0 && y < map_data.height))
+	{
+		if ((map_data.map[(int)player->pos_x + 1][y ] == 'D') || map_data.map[x ][(int)player->pos_y + 1] == 'D'
+			|| (map_data.map[(int)player->pos_x - 1][y ] == 'D') || map_data.map[x][(int)player->pos_y  - 1] == 'D')
+		{
+			while (i < game_data->door_count)
+			{
+				// if (game_data->render_data.do_sprites[i].open_door == 1)
+				// {
+					game_data->render_data.do_sprites[i].open_door = 0;
+					printf("door closed\n");
+				//	break ;
+				// }
+				i++;
+			}
+		}
+	}
+	else
+		printf("Position out of bounds: x = %d, y = %d\n", x, y);
+}
 
 static void	player_n1_sideways(t_game *game, t_map map_data,
 		t_render_data *render_data, int direction)
@@ -141,6 +174,7 @@ static void	player_n1_sideways(t_game *game, t_map map_data,
 		|| (map_data.map[(int)(player->pos_x)][(int)(player->pos_y + side_dir_y * MOVE_SPEED)] == 'T' &&
 			is_get_target(game, render_data, (int)player->pos_x, (int)(player->pos_y + side_dir_y * MOVE_SPEED))))
 		put_block_double(game->img, c_player, player->pos_y, player->pos_x);
+	close_doors(game, map_data);
 }
 
 static void	player_n1_move(t_game *game, t_map map_data,
@@ -166,6 +200,7 @@ static void	player_n1_move(t_game *game, t_map map_data,
 		|| (map_data.map[(int)player->pos_x][(int)(player->pos_y + player->dir_y * MOVE_SPEED)] == 'T' &&
 			is_get_target(game, render_data, (int)player->pos_x, (int)(player->pos_y + player->dir_y * MOVE_SPEED))))))
 		put_block_double(game->img, c_player, player->pos_y, player->pos_x);
+	close_doors(game, map_data);
 }
 
 static void	open_doors(t_game *game_data, t_map map_data)
@@ -181,7 +216,6 @@ static void	open_doors(t_game *game_data, t_map map_data)
 	i = 0;
 	if ((map_data.map[(int)player->pos_x][y] == 'D') || map_data.map[x][(int)player->pos_y] == 'D')
 	{
-	//	render_data->sprites.open_door = 1;
 		while (i < game_data->door_count)
 		{
 			if (game_data->render_data.do_sprites[i].pos_x == x && game_data->render_data.do_sprites[i].pos_y == y)
@@ -233,6 +267,14 @@ void	key_hook_(mlx_key_data_t keydata, void *param)
 	game_data = (t_game *)param;
 	render_data = &game_data->render_data;
 	map_data = game_data->map;
+	if (keydata.action == MLX_PRESS)
+	{
+		if (keydata.key == MLX_KEY_ESCAPE)
+		{
+			free_data(game_data);
+			mlx_close_window(game_data->mlx_ptr);
+		}
+	}
 	if (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT || keydata.action == MLX_RELEASE)
 	{
 		if (keydata.key == MLX_KEY_W)
@@ -264,11 +306,6 @@ void	key_hook_(mlx_key_data_t keydata, void *param)
 		{
 			rotate(render_data, -1);
 //			ft_putendl_fd("Right", STDERR_FILENO);
-		}
-		if (keydata.key == MLX_KEY_ESCAPE)
-		{
-			free_data(game_data);
-			mlx_close_window(game_data->mlx_ptr);
 		}
 		if (keydata.key == MLX_KEY_SPACE)
 		{

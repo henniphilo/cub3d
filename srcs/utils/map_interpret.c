@@ -13,7 +13,7 @@ void	get_textures(t_game *game)
 	game->tex.door = mlx_load_png(game->look.door);
 	game->tex.target = mlx_load_png(game->look.target);
 	if (!(game->tex.NO) || !(game->tex.SO) || !(game->tex.WE)
-		|| !(game->tex.EA) || !(game->tex.door) || !(game->tex.target) || !(game->tex.bubbles))
+		|| !(game->tex.EA) || !(game->tex.door) || !(game->tex.target))
 	{
 		printf("Error texture load\n");
 		exit(1);
