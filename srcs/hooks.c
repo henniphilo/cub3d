@@ -1,6 +1,6 @@
 #include "../incl/cub3d.h"
 
-static int	is_door_open(t_game *game, t_render_data *render_data, int x, int y)
+int	is_door_open(t_game *game, t_render_data *render_data, int x, int y)
 {
 	int	i;
 
@@ -14,7 +14,7 @@ static int	is_door_open(t_game *game, t_render_data *render_data, int x, int y)
 	return (0);
 }
 
-static int	is_get_target(t_game *game, t_render_data *render_data, int x, int y)
+int	is_get_target(t_game *game, t_render_data *render_data, int x, int y)
 {
 	int	i;
 

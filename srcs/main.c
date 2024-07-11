@@ -47,7 +47,6 @@ int	main(int argc, char **argv)
 	mlx_loop_hook(game.mlx_ptr, loop_hook, &game);
 	mlx_key_hook(game.mlx_ptr, key_hook_, &game);
 	mlx_loop(game.mlx_ptr);
-	//terminate_game(&game, 0);
 	clean_img(&game);
 	mlx_delete_image(game.mlx_ptr, game.img);
 	mlx_terminate(game.mlx_ptr);

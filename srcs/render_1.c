@@ -6,39 +6,39 @@
 /*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 19:07:31 by vketteni          #+#    #+#             */
-/*   Updated: 2024/07/09 16:05:38 by hwiemann         ###   ########.fr       */
+/*   Updated: 2024/07/11 12:21:43 by hwiemann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
-static int	is_door_open(t_game *game, t_render_data *render_data, int x, int y)
-{
-	int	i;
+// static int	is_door_open(t_game *game, t_render_data *render_data, int x, int y)
+// {
+// 	int	i;
 
-	i = 0;
-	while (i < game->door_count)
-	{
-		if((int)render_data->do_sprites[i].pos_x == x && (int)render_data->do_sprites[i].pos_y == y)
-			return(render_data->do_sprites[i].open_door);
-		i++;
-	}
-	return (0);
-}
+// 	i = 0;
+// 	while (i < game->door_count)
+// 	{
+// 		if((int)render_data->do_sprites[i].pos_x == x && (int)render_data->do_sprites[i].pos_y == y)
+// 			return(render_data->do_sprites[i].open_door);
+// 		i++;
+// 	}
+// 	return (0);
+// }
 
-static int	is_get_target(t_game *game, t_render_data *render_data, int x, int y)
-{
-	int	i;
+// static int	is_get_target(t_game *game, t_render_data *render_data, int x, int y)
+// {
+// 	int	i;
 
-	i = 0;
-	while (i < game->target_count)
-	{
-		if((int)render_data->ta_sprites[i].pos_x == x && (int)render_data->ta_sprites[i].pos_y == y)
-			return(render_data->ta_sprites[i].got_target);
-		i++;
-	}
-	return (0);
-}
+// 	i = 0;
+// 	while (i < game->target_count)
+// 	{
+// 		if((int)render_data->ta_sprites[i].pos_x == x && (int)render_data->ta_sprites[i].pos_y == y)
+// 			return(render_data->ta_sprites[i].got_target);
+// 		i++;
+// 	}
+// 	return (0);
+// }
 
 void	perform_dda(t_game *game, t_render_data *render_data, t_map *map_data)
 {

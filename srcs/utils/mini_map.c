@@ -174,17 +174,27 @@ void	init_sprites(t_game *game)
 void	draw_mini_map(t_game *game, mlx_image_t *img, int x, int y)
 {
 	t_color		wall = {0,0,0,255};
-//	t_color		target = {255, 0, 0, 255};
+	t_color		target = {150, 150, 0, 255};
 	t_color		door = {0, 50, 100, 255};
 	t_color		floor = {255, 255, 255, 255};
 	t_color		color;
 
 	if (game->map.map[y][x] == '1')
 		color = wall;
-	// else if (game->map.map[y][x] == 'E')
-	// 	color = target;
+	else if (game->map.map[y][x] == 'T')
+	{
+		if (is_get_target(game, &game->render_data, x, y) != 1)
+			color = target;
+		else
+			color = floor;
+	}
 	else if (game->map.map[y][x] == 'D')
-		color = door;
+	{
+		if (is_door_open(game, &game->render_data, x, y) != 1)
+			color = door;
+		else
+			color = floor;
+	}
 	else if (game->map.map[y][x] == 'N' || game->map.map[y][x] == 'E'
 		|| game->map.map[y][x] == 'W' || game->map.map[y][x] == 'S')
 		color = floor;
@@ -239,11 +249,11 @@ void	put_block_double(mlx_image_t *img, t_color color, double x, double y)
 static void	init_bg_img(t_game *game)
 {
 	game->tex.bubbles = mlx_load_png(game->look.bubbles);
-	game->tex.sand = mlx_load_png(game->look.sand);
+	//game->tex.sand = mlx_load_png(game->look.sand);
 	game->image.bubbles = mlx_texture_to_image(game->mlx_ptr, game->tex.bubbles);
-	game->image.sand = mlx_texture_to_image(game->mlx_ptr, game->tex.sand);
+	//game->image.sand = mlx_texture_to_image(game->mlx_ptr, game->tex.sand);
 	mlx_delete_texture(game->tex.bubbles);
-	mlx_delete_texture(game->tex.sand);
+	//mlx_delete_texture(game->tex.sand);
 }
 
 void	fill_half(t_game *game, t_color color, int start_y, int end_y)
