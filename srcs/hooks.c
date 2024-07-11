@@ -241,6 +241,7 @@ static void	open_doors(t_game *game_data, t_map map_data)
 			i++;
 		}
 	}
+		printf("hmm the door ain't open yet. Try again!\n");
 }
 
 static void	get_target(t_game *game_data, t_map map_data)
@@ -271,6 +272,7 @@ static void	get_target(t_game *game_data, t_map map_data)
 			i++;
 		}
 	}
+	printf("oops you didn't get the fish. Try again!\n");
 }
 
 static void	get_air(t_game *game_data, t_map map_data)
@@ -287,7 +289,6 @@ static void	get_air(t_game *game_data, t_map map_data)
 	i = 0;
 	if ((map_data.map[(int)player->pos_x][y] == 'L') || map_data.map[x][(int)player->pos_y] == 'L')
 	{
-	//	render_data->sprites.open_door = 1;
 		while (i < game_data->air_count)
 		{
 			if (game_data->render_data.air_sprites[i].pos_x == x && game_data->render_data.air_sprites[i].pos_y == y)
@@ -296,11 +297,13 @@ static void	get_air(t_game *game_data, t_map map_data)
 				game_data->air_caught += 1;
 			//	add_look(game_data, game_data->image.bubbles, WINDOW_HEIGHT / 2, WINDOW_HEIGHT);
 				printf("got air\n");
+				print_got_air(game_data);
 				break ;
 			}
 			i++;
 		}
 	}
+	printf("Hurry! You need air!\n");
 }
 
 void	scroll_hook(double xdelta, double ydelta, void *param)
@@ -391,7 +394,17 @@ void	loop_hook(void *param)
 {
 	t_game	*game_data = (t_game *)param;
 
+	if (game_data->air_caught == 0)
+		mlx_put_string(game_data->mlx_ptr, " You need air! Find the tank!", 100, 0);
+	else
+	{
+		print_got_air(game_data);
+	}
 	render_image(game_data);
 	mini_map_to_screen(game_data);
-	//print_count(game_data);
+	if (game_data->air_caught != 0)
+	{
+		add_look(game_data, game_data->image.bubbles, 0, WINDOW_HEIGHT / 2);
+		add_look(game_data, game_data->image.bubbles, WINDOW_HEIGHT / 2, WINDOW_HEIGHT);
+	}
 }

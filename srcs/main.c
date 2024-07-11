@@ -46,7 +46,9 @@ int	main(int argc, char **argv)
 	if (!(init_map__(&game, argv[1]) && init_mlx(&game) && init_player(&game)))
 		return (terminate_game(&game, EXIT_FAILURE));
 	init_sprites(&game);
+	//print_got_air(&game);
 	mlx_loop_hook(game.mlx_ptr, loop_hook, &game);
+	mlx_put_string(game.mlx_ptr, "Hurry! You need air!\n", 100, 0);
 	mlx_key_hook(game.mlx_ptr, key_hook_, &game);
 	mlx_scroll_hook(game.mlx_ptr, scroll_hook, &game);
 	mlx_loop(game.mlx_ptr);

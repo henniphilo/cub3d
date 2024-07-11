@@ -5,21 +5,21 @@ t_game	*mini_map_init(t_game *game)
 
 	t_color		c_ceiling;
 	t_color		c_floor;
-	int			i;
+	//int			i;
 
-	i = 0;
+	//i = 0;
 	game->image.c_ceiling = get_color_int(game->look.ceiling);
 	game->image.c_floor = get_color_int(game->look.floor);
 	c_ceiling = int_to_color(game->image.c_ceiling);
 	c_floor = int_to_color(game->image.c_floor);
 	fill_half(game, c_ceiling, 0, WINDOW_HEIGHT / 2);
 	fill_half(game, c_floor, WINDOW_HEIGHT / 2, WINDOW_HEIGHT);
-	while (i < game->air_caught)
-	{
-		add_look(game, game->image.bubbles, 0, WINDOW_HEIGHT / 2);
-		add_look(game, game->image.bubbles, WINDOW_HEIGHT / 2, WINDOW_HEIGHT);
-		i++;
-	}
+	//mlx_put_string(game->mlx_ptr, "You need air! Find the tank!", 100, 0);
+	// if (game->air_caught != 0)
+	// {
+	// 	add_look(game, game->image.bubbles, 0, WINDOW_HEIGHT / 2);
+	// 	add_look(game, game->image.bubbles, WINDOW_HEIGHT / 2, WINDOW_HEIGHT);
+	// }
 	mlx_image_to_window(game->mlx_ptr, game->img, 0, 0);
 	return (game);
 }
@@ -43,7 +43,7 @@ void	mini_map_to_screen(t_game *game)
 	}
 	put_block_double(game->img, c_player, game->render_data.player.pos_y,
 		game->render_data.player.pos_x);
-	print_count(game);
+	//print_got_air(game);
 }
 
 static void	init_target(t_game *game, double x, double y, int id)
@@ -319,29 +319,32 @@ void	add_look(t_game *game, mlx_image_t *img, int start_y, int end_y)
 {
 	int	rand_x;
 	int	rand_y;
-	int	i;
-	int	num_pic;
+	// int	i;
+	// int	num_pic;
 
-	i = 0;
-	num_pic = random_int(40, 100);
-//	printf("num pic %d \n", num_pic);
-	while (i < num_pic)
-	{
+	// i = 0;
+	// num_pic = random_int(0, 3);
+	// //printf("num pic %d \n", num_pic);
+	// while (i < num_pic)
+	// {
+		usleep(5000);
 		rand_x = random_int(0, game->img->width);
 		rand_y = random_int(start_y, end_y - game->img->height);
 		mlx_image_to_window(game->mlx_ptr, img, rand_x, rand_y);
-		usleep(1000);
-		i++;
-	}
+		usleep(5000);
+	//	i++;
+	//}
 }
 
-void	print_count(t_game *game)
+void	print_got_air(t_game *game)
 {
 	// char	*fish_count;
-
+//	mlx_image_t *img;
 	// fish_count = ft_itoa(game->air_caught);
-	mlx_image_to_window(game->mlx_ptr, game->img, 0, 0);
-	mlx_put_string(game->mlx_ptr, "You got air! Well done! Now catch some fish!", 100, 0);
+	// img = mlx_new_image(game->mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
+	// mlx_image_to_window(game->mlx_ptr, img, 0, 0);
+	usleep(100);
+	mlx_put_string(game->mlx_ptr, " You got air! Well done! Now catch some fish\n", 100, 0);
 	//mlx_put_string(game->mlx_ptr, fish_count, 5, 5);
 	//free(fish_count);
 //	ft_printf("got %d of air %d\n", game->air_caught, game->air_count);
