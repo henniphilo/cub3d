@@ -1,6 +1,6 @@
 #include "../incl/cub3d.h"
 
-t_game	*init_mlx(t_game *game)
+t_game	*get_mlx(t_game *game)
 {
 	mlx_t		*mlx;
 	mlx_image_t	*img;
@@ -31,8 +31,12 @@ void	init_data(t_game *game)
 {
 	game->target_count = 0;
 	game->door_count = 0;
+	game->img = NULL;
+	game->mlx_ptr = NULL;
+	game->map_data = init_map_data();
+	game->render_data = init_render_data();
+	game->visual_res = init_visuals();
 }
-
 
 int	main(int argc, char **argv)
 {
@@ -40,15 +44,15 @@ int	main(int argc, char **argv)
 
 	args_check(argc, argv);
 	init_data(&game);
-	if (!(init_map__(&game, argv[1]) && init_mlx(&game) && init_player(&game)))
-		return (terminate_game(&game, EXIT_FAILURE));
+	open_map(&game, argv[1]);
+	get_mlx(&game);
+	get_player(&game);
 	init_sprites(&game);
 	mlx_loop_hook(game.mlx_ptr, loop_hook, &game);
 	mlx_key_hook(game.mlx_ptr, key_hook_, &game);
 	mlx_loop(game.mlx_ptr);
 	//terminate_game(&game, 0);
-	mlx_delete_image(game.mlx_ptr, game.img);
-	mlx_terminate(game.mlx_ptr);
+	clean_texture(&game);
 	return (EXIT_SUCCESS);
 }
 

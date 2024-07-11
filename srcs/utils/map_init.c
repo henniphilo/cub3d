@@ -1,68 +1,58 @@
 #include "../../incl/cub3d.h"
 
-void	cub_input(t_game *game)
+void	parse_paths(int	map_height, t_texpaths *paths, char **input_table)
 {
 	int	y;
 
 	y = 0;
-	while (y < game->map.height)
+	while (y < map_height)
 	{
-		if (ft_strncmp(game->map.cub[y], "NO ", 3) == 0)
+		if (ft_strncmp(input_table[y], "NO ", 3) == 0)
 		{
-			game->look.NO = get_from_cub(game->map.cub[y], "NO");
+			paths->NO = get_path(input_table[y], "NO");
 		}
-		if (ft_strncmp(game->map.cub[y], "SO ", 3) == 0)
+		if (ft_strncmp(input_table[y], "SO ", 3) == 0)
 		{
-			game->look.SO = get_from_cub(game->map.cub[y], "SO");
+			paths->SO = get_path(input_table[y], "SO");
 		}
-		if (ft_strncmp(game->map.cub[y], "WE ", 3) == 0)
+		if (ft_strncmp(input_table[y], "WE ", 3) == 0)
 		{
-			game->look.WE = get_from_cub(game->map.cub[y], "WE");
+			paths->WE = get_path(input_table[y], "WE");
 		}
-		if (ft_strncmp(game->map.cub[y], "EA ", 3) == 0)
+		if (ft_strncmp(input_table[y], "EA ", 3) == 0)
 		{
-			game->look.EA = get_from_cub(game->map.cub[y], "EA");
+			paths->EA = get_path(input_table[y], "EA");
 		}
-		if (ft_strncmp(game->map.cub[y], "DOOR ", 5) == 0)
+		if (ft_strncmp(input_table[y], "DOOR ", 5) == 0)
 		{
-			game->look.door = get_from_cub(game->map.cub[y], "DOOR");
+			paths->door = get_path(input_table[y], "DOOR");
 		}
-		if (ft_strncmp(game->map.cub[y], "TARGET ", 7) == 0)
+		if (ft_strncmp(input_table[y], "TARGET ", 7) == 0)
 		{
-			game->look.target = get_from_cub(game->map.cub[y], "TARGET");
+			paths->target = get_path(input_table[y], "TARGET");
+		}
+		if (ft_strncmp(input_table[y], "F ", 2) == 0)
+		{
+			paths->floor = get_path(input_table[y], "F");
+		}
+		if (ft_strncmp(input_table[y], "C ", 2) == 0)
+		{
+			paths->ceiling = get_path(input_table[y], "C");
 		}
 		y++;
 	}
-	printf("NO: %s\n", game->look.NO);
-	printf("SO: %s\n", game->look.SO);
-	printf("WE: %s\n", game->look.WE);
-	printf("EA: %s\n", game->look.EA);
-	printf("Door: %s\n", game->look.door);
-	printf("Target: %s\n", game->look.target);
+	printf("NO: %s\n", paths->NO);
+	printf("SO: %s\n", paths->SO);
+	printf("WE: %s\n", paths->WE);
+	printf("EA: %s\n", paths->EA);
+	printf("Door: %s\n", paths->door);
+	printf("Target: %s\n", paths->target);
+	printf("floor: %s\n", paths->floor);
+	printf("ceiling: %s\n", paths->ceiling);
 }
 
-void	which_color(t_game *game)
-{
-	int	y;
 
-	y = 0;
-	while (y < game->map.height)
-	{
-		if (ft_strncmp(game->map.cub[y], "F ", 2) == 0)
-		{
-			game->look.floor = get_from_cub(game->map.cub[y], "F");
-		}
-		if (ft_strncmp(game->map.cub[y], "C ", 2) == 0)
-		{
-			game->look.ceiling = get_from_cub(game->map.cub[y], "C");
-		}
-		y++;
-	}
-	printf("floor: %s\n", game->look.floor);
-	printf("ceiling: %s\n", game->look.ceiling);
-}
-
-char	*get_from_cub(char *line, const char *direction)
+char	*get_path(char *line, const char *direction)
 {
 	char	*path;
 	char	*path_start;
@@ -81,7 +71,7 @@ char	*get_from_cub(char *line, const char *direction)
 		while (*path_end != ' ' && *path_end != '\n' && *path_end != '\0')
 			path_end++;
 		len = path_end - path_start;
-		path = (char *)malloc(len + 1);
+		path = (char *)ft_calloc(len + 1, sizeof(char));
 		if (!path)
 			return (NULL);
 		ft_strncpy(path, path_start, len);
@@ -89,13 +79,4 @@ char	*get_from_cub(char *line, const char *direction)
 		return (path);
 	}
 	return (NULL);
-}
-
-t_game	*init_map__(t_game *game, char *cub_file)
-{
-	open_map(game, cub_file);
-
-	if (!game->map.map)
-		return (NULL);
-	return (game);
 }

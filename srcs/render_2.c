@@ -40,6 +40,6 @@ void    setup_render_params(uint32_t  x, t_render_data *render_data, mlx_image_t
     ray->grid_pos_y = (int)player->pos_y;
     ray->delta_dist_x = fabs(1 / ray->ray_dir_x);
     ray->delta_dist_y = fabs(1 / ray->ray_dir_y);
-    render_data->flag_hit = 0;
+    render_data->flag_hit_wall = 0;
     calculate_initial_side_distances(render_data);
 }

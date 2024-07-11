@@ -12,6 +12,17 @@
 		"atomic": "c",
 		"cstdint": "c",
 		"random": "c",
-		"*.tcc": "c"
+		"*.tcc": "c",
+		"cub3d.h": "c",
+		"get_next_line.h": "c",
+		"mlx42.h": "c",
+		"structs.h": "c",
+		"errno.h": "c",
+		"stddef.h": "c",
+		"stdio.h": "c",
+		"math.h": "c",
+		"unistd.h": "c",
+		"string.h": "c",
+		"stdlib.h": "c"
 	}
 }

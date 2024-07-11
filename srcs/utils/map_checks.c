@@ -1,18 +1,22 @@
 #include "../../incl/cub3d.h"
 
-int	map_input_check(t_game *game)
+int	parse_input_table(t_game *game)
 {
-	cub_input(game);
-	which_color(game);
-	actual_map(game);
-	free_cub(game);
-	if(!game->look.EA || !game->look.NO || !game->look.SO
-		|| !game->look.WE || !game->look.ceiling || !game->look.floor)
+	t_texpaths paths;
+
+	parse_paths(game->map_data.height, &paths, game->map_data.input_table);
+	if(!paths.EA || !paths.NO || !paths.SO
+		|| !paths.WE || !paths.ceiling)
 	{
-		free_data(game);
+		exit(1); // ? TODO: clean exit strategy
 		return (1);
 	}
-	if ((walls_check(game)) == 1)
+
+	load_visuals(game, &game->visual_res, &paths);
+	create_map(&game->map_data);
+	free_input_table(game->map_data.height, game->map_data.input_table);
+
+	if ((walls_check(&game->map_data)) == 1)
 	{
 		perror("Error walls fail\n");
 		exit(1);

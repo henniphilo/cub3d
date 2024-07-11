@@ -19,8 +19,8 @@ static int	is_door_open(t_game *game, t_render_data *render_data, int x, int y)
 	i = 0;
 	while (i < game->door_count)
 	{
-		if((int)render_data->do_sprites[i].pos_x == x && (int)render_data->do_sprites[i].pos_y == y)
-			return(render_data->do_sprites[i].open_door);
+		if((int)render_data->doors[i].pos_x == x && (int)render_data->doors[i].pos_y == y)
+			return(render_data->doors[i].open_door);
 		i++;
 	}
 	return (0);
@@ -33,23 +33,23 @@ static int	is_get_target(t_game *game, t_render_data *render_data, int x, int y)
 	i = 0;
 	while (i < game->target_count)
 	{
-		if((int)render_data->ta_sprites[i].pos_x == x && (int)render_data->ta_sprites[i].pos_y == y)
-			return(render_data->ta_sprites[i].got_target);
+		if((int)render_data->targets[i].pos_x == x && (int)render_data->targets[i].pos_y == y)
+			return(render_data->targets[i].got_target);
 		i++;
 	}
 	return (0);
 }
 
-void	perform_dda(t_game *game, t_render_data *render_data, t_map *map_data)
+void	perform_dda(t_game *game, t_render_data *render_data, t_map_data *map_data)
 {
 	t_ray	*ray;
 
 	ray = &render_data->ray;
 	render_data->flag_hit_door = 0;
 	render_data->flag_hit_target = 0;
-	render_data->flag_hit = 0;
+	render_data->flag_hit_wall = 0;
 	(void)game;
-	while (render_data->flag_hit == 0)
+	while (render_data->flag_hit_wall == 0)
 	{
 		if (ray->side_dist_x < ray->side_dist_y)
 		{
@@ -64,12 +64,12 @@ void	perform_dda(t_game *game, t_render_data *render_data, t_map *map_data)
 			render_data->flag_side = 1;
 		}
 		if (map_data->map[ray->grid_pos_x][ray->grid_pos_y] == '1')
-			render_data->flag_hit = 1;
+			render_data->flag_hit_wall = 1;
 		if (map_data->map[ray->grid_pos_x][ray->grid_pos_y] == 'D')
 		{
 			if (!is_door_open(game, render_data, ray->grid_pos_x, ray->grid_pos_y))
 			{
-				render_data->flag_hit = 1;
+				render_data->flag_hit_wall = 1;
 				render_data->flag_hit_door = 1;
 			}
 		}
@@ -77,14 +77,14 @@ void	perform_dda(t_game *game, t_render_data *render_data, t_map *map_data)
 		{
 			 if (!is_get_target(game, render_data, ray->grid_pos_x, ray->grid_pos_y))
 			 {
-				render_data->flag_hit = 1;
+				render_data->flag_hit_wall = 1;
 				render_data->flag_hit_target = 1;
 			}
 		}
 	}
 }
 
-void	calculate_wall_distance_and_height(t_render_data *render_data,
+void	calculate_wall_distance_and_height(int x, t_render_data *render_data,
 		mlx_image_t *image, mlx_texture_t *tex)
 {
 	t_raycast	*raycast;
@@ -101,6 +101,7 @@ void	calculate_wall_distance_and_height(t_render_data *render_data,
 	else
 		raycast->perp_wall_dist = (ray->grid_pos_y - player->pos_y + (1
 					- ray->step_y) / (double)2) / ray->ray_dir_y;
+	render_data->z_buffer[x] = raycast->perp_wall_dist;
 	raycast->line_height = (int)(image->height / raycast->perp_wall_dist);
 	raycast->draw_start = -raycast->line_height / 2 + image->height / 2;
 	if (raycast->draw_start < 0)
@@ -114,6 +115,7 @@ void	calculate_wall_distance_and_height(t_render_data *render_data,
 	else
 		wall_x = player->pos_x + raycast->perp_wall_dist * ray->ray_dir_x;
 	wall_x -= floor(wall_x);
+
 
 	render_data->raycast.tex_x = (int)(wall_x * (double)tex->width) % tex->width;
 	if (render_data->flag_side == 0 && ray->ray_dir_x > 0)
@@ -177,7 +179,6 @@ void	render_image(t_game *game)
 
 	img = game->img;
 	render_data = &game->render_data;
-	get_textures(game);
 	ft_memset(img->pixels, 0, img->width * img->height * 4);
 	mini_map_init(game);
 
@@ -185,48 +186,40 @@ void	render_image(t_game *game)
 	while (x < img->width)
 	{
 		setup_render_params(x, render_data, img);
-		perform_dda(game, render_data, &game->map);
+		perform_dda(game, render_data, &game->map_data);
 		selected_texture = NULL;
 
 		if (render_data->flag_side == 0)
 		{
 			if (render_data->ray.ray_dir_x > 0)
-				selected_texture = game->tex.WE;
+				selected_texture = game->visual_res.WE;
 			else
-				selected_texture = game->tex.EA;
+				selected_texture = game->visual_res.EA;
 		}
 		else
 		{
 			if (render_data->ray.ray_dir_y > 0)
-				selected_texture = game->tex.SO;
+				selected_texture = game->visual_res.SO;
 			else
-				selected_texture = game->tex.NO;
+				selected_texture = game->visual_res.NO;
 		}
 		if (selected_texture != NULL)
 		{
-			calculate_wall_distance_and_height(render_data, img, selected_texture);
+			calculate_wall_distance_and_height(x, render_data, img, selected_texture);
 			draw_line(x, render_data, img, selected_texture);
 		}
-		if (render_data->flag_hit_target == 1)
-		{
-			if (!is_get_target(game, render_data, render_data->ray.grid_pos_x, render_data->ray.grid_pos_y))
-			{
-				selected_texture = game->tex.target;
-				calculate_wall_distance_and_height(render_data, img, selected_texture);
-				draw_line(x, render_data, img, selected_texture);
-			}
-		}
+
 		if (render_data->flag_hit_door == 1)
 		{
 			if (!is_door_open(game, render_data, render_data->ray.grid_pos_x, render_data->ray.grid_pos_y))
 			{
-				selected_texture = game->tex.door;
-				calculate_wall_distance_and_height(render_data, img, selected_texture);
+				selected_texture = game->visual_res.door;
+				calculate_wall_distance_and_height(x, render_data, img, selected_texture);
 				draw_line(x, render_data, img, selected_texture);
 			}
 		}
 		x++;
 	}
-	clean_texture(game);
+	// clean_texture(game); // eventuell doch ?
 }
 

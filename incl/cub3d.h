@@ -20,83 +20,96 @@
 # define TILE_SIZE 64
 # define SSIZE 10
 
-/* Constants */
-# define WINDOW_WIDTH 800
-# define WINDOW_HEIGHT 600
-# define MOVE_SPEED 0.5
-# define ROT_SPEED 0.05
-
 /* tex */
-void	get_textures(t_game *game);
+void	load_visuals(t_game *game, t_visual *visual_res, t_texpaths *paths);
+t_sprite		*init_sprite(mlx_t *mlx, const char *path, float x, float y);
+void			calculate_sprite_position(t_game *game);
 
 /* Map Parsing */
-int		check_file_ending_cub(char *file);
-int		walls_check(t_game *game);
-int		map_input_check(t_game *game);
-int		get_map_start(t_game *game);
-char	*get_from_cub(char *line, const char *direction);
-
-void	which_color(t_game *game);
-void	cub_input(t_game *game);
+int				check_file_ending_cub(char *file);
+int	walls_check(t_map_data *map_data);
+int				get_map_start(unsigned int map_height, char **cub_input_table);
+char			*get_path(char *line, const char *direction);
+int				parse_input_table(t_game *game);
 void	open_map(t_game *game, char *file);
-void	space_cub(t_game *game, int fd);
-void	get_cub(t_game *game, int fd);
-void	space_map(t_game *game, int map_start);
-void	init_map(t_game *game, int map_start);
-void	actual_map(t_game *game);
-void	print_map(t_game *game);
-void	free_data(t_game *game);
-void	free_cub(t_game *game);
-// void	get_textures(t_game *game);
+
+// void			which_color(t_game *game);
+void			parse_paths(int map_height, t_texpaths *paths,
+					char **input_table);
+void			init_input_table(t_map_data *map_data, int fd);
+void			fill_input_table(t_map_data *map_data, int fd);
+void			create_map(t_map_data *map_data);
+void			actual_map(t_map_data *map_data);
+void			print_map(t_map_data *map_data);
+void			free_data(t_game *game);
+void	free_input_table(int map_height, char **input_table);
+// void	load_visualt_game *game);
 // void	get_img(t_game *game);
-void	clean_texture(t_game *game);
-void	clean_img(t_game *game);
-void	init_player_pos(t_game *game);
-void	set_north(t_game *game);
-void	set_south(t_game *game);
-void	set_east(t_game *game);
-void	set_west(t_game *game);
+void			clean_texture(t_game *game);
+void			clean_img(t_game *game);
+void			init_player_pos(t_game *game);
+void			set_north(t_game *game);
+void			set_south(t_game *game);
+void			set_east(t_game *game);
+void			set_west(t_game *game);
 
 /* Mini-Map*/
 
 // void	mm_get_img(t_game *game);
-// void	mm_get_textures(t_game *game);
-void	draw_mini_map(t_game *game, mlx_image_t *img, int x, int y);
-void	key_hook(mlx_key_data_t key, void *ptr);
-void	put_pixel_double(mlx_image_t *img, double x, double y, t_color color);
-void	put_pixel(mlx_image_t *img, int x, int y, t_color color);
-void	put_block(mlx_image_t *img, t_color color, int x, int y);
-void	fill_half(mlx_image_t *img, t_color color, int start_y, int end_y);
-void	mini_map_to_screen(t_game *game);
-void	init_position_and_direction(t_game *game);
-void	put_block_double(mlx_image_t *img, t_color color, double x, double y);
-int		get_color_int(const char *color_str);
-t_color	int_to_color(int color);
-t_game	*mini_map_init(t_game *game);
+// void	mm_load_visualt_game *game);
+void			draw_mini_map(t_game *game, mlx_image_t *img, int x, int y);
+void			key_hook(mlx_key_data_t key, void *ptr);
+void			put_pixel_double(mlx_image_t *img, double x, double y,
+					t_color color);
+void			put_pixel(mlx_image_t *img, int x, int y, t_color color);
+void			put_block(mlx_image_t *img, t_color color, int x, int y);
+void			fill_half(mlx_image_t *img, t_color color, int start_y,
+					int end_y);
+void			player_dir(t_game *game, int x, int y);
+void			draw_dir(t_game *game, int x, int y, t_color color);
+void			mini_map_to_screen(t_game *game);
+void			init_position_and_direction(t_game *game);
+void			put_block_double(mlx_image_t *img, t_color color, double x,
+					double y);
+char			get_direction(mlx_key_data_t key, char cur_direct);
+int				get_color_int(const char *color_str);
+t_color			int_to_color(int color);
+t_game			*mini_map_init(t_game *game);
 
 /* Hooks */
-void	key_hook_(mlx_key_data_t keydata, void *param);
-void	loop_hook(void *param);
+void			key_hook_(mlx_key_data_t keydata, void *param);
+void			loop_hook(void *param);
 
-/* Initialize structs */
-t_game	*init_map__(t_game *game, char *cub_file);
-t_game	*init_mlx(t_game *game);
-t_game	*init_player(t_game *game);
-t_game	*init_camera(t_game *game);
-void	init_sprites(t_game *game);
-void	init_data(t_game *game);
-void	init_sprite_count(t_game *game);
+/* Initialize data */
+t_game			*get_mlx(t_game *game);
+void			init_sprites(t_game *game);
+t_map_data		init_map_data(void);
+void			init_data(t_game *game);
+void			init_sprite_count(t_game *game);
+t_camera		init_camera(void);
+t_texpaths		init_texpaths(void);
+t_player		init_player(void);
+t_visual		init_visuals(void);
+t_raycast		init_raycast(void);
+t_ray			init_ray(void);
+t_render_data	init_render_data(void);
+t_render_data	init_render_data(void);
+t_game			*get_player(t_game *game);
 
 /* Rendering */
-void	render_image(t_game *game);
-void	setup_render_params(uint32_t x, t_render_data *render_data,
-			mlx_image_t *image);
+void			render_image(t_game *game);
+void			setup_render_params(uint32_t x, t_render_data *render_data,
+					mlx_image_t *image);
 
 /* Cleanup */
-void	free_string_arr(char **string_arr);
-int		terminate_game(t_game *game, int exit_code);
+void			free_string_arr(char **string_arr);
+int				terminate_game(t_game *game, int exit_code);
 
 /* Argument checks */
-void	args_check(int argc, char **argv);
+void			args_check(int argc, char **argv);
+
+/* Drawing utils */
+uint32_t get_pixel(mlx_texture_t *img, int x, int y);
+void			set_pixel(mlx_image_t *img, int x, int y, uint32_t color);
 
 #endif

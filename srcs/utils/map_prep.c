@@ -1,28 +1,28 @@
 #include "../../incl/cub3d.h"
 
-void	space_cub(t_game *game, int fd)
+void	init_input_table(t_map_data *map_data, int fd)
 {
 	char	*line;
-	int		i;
+	int		height;
 
-	i = 0;
+	height = 0;
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
 		free(line);
-		i++;
+		height++;
 		line = get_next_line(fd);
 	}
-	game->map.cub = (char **)malloc(sizeof(char *) * (i + 1));
-	game->map.height = i;
-	if (!game->map.cub)
+	map_data->input_table = (char **)ft_calloc((height + 1), sizeof(char *));
+	if (!map_data->input_table)
 	{
-		printf("Malloc Error in space cub \n");
-		exit (1);
+		printf("ft_calloc Error in space cub \n");
+		exit (1);  // ? TODO: clean exit
 	}
+	map_data->height = height;
 }
 
-void	get_cub(t_game *game, int fd)
+void	fill_input_table(t_map_data *map_data, int fd)
 {
 	char	*line_str;
 	int		i;
@@ -33,21 +33,21 @@ void	get_cub(t_game *game, int fd)
 	{
 		if (!(line_str))
 		{
-			perror("Error map not readable\n");
-			exit(1);
+			perror("Error map_data not readable\n");
+			exit(1); // ? TODO: clean exit
 		}
-		game->map.cub[i] = ft_strdup(line_str);
-		if (!game->map.cub[i])
+		map_data->input_table[i] = ft_strdup(line_str);
+		if (!map_data->input_table[i])
 		{
 			printf("Error in dup line\n");
 			exit (1);
 		}
-		game->map.width = (ft_strlen(line_str) - 1);
+		map_data->width = (ft_strlen(line_str) - 1);
 		free(line_str);
 		i++;
 		line_str = get_next_line(fd);
 	}
-	printf("height %d \n width %d \n", game->map.height, game->map.width);
+	printf("height %d \n width %d \n", map_data->height, map_data->width);
 	// print_map(game);
 }
 

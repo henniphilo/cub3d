@@ -10,8 +10,8 @@ static void	hook(void *ptr)
 
 static void	game_init(t_game *game)
 {
-	game->mlx_ptr = mlx_init((SSIZE * game->map.width),
-		(SSIZE * game->map.height), "cub3d", true);
+	game->mlx_ptr = mlx_init((SSIZE * game->map_data.width),
+		(SSIZE * game->map_data.height), "cub3d", true);
 	if (!(game->mlx_ptr))
 	{
 		printf ("mlx ptr error \n");
