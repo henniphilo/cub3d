@@ -43,6 +43,7 @@ void	mini_map_to_screen(t_game *game)
 	}
 	put_block_double(game->img, c_player, game->render_data.player.pos_y,
 		game->render_data.player.pos_x);
+	print_count(game);
 }
 
 static void	init_target(t_game *game, double x, double y, int id)
@@ -284,11 +285,8 @@ void	put_block_double(mlx_image_t *img, t_color color, double x, double y)
 static void	init_bg_img(t_game *game)
 {
 	game->tex.bubbles = mlx_load_png(game->look.bubbles);
-	//game->tex.sand = mlx_load_png(game->look.sand);
 	game->image.bubbles = mlx_texture_to_image(game->mlx_ptr, game->tex.bubbles);
-	//game->image.sand = mlx_texture_to_image(game->mlx_ptr, game->tex.sand);
 	mlx_delete_texture(game->tex.bubbles);
-	//mlx_delete_texture(game->tex.sand);
 }
 
 void	fill_half(t_game *game, t_color color, int start_y, int end_y)
@@ -335,4 +333,16 @@ void	add_look(t_game *game, mlx_image_t *img, int start_y, int end_y)
 		usleep(1000);
 		i++;
 	}
+}
+
+void	print_count(t_game *game)
+{
+	// char	*fish_count;
+
+	// fish_count = ft_itoa(game->air_caught);
+	mlx_image_to_window(game->mlx_ptr, game->img, 0, 0);
+	mlx_put_string(game->mlx_ptr, "You got air! Well done! Now catch some fish!", 100, 0);
+	//mlx_put_string(game->mlx_ptr, fish_count, 5, 5);
+	//free(fish_count);
+//	ft_printf("got %d of air %d\n", game->air_caught, game->air_count);
 }

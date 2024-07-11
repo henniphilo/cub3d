@@ -336,6 +336,21 @@ void	key_hook_(mlx_key_data_t keydata, void *param)
 			free_data(game_data);
 			mlx_close_window(game_data->mlx_ptr);
 		}
+		if (keydata.key == MLX_KEY_SPACE)
+		{
+			open_doors(game_data, map_data);
+			ft_putendl_fd("SPACE", STDERR_FILENO);
+		}
+		if (keydata.key == MLX_KEY_X)
+		{
+			get_target(game_data, map_data);
+			ft_putendl_fd("X", STDERR_FILENO);
+		}
+		if (keydata.key == MLX_KEY_Z)
+		{
+			get_air(game_data, map_data);
+			ft_putendl_fd("Z", STDERR_FILENO);
+		}
 	}
 	if (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT || keydata.action == MLX_RELEASE)
 	{
@@ -369,21 +384,6 @@ void	key_hook_(mlx_key_data_t keydata, void *param)
 			rotate(render_data, -1);
 //			ft_putendl_fd("Right", STDERR_FILENO);
 		}
-		if (keydata.key == MLX_KEY_SPACE)
-		{
-			open_doors(game_data, map_data);
-			ft_putendl_fd("SPACE", STDERR_FILENO);
-		}
-		if (keydata.key == MLX_KEY_X)
-		{
-			get_target(game_data, map_data);
-			ft_putendl_fd("X", STDERR_FILENO);
-		}
-		if (keydata.key == MLX_KEY_Z)
-		{
-			get_air(game_data, map_data);
-			ft_putendl_fd("Z", STDERR_FILENO);
-		}
 	}
 }
 
@@ -393,4 +393,5 @@ void	loop_hook(void *param)
 
 	render_image(game_data);
 	mini_map_to_screen(game_data);
+	//print_count(game_data);
 }

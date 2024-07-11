@@ -78,6 +78,7 @@ int		is_get_air(t_game *game, t_render_data *render_data, int x, int y);
 int		is_get_target(t_game *game, t_render_data *render_data, int x, int y);
 t_color	int_to_color(int color);
 t_game	*mini_map_init(t_game *game);
+void	print_count(t_game *game);
 
 /* Hooks */
 void	key_hook_(mlx_key_data_t keydata, void *param);
