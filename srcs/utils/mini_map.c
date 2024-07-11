@@ -183,14 +183,14 @@ void	draw_mini_map(t_game *game, mlx_image_t *img, int x, int y)
 		color = wall;
 	else if (game->map.map[y][x] == 'T')
 	{
-		if (is_get_target(game, &game->render_data, x, y) != 1)
+		if (is_get_target(game, &game->render_data, y, x) != 1)
 			color = target;
 		else
 			color = floor;
 	}
 	else if (game->map.map[y][x] == 'D')
 	{
-		if (is_door_open(game, &game->render_data, x, y) != 1)
+		if (is_door_open(game, &game->render_data, y, x) != 1)
 			color = door;
 		else
 			color = floor;
