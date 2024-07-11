@@ -28,6 +28,20 @@ int	is_get_target(t_game *game, t_render_data *render_data, int x, int y)
 	return (0);
 }
 
+int	is_get_air(t_game *game, t_render_data *render_data, int x, int y)
+{
+	int	i;
+
+	i = 0;
+	while (i < game->air_caught)
+	{
+		if((int)render_data->air_sprites[i].pos_x == x && (int)render_data->air_sprites[i].pos_y == y)
+			return(render_data->air_sprites[i].got_air);
+		i++;
+	}
+	return (0);
+}
+
 static void	sideways(t_game *game, t_map map_data, t_render_data *render_data, int direction)
 {
 	t_player	*player;
@@ -249,12 +263,60 @@ static void	get_target(t_game *game_data, t_map map_data)
 			if (game_data->render_data.ta_sprites[i].pos_x == x && game_data->render_data.ta_sprites[i].pos_y == y)
 			{
 				game_data->render_data.ta_sprites[i].got_target = 1;
+			//	game_data->air_caught += 1;
+			//	add_look(game_data, game_data->image.bubbles, WINDOW_HEIGHT / 2, WINDOW_HEIGHT);
 				printf("got target\n");
 				break ;
 			}
 			i++;
 		}
 	}
+}
+
+static void	get_air(t_game *game_data, t_map map_data)
+{
+	t_player	*player;
+	int			x;
+	int			y;
+	int			i;
+
+	player = &game_data->render_data.player;
+	x = (int)(player->pos_x + player->dir_x * MOVE_SPEED);
+	y = (int)(player->pos_y + player->dir_y * MOVE_SPEED);
+	printf("air x: %d y: %d \n", x, y);
+	i = 0;
+	if ((map_data.map[(int)player->pos_x][y] == 'L') || map_data.map[x][(int)player->pos_y] == 'L')
+	{
+	//	render_data->sprites.open_door = 1;
+		while (i < game_data->air_count)
+		{
+			if (game_data->render_data.air_sprites[i].pos_x == x && game_data->render_data.air_sprites[i].pos_y == y)
+			{
+				game_data->render_data.air_sprites[i].got_air = 1;
+				game_data->air_caught += 1;
+			//	add_look(game_data, game_data->image.bubbles, WINDOW_HEIGHT / 2, WINDOW_HEIGHT);
+				printf("got air\n");
+				break ;
+			}
+			i++;
+		}
+	}
+}
+
+void	scroll_hook(double xdelta, double ydelta, void *param)
+{
+	t_game			*game_data;
+	t_render_data	*render_data;
+
+	(void)xdelta;
+
+	game_data = (t_game *)param;
+	render_data = &game_data->render_data;
+
+	if (ydelta > 0)
+		rotate(render_data, 1);
+	else if (ydelta < 0)
+		rotate(render_data, -1);
 }
 
 
@@ -316,6 +378,11 @@ void	key_hook_(mlx_key_data_t keydata, void *param)
 		{
 			get_target(game_data, map_data);
 			ft_putendl_fd("X", STDERR_FILENO);
+		}
+		if (keydata.key == MLX_KEY_Z)
+		{
+			get_air(game_data, map_data);
+			ft_putendl_fd("Z", STDERR_FILENO);
 		}
 	}
 }

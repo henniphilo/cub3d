@@ -74,6 +74,7 @@ void	init_position_and_direction(t_game *game);
 void	put_block_double(mlx_image_t *img, t_color color, double x, double y);
 int		get_color_int(const char *color_str);
 int		is_door_open(t_game *game, t_render_data *render_data, int x, int y);
+int		is_get_air(t_game *game, t_render_data *render_data, int x, int y);
 int		is_get_target(t_game *game, t_render_data *render_data, int x, int y);
 t_color	int_to_color(int color);
 t_game	*mini_map_init(t_game *game);
@@ -81,6 +82,7 @@ t_game	*mini_map_init(t_game *game);
 /* Hooks */
 void	key_hook_(mlx_key_data_t keydata, void *param);
 void	loop_hook(void *param);
+void	scroll_hook(double xdelta, double ydelta, void *param);
 
 
 /* Initialize structs */

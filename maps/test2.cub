@@ -4,15 +4,15 @@ WE ./img/riesig1000.png
 EA ./img/EA1000.png
 DOOR ./img/algen.png
 TARGET ./img/fish500.png
-BUBBLES ./img/bubbles.png
-SAND ./img/stones.png
+BUBBLES ./img/bubb800.png
+AIR ./img/Scuba_tank.png
 F 55,130,250
 C 80,230,250
 
 
 
 1111111111
-1000000001
+100L000001
 10000000011
 111D1100001
 10000000T01

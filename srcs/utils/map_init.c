@@ -35,10 +35,10 @@ void	cub_input(t_game *game)
 		{
 			game->look.bubbles = get_from_cub(game->map.cub[y], "BUBBLES");
 		}
-		// if (ft_strncmp(game->map.cub[y], "SAND ", 5) == 0)
-		// {
-		// 	game->look.sand = get_from_cub(game->map.cub[y], "SAND");
-		// }
+		if (ft_strncmp(game->map.cub[y], "AIR ", 4) == 0)
+		{
+			game->look.air = get_from_cub(game->map.cub[y], "AIR");
+		}
 		y++;
 	}
 	printf("NO: %s\n", game->look.NO);
@@ -48,7 +48,7 @@ void	cub_input(t_game *game)
 	printf("Door: %s\n", game->look.door);
 	printf("Target: %s\n", game->look.target);
 	printf("Bubbles: %s\n", game->look.bubbles);
-//	printf("Sand: %s\n", game->look.sand);
+	printf("Air: %s\n", game->look.air);
 }
 
 void	which_color(t_game *game)

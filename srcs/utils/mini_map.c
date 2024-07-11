@@ -5,13 +5,21 @@ t_game	*mini_map_init(t_game *game)
 
 	t_color		c_ceiling;
 	t_color		c_floor;
+	int			i;
 
+	i = 0;
 	game->image.c_ceiling = get_color_int(game->look.ceiling);
 	game->image.c_floor = get_color_int(game->look.floor);
 	c_ceiling = int_to_color(game->image.c_ceiling);
 	c_floor = int_to_color(game->image.c_floor);
 	fill_half(game, c_ceiling, 0, WINDOW_HEIGHT / 2);
 	fill_half(game, c_floor, WINDOW_HEIGHT / 2, WINDOW_HEIGHT);
+	while (i < game->air_caught)
+	{
+		add_look(game, game->image.bubbles, 0, WINDOW_HEIGHT / 2);
+		add_look(game, game->image.bubbles, WINDOW_HEIGHT / 2, WINDOW_HEIGHT);
+		i++;
+	}
 	mlx_image_to_window(game->mlx_ptr, game->img, 0, 0);
 	return (game);
 }
@@ -53,6 +61,14 @@ static void	init_door(t_game *game, double x, double y, int id)
 	game->render_data.do_sprites[id].pos_y = y;
 }
 
+static void	init_air(t_game *game, double x, double y, int id)
+{
+	game->render_data.air_sprites[id].id = id;
+	game->render_data.air_sprites[id].got_air = 0;
+	game->render_data.air_sprites[id].pos_x = x;
+	game->render_data.air_sprites[id].pos_y = y;
+}
+
 static void	init_count(t_game *game)
 {
 	int		x;
@@ -72,12 +88,17 @@ static void	init_count(t_game *game)
 			{
 				game->door_count += 1;
 			}
+			else if (game->map.map[y][x] == 'L')
+			{
+				game->air_count += 1;
+			}
 			x++;
 		}
 		y++;
 	}
 	printf(" %d insgesamt targets \n", game->target_count);
 	printf(" %d insgesamt doors \n", game->door_count);
+	printf(" %d insgesamt air \n", game->air_count);
 }
 
 static void	check_sprites(t_game *game_data, t_render_data *render_data, int sprite_type)
@@ -137,14 +158,17 @@ void	init_sprites(t_game *game)
 	int		y;
 	int		i;
 	int		j;
+	int		h;
 
 	printf("in init sprites\n");
 	init_count(game);
 	game->render_data.ta_sprites = malloc(game->target_count * sizeof(t_sprite));
 	game->render_data.do_sprites = malloc(game->door_count * sizeof(t_sprite));
+	game->render_data.air_sprites = malloc(game->air_count * sizeof(t_sprite));
 	i = 0;
 	j = 0;
 	y = 0;
+	h = 0;
 	while (y < game->map.y_axis)
 	{
 		x = 0;
@@ -152,15 +176,18 @@ void	init_sprites(t_game *game)
 		{
 			if (i < game->target_count && game->map.map[y][x] == 'T')
 			{
-				printf("wir haben %d targets \n", i);
 				init_target(game, y, x, i);
 				i += 1;
 			}
 			if (j < game->door_count && game->map.map[y][x] == 'D')
 			{
-				printf("wir haben %d doors \n", j);
 				init_door(game, y, x, j);
 				j += 1;
+			}
+			if (h < game->air_count && game->map.map[y][x] == 'L')
+			{
+				init_air(game, y, x, h);
+				h += 1;
 			}
 			x++;
 		}
@@ -174,6 +201,7 @@ void	init_sprites(t_game *game)
 void	draw_mini_map(t_game *game, mlx_image_t *img, int x, int y)
 {
 	t_color		wall = {0,0,0,255};
+	t_color		air = {200,0,100,255};
 	t_color		target = {150, 150, 0, 255};
 	t_color		door = {0, 50, 100, 255};
 	t_color		floor = {255, 255, 255, 255};
@@ -185,6 +213,13 @@ void	draw_mini_map(t_game *game, mlx_image_t *img, int x, int y)
 	{
 		if (is_get_target(game, &game->render_data, y, x) != 1)
 			color = target;
+		else
+			color = floor;
+	}
+	else if (game->map.map[y][x] == 'L')
+	{
+		if (is_get_air(game, &game->render_data, y, x) != 1)
+			color = air;
 		else
 			color = floor;
 	}
@@ -273,7 +308,7 @@ void	fill_half(t_game *game, t_color color, int start_y, int end_y)
 		y++;
 	}
 	init_bg_img(game);
-	add_look(game, game->image.bubbles, start_y, end_y);
+	//add_look(game, game->image.bubbles, start_y, end_y);
 }
 
 static int	random_int(int min, int max)
@@ -290,12 +325,14 @@ void	add_look(t_game *game, mlx_image_t *img, int start_y, int end_y)
 	int	num_pic;
 
 	i = 0;
-	num_pic = random_int(2, 10);
+	num_pic = random_int(40, 100);
+//	printf("num pic %d \n", num_pic);
 	while (i < num_pic)
 	{
 		rand_x = random_int(0, game->img->width);
 		rand_y = random_int(start_y, end_y - game->img->height);
 		mlx_image_to_window(game->mlx_ptr, img, rand_x, rand_y);
+		usleep(1000);
 		i++;
 	}
 }

@@ -31,6 +31,8 @@ void	init_data(t_game *game)
 {
 	game->target_count = 0;
 	game->door_count = 0;
+	game->air_caught = 0;
+	game->air_count = 0;
 }
 
 
@@ -46,6 +48,7 @@ int	main(int argc, char **argv)
 	init_sprites(&game);
 	mlx_loop_hook(game.mlx_ptr, loop_hook, &game);
 	mlx_key_hook(game.mlx_ptr, key_hook_, &game);
+	mlx_scroll_hook(game.mlx_ptr, scroll_hook, &game);
 	mlx_loop(game.mlx_ptr);
 	clean_img(&game);
 	mlx_delete_image(game.mlx_ptr, game.img);

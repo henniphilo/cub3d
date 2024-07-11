@@ -8,8 +8,9 @@ void	get_textures(t_game *game)
 	game->tex.EA = mlx_load_png(game->look.EA);
 	game->tex.door = mlx_load_png(game->look.door);
 	game->tex.target = mlx_load_png(game->look.target);
+	game->tex.air = mlx_load_png(game->look.air);
 	if (!(game->tex.NO) || !(game->tex.SO) || !(game->tex.WE)
-		|| !(game->tex.EA) || !(game->tex.door) || !(game->tex.target))
+		|| !(game->tex.EA) || !(game->tex.door) || !(game->tex.target) || !(game->tex.air))
 	{
 		printf("Error texture load\n");
 		exit(1);
@@ -24,6 +25,7 @@ void	clean_texture(t_game *game)
 	mlx_delete_texture(game->tex.EA);
 	mlx_delete_texture(game->tex.door);
 	mlx_delete_texture(game->tex.target);
+	mlx_delete_texture(game->tex.air);
 }
 
 void	clean_img(t_game *game)

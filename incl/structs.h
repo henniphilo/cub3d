@@ -7,6 +7,7 @@ typedef struct s_sprite
 	double			pos_y;
 	int				open_door;
 	int				got_target;
+	int				got_air;
 	int				id;
 }	t_sprite;
 
@@ -41,7 +42,7 @@ typedef struct s_look
 	char		*door;
 	char		*target;
 	char		*bubbles;
-	char		*sand;
+	char		*air;
 	char		first_dir;
 }					t_look;
 
@@ -55,14 +56,13 @@ typedef struct s_textures
 	mlx_texture_t	*player;
 	mlx_texture_t	*target;
 	mlx_texture_t	*bubbles;
-	mlx_texture_t	*sand;
+	mlx_texture_t	*air;
 }					t_textures;
 
 
 typedef struct s_image
 {
 	mlx_image_t	*bubbles;
-	mlx_image_t	*sand;
 	int			c_floor;
 	int			c_ceiling;
 }					t_image;
@@ -119,9 +119,11 @@ typedef struct s_render_data
 	t_raycast		raycast;
 	t_sprite		*ta_sprites;
 	t_sprite		*do_sprites;
+	t_sprite		*air_sprites;
 	int				flag_hit;
 	int				flag_hit_door;
 	int				flag_hit_target;
+	int				flag_hit_air;
 	int				flag_side;
 }					t_render_data;
 
@@ -134,8 +136,10 @@ typedef struct s_game
 	t_render_data	render_data;
 	t_textures		tex;
 	t_image			image;
+	int				air_count;
 	int				door_count;
 	int				target_count;
+	int				air_caught;
 }					t_game;
 
 #endif

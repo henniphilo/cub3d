@@ -39,6 +39,7 @@ void	free_data(t_game *game)
 	free(game->look.door);
 	free(game->look.ceiling);
 	free(game->look.floor);
+	free(game->look.air);
 }
 
 void	free_string_arr(char **string_arr)
