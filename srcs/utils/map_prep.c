@@ -16,7 +16,7 @@ void	init_input_table(t_map_data *map_data, int fd)
 	map_data->input_table = (char **)ft_calloc((height + 1), sizeof(char *));
 	if (!map_data->input_table)
 	{
-		printf("ft_calloc Error in space cub \n");
+		printf("ft_calloc Error in init_input_table \n");
 		exit (1);  // ? TODO: clean exit
 	}
 	map_data->height = height;

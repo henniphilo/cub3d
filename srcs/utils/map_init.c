@@ -31,6 +31,14 @@ void	parse_paths(int	map_height, t_texpaths *paths, char **input_table)
 		{
 			paths->target = get_path(input_table[y], "TARGET");
 		}
+		if (ft_strncmp(input_table[y], "BUBBLES ", 8) == 0)
+		{
+			paths->bubbles = get_path(input_table[y], "BUBBLES");
+		}
+		if (ft_strncmp(input_table[y], "AIR ", 4) == 0)
+		{
+			paths->air = get_path(input_table[y], "AIR");
+		}
 		if (ft_strncmp(input_table[y], "F ", 2) == 0)
 		{
 			paths->floor = get_path(input_table[y], "F");
@@ -47,10 +55,9 @@ void	parse_paths(int	map_height, t_texpaths *paths, char **input_table)
 	printf("EA: %s\n", paths->EA);
 	printf("Door: %s\n", paths->door);
 	printf("Target: %s\n", paths->target);
-	printf("floor: %s\n", paths->floor);
-	printf("ceiling: %s\n", paths->ceiling);
+	printf("Bubbles: %s\n", paths->bubbles);
+	printf("Air: %s\n", paths->air);
 }
-
 
 char	*get_path(char *line, const char *direction)
 {

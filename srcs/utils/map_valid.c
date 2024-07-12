@@ -27,7 +27,7 @@ void	open_map(t_game *game, char *file)
 	close(fd);
 }
 
-int	get_map_start(unsigned int map_height, char **cub_input_table)
+int	get_map_start(unsigned int map_height, char **input_table)
 {
 	int				y;
 	unsigned int	map_start;
@@ -37,7 +37,7 @@ int	get_map_start(unsigned int map_height, char **cub_input_table)
 	map_start = 0;
 	while (map_start < map_height)
 	{
-		line = cub_input_table[map_start];
+		line = input_table[map_start];
 		is_line = 1;
 		y = 0;
 		while (line[y] != '\0')
@@ -81,12 +81,12 @@ void	create_map(t_map_data *map_data)
 	while (y < map_data->y_axis)
 	{
 		map_data->map[y] = ft_strdup(map_data->input_table[map_start + y]);
-		map_data->x_axis[y] = ft_strlen(map_data->map[y]);
 		if (!map_data->map[y])
 		{
 			printf("Error in dup line \n");
 			exit(1); // ? TODO: clean exit
 		}
+		map_data->x_axis[y] = ft_strlen(map_data->map[y]);
 		y++;
 	}
 	map_data->map[map_data->y_axis] = NULL;

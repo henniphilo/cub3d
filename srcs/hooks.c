@@ -1,6 +1,6 @@
 #include "../incl/cub3d.h"
 
-static int	is_door_open(t_game *game, t_render_data *render_data, int x, int y)
+int	is_door_open(t_game *game, t_render_data *render_data, int x, int y)
 {
 	int	i;
 
@@ -14,7 +14,7 @@ static int	is_door_open(t_game *game, t_render_data *render_data, int x, int y)
 	return (0);
 }
 
-static int	is_get_target(t_game *game, t_render_data *render_data, int x, int y)
+int	is_get_target(t_game *game, t_render_data *render_data, int x, int y)
 {
 	int	i;
 
@@ -28,57 +28,75 @@ static int	is_get_target(t_game *game, t_render_data *render_data, int x, int y)
 	return (0);
 }
 
-static void	sideways(t_game *game, t_map_data map_data, t_render_data *render_data, int direction)
+int	is_get_air(t_game *game, t_render_data *render_data, int x, int y)
+{
+	int	i;
+
+	i = 0;
+	while (i < game->air_caught)
+	{
+		if((int)render_data->air_sprites[i].pos_x == x && (int)render_data->air_sprites[i].pos_y == y)
+			return(render_data->air_sprites[i].got_air);
+		i++;
+	}
+	return (0);
+}
+
+static void	sideways(t_game *game, t_map_data *map_data, t_render_data *render_data, int direction)
 {
 	t_player	*player;
 	double		side_dir_x;
 	double		side_dir_y;
 
 	player = &render_data->player;
-	side_dir_x = player->dir_y;
-	side_dir_y = -player->dir_x;
+	side_dir_x = (player->dir_y);
+	side_dir_y = -(player->dir_x);
+	printf("vorher pos %.2f, pos_y %.2f\n", player->pos_x, player->pos_y);
+	printf("side_dir_x %.2f side_dir_y %.2f \n", side_dir_x, side_dir_y);
+	printf("player dir_x %.2f player_dir_y %.2f \n", player->dir_x, (player->dir_y));
+	printf("direction %d \n", direction);
 
-	if (map_data.map[(int)(player->pos_x + side_dir_x * MOVE_SPEED * direction)][(int)player->pos_y] == '0'
-		|| map_data.map[(int)(player->pos_x + side_dir_x * MOVE_SPEED * direction)][(int)player->pos_y] == game->map_data.first_dir
-		|| (map_data.map[(int)(player->pos_x + side_dir_x * MOVE_SPEED * direction)][(int)player->pos_y] == 'D' &&
+	if (map_data->map[(int)(player->pos_x + side_dir_x * MOVE_SPEED * direction)][(int)player->pos_y] == '0'
+		|| map_data->map[(int)(player->pos_x + side_dir_x * MOVE_SPEED * direction)][(int)player->pos_y] == game->map_data.first_dir
+		|| (map_data->map[(int)(player->pos_x + side_dir_x * MOVE_SPEED * direction)][(int)player->pos_y] == 'D' &&
 			is_door_open(game, render_data, (int)(player->pos_x + side_dir_x * MOVE_SPEED * direction), (int)player->pos_y))
-		|| (map_data.map[(int)(player->pos_x + side_dir_x * MOVE_SPEED * direction)][(int)player->pos_y] == 'T' &&
+		|| (map_data->map[(int)(player->pos_x + side_dir_x * MOVE_SPEED * direction)][(int)player->pos_y] == 'T' &&
 			is_get_target(game, render_data, (int)(player->pos_x + side_dir_x * MOVE_SPEED * direction), (int)player->pos_y)))
 		{
 			player->pos_x += side_dir_x * MOVE_SPEED * direction;
 		}
-	if (map_data.map[(int)(player->pos_x)][(int)(player->pos_y + side_dir_y * MOVE_SPEED * direction)] == '0'
-		|| map_data.map[(int)(player->pos_x)][(int)(player->pos_y + side_dir_y * MOVE_SPEED * direction)] == game->map_data.first_dir
-		|| (map_data.map[(int)(player->pos_x)][(int)(player->pos_y + side_dir_y * MOVE_SPEED * direction)] == 'D' &&
+	if (map_data->map[(int)(player->pos_x)][(int)(player->pos_y + side_dir_y * MOVE_SPEED * direction)] == '0'
+		|| map_data->map[(int)(player->pos_x)][(int)(player->pos_y + side_dir_y * MOVE_SPEED * direction)] == game->map_data.first_dir
+		|| (map_data->map[(int)(player->pos_x)][(int)(player->pos_y + side_dir_y * MOVE_SPEED * direction)] == 'D' &&
 			is_door_open(game, render_data, (int)player->pos_x, (int)(player->pos_y + side_dir_y * MOVE_SPEED * direction)))
-		|| (map_data.map[(int)(player->pos_x)][(int)(player->pos_y + side_dir_y * MOVE_SPEED * direction)] == 'T' &&
+		|| (map_data->map[(int)(player->pos_x)][(int)(player->pos_y + side_dir_y * MOVE_SPEED * direction)] == 'T' &&
 			is_get_target(game, render_data, (int)player->pos_x, (int)(player->pos_y + side_dir_y * MOVE_SPEED * direction))))
 		{
-			player->pos_y += side_dir_y * MOVE_SPEED * direction;
+			player->pos_y += side_dir_y * MOVE_SPEED * (direction);
 		}
 	printf("New pos_x %.2f, pos_y %.2f\n", player->pos_x, player->pos_y); // Debugging
 }
 
-static void	move(t_game *game, t_map_data map_data,
+static void	move(t_game *game, t_map_data *map_data,
 		t_render_data *render_data, int direction)
 {
 	t_player	*player;
 
 	player = &render_data->player;
-	if (map_data.map[(int)(player->pos_x + player->dir_x * MOVE_SPEED * direction)][(int)player->pos_y] == '0'
-		|| map_data.map[(int)(player->pos_x + player->dir_x * MOVE_SPEED * direction)][(int)player->pos_y] == game->map_data.first_dir
-		|| (map_data.map[(int)(player->pos_x + player->dir_x * MOVE_SPEED * direction)][(int)player->pos_y] == 'D' &&
+	if (map_data->map[(int)(player->pos_x + player->dir_x * MOVE_SPEED * direction)][(int)player->pos_y] == '0'
+		|| map_data->map[(int)(player->pos_x + player->dir_x * MOVE_SPEED * direction)][(int)player->pos_y] == game->map_data.first_dir
+		|| (map_data->map[(int)(player->pos_x + player->dir_x * MOVE_SPEED * direction)][(int)player->pos_y] == 'D' &&
 			is_door_open(game, render_data, (int)(player->pos_x + player->dir_x * MOVE_SPEED * direction), (int)player->pos_y))
-		|| (map_data.map[(int)(player->pos_x + player->dir_x * MOVE_SPEED * direction)][(int)player->pos_y] == 'T' &&
+		|| (map_data->map[(int)(player->pos_x + player->dir_x * MOVE_SPEED * direction)][(int)player->pos_y] == 'T' &&
 			is_get_target(game, render_data, (int)(player->pos_x + player->dir_x * MOVE_SPEED), (int)player->pos_y)))
 		{
 			player->pos_x += player->dir_x * MOVE_SPEED * direction;
 		}
-	if (map_data.map[(int)player->pos_x][(int)(player->pos_y + player->dir_y * MOVE_SPEED * direction)] == '0'
-		|| map_data.map[(int)player->pos_x][(int)(player->pos_y + player->dir_y * MOVE_SPEED * direction)] == game->map_data.first_dir
-		|| (map_data.map[(int)player->pos_x][(int)(player->pos_y + player->dir_y * MOVE_SPEED * direction)] == 'D' &&
+	if (map_data->map[(int)player->pos_x][(int)(player->pos_y + player->dir_y * MOVE_SPEED * direction)] == '0'
+		|| map_data->map[(int)player->pos_x][(int)(player->pos_y + player->dir_y * MOVE_SPEED * direction)] == game->map_data.first_dir
+		|| (map_data->map[(int)player->pos_x][(int)(player->pos_y + player->dir_y * MOVE_SPEED * direction)] == 'D' &&
 			is_door_open(game, render_data, (int)player->pos_x, (int)(player->pos_y + player->dir_y * MOVE_SPEED * direction)))
-		|| (map_data.map[(int)player->pos_x][(int)(player->pos_y + player->dir_y * MOVE_SPEED * direction)] == 'T' &&
+		|| (map_data->map[(int)player->pos_x][(int)(player->pos_y + player->dir_y * MOVE_SPEED * direction)] == 'T' &&
 			is_get_target(game, render_data, (int)player->pos_x, (int)(player->pos_y + player->dir_y * MOVE_SPEED * direction))))
 		{
 			player->pos_y += player->dir_y * MOVE_SPEED * direction;
@@ -109,8 +127,41 @@ static void	rotate(t_render_data *render_data, int direction)
 		+ camera->plane_y * cos(ROT_SPEED * direction);
 }
 
+static void	close_doors(t_game *game_data, t_map_data *map_data)
+{
+	t_player	*player;
+	int			x;
+	int			y;
+	int			i;
 
-static void	player_n1_sideways(t_game *game, t_map_data map_data,
+	player = &game_data->render_data.player;
+	x = (int)(player->pos_x + player->dir_x * MOVE_SPEED);
+	y = (int)(player->pos_y + player->dir_y * MOVE_SPEED);
+	i = 0;
+	// printf("Player position: pos_x = %.2f, pos_y = %.2f\n", player->pos_x, player->pos_y);
+	// printf("Checking positions: [%d][%d+1], [%d+1][%d], [%d][%d-1], [%d-1][%d]\n", (int)player->pos_x, y, x, (int)player->pos_y, (int)player->pos_x, y, x, (int)player->pos_y);
+	if ((x >= 0 && x < map_data->width) && (y >= 0 && y < map_data->height))
+	{
+		if ((map_data->map[(int)player->pos_x + 1][y ] == 'D') || map_data->map[x ][(int)player->pos_y + 1] == 'D'
+			|| (map_data->map[(int)player->pos_x - 1][y ] == 'D') || map_data->map[x][(int)player->pos_y  - 1] == 'D')
+		{
+			while (i < game_data->door_count)
+			{
+				// if (game_data->render_data.do_sprites[i].open_door == 1)
+				// {
+					game_data->render_data.doors[i].open_door = 0;
+					printf("door closed\n");
+				//	break ;
+				// }
+				i++;
+			}
+		}
+	}
+	else
+		printf("Position out of bounds: x = %d, y = %d\n", x, y);
+}
+
+static void	player_n1_sideways(t_game *game, t_map_data *map_data,
 		t_render_data *render_data, int direction)
 {
 	t_color		c_floor = {255, 255, 255, 255};
@@ -122,24 +173,25 @@ static void	player_n1_sideways(t_game *game, t_map_data map_data,
 	player = &game->render_data.player;
 	side_dir_x = player->dir_y;
 	side_dir_y = player->dir_x;
-	put_block_double(game->img, c_floor, player->pos_x, player->pos_y);
+	put_block_double(game->img, c_floor, player->pos_y, player->pos_x);
 	sideways(game, map_data, render_data, direction);
-	if (((map_data.map[(int)(player->pos_x + side_dir_x * MOVE_SPEED)][(int)player->pos_y] == '0'
-		|| map_data.map[(int)(player->pos_x + side_dir_x * MOVE_SPEED)][(int)player->pos_y] == game->map_data.first_dir) &&
-		(map_data.map[(int)(player->pos_x)][(int)(player->pos_y + side_dir_y * MOVE_SPEED)] == '0'
-		|| map_data.map[(int)(player->pos_x)][(int)(player->pos_y + side_dir_y * MOVE_SPEED)] == game->map_data.first_dir)) ||
-		((map_data.map[(int)(player->pos_x + side_dir_x * MOVE_SPEED)][(int)player->pos_y] == 'D' &&
+	if (((map_data->map[(int)(player->pos_x + side_dir_x * MOVE_SPEED)][(int)player->pos_y] == '0'
+		|| map_data->map[(int)(player->pos_x + side_dir_x * MOVE_SPEED)][(int)player->pos_y] == game->map_data.first_dir) &&
+		(map_data->map[(int)(player->pos_x)][(int)(player->pos_y + side_dir_y * MOVE_SPEED)] == '0'
+		|| map_data->map[(int)(player->pos_x)][(int)(player->pos_y + side_dir_y * MOVE_SPEED)] == game->map_data.first_dir)) ||
+		((map_data->map[(int)(player->pos_x + side_dir_x * MOVE_SPEED)][(int)player->pos_y] == 'D' &&
 			is_door_open(game, render_data, (int)(player->pos_x + side_dir_x * MOVE_SPEED), (int)player->pos_y))
-		|| (map_data.map[(int)(player->pos_x)][(int)(player->pos_y + side_dir_y * MOVE_SPEED)] == 'D' &&
+		|| (map_data->map[(int)(player->pos_x)][(int)(player->pos_y + side_dir_y * MOVE_SPEED)] == 'D' &&
 			is_door_open(game, render_data, (int)player->pos_x, (int)(player->pos_y + side_dir_y * MOVE_SPEED))))
-		|| ((map_data.map[(int)(player->pos_x + side_dir_x * MOVE_SPEED)][(int)player->pos_y] == 'T' &&
+		|| ((map_data->map[(int)(player->pos_x + side_dir_x * MOVE_SPEED)][(int)player->pos_y] == 'T' &&
 			is_get_target(game, render_data, (int)(player->pos_x + side_dir_x * MOVE_SPEED), (int)player->pos_y)))
-		|| (map_data.map[(int)(player->pos_x)][(int)(player->pos_y + side_dir_y * MOVE_SPEED)] == 'T' &&
+		|| (map_data->map[(int)(player->pos_x)][(int)(player->pos_y + side_dir_y * MOVE_SPEED)] == 'T' &&
 			is_get_target(game, render_data, (int)player->pos_x, (int)(player->pos_y + side_dir_y * MOVE_SPEED))))
-		put_block_double(game->img, c_player, player->pos_x, player->pos_y);
+		put_block_double(game->img, c_player, player->pos_y, player->pos_x);
+	close_doors(game, map_data);
 }
 
-static void	player_n1_move(t_game *game, t_map_data map_data,
+static void	player_n1_move(t_game *game, t_map_data *map_data,
 		t_render_data *render_data, int direction)
 {
 	t_color		c_floor = {255, 255, 255, 255};
@@ -147,24 +199,52 @@ static void	player_n1_move(t_game *game, t_map_data map_data,
 	t_player	*player;
 
 	player = &game->render_data.player;
-	put_block_double(game->img, c_floor, player->pos_x, player->pos_y);
+	put_block_double(game->img, c_floor, player->pos_y, player->pos_x);
 	move(game, map_data, render_data, direction);
-	if (((map_data.map[(int)(player->pos_x + player->dir_x * MOVE_SPEED)][(int)player->pos_y] == '0'
-		|| map_data.map[(int)(player->pos_x + player->dir_x * MOVE_SPEED)][(int)player->pos_y] == game->map_data.first_dir) &&
-		 (map_data.map[(int)player->pos_x][(int)(player->pos_y + player->dir_y * MOVE_SPEED)] == '0'
-		|| map_data.map[(int)player->pos_x][(int)(player->pos_y + player->dir_y * MOVE_SPEED)] == game->map_data.first_dir)) ||
-		((map_data.map[(int)(player->pos_x + player->dir_x * MOVE_SPEED)][(int)player->pos_y] == 'D' &&
+	if (((map_data->map[(int)(player->pos_x + player->dir_x * MOVE_SPEED)][(int)player->pos_y] == '0'
+		|| map_data->map[(int)(player->pos_x + player->dir_x * MOVE_SPEED)][(int)player->pos_y] == game->map_data.first_dir) &&
+		 (map_data->map[(int)player->pos_x][(int)(player->pos_y + player->dir_y * MOVE_SPEED)] == '0'
+		|| map_data->map[(int)player->pos_x][(int)(player->pos_y + player->dir_y * MOVE_SPEED)] == game->map_data.first_dir)) ||
+		((map_data->map[(int)(player->pos_x + player->dir_x * MOVE_SPEED)][(int)player->pos_y] == 'D' &&
 			is_door_open(game, render_data, (int)(player->pos_x + player->dir_x * MOVE_SPEED), (int)player->pos_y))
-		|| (map_data.map[(int)player->pos_x][(int)(player->pos_y + player->dir_y * MOVE_SPEED)] == 'D' &&
+		|| (map_data->map[(int)player->pos_x][(int)(player->pos_y + player->dir_y * MOVE_SPEED)] == 'D' &&
 			is_door_open(game, render_data, (int)player->pos_x, (int)(player->pos_y + player->dir_y * MOVE_SPEED)))
-		|| ((map_data.map[(int)(player->pos_x + player->dir_x * MOVE_SPEED)][(int)player->pos_y] == 'T' &&
+		|| ((map_data->map[(int)(player->pos_x + player->dir_x * MOVE_SPEED)][(int)player->pos_y] == 'T' &&
 			is_get_target(game, render_data, (int)(player->pos_x + player->dir_x * MOVE_SPEED), (int)player->pos_y))
-		|| (map_data.map[(int)player->pos_x][(int)(player->pos_y + player->dir_y * MOVE_SPEED)] == 'T' &&
+		|| (map_data->map[(int)player->pos_x][(int)(player->pos_y + player->dir_y * MOVE_SPEED)] == 'T' &&
 			is_get_target(game, render_data, (int)player->pos_x, (int)(player->pos_y + player->dir_y * MOVE_SPEED))))))
-		put_block_double(game->img, c_player, player->pos_x, player->pos_y);
+		put_block_double(game->img, c_player, player->pos_y, player->pos_x);
+	close_doors(game, map_data);
 }
 
-static void	open_doors(t_game *game, t_render_data *render_data, t_map_data map_data)
+static void	open_doors(t_game *game, t_render_data *render_data, t_map_data *map_data)
+{
+	t_player	*player;
+	int			x;
+	int			y;
+	int			i;
+
+	(void)render_data;
+	player = &game->render_data.player;
+	x = (int)(player->pos_x + player->dir_x * MOVE_SPEED);
+	y = (int)(player->pos_y + player->dir_y * MOVE_SPEED);
+	i = 0;
+	if ((map_data->map[(int)player->pos_x][y] == 'D') || map_data->map[x][(int)player->pos_y] == 'D')
+	{
+		while (i < game->door_count)
+		{
+			if (game->render_data.doors[i].pos_x == x && game->render_data.doors[i].pos_y == y)
+			{
+				game->render_data.doors[i].open_door = 1;
+				printf("door open\n");
+				break ;
+			}
+			i++;
+		}
+	}
+}
+
+static void	get_target(t_game *game, t_map_data *map_data)
 {
 	t_player	*player;
 	int			x;
@@ -174,27 +254,27 @@ static void	open_doors(t_game *game, t_render_data *render_data, t_map_data map_
 	player = &game->render_data.player;
 	x = (int)(player->pos_x + player->dir_x * MOVE_SPEED);
 	y = (int)(player->pos_y + player->dir_y * MOVE_SPEED);
-	if (render_data->doors->open_door == 0) //problematisch
+	printf("target x: %d y: %d \n", x, y);
+	i = 0;
+	if ((map_data->map[(int)player->pos_x][y] == 'T') || map_data->map[x][(int)player->pos_y] == 'T')
 	{
-		i = 0;
-		if ((map_data.map[(int)player->pos_x][y] == 'D') || map_data.map[x][(int)player->pos_y] == 'D')
+	//	render_data->sprites.open_door = 1;
+		while (i < game->target_count)
 		{
-		//	render_data->sprites.open_door = 1;
-			while (i < game->door_count)
+			if (game->render_data.targets[i].pos_x == x && game->render_data.targets[i].pos_y == y)
 			{
-				if (game->render_data.doors[i].pos_x == x && game->render_data.doors[i].pos_y == y)
-				{
-					game->render_data.doors[i].open_door = 1;
-					printf("door open\n");
-					break ;
-				}
-				i++;
+				game->render_data.targets[i].got_target = 1;
+			//	game->air_caught += 1;
+			//	add_look(game, game->image.bubbles, WINDOW_HEIGHT / 2, WINDOW_HEIGHT);
+				printf("got target\n");
+				break ;
 			}
+			i++;
 		}
 	}
 }
 
-static void	get_target(t_game *game, t_render_data *render_data, t_map_data map_data)
+static void	get_air(t_game *game, t_map_data *map_data)
 {
 	t_player	*player;
 	int			x;
@@ -204,24 +284,40 @@ static void	get_target(t_game *game, t_render_data *render_data, t_map_data map_
 	player = &game->render_data.player;
 	x = (int)(player->pos_x + player->dir_x * MOVE_SPEED);
 	y = (int)(player->pos_y + player->dir_y * MOVE_SPEED);
-	if (render_data->targets->got_target == 0)
+	printf("air x: %d y: %d \n", x, y);
+	i = 0;
+	if ((map_data->map[(int)player->pos_x][y] == 'L') || map_data->map[x][(int)player->pos_y] == 'L')
 	{
-		i = 0;
-		if ((map_data.map[(int)player->pos_x][y] == 'T') || map_data.map[x][(int)player->pos_y] == 'T')
+	//	render_data->sprites.open_door = 1;
+		while (i < game->air_count)
 		{
-		//	render_data->sprites.open_door = 1;
-			while (i < game->door_count)
+			if (game->render_data.air_sprites[i].pos_x == x && game->render_data.air_sprites[i].pos_y == y)
 			{
-				if (game->render_data.targets[i].pos_x == x && game->render_data.doors[i].pos_y == y)
-				{
-					game->render_data.targets[i].got_target = 1;
-					printf("got target\n");
-					break ;
-				}
-				i++;
+				game->render_data.air_sprites[i].got_air = 1;
+				game->air_caught += 1;
+			//	add_look(game, game->image.bubbles, WINDOW_HEIGHT / 2, WINDOW_HEIGHT);
+				printf("got air\n");
+				break ;
 			}
+			i++;
 		}
 	}
+}
+
+void	scroll_hook(double xdelta, double ydelta, void *param)
+{
+	t_game			*game;
+	t_render_data	*render_data;
+
+	(void)xdelta;
+
+	game = (t_game *)param;
+	render_data = &game->render_data;
+
+	if (ydelta > 0)
+		rotate(render_data, 1);
+	else if (ydelta < 0)
+		rotate(render_data, -1);
 }
 
 
@@ -229,11 +325,34 @@ void	key_hook_(mlx_key_data_t keydata, void *param)
 {
 	t_game			*game;
 	t_render_data	*render_data;
-	t_map_data			map_data;
+	t_map_data		*map_data;
 
 	game = (t_game *)param;
 	render_data = &game->render_data;
-	map_data = game->map_data;
+	map_data = &game->map_data;
+	if (keydata.action == MLX_PRESS)
+	{
+		if (keydata.key == MLX_KEY_ESCAPE)
+		{
+			free_data(game);
+			mlx_close_window(game->mlx_ptr);
+		}
+		if (keydata.key == MLX_KEY_SPACE)
+		{
+			open_doors(game, render_data, map_data);
+			ft_putendl_fd("SPACE", STDERR_FILENO);
+		}
+		if (keydata.key == MLX_KEY_X)
+		{
+			get_target(game, map_data);
+			ft_putendl_fd("X", STDERR_FILENO);
+		}
+		if (keydata.key == MLX_KEY_Z)
+		{
+			get_air(game, map_data);
+			ft_putendl_fd("Z", STDERR_FILENO);
+		}
+	}
 	if (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT || keydata.action == MLX_RELEASE)
 	{
 		if (keydata.key == MLX_KEY_W)
@@ -259,7 +378,7 @@ void	key_hook_(mlx_key_data_t keydata, void *param)
 		if (keydata.key == MLX_KEY_LEFT)
 		{
 			rotate(render_data, 1);
-			ft_putendl_fd("Left", STDERR_FILENO);
+//			ft_putendl_fd("Left", STDERR_FILENO);
 		}
 		if (keydata.key == MLX_KEY_RIGHT)
 		{
@@ -268,7 +387,6 @@ void	key_hook_(mlx_key_data_t keydata, void *param)
 		}
 		if (keydata.key == MLX_KEY_ESCAPE)
 		{
-			free_data(game);
 			mlx_close_window(game->mlx_ptr);
 		}
 		if (keydata.key == MLX_KEY_SPACE)
@@ -278,7 +396,7 @@ void	key_hook_(mlx_key_data_t keydata, void *param)
 		}
 		if (keydata.key == MLX_KEY_X)
 		{
-			get_target(game, render_data, map_data);
+			get_target(game, map_data);
 			ft_putendl_fd("X", STDERR_FILENO);
 		}
 	}
@@ -296,4 +414,5 @@ void	loop_hook(void *param)
 			calculate_sprite_position(game);
 	}
 	mini_map_to_screen(game);
+	//print_count(game);
 }

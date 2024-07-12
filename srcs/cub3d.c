@@ -34,7 +34,6 @@ int	main(int argc, char **argv)
 		mlx_loop_hook(game.mlx_ptr, &hook, &game);
 		mlx_key_hook(game.mlx_ptr, &key_hook, &game);
 		mlx_loop(game.mlx_ptr);
-		//printf("hello cub3d :)\n");
 		free_data(&game);
 		clean_img(&game);
 		mlx_terminate(game.mlx_ptr);

@@ -12,5 +12,7 @@ t_texpaths	init_texpaths(void)
 	paths.NO = NULL;
 	paths.SO = NULL;
 	paths.WE = NULL;
+	paths.air = NULL;
+	paths.bubbles = NULL;
 	return (paths);
 }

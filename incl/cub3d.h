@@ -14,6 +14,7 @@
 # include <stdlib.h> // getenv
 # include <string.h>
 # include <unistd.h> // write, access, fork, execve, dup2, pipe, etc.
+# include <time.h>
 
 # define MAP_WIDTH 10
 # define MAP_HEIGHT 10
@@ -21,7 +22,7 @@
 # define SSIZE 10
 
 /* tex */
-void	load_visuals(t_game *game, t_visual *visual_res, t_texpaths *paths);
+void	load_visuals(t_visual *visual_res, t_texpaths *paths);
 t_sprite		*init_sprite(mlx_t *mlx, const char *path, float x, float y);
 void			calculate_sprite_position(t_game *game);
 
@@ -63,8 +64,9 @@ void			put_pixel_double(mlx_image_t *img, double x, double y,
 					t_color color);
 void			put_pixel(mlx_image_t *img, int x, int y, t_color color);
 void			put_block(mlx_image_t *img, t_color color, int x, int y);
-void			fill_half(mlx_image_t *img, t_color color, int start_y,
+void			fill_half(t_game *game, t_color color, int start_y,
 					int end_y);
+void	add_look(t_game *game, mlx_image_t *img, int start_y, int end_y);
 void			player_dir(t_game *game, int x, int y);
 void			draw_dir(t_game *game, int x, int y, t_color color);
 void			mini_map_to_screen(t_game *game);
@@ -73,12 +75,18 @@ void			put_block_double(mlx_image_t *img, t_color color, double x,
 					double y);
 char			get_direction(mlx_key_data_t key, char cur_direct);
 int				get_color_int(const char *color_str);
+int		is_door_open(t_game *game, t_render_data *render_data, int x, int y);
+int		is_get_air(t_game *game, t_render_data *render_data, int x, int y);
+int		is_get_target(t_game *game, t_render_data *render_data, int x, int y);
 t_color			int_to_color(int color);
 t_game			*mini_map_init(t_game *game);
+void	print_count(t_game *game);
 
 /* Hooks */
 void			key_hook_(mlx_key_data_t keydata, void *param);
 void			loop_hook(void *param);
+void	scroll_hook(double xdelta, double ydelta, void *param);
+
 
 /* Initialize data */
 t_game			*get_mlx(t_game *game);
@@ -94,7 +102,7 @@ t_raycast		init_raycast(void);
 t_ray			init_ray(void);
 t_render_data	init_render_data(void);
 t_render_data	init_render_data(void);
-t_game			*get_player(t_game *game);
+t_game			*set_player(t_game *game);
 
 /* Rendering */
 void			render_image(t_game *game);

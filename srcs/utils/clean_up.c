@@ -21,20 +21,23 @@ void	free_data(t_game *game)
 	i = 0;
 	while (i < game->map_data.y_axis)
 	{
-		free(game->map_data.map[i]);
+		// free(game->map_data.map[i]);
 		i++;
 	}
-	if (game->map_data.x_axis)
-			free(game->map_data.x_axis);
-	// if (game->map.cub)
-	// 		free_string_arr(game->map.cub);
+	// if (game->map_data.x_axis)
+	// 		free(game->map_data.x_axis);
+
+
 	//clean_texture(game);
 	free(game->map_data.map);
 	free(game->visual_res.NO);
 	free(game->visual_res.SO);
 	free(game->visual_res.WE);
 	free(game->visual_res.EA);
+	free(game->visual_res.bubbles);
+	free(game->visual_res.target);
 	free(game->visual_res.door);
+	free(game->visual_res.air);
 }
 
 void	free_string_arr(char **string_arr)

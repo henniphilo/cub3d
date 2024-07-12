@@ -4,6 +4,7 @@ int	parse_input_table(t_game *game)
 {
 	t_texpaths paths;
 
+	paths = init_texpaths();
 	parse_paths(game->map_data.height, &paths, game->map_data.input_table);
 	if(!paths.EA || !paths.NO || !paths.SO
 		|| !paths.WE || !paths.ceiling)
@@ -11,8 +12,7 @@ int	parse_input_table(t_game *game)
 		exit(1); // ? TODO: clean exit strategy
 		return (1);
 	}
-
-	load_visuals(game, &game->visual_res, &paths);
+	load_visuals(&game->visual_res, &paths);
 	create_map(&game->map_data);
 	free_input_table(game->map_data.height, game->map_data.input_table);
 

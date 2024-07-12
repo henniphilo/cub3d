@@ -15,6 +15,7 @@ typedef struct s_sprite
 	int				got_target;
 	char			direction;
 	mlx_image_t	*img;
+	int				got_air;
 	int				id;
 }					t_sprite;
 
@@ -48,6 +49,8 @@ typedef struct s_texpaths
 	char			*ceiling;
 	char			*door;
 	char			*target;
+	char		*bubbles;
+	char		*air;
 }					t_texpaths;
 
 typedef struct s_visual
@@ -59,6 +62,9 @@ typedef struct s_visual
 	mlx_texture_t	*door;
 	mlx_texture_t	*player;
 	mlx_texture_t	*target;
+	mlx_texture_t	*bubbles;
+	mlx_image_t		*bubbles_img;
+	mlx_texture_t	*air;
 
 	mlx_image_t		*target_img;
 
@@ -128,9 +134,11 @@ typedef struct s_render_data
 	t_sprite		*targets;
 	t_sprite		*doors;
 	double			z_buffer[WINDOW_WIDTH];
+	t_sprite		*air_sprites;
 	int				flag_hit_wall;
 	int				flag_hit_door;
 	int				flag_hit_target;
+	int				flag_hit_air;
 	int				flag_side;
 }					t_render_data;
 
@@ -142,8 +150,10 @@ typedef struct s_game
 	t_render_data	render_data;
 	t_visual		visual_res;
 	t_texpaths		texpaths;
+	int				air_count;
 	int				door_count;
 	int				target_count;
+	int				air_caught;
 }					t_game;
 
 #endif

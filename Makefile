@@ -13,7 +13,7 @@ RM = rm -f
 
 # MAIN = cub3d
 MAIN = main args_check hooks render_1 render_2 directions player sprite
-UTILS = map_valid map_prep map_init map_checks wall_check clean_up mini_map map_interpret move_player color_init pixel
+UTILS = map_valid map_prep map_init map_checks wall_check clean_up mini_map map_interpret color_init pixel
 INITS = init_camera init_texpaths init_map_data init_player init_ray init_raycast init_render init_visuals
 #SRC = $(addsuffix .c, $(MAIN)) \
 			$(addsuffix .c, $(addprefix srcs/utils/, $(UTILS))) \
