@@ -91,7 +91,7 @@ static void	init_count(t_game *game)
 	printf(" %d insgesamt air \n", game->air_count);
 }
 
-static void	check_sprites(t_game *game_data, t_render_data *render_data, int sprite_type)
+static void	check_sprites(t_game *game, t_render_data *render_data, int sprite_type)
 {
 	t_sprite	*sprite_array;
 	int			sprite_count;
@@ -100,12 +100,12 @@ static void	check_sprites(t_game *game_data, t_render_data *render_data, int spr
 	if (sprite_type == 0) // Checking door sprites
 	{
 		sprite_array = render_data->doors;
-		sprite_count = game_data->door_count;
+		sprite_count = game->door_count;
 	}
 	else // Checking target sprites
 	{
 		sprite_array = render_data->targets;
-		sprite_count = game_data->target_count;
+		sprite_count = game->target_count;
 	}
 
 	i = 0;
@@ -296,7 +296,7 @@ void	fill_half(t_game *game, t_color color, int start_y, int end_y)
 		y++;
 	}
 	init_bg_img(game);
-	//add_look(game, game->image.bubbles, start_y, end_y);
+	//add_look(game, game->visual_res.bubbles, start_y, end_y);
 }
 
 static int	random_int(int min, int max)

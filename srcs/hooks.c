@@ -127,14 +127,14 @@ static void	rotate(t_render_data *render_data, int direction)
 		+ camera->plane_y * cos(ROT_SPEED * direction);
 }
 
-static void	close_doors(t_game *game_data, t_map_data *map_data)
+static void	close_doors(t_game *game, t_map_data *map_data)
 {
 	t_player	*player;
 	int			x;
 	int			y;
 	int			i;
 
-	player = &game_data->render_data.player;
+	player = &game->render_data.player;
 	x = (int)(player->pos_x + player->dir_x * MOVE_SPEED);
 	y = (int)(player->pos_y + player->dir_y * MOVE_SPEED);
 	i = 0;
@@ -145,11 +145,11 @@ static void	close_doors(t_game *game_data, t_map_data *map_data)
 		if ((map_data->map[(int)player->pos_x + 1][y ] == 'D') || map_data->map[x ][(int)player->pos_y + 1] == 'D'
 			|| (map_data->map[(int)player->pos_x - 1][y ] == 'D') || map_data->map[x][(int)player->pos_y  - 1] == 'D')
 		{
-			while (i < game_data->door_count)
+			while (i < game->door_count)
 			{
-				// if (game_data->render_data.do_sprites[i].open_door == 1)
+				// if (game->render_data.do_sprites[i].open_door == 1)
 				// {
-					game_data->render_data.doors[i].open_door = 0;
+					game->render_data.doors[i].open_door = 0;
 					printf("door closed\n");
 				//	break ;
 				// }
@@ -266,7 +266,7 @@ static void	get_target(t_game *game, t_map_data *map_data)
 			{
 				game->render_data.targets[i].got_target = 1;
 			//	game->air_caught += 1;
-			//	add_look(game, game->image.bubbles, WINDOW_HEIGHT / 2, WINDOW_HEIGHT);
+			//	add_look(game, game->visual_res.bubbles, WINDOW_HEIGHT / 2, WINDOW_HEIGHT);
 				printf("got target\n");
 				break ;
 			}
@@ -297,9 +297,9 @@ static void	get_air(t_game *game, t_map_data *map_data)
 			{
 				game->render_data.air_sprites[i].got_air = 1;
 				game->air_caught += 1;
-			//	add_look(game, game->image.bubbles, WINDOW_HEIGHT / 2, WINDOW_HEIGHT);
+			//	add_look(game, game->visual_res.bubbles, WINDOW_HEIGHT / 2, WINDOW_HEIGHT);
 				printf("got air\n");
-				print_got_air(game_data);
+				print_got_air(game);
 				break ;
 			}
 			i++;
@@ -426,7 +426,7 @@ void	loop_hook(void *param)
 	mini_map_to_screen(game);
 	if (game->air_caught != 0)
 	{
-		add_look(game_data, game_data->image.bubbles, 0, WINDOW_HEIGHT / 2);
-		add_look(game, game_data->image.bubbles, WINDOW_HEIGHT / 2, WINDOW_HEIGHT);
+		add_look(game, game->visual_res.bubbles_img, 0, WINDOW_HEIGHT / 2);
+		add_look(game, game->visual_res.bubbles_img, WINDOW_HEIGHT / 2, WINDOW_HEIGHT);
 	}
 }
