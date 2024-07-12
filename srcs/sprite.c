@@ -1,16 +1,5 @@
 #include "../incl/cub3d.h"
 
-t_sprite *init_sprite(mlx_t *mlx, const char *path, float x, float y)
-{
-    t_sprite *sprite = (t_sprite *)ft_calloc(1, sizeof(t_sprite));
-    sprite->pos_x = x;
-    sprite->pos_y = y;
-	
-    sprite->img = mlx_texture_to_image(mlx, mlx_load_png(path));
-    if (!sprite->img)
-        return (NULL);
-    return (sprite);
-}
 
 // void calculate_sprite_position(t_sprite *sprite, float player_x, float player_y, float dir_x, float dir_y, float plane_x, float plane_y, int screen_width, int screen_height, float *z_buffer, mlx_image_t *img)
 void calculate_sprite_position(t_game *game)

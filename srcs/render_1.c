@@ -36,16 +36,16 @@ void	perform_dda(t_game *game, t_render_data *render_data, t_map_data *map_data)
 			ray->grid_pos_y += ray->step_y;
 			render_data->flag_side = 1;
 		}
-		if (map_data->map[ray->grid_pos_x][ray->grid_pos_y] == '1')
+		if (map_data->map[ray->grid_pos_y][ray->grid_pos_x] == '1')
 			render_data->flag_hit_wall = 1;
-		// if (map_data->map[ray->grid_pos_x][ray->grid_pos_y] == 'D')
-		// {
-		// 	if (!is_door_open(game, render_data, ray->grid_pos_x, ray->grid_pos_y))
-		// 	{
-		// 		render_data->flag_hit_wall = 1;
-		// 		render_data->flag_hit_door = 1;
-		// 	}
-		// }
+		if (map_data->map[ray->grid_pos_y][ray->grid_pos_x] == 'D')
+		{
+			if (!is_door_open(game, render_data, ray->grid_pos_x, ray->grid_pos_y))
+			{
+				render_data->flag_hit_wall = 1;
+				render_data->flag_hit_door = 1;
+			}
+		}
 		// if (map_data->map[ray->grid_pos_x][ray->grid_pos_y] == 'T')
 		// {
 		// 	 if (!is_get_target(game, render_data, ray->grid_pos_x, ray->grid_pos_y))

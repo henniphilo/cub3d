@@ -34,7 +34,7 @@ t_game	*set_player(t_game *game)
 	y = 1;
 	while (y < game->map_data.y_axis)
 	{
-		x = 0;
+		x = 1;
 		while (x < game->map_data.x_axis[y])
 		{
 			direction = game->map_data.map[y][x];

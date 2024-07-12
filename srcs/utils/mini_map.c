@@ -34,8 +34,8 @@ void	mini_map_to_screen(t_game *game)
 		}
 		y++;
 	}
-	put_block_double(game->img, c_player, game->render_data.player.pos_y,
-		game->render_data.player.pos_x);
+	put_block_double(game->img, c_player,
+		game->render_data.player.pos_x, game->render_data.player.pos_y);
 	//print_got_air(game);
 }
 
@@ -166,17 +166,17 @@ void	init_sprites(t_game *game)
 		{
 			if (i < game->target_count && game->map_data.map[y][x] == 'T')
 			{
-				init_target(game, y, x, i);
+				init_target(game, x, y, i);
 				i += 1;
 			}
 			if (j < game->door_count && game->map_data.map[y][x] == 'D')
 			{
-				init_door(game, y, x, j);
+				init_door(game, x, y, j);
 				j += 1;
 			}
 			if (h < game->air_count && game->map_data.map[y][x] == 'L')
 			{
-				init_air(game, y, x, h);
+				init_air(game, x, y, h);
 				h += 1;
 			}
 			x++;
