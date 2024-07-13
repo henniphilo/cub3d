@@ -119,8 +119,6 @@ typedef struct s_player
 {
 	double			pos_x;
 	double			pos_y;
-	double			prev_pos_x;
-	double			prev_pos_y;
 	double			dir_x;
 	double			dir_y;
 }					t_player;
@@ -140,6 +138,7 @@ typedef struct s_render_data
 	int				flag_hit_target;
 	int				flag_hit_air;
 	int				flag_side;
+	int				flag_render;
 }					t_render_data;
 
 typedef struct s_game

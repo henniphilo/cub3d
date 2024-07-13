@@ -22,8 +22,8 @@
 # define SSIZE 10
 
 /* tex */
-void	load_visuals(t_visual *visual_res, t_texpaths *paths);
-t_sprite		*init_sprite(mlx_t *mlx, const char *path, float x, float y);
+void			load_visuals(t_visual *visual_res, t_texpaths *paths);
+// t_sprite		*init_sprite(mlx_t *mlx, const char *path, float x, float y);
 void			calculate_sprite_position(t_game *game);
 
 /* Map Parsing */
@@ -105,9 +105,11 @@ t_render_data	init_render_data(void);
 t_game			*set_player(t_game *game);
 
 /* Rendering */
-void			render_image(t_game *game);
+void			render_worldmap(t_game *game);
 void			setup_render_params(uint32_t x, t_render_data *render_data,
 					mlx_image_t *image);
+void	perform_dda(t_game *game, t_render_data *render_data, t_map_data *map_data);
+void	draw_line(int x, t_render_data *render_data, mlx_image_t *image, mlx_texture_t *tex);
 
 /* Cleanup */
 void			free_string_arr(char **string_arr);
@@ -119,5 +121,30 @@ void			args_check(int argc, char **argv);
 /* Drawing utils */
 uint32_t get_pixel(mlx_texture_t *img, int x, int y);
 void			set_pixel(mlx_image_t *img, int x, int y, uint32_t color);
+
+/* Doors */
+void	open_doors(t_game *game, t_render_data *render_data,
+		t_map_data *map_data);
+void	close_doors(t_game *game, t_map_data *map_data);
+int	is_door_open(t_game *game, t_render_data *render_data, int x, int y);
+
+/* Targets */
+int	is_get_target(t_game *game, t_render_data *render_data, int x, int y);
+void	get_target(t_game *game, t_map_data *map_data);
+
+/* Air */
+int	is_get_air(t_game *game, t_render_data *render_data, int x, int y);
+void	get_air(t_game *game, t_map_data *map_data);
+
+/* Movements */
+void	rotate(t_render_data *render_data, int direction);
+void	move_straight(t_game *game, t_map_data *map_data, t_render_data *render_data,
+		int direction);
+void	player_n1_move(t_game *game, t_map_data *map_data,
+		t_render_data *render_data, int direction);
+void	move_sideways(t_game *game, t_map_data *map_data,
+		t_render_data *render_data, int direction);
+void	player_n1_sideways(t_game *game, t_map_data *map_data,
+		t_render_data *render_data, int direction);
 
 #endif

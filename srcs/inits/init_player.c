@@ -8,7 +8,5 @@ t_player	init_player(void)
 	player.dir_y = 0;
 	player.pos_x = 0;
 	player.pos_y = 0;
-	player.prev_pos_x = 0;
-	player.prev_pos_y = 0;
 	return (player);
 }
