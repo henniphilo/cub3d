@@ -14,7 +14,7 @@ void	scroll_hook(double xdelta, double ydelta, void *param)
 		rotate(render_data, -1);
 }
 
-void	key_hook_(mlx_key_data_t keydata, void *param)
+void	key_hook(mlx_key_data_t keydata, void *param)
 {
 	t_game			*game;
 	t_render_data	*render_data;
@@ -112,20 +112,20 @@ void	loop_hook(void *param)
 	render_flag = game->render_data.flag_render;
 	if (render_flag)// || game->img->pixels[0] == 0)
 	{
-		if (game->air_caught == 0)
+		if (game->render_data.count_oxy_caught == 0)
 			mlx_put_string(game->mlx_ptr, " You need air! Find the tank!", 100, 0);
 		else
 		{
 			print_got_air(game);
 		}
 		render_worldmap(game);
-		calculate_sprite_position(game);
+
 		mini_map_to_screen(game);
 		render_flag = 0;
 	}
 	
 	
-	// if (game->air_caught != 0)
+	// if (game->render_data.count_oxy_caught != 0)
 	// {
 	// 	add_look(game, game->visual_res.bubbles_img, 0, WINDOW_HEIGHT
 	// 		/ 2);

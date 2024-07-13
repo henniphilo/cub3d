@@ -5,11 +5,11 @@ int	is_door_open(t_game *game, t_render_data *render_data, int x, int y)
 	int	i;
 
 	i = 0;
-	while (i < game->door_count)
+	while (i < game->render_data.count_door)
 	{
 		if ((int)render_data->doors[i].pos_x == x
 			&& (int)render_data->doors[i].pos_y == y)
-			return (render_data->doors[i].open_door);
+			return (render_data->doors[i].active);
 		i++;
 	}
 	return (0);
@@ -38,11 +38,11 @@ void	close_doors(t_game *game, t_map_data *map_data)
 			|| (map_data->map[y][(int)player->pos_x - 1] == 'D')
 			|| map_data->map[(int)player->pos_y - 1][x] == 'D')
 		{
-			while (i < game->door_count)
+			while (i < game->render_data.count_door)
 			{
 				// if (game->render_data.do_sprites[i].open_door == 1)
 				// {
-				game->render_data.doors[i].open_door = 0;
+				game->render_data.doors[i].active = 1;
 				printf("door closed\n");
 				//	break ;
 				// }
@@ -70,14 +70,14 @@ void	open_doors(t_game *game, t_render_data *render_data,
 	if ((map_data->map[(int)next_y][(int)player->pos_x] == 'D')
 		|| map_data->map[(int)player->pos_y][(int)next_x] == 'D')
 	{
-		while (i < game->door_count)
+		while (i < game->render_data.count_door)
 		{
 			if (((int)game->render_data.doors[i].pos_x == (int)next_x
 				&& (int) game->render_data.doors[i].pos_y == (int)player->pos_y)
 				|| ((int)player->pos_x == (int)game->render_data.doors[i].pos_x
 				&& (int)next_y == game->render_data.doors[i].pos_y))
 			{
-				game->render_data.doors[i].open_door = 1;
+				game->render_data.doors[i].active = 0;
 				printf("door open\n");
 				break ;
 			}

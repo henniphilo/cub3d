@@ -7,7 +7,7 @@ t_game	*mini_map_init(t_game *game)
 	i = 0;
 	fill_half(game, game->visual_res.c_ceiling, 0, WINDOW_HEIGHT / 2);
 	fill_half(game, game->visual_res.c_floor, WINDOW_HEIGHT / 2, WINDOW_HEIGHT);
-	while (i < game->air_caught)
+	while (i < game->render_data.count_oxy_caught)
 	{
 		add_look(game, game->visual_res.bubbles_img, 0, WINDOW_HEIGHT / 2);
 		add_look(game, game->visual_res.bubbles_img, WINDOW_HEIGHT / 2, WINDOW_HEIGHT);
@@ -41,8 +41,7 @@ void	mini_map_to_screen(t_game *game)
 
 static void	init_target(t_game *game, double x, double y, int id)
 {
-	game->render_data.targets[id].id = id;
-	game->render_data.targets[id].got_target = 0;
+	game->render_data.targets[id].active = 1;
 	game->render_data.targets[id].pos_x = x;
 	game->render_data.targets[id].pos_y = y;
 	game->render_data.targets[id].img = mlx_texture_to_image(game->mlx_ptr, game->visual_res.target);
@@ -50,8 +49,7 @@ static void	init_target(t_game *game, double x, double y, int id)
 
 static void	init_door(t_game *game, double x, double y, int id)
 {
-	game->render_data.doors[id].id = id;
-	game->render_data.doors[id].open_door = 0;
+	game->render_data.doors[id].active = 1;
 	game->render_data.doors[id].pos_x = x;
 	game->render_data.doors[id].pos_y = y;
 	game->render_data.doors[id].img = mlx_texture_to_image(game->mlx_ptr, game->visual_res.door);
@@ -59,10 +57,9 @@ static void	init_door(t_game *game, double x, double y, int id)
 
 static void	init_air(t_game *game, double x, double y, int id)
 {
-	game->render_data.air_sprites[id].id = id;
-	game->render_data.air_sprites[id].got_air = 0;
-	game->render_data.air_sprites[id].pos_x = x;
-	game->render_data.air_sprites[id].pos_y = y;
+	game->render_data.oxygen_tanks[id].active = 1;
+	game->render_data.oxygen_tanks[id].pos_x = x;
+	game->render_data.oxygen_tanks[id].pos_y = y;
 }
 
 static void	init_count(t_game *game)
@@ -77,18 +74,18 @@ static void	init_count(t_game *game)
 		while (x < game->map_data.x_axis[y])
 		{
 			if (game->map_data.map[y][x] == 'T')
-				game->target_count += 1;
+				game->render_data.count_target += 1;
 			else if (game->map_data.map[y][x] == 'D')
-				game->door_count += 1;
+				game->render_data.count_door += 1;
 			else if (game->map_data.map[y][x] == 'L')
-				game->air_count += 1;
+				game->render_data.count_oxy += 1;
 			x++;
 		}
 		y++;
 	}
-	printf(" %d insgesamt targets \n", game->target_count);
-	printf(" %d insgesamt doors \n", game->door_count);
-	printf(" %d insgesamt air \n", game->air_count);
+	printf(" %d insgesamt targets \n", game->render_data.count_target);
+	printf(" %d insgesamt doors \n", game->render_data.count_door);
+	printf(" %d insgesamt air \n", game->render_data.count_oxy);
 }
 
 static void	check_sprites(t_game *game, t_render_data *render_data, int sprite_type)
@@ -100,12 +97,12 @@ static void	check_sprites(t_game *game, t_render_data *render_data, int sprite_t
 	if (sprite_type == 0) // Checking door sprites
 	{
 		sprite_array = render_data->doors;
-		sprite_count = game->door_count;
+		sprite_count = game->render_data.count_door;
 	}
 	else // Checking target sprites
 	{
 		sprite_array = render_data->targets;
-		sprite_count = game->target_count;
+		sprite_count = game->render_data.count_target;
 	}
 
 	i = 0;
@@ -114,23 +111,23 @@ static void	check_sprites(t_game *game, t_render_data *render_data, int sprite_t
 		switch (sprite_type)
 		{
 			case 0: // Example case for doors
-				if (sprite_array[i].open_door)
-				{
-					printf("Door at (%.2f, %.2f) is open\n", sprite_array[i].pos_x, sprite_array[i].pos_y);
-				}
-				else
+				if (sprite_array[i].active)
 				{
 					printf("Door at (%.2f, %.2f) is closed\n", sprite_array[i].pos_x, sprite_array[i].pos_y);
 				}
+				else
+				{
+					printf("Door at (%.2f, %.2f) is open\n", sprite_array[i].pos_x, sprite_array[i].pos_y);
+				}
 				break;
 			case 1: // Example case for targets
-				if (sprite_array[i].got_target)
+				if (sprite_array[i].active)
 				{
-					printf("Target at (%.2f, %.2f) is acquired\n", sprite_array[i].pos_x, sprite_array[i].pos_y);
+					printf("Target at (%.2f, %.2f) is not acquired\n", sprite_array[i].pos_x, sprite_array[i].pos_y);
 				}
 				else
 				{
-					printf("Target at (%.2f, %.2f) is not acquired\n", sprite_array[i].pos_x, sprite_array[i].pos_y);
+					printf("Target at (%.2f, %.2f) is acquired\n", sprite_array[i].pos_x, sprite_array[i].pos_y);
 				}
 				break;
 			// Add other cases as needed for different sprite types
@@ -152,9 +149,9 @@ void	init_sprites(t_game *game)
 
 	printf("in init sprites\n");
 	init_count(game);
-	game->render_data.targets = ft_calloc(game->target_count + 1, sizeof(t_sprite));
-	game->render_data.doors = ft_calloc(game->door_count + 1, sizeof(t_sprite));
-	game->render_data.air_sprites = ft_calloc(game->air_count + 1, sizeof(t_sprite));
+	game->render_data.targets = ft_calloc(game->render_data.count_target + 1, sizeof(t_sprite));
+	game->render_data.doors = ft_calloc(game->render_data.count_door + 1, sizeof(t_sprite));
+	game->render_data.oxygen_tanks = ft_calloc(game->render_data.count_oxy + 1, sizeof(t_sprite));
 	i = 0;
 	j = 0;
 	y = 0;
@@ -164,17 +161,17 @@ void	init_sprites(t_game *game)
 		x = 0;
 		while (x < game->map_data.x_axis[y])
 		{
-			if (i < game->target_count && game->map_data.map[y][x] == 'T')
+			if (i < game->render_data.count_target && game->map_data.map[y][x] == 'T')
 			{
 				init_target(game, x, y, i);
 				i += 1;
 			}
-			if (j < game->door_count && game->map_data.map[y][x] == 'D')
+			if (j < game->render_data.count_door && game->map_data.map[y][x] == 'D')
 			{
 				init_door(game, x, y, j);
 				j += 1;
 			}
-			if (h < game->air_count && game->map_data.map[y][x] == 'L')
+			if (h < game->render_data.count_oxy && game->map_data.map[y][x] == 'L')
 			{
 				init_air(game, x, y, h);
 				h += 1;
@@ -330,12 +327,12 @@ void	print_got_air(t_game *game)
 {
 	// char	*fish_count;
 //	mlx_image_t *img;
-	// fish_count = ft_itoa(game->air_caught);
+	// fish_count = ft_itoa(game->render_data.count_oxy_caught);
 	// img = mlx_new_image(game->mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
 	// mlx_image_to_window(game->mlx_ptr, img, 0, 0);
 	usleep(100);
 	mlx_put_string(game->mlx_ptr, " You got air! Well done! Now catch some fish\n", 100, 0);
 	//mlx_put_string(game->mlx_ptr, fish_count, 5, 5);
 	//free(fish_count);
-//	ft_printf("got %d of air %d\n", game->air_caught, game->air_count);
+//	ft_printf("got %d of air %d\n", game->render_data.count_oxy_caught, game->render_data.count_oxy);
 }

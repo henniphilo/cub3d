@@ -30,9 +30,9 @@ t_game	*get_mlx(t_game *game)
 }
 void	init_data(t_game *game)
 {
-	game->target_count = 0;
-	game->door_count = 0;
-	game->air_count = 0;
+	game->render_data.count_target = 0;
+	game->render_data.count_door = 0;
+	game->render_data.count_oxy = 0;
 	game->img = NULL;
 	game->mlx_ptr = NULL;
 	game->map_data = init_map_data();
@@ -54,7 +54,7 @@ int	main(int argc, char **argv)
 	//print_got_air(&game);
 	mlx_loop_hook(game.mlx_ptr, loop_hook, &game);
 	mlx_put_string(game.mlx_ptr, "Hurry! You need air!\n", 100, 0);
-	mlx_key_hook(game.mlx_ptr, key_hook_, &game);
+	mlx_key_hook(game.mlx_ptr, key_hook, &game);
 	mlx_scroll_hook(game.mlx_ptr, scroll_hook, &game);
 	mlx_loop(game.mlx_ptr);
 	// free_data(&game);

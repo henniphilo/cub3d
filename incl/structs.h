@@ -4,20 +4,8 @@
 /* Constants */
 # define WINDOW_WIDTH 800
 # define WINDOW_HEIGHT 600
-# define MOVE_SPEED 0.5
+# define MOVE_SPEED 0.25
 # define ROT_SPEED 0.05
-
-typedef struct s_sprite
-{
-	double			pos_x;
-	double			pos_y;
-	int				open_door;
-	int				got_target;
-	char			direction;
-	mlx_image_t	*img;
-	int				got_air;
-	int				id;
-}					t_sprite;
 
 typedef struct s_color
 {
@@ -26,18 +14,6 @@ typedef struct s_color
 	uint8_t			b;
 	uint8_t			a;
 }					t_color;
-
-typedef struct s_map_data
-{
-	char			**input_table;
-	char			**map;
-	int				height;
-	int				width;
-	int				y_axis;
-	int				*x_axis;
-	t_sprite		*player;
-	char			first_dir;
-}					t_map_data;
 
 typedef struct s_texpaths
 {
@@ -90,6 +66,29 @@ typedef struct s_camera
 	double			plane_y;
 }					t_camera;
 
+typedef struct s_sprite
+{
+	double			pos_x;
+	double			pos_y;
+	double			dist_x;
+	double			dist_y;
+	double			inverse_determinate;
+	double			transform_x;
+	double			transform_y;
+	int				tex_x;
+	int				tex_y;
+	int				screen_x;
+	int				height;
+	int				width;
+	int				draw_start_x;
+	int				draw_start_y;
+	int				draw_end_x;
+	int				draw_end_y;
+	int				active;
+	// char			direction;
+	mlx_image_t		*img;
+}					t_sprite;
+
 typedef struct s_raycast
 {
 	int				line_height;
@@ -125,14 +124,18 @@ typedef struct s_player
 
 typedef struct s_render_data
 {
+	double			z_buffer[WINDOW_WIDTH];
 	t_player		player;
 	t_camera		camera;
 	t_ray			ray;
 	t_raycast		raycast;
 	t_sprite		*targets;
 	t_sprite		*doors;
-	double			z_buffer[WINDOW_WIDTH];
-	t_sprite		*air_sprites;
+	t_sprite		*oxygen_tanks;
+	int				count_oxy;
+	int				count_oxy_caught;
+	int				count_door;
+	int				count_target;
 	int				flag_hit_wall;
 	int				flag_hit_door;
 	int				flag_hit_target;
@@ -140,6 +143,18 @@ typedef struct s_render_data
 	int				flag_side;
 	int				flag_render;
 }					t_render_data;
+
+typedef struct s_map_data
+{
+	char			**input_table;
+	char			**map;
+	int				height;
+	int				width;
+	int				y_axis;
+	int				*x_axis;
+	t_sprite		*player;
+	char			first_dir;
+}					t_map_data;
 
 typedef struct s_game
 {
@@ -149,10 +164,6 @@ typedef struct s_game
 	t_render_data	render_data;
 	t_visual		visual_res;
 	t_texpaths		texpaths;
-	int				air_count;
-	int				door_count;
-	int				target_count;
-	int				air_caught;
 }					t_game;
 
 #endif

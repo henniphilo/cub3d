@@ -24,7 +24,7 @@
 /* tex */
 void			load_visuals(t_visual *visual_res, t_texpaths *paths);
 // t_sprite		*init_sprite(mlx_t *mlx, const char *path, float x, float y);
-void			calculate_sprite_position(t_game *game);
+
 
 /* Map Parsing */
 int				check_file_ending_cub(char *file);
@@ -59,7 +59,7 @@ void			set_west(t_game *game);
 // void	mm_get_img(t_game *game);
 // void	mm_load_visualt_game *game);
 void			draw_mini_map(t_game *game, mlx_image_t *img, int x, int y);
-void			key_hook(mlx_key_data_t key, void *ptr);
+// void			key_hook(mlx_key_data_t key, void *ptr);
 void			put_pixel_double(mlx_image_t *img, double x, double y,
 					t_color color);
 void			put_pixel(mlx_image_t *img, int x, int y, t_color color);
@@ -83,7 +83,7 @@ t_game			*mini_map_init(t_game *game);
 void	print_got_air(t_game *game);
 
 /* Hooks */
-void			key_hook_(mlx_key_data_t keydata, void *param);
+void			key_hook(mlx_key_data_t keydata, void *param);
 void			loop_hook(void *param);
 void	scroll_hook(double xdelta, double ydelta, void *param);
 
@@ -110,6 +110,10 @@ void			setup_render_params(uint32_t x, t_render_data *render_data,
 					mlx_image_t *image);
 void	perform_dda(t_game *game, t_render_data *render_data, t_map_data *map_data);
 void	draw_line(int x, t_render_data *render_data, mlx_image_t *image, mlx_texture_t *tex);
+void	calculate_sprite_position(t_sprite *sprite, t_render_data *render_data);
+void	draw_sprite(t_sprite *sprite, t_render_data *render_data,
+		mlx_texture_t *texture, mlx_image_t *img_window);
+void	render_sprites(t_game *game);
 
 /* Cleanup */
 void			free_string_arr(char **string_arr);

@@ -23,6 +23,8 @@
 		"math.h": "c",
 		"unistd.h": "c",
 		"string.h": "c",
-		"stdlib.h": "c"
+		"stdlib.h": "c",
+		"istream": "c",
+		"ostream": "c"
 	}
 }

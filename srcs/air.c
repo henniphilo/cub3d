@@ -5,11 +5,11 @@ int	is_get_air(t_game *game, t_render_data *render_data, int x, int y)
 	int	i;
 
 	i = 0;
-	while (i < game->air_caught)
+	while (i < game->render_data.count_oxy_caught)
 	{
-		if ((int)render_data->air_sprites[i].pos_x == x
-			&& (int)render_data->air_sprites[i].pos_y == y)
-			return (render_data->air_sprites[i].got_air);
+		if ((int)render_data->oxygen_tanks[i].pos_x == x
+			&& (int)render_data->oxygen_tanks[i].pos_y == y)
+			return (render_data->oxygen_tanks[i].active);
 		i++;
 	}
 	return (0);
@@ -33,13 +33,13 @@ void	get_air(t_game *game, t_map_data *map_data)
 		|| map_data->map[(int)player->pos_y][x] == 'L')
 	{
 		//	render_data->sprites.open_door = 1;
-		while (i < game->air_count)
+		while (i < game->render_data.count_oxy)
 		{
-			if (game->render_data.air_sprites[i].pos_x == x
-				&& game->render_data.air_sprites[i].pos_y == y)
+			if (game->render_data.oxygen_tanks[i].pos_x == x
+				&& game->render_data.oxygen_tanks[i].pos_y == y)
 			{
-				game->render_data.air_sprites[i].got_air = 1;
-				game->air_caught += 1;
+				game->render_data.oxygen_tanks[i].active = 0;
+				game->render_data.count_oxy_caught += 1;
 				//	add_look(game, game->visual_res.bubbles, WINDOW_HEIGHT / 2,
 						// WINDOW_HEIGHT);
 						printf("got air\n");

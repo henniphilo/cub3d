@@ -5,11 +5,11 @@ int	is_get_target(t_game *game, t_render_data *render_data, int x, int y)
 	int	i;
 
 	i = 0;
-	while (i < game->target_count)
+	while (i < game->render_data.count_target)
 	{
 		if ((int)render_data->targets[i].pos_x == x
 			&& (int)render_data->targets[i].pos_y == y)
-			return (render_data->targets[i].got_target);
+			return (render_data->targets[i].active);
 		i++;
 	}
 	return (0);
@@ -31,13 +31,13 @@ void	get_target(t_game *game, t_map_data *map_data)
 		|| map_data->map[(int)player->pos_y][x] == 'T')
 	{
 		//	render_data->sprites.open_door = 1;
-		while (i < game->target_count)
+		while (i < game->render_data.count_target)
 		{
 			if (game->render_data.targets[i].pos_x == x
 				&& game->render_data.targets[i].pos_y == y)
 			{
-				game->render_data.targets[i].got_target = 1;
-				//	game->air_caught += 1;
+				game->render_data.targets[i].active = 0;
+				//	game->render_data.count_oxy_caught += 1;
 				//	add_look(game, game->visual_res.bubbles, WINDOW_HEIGHT / 2,
 						// WINDOW_HEIGHT);
 						printf("got target\n");
