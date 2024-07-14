@@ -15,7 +15,7 @@ void	draw_line(int x, t_render_data *render_data, mlx_image_t *image, mlx_textur
 	y = raycast->draw_start;
 	while (y < raycast->draw_end)
 	{
-		texY = (int)render_data->raycast.tex_pos;// & (tex->height - 1);
+		texY = (int)render_data->raycast.tex_pos;
 		render_data->raycast.tex_pos += render_data->raycast.tex_step_size;
 		if (tex)
 		{

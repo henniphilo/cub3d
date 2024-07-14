@@ -6,7 +6,7 @@
 /*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 19:07:31 by vketteni          #+#    #+#             */
-/*   Updated: 2024/07/14 19:42:54 by hwiemann         ###   ########.fr       */
+/*   Updated: 2024/07/14 21:26:12 by hwiemann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void calculate_initial_side_distances(t_render_data* render_data) {
 	}
 }
 
-void	setup_render_params(uint32_t  x, t_render_data *render_data, mlx_image_t* image)
+void	setup_render_params(uint32_t x, t_render_data *render_data, mlx_image_t* image)
 {
 	t_ray		*ray;
 	t_camera	*camera;
@@ -88,7 +88,7 @@ void	calculate_wall_distance_and_height(int x, t_render_data *render_data,
 	wall_x -= floor(wall_x);
 
 
-	render_data->raycast.tex_x = (int)(wall_x * (double)tex->width) % tex->width;
+	render_data->raycast.tex_x = (int)(wall_x * (double)tex->width); //% tex->width;
 	if (render_data->flag_side == 0 && ray->ray_dir_x > 0)
 		render_data->raycast.tex_x = tex->width - render_data->raycast.tex_x - 1;
 	if (render_data->flag_side == 1 && ray->ray_dir_y < 0)
