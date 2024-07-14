@@ -53,8 +53,8 @@ void	draw_sprite(t_sprite *sprite, t_render_data *render_data,
 			y = sprite->draw_start_y;
 			while (y < sprite->draw_end_y)
 			{
-				d = (y)*256 - WINDOW_HEIGHT * 128 + sprite->img->height * 128;
-				sprite->tex_x = ((d * sprite->img->height) / sprite->height)
+				d = (y)*256 - WINDOW_HEIGHT * 128 + sprite->height * 128;
+				sprite->tex_y = ((d * sprite->img->height) / sprite->height)
 					/ 256;
 				color = get_pixel(texture, sprite->tex_x, sprite->tex_y);
 				if (color != 0xFF000000)

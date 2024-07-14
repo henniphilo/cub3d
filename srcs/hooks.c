@@ -45,8 +45,18 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 			get_air(game, map_data);
 			ft_putendl_fd("Z", STDERR_FILENO);
 		}
-		render_data->flag_render = 1;
+		render_data->flag_render = 1; //was ist das???
 	}
+	if (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT)
+			if (keydata.key == MLX_KEY_LEFT)
+		{
+			rotate(render_data, -1);
+		}
+		if (keydata.key == MLX_KEY_RIGHT)
+		{
+			rotate(render_data, 1);
+		}
+
 	if (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT
 		|| keydata.action == MLX_RELEASE)
 	{
@@ -70,16 +80,6 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 			player_n1_sideways(game, map_data, render_data, 1);
 			ft_putendl_fd("D", STDERR_FILENO);
 		}
-		if (keydata.key == MLX_KEY_LEFT)
-		{
-			rotate(render_data, 1);
-			//			ft_putendl_fd("Left", STDERR_FILENO);
-		}
-		if (keydata.key == MLX_KEY_RIGHT)
-		{
-			rotate(render_data, -1);
-			ft_putendl_fd("Right", STDERR_FILENO);
-		}
 		if (keydata.key == MLX_KEY_ESCAPE)
 		{
 			mlx_close_window(game->mlx_ptr);
@@ -88,11 +88,13 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 		{
 			open_doors(game, render_data, map_data);
 			ft_putendl_fd("SPACE", STDERR_FILENO);
+			check_sprites(game, render_data, 0);
 		}
 		if (keydata.key == MLX_KEY_X)
 		{
 			get_target(game, map_data);
 			ft_putendl_fd("X", STDERR_FILENO);
+			check_sprites(game, render_data, 1);
 		}
 	}
 }
@@ -119,12 +121,12 @@ void	loop_hook(void *param)
 			print_got_air(game);
 		}
 		render_worldmap(game);
-
+		render_sprites(game);
 		mini_map_to_screen(game);
 		render_flag = 0;
 	}
-	
-	
+
+
 	// if (game->render_data.count_oxy_caught != 0)
 	// {
 	// 	add_look(game, game->visual_res.bubbles_img, 0, WINDOW_HEIGHT

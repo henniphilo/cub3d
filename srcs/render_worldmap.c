@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render_1.c                                         :+:      :+:    :+:   */
+/*   render_worldmap.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 19:07:31 by vketteni          #+#    #+#             */
-/*   Updated: 2024/07/11 14:22:48 by hwiemann         ###   ########.fr       */
+/*   Updated: 2024/07/14 19:42:54 by hwiemann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,24 +18,24 @@ void calculate_initial_side_distances(t_render_data* render_data) {
 
 	ray = &render_data->ray;
 	player = &render_data->player;
-    if (ray->ray_dir_x < 0) {
-        ray->step_x = -1;
-        ray->side_dist_x = (player->pos_x - ray->grid_pos_x) * ray->delta_dist_x;
-    } else {
-        ray->step_x = 1;
-        ray->side_dist_x = (ray->grid_pos_x + 1.0 - player->pos_x) * ray->delta_dist_x;
-    }
+	if (ray->ray_dir_x < 0) {
+		ray->step_x = -1;
+		ray->side_dist_x = (player->pos_x - ray->grid_pos_x) * ray->delta_dist_x;
+	} else {
+		ray->step_x = 1;
+		ray->side_dist_x = (ray->grid_pos_x + 1.0 - player->pos_x) * ray->delta_dist_x;
+	}
 
-    if (ray->ray_dir_y < 0) {
-        ray->step_y = -1;
-        ray->side_dist_y = (player->pos_y - ray->grid_pos_y) * ray->delta_dist_y;
-    } else {
-        ray->step_y = 1;
-        ray->side_dist_y = (ray->grid_pos_y + 1.0 - player->pos_y) * ray->delta_dist_y;
-    }
+	if (ray->ray_dir_y < 0) {
+		ray->step_y = -1;
+		ray->side_dist_y = (player->pos_y - ray->grid_pos_y) * ray->delta_dist_y;
+	} else {
+		ray->step_y = 1;
+		ray->side_dist_y = (ray->grid_pos_y + 1.0 - player->pos_y) * ray->delta_dist_y;
+	}
 }
 
-void    setup_render_params(uint32_t  x, t_render_data *render_data, mlx_image_t* image)
+void	setup_render_params(uint32_t  x, t_render_data *render_data, mlx_image_t* image)
 {
 	t_ray		*ray;
 	t_camera	*camera;
@@ -44,15 +44,15 @@ void    setup_render_params(uint32_t  x, t_render_data *render_data, mlx_image_t
 	ray = &render_data->ray;
 	camera = &render_data->camera;
 	player = &render_data->player;
-    camera->cameraX = 2 * x / (double)image->width - 1;
-    ray->ray_dir_x = player->dir_x + camera->plane_x * camera->cameraX;
-    ray->ray_dir_y = player->dir_y + camera->plane_y * camera->cameraX;
-    ray->grid_pos_x = (int)player->pos_x;
-    ray->grid_pos_y = (int)player->pos_y;
-    ray->delta_dist_x = fabs(1 / ray->ray_dir_x);
-    ray->delta_dist_y = fabs(1 / ray->ray_dir_y);
-    render_data->flag_hit_wall = 0;
-    calculate_initial_side_distances(render_data);
+	camera->cameraX = 2 * x / (double)image->width - 1;
+	ray->ray_dir_x = player->dir_x + camera->plane_x * camera->cameraX;
+	ray->ray_dir_y = player->dir_y + camera->plane_y * camera->cameraX;
+	ray->grid_pos_x = (int)player->pos_x;
+	ray->grid_pos_y = (int)player->pos_y;
+	ray->delta_dist_x = fabs(1 / ray->ray_dir_x);
+	ray->delta_dist_y = fabs(1 / ray->ray_dir_y);
+	render_data->flag_hit_wall = 0;
+	calculate_initial_side_distances(render_data);
 }
 
 void	calculate_wall_distance_and_height(int x, t_render_data *render_data,
@@ -120,9 +120,9 @@ void	render_worldmap(t_game *game)
 		if (render_data->flag_side == 0)
 		{
 			if (render_data->ray.ray_dir_x > 0)
-				selected_texture = game->visual_res.WE;
-			else
 				selected_texture = game->visual_res.EA;
+			else
+				selected_texture = game->visual_res.WE;
 		}
 		else
 		{
@@ -139,8 +139,9 @@ void	render_worldmap(t_game *game)
 
 		if (render_data->flag_hit_door == 1)
 		{
-			if (!is_door_open(game, render_data, render_data->ray.grid_pos_x, render_data->ray.grid_pos_y))
+			if (is_door_open(game, render_data, render_data->ray.grid_pos_x, render_data->ray.grid_pos_y))
 			{
+				//ueberprueft was falsches
 				selected_texture = game->visual_res.door;
 				calculate_wall_distance_and_height(x, render_data, img, selected_texture);
 				draw_line(x, render_data, img, selected_texture);

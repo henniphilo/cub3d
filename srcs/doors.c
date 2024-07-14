@@ -5,6 +5,7 @@ int	is_door_open(t_game *game, t_render_data *render_data, int x, int y)
 	int	i;
 
 	i = 0;
+	//printf("is door check x %d y %d \n", x, y);
 	while (i < game->render_data.count_door)
 	{
 		if ((int)render_data->doors[i].pos_x == x

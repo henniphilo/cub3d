@@ -88,7 +88,7 @@ static void	init_count(t_game *game)
 	printf(" %d insgesamt air \n", game->render_data.count_oxy);
 }
 
-static void	check_sprites(t_game *game, t_render_data *render_data, int sprite_type)
+void	check_sprites(t_game *game, t_render_data *render_data, int sprite_type)
 {
 	t_sprite	*sprite_array;
 	int			sprite_count;
@@ -190,15 +190,17 @@ void	draw_mini_map(t_game *game, mlx_image_t *img, int x, int y)
 	t_color		wall = {0,0,0,255};
 	t_color		air = {200,0,100,255};
 	t_color		target = {150, 150, 0, 255};
-	t_color		door = {0, 50, 100, 255};
+	t_color		door = {100, 80, 150, 255};
 	t_color		floor = {255, 255, 255, 255};
 	t_color		color;
+	bool		should_draw;
 
+	should_draw = true;
 	if (game->map_data.map[y][x] == '1')
 		color = wall;
 	else if (game->map_data.map[y][x] == 'T')
 	{
-		if (is_get_target(game, &game->render_data, y, x) != 1)
+		if (is_get_target(game, &game->render_data, y, x) == 1)
 			color = target;
 		else
 			color = floor;
@@ -218,13 +220,13 @@ void	draw_mini_map(t_game *game, mlx_image_t *img, int x, int y)
 			color = floor;
 	}
 	else if (game->map_data.map[y][x] == 'N' || game->map_data.map[y][x] == 'E'
-		|| game->map_data.map[y][x] == 'W' || game->map_data.map[y][x] == 'S')
-		color = floor;
-	else if (game->map_data.map[y][x] == '0')
+		|| game->map_data.map[y][x] == 'W' || game->map_data.map[y][x] == 'S'
+		|| game->map_data.map[y][x] == '0')
 		color = floor;
 	else
-		color = game->visual_res.c_ceiling;
-	put_block(img, color, x, y);
+		should_draw = false;
+	if (should_draw == true)
+		put_block(img, color, x, y);
 }
 
 void	put_block(mlx_image_t *img, t_color color, int x, int y)
