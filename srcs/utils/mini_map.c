@@ -60,7 +60,7 @@ static void	init_air(t_game *game, double x, double y, int id)
 	game->render_data.oxygen_tanks[id].active = 1;
 	game->render_data.oxygen_tanks[id].pos_x = x + 0.5;
 	game->render_data.oxygen_tanks[id].pos_y = y + 0.5;
-	game->render_data.doors[id].img = mlx_texture_to_image(game->mlx_ptr, game->visual_res.door);
+	game->render_data.oxygen_tanks[id].img = mlx_texture_to_image(game->mlx_ptr, game->visual_res.door);
 }
 
 static void	init_count(t_game *game)
@@ -218,7 +218,7 @@ void	draw_mini_map(t_game *game, mlx_image_t *img, int x, int y)
 	else if (game->map_data.map[y][x] == 'D')
 	{
 	//	printf("D [%d][%d] ist %d \n", x, y, is_door_open(game, &game->render_data, y, x));
-		if (is_door_open(game, &game->render_data, y, x) == 1)
+		if (!is_door_open(game, &game->render_data, y, x))
 			color = door;
 		else
 			color = floor;
