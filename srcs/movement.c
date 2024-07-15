@@ -192,6 +192,6 @@ void	rotate(t_render_data *render_data, int direction)
 	camera->plane_y = old_plane_x * sin(ROT_SPEED * direction) + camera->plane_y
 		* cos(ROT_SPEED * direction);
 //	printf("camera plane y %.2f \n\n", camera->plane_y);
-	printf("camera plane x %.2f \n", camera->plane_x);
-	printf("camera plane y %.2f \n\n", camera->plane_y);
+//	printf("camera plane x %.2f \n", camera->plane_x);
+//	printf("camera plane y %.2f \n\n", camera->plane_y);
 }

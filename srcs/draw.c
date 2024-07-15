@@ -26,10 +26,10 @@ void	draw_line(int x, t_render_data *render_data, mlx_image_t *image, mlx_textur
 			uint8_t a = (color_tex >> 0) & 0xFF;
 			if (r != 0 || g != 0 || b != 0)
 			{
-				image->pixels[(y * image->width + x) * 4 + 0] = a;
-				image->pixels[(y * image->width + x) * 4 + 1] = g;
-				image->pixels[(y * image->width + x) * 4 + 2] = b;
-				image->pixels[(y * image->width + x) * 4 + 3] = r;
+				image->pixels[(y * image->width + image->width + 1 - x) * 4 + 0] = a;
+				image->pixels[(y * image->width + image->width + 1 - x) * 4 + 1] = g;
+				image->pixels[(y * image->width + image->width + 1 - x) * 4 + 2] = b;
+				image->pixels[(y * image->width + image->width + 1 - x) * 4 + 3] = r;
 			}
 		}
 		else

@@ -23,9 +23,9 @@ void set_pixel(mlx_image_t *img, int x, int y, uint32_t color)
 	a = (color >> 0) & 0xFF;
 	if (r != 0 || g != 0 || b != 0)
 	{
-		img->pixels[(y * img->width + x) * 4 + 0] = a;
-		img->pixels[(y * img->width + x) * 4 + 1] = g;
-		img->pixels[(y * img->width + x) * 4 + 2] = b;
-		img->pixels[(y * img->width + x) * 4 + 3] = r;
+		img->pixels[(y * img->width + img->width + 1 - x) * 4 + 0] = a;
+		img->pixels[(y * img->width + img->width + 1 - x) * 4 + 1] = g;
+		img->pixels[(y * img->width + img->width + 1 - x) * 4 + 2] = b;
+		img->pixels[(y * img->width + img->width + 1 - x) * 4 + 3] = r;
 	}
 }

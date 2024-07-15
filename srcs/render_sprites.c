@@ -76,7 +76,7 @@ void	render_sprites(t_game *game)
 	i = 0;
 	while (i < render_data->count_target)
 	{
-		if (render_data->targets[i].active)
+		if (render_data->targets[i].active == 1)
 		{
 			calculate_sprite_position(&render_data->targets[i], render_data);
 			draw_sprite(&render_data->targets[i], render_data,

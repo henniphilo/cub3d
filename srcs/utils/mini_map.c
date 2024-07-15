@@ -200,6 +200,7 @@ void	draw_mini_map(t_game *game, mlx_image_t *img, int x, int y)
 		color = wall;
 	else if (game->map_data.map[y][x] == 'T')
 	{
+	//	printf("T [%d][%d] ist %d \n", x, y, is_get_target(game, &game->render_data, y, x));
 		if (is_get_target(game, &game->render_data, y, x) == 1)
 			color = target;
 		else
@@ -207,6 +208,7 @@ void	draw_mini_map(t_game *game, mlx_image_t *img, int x, int y)
 	}
 	else if (game->map_data.map[y][x] == 'L')
 	{
+	//	printf("L [%d][%d] ist %d \n", x, y, is_get_air(game, &game->render_data, y, x));
 		if (is_get_air(game, &game->render_data, y, x) != 1)
 			color = air;
 		else
@@ -214,6 +216,7 @@ void	draw_mini_map(t_game *game, mlx_image_t *img, int x, int y)
 	}
 	else if (game->map_data.map[y][x] == 'D')
 	{
+	//	printf("D [%d][%d] ist %d \n", x, y, is_door_open(game, &game->render_data, y, x));
 		if (is_door_open(game, &game->render_data, y, x) == 1)
 			color = door;
 		else

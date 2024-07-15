@@ -50,11 +50,11 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 	if (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT)
 			if (keydata.key == MLX_KEY_LEFT)
 		{
-			rotate(render_data, -1);
+			rotate(render_data, 1);
 		}
 		if (keydata.key == MLX_KEY_RIGHT)
 		{
-			rotate(render_data, 1);
+			rotate(render_data, -1);
 		}
 
 	if (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT
@@ -72,12 +72,12 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 		}
 		if (keydata.key == MLX_KEY_A)
 		{
-			player_n1_sideways(game, map_data, render_data, 1);
+			player_n1_sideways(game, map_data, render_data, -1);
 			ft_putendl_fd("A", STDERR_FILENO);
 		}
 		if (keydata.key == MLX_KEY_D)
 		{
-			player_n1_sideways(game, map_data, render_data, -1);
+			player_n1_sideways(game, map_data, render_data, 1);
 			ft_putendl_fd("D", STDERR_FILENO);
 		}
 		if (keydata.key == MLX_KEY_ESCAPE)

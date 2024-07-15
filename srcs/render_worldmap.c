@@ -6,7 +6,7 @@
 /*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 19:07:31 by vketteni          #+#    #+#             */
-/*   Updated: 2024/07/14 21:26:12 by hwiemann         ###   ########.fr       */
+/*   Updated: 2024/07/15 10:58:26 by hwiemann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,13 +139,13 @@ void	render_worldmap(t_game *game)
 
 		if (render_data->flag_hit_door == 1)
 		{
-			if (is_door_open(game, render_data, render_data->ray.grid_pos_x, render_data->ray.grid_pos_y))
-			{
+			// if (is_door_open(game, render_data, render_data->ray.grid_pos_x, render_data->ray.grid_pos_y))
+			// {
 				//ueberprueft was falsches
 				selected_texture = game->visual_res.door;
 				calculate_wall_distance_and_height(x, render_data, img, selected_texture);
 				draw_line(x, render_data, img, selected_texture);
-			}
+			//}
 		}
 		// if (render_data->flag_hit_air == 1)
 		// {
