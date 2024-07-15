@@ -84,4 +84,15 @@ void	render_sprites(t_game *game)
 		}
 		i++;
 	}
+	i = 0;
+	while (i < render_data->count_oxy)
+	{
+		if (render_data->oxygen_tanks[i].active == 1)
+		{
+			calculate_sprite_position(&render_data->oxygen_tanks[i], render_data);
+			draw_sprite(&render_data->oxygen_tanks[i], render_data,
+				game->visual_res.target, game->img);
+		}
+		i++;
+	}
 }

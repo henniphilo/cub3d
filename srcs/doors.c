@@ -10,7 +10,7 @@ int	is_door_open(t_game *game, t_render_data *render_data, int x, int y)
 	{
 		if ((int)render_data->doors[i].pos_x == x
 			&& (int)render_data->doors[i].pos_y == y)
-			return (render_data->doors[i].active);
+			return (!(render_data->doors[i].active));
 		i++;
 	}
 	return (0);
