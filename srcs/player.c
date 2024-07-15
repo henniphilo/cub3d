@@ -5,8 +5,8 @@ void	set_player_pos(double x, double y, t_game *game)
 	t_player	*player;
 
 	player = &game->render_data.player;
-	player->pos_x = x;
-	player->pos_y = y;
+	player->pos_x = x + 0.5;
+	player->pos_y = y + 0.5;
 	printf("set player pos x = %.2f  y = %.2f \n", player->pos_x, player->pos_y);
 }
 
