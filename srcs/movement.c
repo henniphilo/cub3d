@@ -38,7 +38,7 @@ void	player_n1_move(t_game *game, t_map_data *map_data,
 					&& is_get_target(game, render_data, (int)player->pos_x,
 						(int)(player->pos_y + player->dir_y * MOVE_SPEED * direction))))))
 		put_block_double(game->img, c_player, player->pos_x, player->pos_y);
-	// close_doors(game, map_data);
+	 close_doors(game, map_data);
 }
 
 void	move_straight(t_game *game, t_map_data *map_data, t_render_data *render_data,
@@ -50,7 +50,7 @@ void	move_straight(t_game *game, t_map_data *map_data, t_render_data *render_dat
 
 	player = &render_data->player;
 	next_x = player->pos_x + player->dir_x * MOVE_SPEED * direction;
-	next_y = player->pos_y + player->dir_y * MOVE_SPEED * direction; //hier fehler?
+	next_y = player->pos_y + player->dir_y * MOVE_SPEED * direction;
 	if (map_data->map[(int)next_y][(int)next_x] == '0'
 		|| map_data->map[(int)next_y][(int)next_x] == game->map_data.first_dir
 		|| (map_data->map[(int)next_y][(int)next_x] == 'D' && is_door_open(game,
@@ -143,8 +143,8 @@ void	player_n1_sideways(t_game *game, t_map_data *map_data,
 			&& is_get_target(game, render_data, (int)player->pos_x,
 				(int)(player->pos_y + side_dir_y * MOVE_SPEED))))
 		put_block_double(game->img, c_player, player->pos_x, player->pos_y);
-	// close_doors(game, map_data);
-	(void)close_doors;
+	 close_doors(game, map_data);
+	//(void)close_doors;
 }
 
 

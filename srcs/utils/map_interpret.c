@@ -50,6 +50,8 @@ void	clean_texture(t_game *game)
 		mlx_delete_texture(game->visual_res.target);
 	if (game->visual_res.player)
 		mlx_delete_texture(game->visual_res.player);
+	if (game->visual_res.air)
+		mlx_delete_texture(game->visual_res.air);
 	// mlx_delete_texture(game->visual_res.wall);
 	// mlx_delete_texture(game->visual_res.target);
 }

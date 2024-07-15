@@ -7,6 +7,7 @@ t_visual	init_visuals(void)
 	visual_res.door = NULL;
 	visual_res.player = NULL;
 	visual_res.target = NULL;
+	visual_res.air = NULL;
 	visual_res.EA = NULL;
 	visual_res.NO = NULL;
 	visual_res.SO = NULL;

@@ -218,26 +218,26 @@ void	draw_mini_map(t_game *game, mlx_image_t *img, int x, int y)
 	else if (game->map_data.map[y][x] == 'T')
 	{
 	//	printf("T [%d][%d] ist %d \n", x, y, is_get_target(game, &game->render_data, y, x));
-		if (is_get_target(game, &game->render_data, y, x) == 0)
-			color = target;
-		else
+		if (is_get_target(game, &game->render_data, y, x))
 			color = floor;
+		else
+			color = target;
 	}
 	else if (game->map_data.map[y][x] == 'L')
 	{
 	//	printf("L [%d][%d] ist %d \n", x, y, is_get_air(game, &game->render_data, x, y));
-		if (!is_get_air(game, &game->render_data, y, x))
-			color = air;
-		else
+		if (is_get_air(game, &game->render_data, y, x))
 			color = floor;
+		else
+			color = air;
 	}
 	else if (game->map_data.map[y][x] == 'D')
 	{
 	//	printf("D [%d][%d] ist %d \n", x, y, is_door_open(game, &game->render_data, y, x));
-		if (!is_door_open(game, &game->render_data, y, x))
-			color = door;
-		else
+		if (is_door_open(game, &game->render_data, y, x))
 			color = floor;
+		else
+			color = door;
 	}
 	else if (game->map_data.map[y][x] == 'N' || game->map_data.map[y][x] == 'E'
 		|| game->map_data.map[y][x] == 'W' || game->map_data.map[y][x] == 'S'
@@ -353,7 +353,7 @@ void	print_got_air(t_game *game)
 	// img = mlx_new_image(game->mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
 	// mlx_image_to_window(game->mlx_ptr, img, 0, 0);
 	usleep(100);
-	mlx_put_string(game->mlx_ptr, " You got air! Well done! Now catch some fish\n", 100, 0);
+	mlx_put_string(game->mlx_ptr, " You got air! Well done! Now catch some fish\n", 400, 0);
 	//mlx_put_string(game->mlx_ptr, fish_count, 5, 5);
 	//free(fish_count);
 //	ft_printf("got %d of air %d\n", game->render_data.count_oxy_caught, game->render_data.count_oxy);

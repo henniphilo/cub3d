@@ -2,8 +2,10 @@
 # define STRUCTS_H
 
 /* Constants */
-# define WINDOW_WIDTH 1920
-# define WINDOW_HEIGHT 1080
+# define WINDOW_WIDTH 1200
+# define WINDOW_HEIGHT 800
+//# define WINDOW_WIDTH 1920
+//# define WINDOW_HEIGHT 1080
 # define MOVE_SPEED 0.25
 # define ROT_SPEED 0.05
 # define DOOR_PATH "./img/algen.png"
@@ -139,6 +141,7 @@ typedef struct s_render_data
 	t_sprite		*oxygen_tanks;
 	int				count_oxy;
 	int				count_oxy_caught;
+	int				count_fish_caught;
 	int				count_door;
 	int				count_target;
 	int				flag_hit_wall;

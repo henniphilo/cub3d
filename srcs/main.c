@@ -33,6 +33,8 @@ void	init_data(t_game *game)
 	game->render_data.count_target = 0;
 	game->render_data.count_door = 0;
 	game->render_data.count_oxy = 0;
+	game->render_data.count_oxy_caught = 0;
+	game->render_data.count_fish_caught = 0;
 	game->img = NULL;
 	game->mlx_ptr = NULL;
 	game->map_data = init_map_data();

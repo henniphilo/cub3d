@@ -36,6 +36,7 @@ void	get_target(t_game *game, t_map_data *map_data)
 				&& (int)game->render_data.targets[i].pos_y == (int)y)
 			{
 				game->render_data.targets[i].active = 0;
+				game->render_data.count_fish_caught += 1;
 				printf("got target\n");
 				break ;
 			}
