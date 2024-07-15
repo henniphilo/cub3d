@@ -12,7 +12,7 @@ t_game	*get_mlx(t_game *game)
 		return (NULL);
 	}
 	mlx = mlx_init((WINDOW_WIDTH), (WINDOW_HEIGHT),
-			"cub3d", true);
+			"cub3d", false);
 	if (!mlx)
 	{
 		ft_putendl_fd("Failed to initialize MLX42", STDERR_FILENO);

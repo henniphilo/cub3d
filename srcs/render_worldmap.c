@@ -6,7 +6,7 @@
 /*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 19:07:31 by vketteni          #+#    #+#             */
-/*   Updated: 2024/07/15 10:58:26 by hwiemann         ###   ########.fr       */
+/*   Updated: 2024/07/15 11:58:25 by hwiemann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	calculate_wall_distance_and_height(int x, t_render_data *render_data,
 					- ray->step_x) / 2) / ray->ray_dir_x;
 	else
 		raycast->perp_wall_dist = (ray->grid_pos_y - player->pos_y + (1
-					- ray->step_y) / (double)2) / ray->ray_dir_y;
+					- ray->step_y) / 2) / ray->ray_dir_y;
 	render_data->z_buffer[x] = raycast->perp_wall_dist;
 	raycast->line_height = (int)(image->height / raycast->perp_wall_dist);
 	raycast->draw_start = -raycast->line_height / 2 + image->height / 2;

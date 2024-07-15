@@ -50,11 +50,11 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 	if (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT)
 			if (keydata.key == MLX_KEY_LEFT)
 		{
-			rotate(render_data, 1);
+			rotate(render_data, -1);
 		}
 		if (keydata.key == MLX_KEY_RIGHT)
 		{
-			rotate(render_data, -1);
+			rotate(render_data, 1);
 		}
 
 	if (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT

@@ -1,7 +1,7 @@
-NO ./img/NO10001.png
-SO ./img/SO10001.png
-WE ./img/riesig1000.png
-EA ./img/EA10001.png
+NO ./img/wall_test.png
+SO ./img/wall_test.png
+WE ./img/wall_test.png
+EA ./img/wall_test.png
 DOOR ./img/algen.png
 TARGET ./img/fish500.png
 F 55,130,250
@@ -12,9 +12,9 @@ C 80,230,250
 11111111111
 10001000001
 10T01000001
+100010010011
 100010000011
-100010000011
-10W0D0000001
+10W0D0000101
 100010000001
 111110000001
 10000000011
