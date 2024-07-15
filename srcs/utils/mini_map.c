@@ -277,7 +277,7 @@ void	put_block_double(mlx_image_t *img, t_color color, double x, double y)
 static void	init_bg_img(t_game *game)
 {
 	(void)game;
-	game->visual_res.bubbles = mlx_load_png("./img/bubb800.png");
+	game->visual_res.bubbles = mlx_load_png(BUBBLE_PATH);
 	game->visual_res.bubbles_img = mlx_texture_to_image(game->mlx_ptr, game->visual_res.bubbles);
 	mlx_delete_texture(game->visual_res.bubbles);
 }

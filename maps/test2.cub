@@ -1,11 +1,7 @@
-NO ./img/NO10001.png
-SO ./img/SO10001.png
+NO ./img/NO1000.png
+SO ./img/SO1000.png
 WE ./img/riesig1000.png
-EA ./img/EA10001.png
-DOOR ./img/algen.png
-TARGET ./img/fish500.png
-BUBBLES ./img/bubb800.png
-AIR ./img/Scuba_tank.png
+EA ./img/EA1000.png
 F 55,130,250
 C 80,230,250
 

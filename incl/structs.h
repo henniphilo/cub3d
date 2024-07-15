@@ -9,6 +9,7 @@
 # define DOOR_PATH "./img/algen.png"
 # define TARGET_PATH "./img/fish500.png"
 # define AIR_PATH "./img/Scuba_tank.png"
+# define BUBBLE_PATH "./img/bubb800.png"
 
 
 typedef struct s_color

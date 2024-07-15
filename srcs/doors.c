@@ -67,16 +67,18 @@ void	open_doors(t_game *game, t_render_data *render_data,
 	player = &game->render_data.player;
 	next_x = player->pos_x + player->dir_x * MOVE_SPEED;
 	next_y = player->pos_y + player->dir_y * MOVE_SPEED;
+	printf("next x %d y %d \n", (int)next_x, (int)next_y);
 	i = 0;
 	if ((map_data->map[(int)next_y][(int)player->pos_x] == 'D')
 		|| map_data->map[(int)player->pos_y][(int)next_x] == 'D')
 	{
 		while (i < game->render_data.count_door)
 		{
+		//	printf("doors x %d , doors y %d \n player x %d player y %d \n", (int)game->render_data.doors[i].pos_x, (int) game->render_data.doors[i].pos_y, (int)player->pos_x, (int)game->render_data.doors[i].pos_y);
 			if (((int)game->render_data.doors[i].pos_x == (int)next_x
 				&& (int) game->render_data.doors[i].pos_y == (int)player->pos_y)
 				|| ((int)player->pos_x == (int)game->render_data.doors[i].pos_x
-				&& (int)next_y == game->render_data.doors[i].pos_y))
+				&& (int)next_y == (int)game->render_data.doors[i].pos_y))
 			{
 				game->render_data.doors[i].active = 0;
 				printf("door open\n");
