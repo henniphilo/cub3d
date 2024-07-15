@@ -34,16 +34,19 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 		{
 			open_doors(game, render_data, map_data);
 			ft_putendl_fd("SPACE", STDERR_FILENO);
+			check_sprites(game, render_data, 0);
 		}
 		if (keydata.key == MLX_KEY_X)
 		{
 			get_target(game, map_data);
 			ft_putendl_fd("X", STDERR_FILENO);
+			check_sprites(game, render_data, 1);
 		}
 		if (keydata.key == MLX_KEY_Z)
 		{
 			get_air(game, map_data);
 			ft_putendl_fd("Z", STDERR_FILENO);
+			check_sprites(game, render_data, 2);
 		}
 		render_data->flag_render = 1; //was ist das???
 	}
@@ -84,30 +87,24 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 		{
 			mlx_close_window(game->mlx_ptr);
 		}
-		if (keydata.key == MLX_KEY_SPACE)
-		{
-			open_doors(game, render_data, map_data);
-			ft_putendl_fd("SPACE", STDERR_FILENO);
-			check_sprites(game, render_data, 0);
-		}
-		if (keydata.key == MLX_KEY_X)
-		{
-			get_target(game, map_data);
-			ft_putendl_fd("X", STDERR_FILENO);
-			check_sprites(game, render_data, 1);
-		}
+		// if (keydata.key == MLX_KEY_SPACE)
+		// {
+		// 	open_doors(game, render_data, map_data);
+		// 	ft_putendl_fd("SPACE", STDERR_FILENO);
+		// 	check_sprites(game, render_data, 0);
+		// }
+		// if (keydata.key == MLX_KEY_X)
+		// {
+		// 	get_target(game, map_data);
+		// 	ft_putendl_fd("X", STDERR_FILENO);
+		// 	check_sprites(game, render_data, 1);
+		// }
 	}
 }
 
 void	loop_hook(void *param)
 {
 	t_game	*game;
-
-	// if (game->render_data.flag_hit_target == 1)
-	// {
-	// 	if (!is_get_target(game, &game->render_data,
-	// 		game->render_data.ray.grid_pos_x, game->render_data.ray.grid_pos_y))
-	// }
 	int		render_flag;
 
 	game = (t_game *)param;
@@ -115,7 +112,7 @@ void	loop_hook(void *param)
 	if (render_flag)// || game->img->pixels[0] == 0)
 	{
 		if (game->render_data.count_oxy_caught == 0)
-			mlx_put_string(game->mlx_ptr, " You need air! Find the tank!", 100, 0);
+			mlx_put_string(game->mlx_ptr, " You need air! Hurry! Find the tank!", 100, 0);
 		else
 		{
 			print_got_air(game);

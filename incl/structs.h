@@ -30,8 +30,8 @@ typedef struct s_texpaths
 	char			*ceiling;
 	char			*door;
 	char			*target;
-	char		*bubbles;
-	char		*air;
+	char			*bubbles;
+	char			*air;
 }					t_texpaths;
 
 typedef struct s_visual

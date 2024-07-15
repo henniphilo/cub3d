@@ -60,7 +60,7 @@ static void	init_air(t_game *game, double x, double y, int id)
 	game->render_data.oxygen_tanks[id].active = 1;
 	game->render_data.oxygen_tanks[id].pos_x = x + 0.5;
 	game->render_data.oxygen_tanks[id].pos_y = y + 0.5;
-	game->render_data.oxygen_tanks[id].img = mlx_texture_to_image(game->mlx_ptr, game->visual_res.door);
+	game->render_data.oxygen_tanks[id].img = mlx_texture_to_image(game->mlx_ptr, game->visual_res.air);
 }
 
 static void	init_count(t_game *game)
@@ -100,6 +100,11 @@ void	check_sprites(t_game *game, t_render_data *render_data, int sprite_type)
 		sprite_array = render_data->doors;
 		sprite_count = game->render_data.count_door;
 	}
+	if (sprite_type == 2) // Checking air sprites
+	{
+		sprite_array = render_data->oxygen_tanks;
+		sprite_count = game->render_data.count_oxy;
+	}
 	else // Checking target sprites
 	{
 		sprite_array = render_data->targets;
@@ -129,6 +134,16 @@ void	check_sprites(t_game *game, t_render_data *render_data, int sprite_type)
 				else
 				{
 					printf("Target at (%.2f, %.2f) is acquired\n", sprite_array[i].pos_x, sprite_array[i].pos_y);
+				}
+				break;
+			case 2: // Example case for targets
+				if (sprite_array[i].active)
+				{
+					printf("Air at (%.2f, %.2f) is not caught\n", sprite_array[i].pos_x, sprite_array[i].pos_y);
+				}
+				else
+				{
+					printf("Air at (%.2f, %.2f) is caught\n", sprite_array[i].pos_x, sprite_array[i].pos_y);
 				}
 				break;
 			// Add other cases as needed for different sprite types
@@ -184,6 +199,7 @@ void	init_sprites(t_game *game)
 	t_render_data	*render_data = &game->render_data;
 	check_sprites(game, render_data, 0);
 	check_sprites(game, render_data, 1);
+	check_sprites(game, render_data, 2);
 }
 
 void	draw_mini_map(t_game *game, mlx_image_t *img, int x, int y)
@@ -202,15 +218,15 @@ void	draw_mini_map(t_game *game, mlx_image_t *img, int x, int y)
 	else if (game->map_data.map[y][x] == 'T')
 	{
 	//	printf("T [%d][%d] ist %d \n", x, y, is_get_target(game, &game->render_data, y, x));
-		if (is_get_target(game, &game->render_data, y, x) == 1)
+		if (is_get_target(game, &game->render_data, y, x) == 0)
 			color = target;
 		else
 			color = floor;
 	}
 	else if (game->map_data.map[y][x] == 'L')
 	{
-	//	printf("L [%d][%d] ist %d \n", x, y, is_get_air(game, &game->render_data, y, x));
-		if (is_get_air(game, &game->render_data, y, x) == 1)
+	//	printf("L [%d][%d] ist %d \n", x, y, is_get_air(game, &game->render_data, x, y));
+		if (!is_get_air(game, &game->render_data, y, x))
 			color = air;
 		else
 			color = floor;
@@ -230,7 +246,7 @@ void	draw_mini_map(t_game *game, mlx_image_t *img, int x, int y)
 	else
 		should_draw = false;
 	if (should_draw == true)
-		put_block(img, color, x, y);
+		put_block_double(img, color, x, y);
 }
 
 void	put_block(mlx_image_t *img, t_color color, int x, int y)

@@ -53,10 +53,10 @@ void	parse_paths(int	map_height, t_texpaths *paths, char **input_table)
 	printf("SO: %s\n", paths->SO);
 	printf("WE: %s\n", paths->WE);
 	printf("EA: %s\n", paths->EA);
-	printf("Door: %s\n", paths->door);
-	printf("Target: %s\n", paths->target);
-	printf("Bubbles: %s\n", paths->bubbles);
-	printf("Air: %s\n", paths->air);
+	printf("Door: %s\n", DOOR_PATH);
+	printf("Target: %s\n", TARGET_PATH);
+	printf("Bubbles: %s\n", BUBBLE_PATH);
+	printf("Air: %s\n", AIR_PATH);
 }
 
 char	*get_path(char *line, const char *direction)

@@ -18,30 +18,26 @@ int	is_get_target(t_game *game, t_render_data *render_data, int x, int y)
 void	get_target(t_game *game, t_map_data *map_data)
 {
 	t_player	*player;
-	int			x;
-	int			y;
+	double		x;
+	double		y;
 	int			i;
 
 	player = &game->render_data.player;
-	x = (int)(player->pos_x + player->dir_x * MOVE_SPEED);
-	y = (int)(player->pos_y + player->dir_y * MOVE_SPEED);
-	printf("target x: %d y: %d \n", x, y);
+	x = (player->pos_x + player->dir_x * MOVE_SPEED);
+	y = (player->pos_y + player->dir_y * MOVE_SPEED);
+	printf("player x: %d y: %d \n", (int)x, (int)y);
 	i = 0;
-	if ((map_data->map[y][(int)player->pos_x] == 'T')
-		|| map_data->map[(int)player->pos_y][x] == 'T')
+	if ((map_data->map[(int)y][(int)player->pos_x] == 'T')
+		|| map_data->map[(int)player->pos_y][(int)x] == 'T')
 	{
-		//	render_data->sprites.open_door = 1;
 		while (i < game->render_data.count_target)
 		{
-			if (game->render_data.targets[i].pos_x == x
-				&& game->render_data.targets[i].pos_y == y)
+			if ((int)game->render_data.targets[i].pos_x == (int)x
+				&& (int)game->render_data.targets[i].pos_y == (int)y)
 			{
 				game->render_data.targets[i].active = 0;
-				//	game->render_data.count_oxy_caught += 1;
-				//	add_look(game, game->visual_res.bubbles, WINDOW_HEIGHT / 2,
-						// WINDOW_HEIGHT);
-						printf("got target\n");
-						break ;
+				printf("got target\n");
+				break ;
 			}
 			i++;
 		}
