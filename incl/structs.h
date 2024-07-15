@@ -6,6 +6,10 @@
 # define WINDOW_HEIGHT 1080
 # define MOVE_SPEED 0.25
 # define ROT_SPEED 0.05
+# define DOOR_PATH "./img/algen.png"
+# define TARGET_PATH "./img/fish500.png"
+# define AIR_PATH "./img/Scuba_tank.png"
+
 
 typedef struct s_color
 {

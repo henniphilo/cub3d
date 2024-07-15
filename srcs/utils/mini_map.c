@@ -210,7 +210,7 @@ void	draw_mini_map(t_game *game, mlx_image_t *img, int x, int y)
 	else if (game->map_data.map[y][x] == 'L')
 	{
 	//	printf("L [%d][%d] ist %d \n", x, y, is_get_air(game, &game->render_data, y, x));
-		if (is_get_air(game, &game->render_data, y, x) != 1)
+		if (is_get_air(game, &game->render_data, y, x) == 1)
 			color = air;
 		else
 			color = floor;
@@ -277,9 +277,9 @@ void	put_block_double(mlx_image_t *img, t_color color, double x, double y)
 static void	init_bg_img(t_game *game)
 {
 	(void)game;
-	// game->visual_res.bubbles = mlx_load_png(game->texpaths.bubbles);
-	// game->visual_res.bubbles_img = mlx_texture_to_image(game->mlx_ptr, game->visual_res.bubbles);
-	// mlx_delete_texture(game->tex.bubbles);
+	game->visual_res.bubbles = mlx_load_png("./img/bubb800.png");
+	game->visual_res.bubbles_img = mlx_texture_to_image(game->mlx_ptr, game->visual_res.bubbles);
+	mlx_delete_texture(game->visual_res.bubbles);
 }
 
 void	fill_half(t_game *game, t_color color, int start_y, int end_y)

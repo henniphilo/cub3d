@@ -18,28 +18,16 @@ void	load_visuals(t_visual *visual_res, t_texpaths *paths)
 		visual_res->EA = mlx_load_png(paths->EA);
 	else
 		printf("EA texture missing\n");
-	if (paths->door)
-		visual_res->door = mlx_load_png(paths->door);
-	else
-		printf("door texture missing\n");
-	if (paths->target)
-		visual_res->target = mlx_load_png(paths->target);
-	else
-		printf("target texture missing\n");
-	if (paths->air)
-		visual_res->air = mlx_load_png(paths->air);
-	else
+	visual_res->door = mlx_load_png(DOOR_PATH);
+		if (!visual_res->door)
+			printf("door texture missing\n");
+	visual_res->target = mlx_load_png(TARGET_PATH);
+		if (!visual_res->target)
+			printf("target texture missing\n");
+	visual_res->air = mlx_load_png(AIR_PATH);
+ 		if (!visual_res->air)
 		printf("air texture missing\n");
-	if (paths->bubbles)
-		visual_res->bubbles = mlx_load_png(paths->target);
-	else
-		printf("bubbles texture missing\n");
-	// if (!(visual_res->NO) || !(visual_res->SO) || !(visual_res->WE)
-	// 	|| !(visual_res->EA) || !(visual_res->door) || !(visual_res->target) || !(visual_res->air))
-	// {
-	// 	printf("Error texture load\n");
-	// 	exit(1);
-	// }
+
 	visual_res->c_ceiling = int_to_color(get_color_int(paths->ceiling));
 	visual_res->c_floor = int_to_color(get_color_int(paths->floor));
 
