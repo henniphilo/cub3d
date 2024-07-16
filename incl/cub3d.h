@@ -40,7 +40,6 @@ void			parse_paths(int map_height, t_texpaths *paths,
 void			init_input_table(t_map_data *map_data, int fd);
 void			fill_input_table(t_map_data *map_data, int fd);
 void			create_map(t_map_data *map_data);
-void			actual_map(t_map_data *map_data);
 void			print_map(t_map_data *map_data);
 void			free_data(t_game *game);
 void	free_input_table(int map_height, char **input_table);
@@ -67,8 +66,6 @@ void			put_block(mlx_image_t *img, t_color color, int x, int y);
 void			fill_half(t_game *game, t_color color, int start_y,
 					int end_y);
 void			add_look(t_game *game, mlx_image_t *img, int start_y, int end_y);
-void			player_dir(t_game *game, int x, int y);
-void			draw_dir(t_game *game, int x, int y, t_color color);
 void			mini_map_to_screen(t_game *game);
 void			init_position_and_direction(t_game *game);
 void			put_block_double(mlx_image_t *img, t_color color, double x,
@@ -84,7 +81,6 @@ void			print_got_air(t_game *game);
 
 /* Hooks */
 void			key_hook(mlx_key_data_t keydata, void *param);
-void			key_hook2(mlx_key_data_t keydata, void *param);
 void			loop_hook(void *param);
 void			scroll_hook(double xdelta, double ydelta, void *param);
 
@@ -140,6 +136,7 @@ void			get_target(t_game *game, t_map_data *map_data);
 /* Air */
 int				is_get_air(t_game *game, t_render_data *render_data, int x, int y);
 void			get_air(t_game *game, t_map_data *map_data);
+void			create_bubbles(t_game *game);
 
 /* Movements */
 void			rotate(t_render_data *render_data, int direction);

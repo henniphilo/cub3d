@@ -87,18 +87,8 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 		{
 			mlx_close_window(game->mlx_ptr);
 		}
-		// if (keydata.key == MLX_KEY_SPACE)
-		// {
-		// 	open_doors(game, render_data, map_data);
-		// 	ft_putendl_fd("SPACE", STDERR_FILENO);
-		// 	check_sprites(game, render_data, 0);
-		// }
-		// if (keydata.key == MLX_KEY_X)
-		// {
-		// 	get_target(game, map_data);
-		// 	ft_putendl_fd("X", STDERR_FILENO);
-		// 	check_sprites(game, render_data, 1);
-		// }
+		if (game->render_data.count_oxy_caught != 0)
+			create_bubbles(game);
 	}
 }
 
@@ -125,8 +115,6 @@ void	loop_hook(void *param)
 		mini_map_to_screen(game);
 		render_flag = 0;
 	}
-
-
 	// if (game->render_data.count_oxy_caught != 0)
 	// {
 	// 	add_look(game, game->visual_res.bubbles_img, 0, WINDOW_HEIGHT

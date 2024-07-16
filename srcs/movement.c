@@ -144,7 +144,6 @@ void	player_n1_sideways(t_game *game, t_map_data *map_data,
 				(int)(player->pos_y + side_dir_y * MOVE_SPEED))))
 		put_block_double(game->img, c_player, player->pos_x, player->pos_y);
 	 close_doors(game, map_data);
-	//(void)close_doors;
 }
 
 
@@ -158,20 +157,24 @@ void	rotate(t_render_data *render_data, int direction)
 	player = &render_data->player;
 	camera = &render_data->camera;
 	old_dir_x = player->dir_x;
-//	printf("camera old dir x %.2f \n", old_dir_x);
 	player->dir_x = player->dir_x * cos(ROT_SPEED * direction) - player->dir_y
 		* sin(ROT_SPEED * direction);
-//	printf("camera player dir x %.2f \n", player->dir_x);
 	player->dir_y = old_dir_x * sin(ROT_SPEED * direction) + player->dir_y
 		* cos(ROT_SPEED * direction);
 	old_plane_x = camera->plane_x;
-//	printf("camera old plane x %.2f \n", old_plane_x);
 	camera->plane_x = camera->plane_x * cos(ROT_SPEED * direction)
 		- camera->plane_y * sin(ROT_SPEED * direction);
-//	printf("camera plane x %.2f \n", camera->plane_x);
 	camera->plane_y = old_plane_x * sin(ROT_SPEED * direction) + camera->plane_y
 		* cos(ROT_SPEED * direction);
-//	printf("camera plane y %.2f \n\n", camera->plane_y);
-//	printf("camera plane x %.2f \n", camera->plane_x);
-//	printf("camera plane y %.2f \n\n", camera->plane_y);
+}
+
+void	create_bubbles(t_game *game)
+{
+	if (game->render_data.count_oxy_caught != 0)
+	{
+		add_look(game, game->visual_res.bubbles_img, 0, WINDOW_HEIGHT
+			/ 2);
+		add_look(game, game->visual_res.bubbles_img, WINDOW_HEIGHT / 2,
+			WINDOW_HEIGHT);
+	}
 }
