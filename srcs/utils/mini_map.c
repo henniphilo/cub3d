@@ -315,15 +315,12 @@ void	fill_half(t_game *game, t_color color, int start_y, int end_y)
 		y++;
 	}
 	init_bg_img(game);
-	//add_look(game, game->visual_res.bubbles, start_y, end_y);
 }
 
 static int	random_int(int min, int max)
 {
 	return (min + rand() % (max - min + 1));
 }
-
-
 void	add_look(t_game *game, mlx_image_t *img, int start_y, int end_y)
 {
 	int	rand_x;
