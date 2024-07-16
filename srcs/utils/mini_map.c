@@ -6,7 +6,7 @@
 /*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 14:47:49 by hwiemann          #+#    #+#             */
-/*   Updated: 2024/07/16 14:50:00 by hwiemann         ###   ########.fr       */
+/*   Updated: 2024/07/16 17:52:30 by hwiemann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,46 +44,34 @@ void	mini_map_to_screen(t_game *game)
 		game->render_data.player.pos_x, game->render_data.player.pos_y);
 }
 
+static t_color	choose_color(t_game *game, int x, int y)
+{
+	char		tile;
+
+	tile = game->map_data.map[y][x];
+
+	if (tile == ' ' || tile == '\n' || (tile == !game->map_data.first_dir && tile != '0'
+		&& tile != 'L' && tile != 'D' && tile != 'T' && tile != '1'))
+		return (C_TRANSPARENT);
+	if (tile == '1')
+		return (C_WALL);
+	else if (tile == 'T' && is_target(game, &game->render_data, x, y))
+		return (C_TARGET);
+	else if (tile == 'L' && is_air(game, &game->render_data, x, y))
+		return (C_AIR);
+	else if (tile == 'D' && is_door(game, &game->render_data, x, y))
+		return (C_DOOR);
+	else
+		return (C_FLOOR);
+}
+
 void	draw_mini_map(t_game *game, mlx_image_t *img, int x, int y)
 {
-	t_color		wall = {0,0,0,255};
-	t_color		air = {200,0,100,255};
-	t_color		target = {150, 150, 0, 255};
-	t_color		door = {100, 80, 150, 255};
-	t_color		floor = {255, 255, 255, 255};
 	t_color		color;
 	bool		should_draw;
 
-	should_draw = true;
-	if (game->map_data.map[y][x] == '1')
-		color = wall;
-	else if (game->map_data.map[y][x] == 'T')
-	{
-		if (is_target(game, &game->render_data, x, y))
-			color = target;
-		else
-			color = floor;
-	}
-	else if (game->map_data.map[y][x] == 'L')
-	{
-		if (is_air(game, &game->render_data, x, y))
-			color = air;
-		else
-			color = floor;
-	}
-	else if (game->map_data.map[y][x] == 'D')
-	{
-		if (is_door(game, &game->render_data, x, y))
-			color = door;
-		else
-			color = floor;
-	}
-	else if (game->map_data.map[y][x] == 'N' || game->map_data.map[y][x] == 'E'
-		|| game->map_data.map[y][x] == 'W' || game->map_data.map[y][x] == 'S'
-		|| game->map_data.map[y][x] == '0')
-		color = floor;
-	else
-		should_draw = false;
-	if (should_draw == true)
+	color = choose_color(game, x, y);
+	should_draw = (color.a != 0);
+	if (should_draw)
 		put_block_double(img, color, x, y);
 }
