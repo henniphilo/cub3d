@@ -6,7 +6,7 @@
 /*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:43:46 by hwiemann          #+#    #+#             */
-/*   Updated: 2024/07/16 13:44:05 by hwiemann         ###   ########.fr       */
+/*   Updated: 2024/07/16 18:25:26 by hwiemann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	draw_sprite(t_sprite *sprite, t_render_data *render_data,
 			y = sprite->draw_start_y;
 			while (y < sprite->draw_end_y)
 			{
-				d = (y)*256 - WINDOW_HEIGHT * 128 + sprite->height * 128;
+				d = (y) * 256 - WINDOW_HEIGHT * 128 + sprite->height * 128;
 				sprite->tex_y = ((d * sprite->img->height) / sprite->height)
 					/ 256;
 				color = get_pixel(texture, sprite->tex_x, sprite->tex_y);
@@ -80,8 +80,8 @@ void	draw_sprite(t_sprite *sprite, t_render_data *render_data,
 
 void	render_sprites(t_game *game)
 {
-	int i;
-	t_render_data *render_data;
+	int				i;
+	t_render_data	*render_data;
 
 	render_data = &game->render_data;
 	i = 0;
@@ -100,7 +100,8 @@ void	render_sprites(t_game *game)
 	{
 		if (render_data->oxygen_tanks[i].active == 1)
 		{
-			calculate_sprite_position(&render_data->oxygen_tanks[i], render_data);
+			calculate_sprite_position(&render_data->oxygen_tanks[i],
+				render_data);
 			draw_sprite(&render_data->oxygen_tanks[i], render_data,
 				game->visual_res.air, game->img);
 		}

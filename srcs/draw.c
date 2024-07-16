@@ -6,7 +6,7 @@
 /*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:41:14 by hwiemann          #+#    #+#             */
-/*   Updated: 2024/07/16 17:23:39 by hwiemann         ###   ########.fr       */
+/*   Updated: 2024/07/16 18:22:44 by hwiemann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ static void	color_textures(t_game *game, mlx_texture_t *tex, int x, int y)
 	uint8_t		b;
 	uint8_t		a;
 
-	color_tex = ((uint32_t*)tex->pixels)[tex->width * (int)game->render_data.raycast.tex_pos + game->render_data.raycast.tex_x];
+	color_tex = ((uint32_t *)tex->pixels)
+	[tex->width * (int)game->render_data.raycast.tex_pos
+		+ game->render_data.raycast.tex_x];
 	r = (color_tex >> 24) & 0xFF;
 	g = (color_tex >> 16) & 0xFF;
 	b = (color_tex >> 8) & 0xFF;

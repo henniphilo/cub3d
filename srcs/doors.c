@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   doors.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/16 18:26:34 by hwiemann          #+#    #+#             */
+/*   Updated: 2024/07/16 18:28:39 by hwiemann         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../incl/cub3d.h"
 
 int	is_door(t_game *game, t_render_data *render_data, int x, int y)
@@ -5,7 +17,6 @@ int	is_door(t_game *game, t_render_data *render_data, int x, int y)
 	int	i;
 
 	i = 0;
-	//printf("is door check x %d y %d \n", x, y);
 	while (i < game->render_data.count_door)
 	{
 		if ((int)render_data->doors[i].pos_x == x
@@ -44,8 +55,8 @@ void	open_doors(t_game *game, t_render_data *render_data,
 		t_map_data *map_data)
 {
 	t_player	*player;
-	double			next_x;
-	double			next_y;
+	double		next_x;
+	double		next_y;
 	int			i;
 
 	(void)render_data;
@@ -60,9 +71,10 @@ void	open_doors(t_game *game, t_render_data *render_data,
 		while (i < game->render_data.count_door)
 		{
 			if (((int)game->render_data.doors[i].pos_x == (int)next_x
-				&& (int) game->render_data.doors[i].pos_y == (int)player->pos_y)
-				|| ((int)player->pos_x == (int)game->render_data.doors[i].pos_x
-				&& (int)next_y == (int)game->render_data.doors[i].pos_y))
+					&& (int) game->render_data.doors[i].pos_y
+					== (int)player->pos_y) || ((int)player->pos_x
+					== (int)game->render_data.doors[i].pos_x
+					&& (int)next_y == (int)game->render_data.doors[i].pos_y))
 			{
 				game->render_data.doors[i].active = 0;
 				printf("door open\n");

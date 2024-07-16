@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/16 18:29:03 by hwiemann          #+#    #+#             */
+/*   Updated: 2024/07/16 18:29:27 by hwiemann         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../incl/cub3d.h"
 
@@ -28,6 +39,7 @@ t_game	*get_mlx(t_game *game)
 	game->mlx_ptr = mlx;
 	return (game);
 }
+
 void	init_data(t_game *game)
 {
 	game->render_data = init_render_data();
@@ -53,9 +65,5 @@ int	main(int argc, char **argv)
 	mlx_key_hook(game.mlx_ptr, key_hook, &game);
 	mlx_scroll_hook(game.mlx_ptr, scroll_hook, &game);
 	mlx_loop(game.mlx_ptr);
-	//terminate_game(&game, 0);
-	//free_data(&game);
-	//clean_img(&game);
-	// clean_texture(&game);
 	return (EXIT_SUCCESS);
 }
