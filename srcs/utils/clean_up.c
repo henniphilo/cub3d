@@ -30,10 +30,10 @@ void	free_data(t_game *game)
 
 	//clean_texture(game);
 	free(game->map_data.map);
-	free(game->visual_res.NO);
-	free(game->visual_res.SO);
-	free(game->visual_res.WE);
-	free(game->visual_res.EA);
+	free(game->visual_res.no);
+	free(game->visual_res.so);
+	free(game->visual_res.we);
+	free(game->visual_res.ea);
 	free(game->visual_res.bubbles);
 	free(game->visual_res.target);
 	free(game->visual_res.door);

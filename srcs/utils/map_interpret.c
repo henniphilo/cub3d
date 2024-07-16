@@ -1,17 +1,29 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_interpret.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/16 13:17:15 by hwiemann          #+#    #+#             */
+/*   Updated: 2024/07/16 13:32:23 by hwiemann         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../incl/cub3d.h"
 
 void	load_visuals(t_visual *visual_res, t_texpaths *paths)
 {
-	if (paths->NO)
-		visual_res->NO = mlx_load_png(paths->NO);
-	if (paths->SO)
-		visual_res->SO = mlx_load_png(paths->SO);
-	if (paths->WE)
-		visual_res->WE = mlx_load_png(paths->WE);
+	if (paths->no)
+		visual_res->no = mlx_load_png(paths->no);
+	if (paths->so)
+		visual_res->so = mlx_load_png(paths->so);
+	if (paths->we)
+		visual_res->we = mlx_load_png(paths->we);
 
-	if (paths->EA)
-		visual_res->EA = mlx_load_png(paths->EA);
-	if (!visual_res->NO || !visual_res->WE || !visual_res->SO || !visual_res->EA)
+	if (paths->ea)
+		visual_res->ea = mlx_load_png(paths->ea);
+	if (!visual_res->no || !visual_res->we || !visual_res->so || !visual_res->ea)
 	{
 		printf("texture are missing\n");
 		exit (1);
@@ -31,14 +43,14 @@ void	load_visuals(t_visual *visual_res, t_texpaths *paths)
 
 void	clean_texture(t_game *game)
 {
-	if (game->visual_res.NO)
-		mlx_delete_texture(game->visual_res.NO);
-	if (game->visual_res.SO)
-		mlx_delete_texture(game->visual_res.SO);
-	if (game->visual_res.WE)
-		mlx_delete_texture(game->visual_res.WE);
-	if (game->visual_res.EA)
-		mlx_delete_texture(game->visual_res.EA);
+	if (game->visual_res.no)
+		mlx_delete_texture(game->visual_res.no);
+	if (game->visual_res.so)
+		mlx_delete_texture(game->visual_res.so);
+	if (game->visual_res.we)
+		mlx_delete_texture(game->visual_res.we);
+	if (game->visual_res.ea)
+		mlx_delete_texture(game->visual_res.ea);
 	if (game->visual_res.door)
 		mlx_delete_texture(game->visual_res.door);
 	if (game->visual_res.target)

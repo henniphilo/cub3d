@@ -30,7 +30,6 @@ void	mini_map_to_screen(t_game *game)
 	}
 	put_block_double(game->img, c_player,
 		game->render_data.player.pos_x, game->render_data.player.pos_y);
-	//print_got_air(game);
 }
 
 static void	init_target(t_game *game, double x, double y, int id)
@@ -267,7 +266,6 @@ void	put_block_double(mlx_image_t *img, t_color color, double x, double y)
 	i = 0;
 	ix = (x * SSIZE);
 	iy = (y * SSIZE);
-	//printf("Drawing block at (%.2f, %.2f) for player at (%.2f, %.2f)\n", ix, iy, x, y); // Debugging
 	while (i < SSIZE)
 	{
 		j = 0;
@@ -334,14 +332,6 @@ void	add_look(t_game *game, mlx_image_t *img, int start_y, int end_y)
 
 void	print_got_air(t_game *game)
 {
-	// char	*fish_count;
-//	mlx_image_t *img;
-	// fish_count = ft_itoa(game->render_data.count_oxy_caught);
-	// img = mlx_new_image(game->mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
-	// mlx_image_to_window(game->mlx_ptr, img, 0, 0);
 	usleep(100);
 	mlx_put_string(game->mlx_ptr, " You got air! Well done! Now catch some fish\n", 400, 0);
-	//mlx_put_string(game->mlx_ptr, fish_count, 5, 5);
-	//free(fish_count);
-//	ft_printf("got %d of air %d\n", game->render_data.count_oxy_caught, game->render_data.count_oxy);
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_init.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/16 13:17:05 by hwiemann          #+#    #+#             */
+/*   Updated: 2024/07/16 13:31:43 by hwiemann         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../incl/cub3d.h"
 
 static void	direction_paths(int	map_height, t_texpaths *paths, char **input_table)
@@ -9,19 +21,19 @@ static void	direction_paths(int	map_height, t_texpaths *paths, char **input_tabl
 	{
 		if (ft_strncmp(input_table[y], "NO ", 3) == 0)
 		{
-			paths->NO = get_path(input_table[y], "NO");
+			paths->no = get_path(input_table[y], "NO");
 		}
 		if (ft_strncmp(input_table[y], "SO ", 3) == 0)
 		{
-			paths->SO = get_path(input_table[y], "SO");
+			paths->so = get_path(input_table[y], "SO");
 		}
 		if (ft_strncmp(input_table[y], "WE ", 3) == 0)
 		{
-			paths->WE = get_path(input_table[y], "WE");
+			paths->we = get_path(input_table[y], "WE");
 		}
 		if (ft_strncmp(input_table[y], "EA ", 3) == 0)
 		{
-			paths->EA = get_path(input_table[y], "EA");
+			paths->ea = get_path(input_table[y], "EA");
 		}
 		y++;
 	}

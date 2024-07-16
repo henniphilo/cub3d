@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_valid.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/16 13:17:50 by hwiemann          #+#    #+#             */
+/*   Updated: 2024/07/16 13:17:51 by hwiemann         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../incl/cub3d.h"
 
 void	open_map(t_game *game, char *file)
@@ -47,9 +59,7 @@ int	get_map_start(unsigned int map_height, char **input_table)
 			y++;
 		}
 		if (is_line && y > 1)
-		{
 			break ;
-		}
 		map_start++;
 	}
 	return (map_start);

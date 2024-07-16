@@ -8,10 +8,10 @@ t_visual	init_visuals(void)
 	visual_res.player = NULL;
 	visual_res.target = NULL;
 	visual_res.air = NULL;
-	visual_res.EA = NULL;
-	visual_res.NO = NULL;
-	visual_res.SO = NULL;
-	visual_res.WE = NULL;
+	visual_res.ea = NULL;
+	visual_res.no = NULL;
+	visual_res.so = NULL;
+	visual_res.we = NULL;
 
 	visual_res.target_img = NULL;
 	return (visual_res);

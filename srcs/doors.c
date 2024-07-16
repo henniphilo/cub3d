@@ -27,32 +27,18 @@ void	close_doors(t_game *game, t_map_data *map_data)
 	x = (int)(player->pos_x + player->dir_x * MOVE_SPEED);
 	y = (int)(player->pos_y + player->dir_y * MOVE_SPEED);
 	i = 0;
-	// printf("Player position: pos_x = %.2f, pos_y = %.2f\n", player->pos_x,
-	// player->pos_y);
-	// printf("Checking positions: [%d][%d+1], [%d+1][%d], [%d][%d-1],
-	// [%d-1][%d]\n", (int)player->pos_x, y, x, (int)player->pos_y,
-	// (int)player->pos_x, y, x, (int)player->pos_y);
-	if ((x >= 0 && x < map_data->width) && (y >= 0 && y < map_data->height))
+	if ((map_data->map[y][(int)player->pos_x + 1] == 'D')
+		|| map_data->map[(int)player->pos_y + 1][x] == 'D'
+		|| (map_data->map[y][(int)player->pos_x - 1] == 'D')
+		|| map_data->map[(int)player->pos_y - 1][x] == 'D')
 	{
-		if ((map_data->map[y][(int)player->pos_x + 1] == 'D')
-			|| map_data->map[(int)player->pos_y + 1][x] == 'D'
-			|| (map_data->map[y][(int)player->pos_x - 1] == 'D')
-			|| map_data->map[(int)player->pos_y - 1][x] == 'D')
+		while (i < game->render_data.count_door)
 		{
-			while (i < game->render_data.count_door)
-			{
-				// if (game->render_data.do_sprites[i].open_door == 1)
-				// {
-				game->render_data.doors[i].active = 1;
-				printf("door closed\n");
-				//	break ;
-				// }
-				i++;
-			}
+			game->render_data.doors[i].active = 1;
+			printf("door closed\n");
+			i++;
 		}
 	}
-	else
-		printf("Position out of bounds: x = %d, y = %d\n", x, y);
 }
 
 void	open_doors(t_game *game, t_render_data *render_data,
@@ -74,7 +60,6 @@ void	open_doors(t_game *game, t_render_data *render_data,
 	{
 		while (i < game->render_data.count_door)
 		{
-		//	printf("doors x %d , doors y %d \n player x %d player y %d \n", (int)game->render_data.doors[i].pos_x, (int) game->render_data.doors[i].pos_y, (int)player->pos_x, (int)game->render_data.doors[i].pos_y);
 			if (((int)game->render_data.doors[i].pos_x == (int)next_x
 				&& (int) game->render_data.doors[i].pos_y == (int)player->pos_y)
 				|| ((int)player->pos_x == (int)game->render_data.doors[i].pos_x

@@ -1,11 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pixel.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/16 13:18:32 by hwiemann          #+#    #+#             */
+/*   Updated: 2024/07/16 13:18:33 by hwiemann         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../incl/cub3d.h"
 
 uint32_t get_pixel(mlx_texture_t *img, int x, int y)
 {
-    if (x < 0 || x >= (int)img->width || y < 0 || y >= (int)img->height)
-        return 0xFF000000; // Return black if out of bounds
-
-    return ((uint32_t *)img->pixels)[y * img->width + x];
+	if (x < 0 || x >= (int)img->width || y < 0 || y >= (int)img->height)
+		return 0xFF000000; // Return black if out of bounds
+	return ((uint32_t *)img->pixels)[y * img->width + x];
 }
 
 void set_pixel(mlx_image_t *img, int x, int y, uint32_t color)
@@ -15,7 +26,7 @@ void set_pixel(mlx_image_t *img, int x, int y, uint32_t color)
 	uint8_t g;
 	uint8_t a;
 
-    if (x < 0 || x >= (int)img->width || y < 0 || y >= (int)img->height)
+	if (x < 0 || x >= (int)img->width || y < 0 || y >= (int)img->height)
 		return;
 	r = (color >> 24) & 0xFF;
 	b = (color >> 16) & 0xFF;
