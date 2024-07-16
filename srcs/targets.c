@@ -1,6 +1,6 @@
 #include "../incl/cub3d.h"
 
-int	is_get_target(t_game *game, t_render_data *render_data, int x, int y)
+int	is_target(t_game *game, t_render_data *render_data, int x, int y)
 {
 	int	i;
 

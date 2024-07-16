@@ -138,25 +138,13 @@ void	render_worldmap(t_game *game)
 		}
 		if (render_data->flag_hit_door == 1)
 		{
-			if (!is_door_open(game, render_data, render_data->ray.grid_pos_x, render_data->ray.grid_pos_y))
+			if (is_door(game, render_data, render_data->ray.grid_pos_x, render_data->ray.grid_pos_y))
 			{
-				//ueberprueft was falsches
 				selected_texture = game->visual_res.door;
 				calculate_wall_distance_and_height(x, render_data, img, selected_texture);
 				draw_line(x, render_data, img, selected_texture);
 			}
 		}
-
-		// if (render_data->flag_hit_air == 1)
-		// {
-		// 	if (!is_get_air(game, render_data, render_data->ray.grid_pos_x, render_data->ray.grid_pos_y))
-		// 	{
-		// 		selected_texture = game->visual_res.air;
-		// 		calculate_wall_distance_and_height(x, render_data, img, selected_texture);
-		// 		draw_line(x, render_data, img, selected_texture);
-		// 	}
-		// }
-
 		x++;
 	}
 	// clean_texture(game); // eventuell doch ?

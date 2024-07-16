@@ -116,6 +116,8 @@ void	loop_hook(void *param)
 		mini_map_to_screen(game);
 		render_flag = 0;
 	}
+
+
 	// if (game->render_data.count_oxy_caught != 0)
 	// {
 	// 	add_look(game, game->visual_res.bubbles_img, 0, WINDOW_HEIGHT

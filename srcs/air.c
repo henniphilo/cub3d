@@ -1,11 +1,11 @@
 #include "../incl/cub3d.h"
 
-int	is_get_air(t_game *game, t_render_data *render_data, int x, int y)
+int	is_air(t_game *game, t_render_data *render_data, int x, int y)
 {
 	int	i;
 
 	i = 0;
-	while (i < game->render_data.count_oxy_caught)
+	while (i < game->render_data.count_oxy)
 	{
 		if ((int)render_data->oxygen_tanks[i].pos_x == x
 			&& (int)render_data->oxygen_tanks[i].pos_y == y)
