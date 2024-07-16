@@ -6,8 +6,6 @@ void	perform_dda(t_game *game, t_render_data *render_data, t_map_data *map_data)
 
 	ray = &render_data->ray;
 	render_data->flag_hit_door = 0;
-	// render_data->flag_hit_target = 0;
-	// render_data->flag_hit_air = 0;
 	render_data->flag_hit_wall = 0;
 	(void)game;
 	while (render_data->flag_hit_wall == 0)

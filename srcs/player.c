@@ -44,6 +44,7 @@ t_game	*set_player(t_game *game)
 				set_player_pos(x, y, game);
 				return (game);
 			}
+			// game->map_data.map[y][x] = '0';
 			x++;
 		}
 		y++;
