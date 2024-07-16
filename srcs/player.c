@@ -42,9 +42,9 @@ t_game	*set_player(t_game *game)
 				printf("x init ist %d und y init ist %d \n", y , x);
 				set_player_dir(direction, game);
 				set_player_pos(x, y, game);
+				game->map_data.map[y][x] = '0';
 				return (game);
 			}
-			// game->map_data.map[y][x] = '0';
 			x++;
 		}
 		y++;
