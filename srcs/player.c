@@ -51,6 +51,7 @@ t_game	*set_player(t_game *game)
 			{
 				set_player_dir(direction, game);
 				set_player_pos(x, y, game);
+				game->map_data.map[y][x] = '0';
 				return (game);
 			}
 			x++;
