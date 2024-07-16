@@ -46,7 +46,7 @@ int	main(int argc, char **argv)
 {
 	t_game	game;
 
-	args_check(argc, argv);
+		args_check(argc, argv);
 	srand(time(NULL));
 	init_data(&game);
 	open_map(&game, argv[1]);

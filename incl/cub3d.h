@@ -72,9 +72,9 @@ void			put_block_double(mlx_image_t *img, t_color color, double x,
 					double y);
 char			get_direction(mlx_key_data_t key, char cur_direct);
 int				get_color_int(const char *color_str);
-int				is_door_open(t_game *game, t_render_data *render_data, int x, int y);
-int				is_get_air(t_game *game, t_render_data *render_data, int x, int y);
-int				is_get_target(t_game *game, t_render_data *render_data, int x, int y);
+int				is_door(t_game *game, t_render_data *render_data, int x, int y);
+int				is_air(t_game *game, t_render_data *render_data, int x, int y);
+int				is_target(t_game *game, t_render_data *render_data, int x, int y);
 t_color			int_to_color(int color);
 t_game			*mini_map_init(t_game *game);
 void			print_got_air(t_game *game);
@@ -127,14 +127,14 @@ void			set_pixel(mlx_image_t *img, int x, int y, uint32_t color);
 void			open_doors(t_game *game, t_render_data *render_data,
 				t_map_data *map_data);
 void			close_doors(t_game *game, t_map_data *map_data);
-int				is_door_open(t_game *game, t_render_data *render_data, int x, int y);
+int				is_door(t_game *game, t_render_data *render_data, int x, int y);
 
 /* Targets */
-int				is_get_target(t_game *game, t_render_data *render_data, int x, int y);
+int				is_target(t_game *game, t_render_data *render_data, int x, int y);
 void			get_target(t_game *game, t_map_data *map_data);
 
 /* Air */
-int				is_get_air(t_game *game, t_render_data *render_data, int x, int y);
+int				is_air(t_game *game, t_render_data *render_data, int x, int y);
 void			get_air(t_game *game, t_map_data *map_data);
 void			create_bubbles(t_game *game);
 
