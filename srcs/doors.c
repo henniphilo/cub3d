@@ -35,7 +35,6 @@ void	close_doors(t_game *game, t_map_data *map_data)
 		while (i < game->render_data.count_door)
 		{
 			game->render_data.doors[i].active = 1;
-			printf("door closed\n");
 			i++;
 		}
 	}

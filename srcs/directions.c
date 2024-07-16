@@ -6,7 +6,7 @@
 /*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:19:08 by hwiemann          #+#    #+#             */
-/*   Updated: 2024/07/16 13:19:09 by hwiemann         ###   ########.fr       */
+/*   Updated: 2024/07/16 13:39:51 by hwiemann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	set_north(t_game *game)
 	game->render_data.camera.plane_y = 0;
 	game->map_data.first_dir = 'N';
 }
+
 void	set_south(t_game *game)
 {
 	game->render_data.player.dir_x = 0.0;
@@ -28,6 +29,7 @@ void	set_south(t_game *game)
 	game->render_data.camera.plane_y = 0;
 	game->map_data.first_dir = 'S';
 }
+
 void	set_east(t_game *game)
 {
 	game->render_data.player.dir_x = 1.0;
@@ -36,6 +38,7 @@ void	set_east(t_game *game)
 	game->render_data.camera.plane_y = -0.66;
 	game->map_data.first_dir = 'E';
 }
+
 void	set_west(t_game *game)
 {
 	game->render_data.player.dir_x = -1.0;

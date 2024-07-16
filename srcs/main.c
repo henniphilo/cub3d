@@ -30,15 +30,10 @@ t_game	*get_mlx(t_game *game)
 }
 void	init_data(t_game *game)
 {
-	game->render_data.count_target = 0;
-	game->render_data.count_door = 0;
-	game->render_data.count_oxy = 0;
-	game->render_data.count_oxy_caught = 0;
-	game->render_data.count_fish_caught = 0;
+	game->render_data = init_render_data();
 	game->img = NULL;
 	game->mlx_ptr = NULL;
 	game->map_data = init_map_data();
-	game->render_data = init_render_data();
 	game->visual_res = init_visuals();
 }
 
@@ -58,8 +53,9 @@ int	main(int argc, char **argv)
 	mlx_key_hook(game.mlx_ptr, key_hook, &game);
 	mlx_scroll_hook(game.mlx_ptr, scroll_hook, &game);
 	mlx_loop(game.mlx_ptr);
-	// free_data(&game);
-	// clean_img(&game);
+	//terminate_game(&game, 0);
+	//free_data(&game);
+	//clean_img(&game);
 	// clean_texture(&game);
 	return (EXIT_SUCCESS);
 }
