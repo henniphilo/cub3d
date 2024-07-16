@@ -15,7 +15,7 @@ void	free_input_table(int map_height, char **input_table)
 
 void	free_data(t_game *game)
 {
-	printf("in free data\n");
+	//printf("in free data\n");
 	free(game->map_data.map);
 	free(game->visual_res.no);
 	free(game->visual_res.so);

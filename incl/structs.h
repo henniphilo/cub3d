@@ -6,7 +6,7 @@
 /*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:22:27 by hwiemann          #+#    #+#             */
-/*   Updated: 2024/07/16 13:32:52 by hwiemann         ###   ########.fr       */
+/*   Updated: 2024/07/16 16:51:37 by hwiemann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,15 @@
 # define TARGET_PATH "./img/fish500.png"
 # define AIR_PATH "./img/Scuba_tank.png"
 # define BUBBLE_PATH "./img/bubb800.png"
+# define C_BLUE (t_color){0, 0, 155, 255}
+# define C_SIDE (t_color){100, 0, 155, 255}
+# define C_WALL (t_color){0, 0, 0, 255}
+# define C_AIR (t_color){200,0,100,255}
+# define C_TARGET (t_color){150, 150, 0, 255}
+# define C_DOOR (t_color){100, 80, 150, 255}
+# define C_FLOOR (t_color){255, 255, 255, 255}
+# define C_PLAYER (t_color){0, 0, 255, 255}
+
 
 typedef struct s_color
 {

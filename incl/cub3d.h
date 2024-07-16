@@ -6,7 +6,7 @@
 /*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:22:31 by hwiemann          #+#    #+#             */
-/*   Updated: 2024/07/16 13:37:04 by hwiemann         ###   ########.fr       */
+/*   Updated: 2024/07/16 17:19:28 by hwiemann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,8 +113,8 @@ void			setup_render_params(uint32_t x, t_render_data *render_data,
 					mlx_image_t *image);
 void			perform_dda(t_game *game, t_render_data *render_data,
 					t_map_data *map_data);
-void			draw_line(int x, t_render_data *render_data,
-					mlx_image_t *image, mlx_texture_t *tex);
+void			draw_line(int x, t_game *game, mlx_image_t *image,
+					mlx_texture_t *tex);
 void			calculate_sprite_position(t_sprite *sprite,
 					t_render_data *render_data);
 void			draw_sprite(t_sprite *sprite, t_render_data *render_data,
