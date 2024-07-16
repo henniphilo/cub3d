@@ -25,6 +25,8 @@
 		"string.h": "c",
 		"stdlib.h": "c",
 		"istream": "c",
-		"ostream": "c"
+		"ostream": "c",
+		"initializer_list": "c",
+		"utility": "c"
 	}
 }

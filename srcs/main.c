@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vketteni <vketteni@student.42berlin.d      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/16 14:20:07 by vketteni          #+#    #+#             */
+/*   Updated: 2024/07/16 14:20:13 by vketteni         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 
 #include "../incl/cub3d.h"
 
@@ -24,7 +36,7 @@ t_game	*get_mlx(t_game *game)
 		ft_putendl_fd("Failed to create image", STDERR_FILENO);
 		return (NULL);
 	}
-	game->img = img;
+	game->render_data.screen_image = img;
 	game->mlx_ptr = mlx;
 	return (game);
 }
@@ -35,7 +47,6 @@ void	init_data(t_game *game)
 	game->render_data.count_oxy = 0;
 	game->render_data.count_oxy_caught = 0;
 	game->render_data.count_fish_caught = 0;
-	game->img = NULL;
 	game->mlx_ptr = NULL;
 	game->map_data = init_map_data();
 	game->render_data = init_render_data();

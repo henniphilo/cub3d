@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_render.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vketteni <vketteni@student.42berlin.d      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/16 14:17:42 by vketteni          #+#    #+#             */
+/*   Updated: 2024/07/16 14:17:44 by vketteni         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../incl/cub3d.h"
 
 t_render_data	init_render_data(void)
@@ -6,6 +18,7 @@ t_render_data	init_render_data(void)
 
 	render_data.doors = NULL;
 	render_data.targets = NULL;
+	render_data.screen_image = NULL;
 	render_data.flag_hit_wall = 0;
 	render_data.flag_hit_door = 0;
 	render_data.flag_hit_target = 0;

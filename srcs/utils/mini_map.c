@@ -13,11 +13,11 @@ t_game	*mini_map_init(t_game *game)
 	// 	add_look(game, game->visual_res.bubbles_img, WINDOW_HEIGHT / 2, WINDOW_HEIGHT);
 	// 	i++;
 	// }
-	mlx_image_to_window(game->mlx_ptr, game->img, 0, 0);
+	mlx_image_to_window(game->mlx_ptr, game->render_data.screen_image, 0, 0);
 	return (game);
 }
 
-void	mini_map_to_screen(t_game *game)
+void	render_mini_map(t_game *game)
 {
 	int		x;
 	int		y;
@@ -29,12 +29,12 @@ void	mini_map_to_screen(t_game *game)
 		x = 0;
 		while (x < game->map_data.x_axis[y])
 		{
-			draw_mini_map(game, game->img, x, y);
+			draw_mini_map(game, game->render_data.screen_image, x, y);
 			x++;
 		}
 		y++;
 	}
-	put_block_double(game->img, c_player,
+	put_block_double(game->render_data.screen_image, c_player,
 		game->render_data.player.pos_x, game->render_data.player.pos_y);
 	//print_got_air(game);
 }
@@ -307,9 +307,9 @@ void	fill_half(t_game *game, t_color color, int start_y, int end_y)
 	while (y < end_y)
 	{
 		x = 0;
-		while (x < (int)game->img->width)
+		while (x < (int)game->render_data.screen_image->width)
 		{
-			put_pixel(game->img, x, y, color);
+			put_pixel(game->render_data.screen_image, x, y, color);
 			x++;
 		}
 		y++;
@@ -334,8 +334,8 @@ void	add_look(t_game *game, mlx_image_t *img, int start_y, int end_y)
 	// while (i < num_pic)
 	// {
 		usleep(5000);
-		rand_x = random_int(0, game->img->width);
-		rand_y = random_int(start_y, end_y - game->img->height);
+		rand_x = random_int(0, game->render_data.screen_image->width);
+		rand_y = random_int(start_y, end_y - game->render_data.screen_image->height);
 		mlx_image_to_window(game->mlx_ptr, img, rand_x, rand_y);
 		usleep(5000);
 	//	i++;

@@ -13,6 +13,7 @@ int	parse_input_table(t_game *game)
 		return (1);
 	}
 	load_visuals(&game->visual_res, &paths);
+	game->render_data.vis = &game->visual_res;
 	create_map(&game->map_data);
 	free_input_table(game->map_data.height, game->map_data.input_table);
 

@@ -60,8 +60,8 @@ int	terminate_game(t_game *game, int exit_code)
 		free_data(game);
 		if (game->mlx_ptr)
 		{
-			if (game->img)
-				mlx_delete_image(game->mlx_ptr, game->img);
+			if (game->render_data.screen_image)
+				mlx_delete_image(game->mlx_ptr, game->render_data.screen_image);
 			mlx_terminate(game->mlx_ptr);
 		}
 		if (game->map_data.input_table)
@@ -71,5 +71,5 @@ int	terminate_game(t_game *game, int exit_code)
 		if (game->map_data.x_axis)
 			free(game->map_data.x_axis);
 	}
-	return (exit_code);
+	exit(exit_code);
 }
