@@ -75,12 +75,12 @@ void	move_straight(t_game *game, t_map_data *map_data, t_render_data *render_dat
 		|| map_data->map[(int)next_y][(int)next_x] == game->map_data.first_dir
 		|| (map_data->map[(int)next_y][(int)next_x] == 'D' && !is_door(game,
 				render_data, next_x, next_y))
-		|| (map_data->map[(int)next_y][(int)next_x] == 'T' 
+		|| (map_data->map[(int)next_y][(int)next_x] == 'T'
 		&& !is_target(game, render_data, next_x, next_y)))
 	{
 		player->pos_x = next_x;
 		player->pos_y = next_y;
-		printf("New pos_x %.2f, pos_y %.2f\n", player->pos_x, player->pos_y);
+	//	printf("New pos_x %.2f, pos_y %.2f\n", player->pos_x, player->pos_y);
 	}
 	t_color		c_player = {0, 0, 255, 255};
 	put_block_double(game->img, c_player, player->pos_x, player->pos_y);
@@ -109,7 +109,7 @@ void	move_sideways(t_game *game, t_map_data *map_data,
 	{
 		player->pos_x = next_x;
 		player->pos_y = next_y;
-		printf("New pos_x %.2f, pos_y %.2f\n", player->pos_x, player->pos_y);
+	//	printf("New pos_x %.2f, pos_y %.2f\n", player->pos_x, player->pos_y);
 	}
 }
 

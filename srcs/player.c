@@ -7,7 +7,6 @@ void	set_player_pos(double x, double y, t_game *game)
 	player = &game->render_data.player;
 	player->pos_x = x + 0.5;
 	player->pos_y = y + 0.5;
-	printf("set player pos x = %.2f  y = %.2f \n", player->pos_x, player->pos_y);
 }
 
 void	set_player_dir(char direction, t_game *game)
@@ -28,7 +27,6 @@ t_game	*set_player(t_game *game)
 	int		y;
 	char	direction;
 
-	printf("in init player\n");
 	y = 1;
 	while (y < game->map_data.y_axis)
 	{
@@ -39,12 +37,10 @@ t_game	*set_player(t_game *game)
 			if (direction == 'N' || direction == 'E'
 				|| direction == 'W' || direction == 'S')
 			{
-				printf("x init ist %d und y init ist %d \n", y , x);
 				set_player_dir(direction, game);
 				set_player_pos(x, y, game);
 				return (game);
 			}
-			// game->map_data.map[y][x] = '0';
 			x++;
 		}
 		y++;

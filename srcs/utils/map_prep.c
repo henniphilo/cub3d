@@ -47,8 +47,6 @@ void	fill_input_table(t_map_data *map_data, int fd)
 		i++;
 		line_str = get_next_line(fd);
 	}
-	printf("height %d \n width %d \n", map_data->height, map_data->width);
-	// print_map(game);
 }
 
 

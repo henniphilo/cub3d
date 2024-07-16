@@ -7,12 +7,6 @@ t_game	*mini_map_init(t_game *game)
 	i = 0;
 	fill_half(game, game->visual_res.c_ceiling, 0, WINDOW_HEIGHT / 2);
 	fill_half(game, game->visual_res.c_floor, WINDOW_HEIGHT / 2, WINDOW_HEIGHT);
-	// while (i < game->render_data.count_oxy_caught)
-	// {
-	// 	add_look(game, game->visual_res.bubbles_img, 0, WINDOW_HEIGHT / 2);
-	// 	add_look(game, game->visual_res.bubbles_img, WINDOW_HEIGHT / 2, WINDOW_HEIGHT);
-	// 	i++;
-	// }
 	mlx_image_to_window(game->mlx_ptr, game->img, 0, 0);
 	return (game);
 }
@@ -84,9 +78,6 @@ static void	init_count(t_game *game)
 		}
 		y++;
 	}
-	printf(" %d insgesamt targets \n", game->render_data.count_target);
-	printf(" %d insgesamt doors \n", game->render_data.count_door);
-	printf(" %d insgesamt air \n", game->render_data.count_oxy);
 }
 
 void	check_sprites(t_game *game, t_render_data *render_data, int sprite_type)
@@ -163,7 +154,6 @@ void	init_sprites(t_game *game)
 	int		j;
 	int		h;
 
-	printf("in init sprites\n");
 	init_count(game);
 	game->render_data.targets = ft_calloc(game->render_data.count_target + 1, sizeof(t_sprite));
 	game->render_data.doors = ft_calloc(game->render_data.count_door + 1, sizeof(t_sprite));
