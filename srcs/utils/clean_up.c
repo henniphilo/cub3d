@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   clean_up.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vketteni <vketteni@student.42berlin.d      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/18 17:42:50 by vketteni          #+#    #+#             */
+/*   Updated: 2024/07/18 17:42:51 by vketteni         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../incl/cub3d.h"
 
 void	free_input_table(int map_height, char **input_table)
@@ -15,7 +27,6 @@ void	free_input_table(int map_height, char **input_table)
 
 void	free_data(t_game *game)
 {
-	//printf("in free data\n");
 	free(game->map_data.map);
 	free(game->visual_res.no);
 	free(game->visual_res.so);

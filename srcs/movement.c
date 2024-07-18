@@ -43,7 +43,7 @@ void	player_n1_move(t_game *game, t_map_data *map_data,
 						* MOVE_SPEED * direction)][(int)player->pos_x] == 'T'
 					&& !is_target(game, render_data, (int)player->pos_x,
 						(int)(player->pos_y + player->dir_y * MOVE_SPEED * direction))))))
-		put_block_double(game->img, c_player, player->pos_x, player->pos_y);
+		put_block_double(render_data->screen_image, c_player, player->pos_x, player->pos_y);
 	close_doors(game, map_data);
 }
 
@@ -132,7 +132,7 @@ void	player_n1_sideways(t_game *game, t_map_data *map_data,
 				+ side_dir_y * MOVE_SPEED)][(int)(player->pos_x)] == 'T'
 			&& !is_target(game, render_data, (int)player->pos_x,
 				(int)(player->pos_y + side_dir_y * MOVE_SPEED))))
-		put_block_double(game->img, c_player, player->pos_x, player->pos_y);
+		put_block_double(render_data->screen_image, c_player, player->pos_x, player->pos_y);
 	close_doors(game, map_data);
 }
 

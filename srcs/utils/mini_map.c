@@ -14,12 +14,12 @@
 
 t_game	*mini_map_init(t_game *game)
 {
-	int			i;
+	int	i;
 
 	i = 0;
 	fill_half(game, game->visual_res.c_ceiling, 0, WINDOW_HEIGHT / 2);
 	fill_half(game, game->visual_res.c_floor, WINDOW_HEIGHT / 2, WINDOW_HEIGHT);
-	mlx_image_to_window(game->mlx_ptr, game->img, 0, 0);
+	mlx_image_to_window(game->mlx_ptr, game->render_data.screen_image, 0, 0);
 	return (game);
 }
 
@@ -27,8 +27,8 @@ void	render_mini_map(t_game *game)
 {
 	int		x;
 	int		y;
-	t_color c_player = {0, 0, 255, 255};
-
+	t_color	c_player  = {0, 0, 255, 255};
+	
 	y = 0;
 	while (y < game->map_data.y_axis)
 	{
@@ -46,12 +46,12 @@ void	render_mini_map(t_game *game)
 
 static t_color	choose_color(t_game *game, int x, int y)
 {
-	char		tile;
+	char	tile;
 
 	tile = game->map_data.map[y][x];
-
-	if (tile == ' ' || tile == '\n' || (tile == !game->map_data.first_dir && tile != '0'
-		&& tile != 'L' && tile != 'D' && tile != 'T' && tile != '1'))
+	if (tile == ' ' || tile == '\n' || (tile == !game->map_data.first_dir
+			&& tile != '0' && tile != 'L' && tile != 'D' && tile != 'T'
+			&& tile != '1'))
 		return (C_TRANSPARENT);
 	if (tile == '1')
 		return (C_WALL);
@@ -67,8 +67,8 @@ static t_color	choose_color(t_game *game, int x, int y)
 
 void	draw_mini_map(t_game *game, mlx_image_t *img, int x, int y)
 {
-	t_color		color;
-	bool		should_draw;
+	t_color	color;
+	bool	should_draw;
 
 	color = choose_color(game, x, y);
 	should_draw = (color.a != 0);

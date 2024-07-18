@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../incl/cub3d.h"
 
 t_game	*get_mlx(t_game *game)
@@ -40,6 +39,7 @@ t_game	*get_mlx(t_game *game)
 	game->mlx_ptr = mlx;
 	return (game);
 }
+
 void	init_data(t_game *game)
 {
 	game->render_data = init_render_data();
@@ -53,7 +53,7 @@ int	main(int argc, char **argv)
 {
 	t_game	game;
 
-	args_check(argc, argv);
+	argv_check(argc, argv);
 	srand(time(NULL));
 	init_data(&game);
 	open_map(&game, argv[1]);

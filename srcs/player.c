@@ -61,4 +61,3 @@ t_game	*set_player(t_game *game)
 	printf("first dir is %c\n", game->map_data.first_dir);
 	return (NULL);
 }
-

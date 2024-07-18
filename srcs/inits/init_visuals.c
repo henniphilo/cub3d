@@ -24,7 +24,6 @@ t_visual	init_visuals(void)
 	visual_res.no = NULL;
 	visual_res.so = NULL;
 	visual_res.we = NULL;
-
 	visual_res.target_img = NULL;
 	return (visual_res);
 }
