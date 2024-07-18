@@ -6,7 +6,7 @@
 /*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 19:07:31 by vketteni          #+#    #+#             */
-/*   Updated: 2024/07/15 11:58:25 by hwiemann         ###   ########.fr       */
+/*   Updated: 2024/07/16 17:20:12 by hwiemann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ void	setup_render_params(uint32_t x, t_render_data *render_data, mlx_image_t* im
 	ray = &render_data->ray;
 	camera = &render_data->camera;
 	player = &render_data->player;
-	camera->cameraX = 2 * x / (double)image->width - 1;
-	ray->ray_dir_x = player->dir_x + camera->plane_x * camera->cameraX;
-	ray->ray_dir_y = player->dir_y + camera->plane_y * camera->cameraX;
+	camera->camerax = 2 * x / (double)image->width - 1;
+	ray->ray_dir_x = player->dir_x + camera->plane_x * camera->camerax;
+	ray->ray_dir_y = player->dir_y + camera->plane_y * camera->camerax;
 	ray->grid_pos_x = (int)player->pos_x;
 	ray->grid_pos_y = (int)player->pos_y;
 	ray->delta_dist_x = fabs(1 / ray->ray_dir_x);
@@ -120,21 +120,21 @@ void	render_worldmap(t_game *game)
 		if (render_data->flag_side == 0)
 		{
 			if (render_data->ray.ray_dir_x > 0)
-				selected_texture = game->visual_res.EA;
+				selected_texture = game->visual_res.ea;
 			else
-				selected_texture = game->visual_res.WE;
+				selected_texture = game->visual_res.we;
 		}
 		else
 		{
 			if (render_data->ray.ray_dir_y > 0)
-				selected_texture = game->visual_res.SO;
+				selected_texture = game->visual_res.so;
 			else
-				selected_texture = game->visual_res.NO;
+				selected_texture = game->visual_res.no;
 		}
 		if (selected_texture != NULL)
 		{
 			calculate_wall_distance_and_height(x, render_data, img, selected_texture);
-			draw_line(x, render_data, img, selected_texture);
+			draw_line(x, game, img, selected_texture);
 		}
 		if (render_data->flag_hit_door == 1)
 		{
@@ -142,7 +142,7 @@ void	render_worldmap(t_game *game)
 			{
 				selected_texture = game->visual_res.door;
 				calculate_wall_distance_and_height(x, render_data, img, selected_texture);
-				draw_line(x, render_data, img, selected_texture);
+				draw_line(x, game, img, selected_texture);
 			}
 		}
 		x++;

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_prep.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/16 13:17:21 by hwiemann          #+#    #+#             */
+/*   Updated: 2024/07/16 13:17:22 by hwiemann         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../incl/cub3d.h"
 
 void	init_input_table(t_map_data *map_data, int fd)
@@ -47,8 +59,6 @@ void	fill_input_table(t_map_data *map_data, int fd)
 		i++;
 		line_str = get_next_line(fd);
 	}
-	printf("height %d \n width %d \n", map_data->height, map_data->width);
-	// print_map(game);
 }
 
 

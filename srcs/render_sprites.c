@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   render_sprites.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/16 13:43:46 by hwiemann          #+#    #+#             */
+/*   Updated: 2024/07/16 13:44:05 by hwiemann         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../incl/cub3d.h"
 
 void	calculate_sprite_position(t_sprite *sprite, t_render_data *render_data)
@@ -40,7 +52,7 @@ void	draw_sprite(t_sprite *sprite, t_render_data *render_data,
 	uint32_t	color;
 
 	if (!sprite)
-		exit(1); // ? TODO: Handle gracefully
+		exit(1);
 	stripe = sprite->draw_start_x;
 	while (stripe < sprite->draw_end_x)
 	{
@@ -58,7 +70,6 @@ void	draw_sprite(t_sprite *sprite, t_render_data *render_data,
 					/ 256;
 				color = get_pixel(texture, sprite->tex_x, sprite->tex_y);
 				if (color != 0xFF000000)
-					// assuming 0xFF000000 is the transparency key (black)
 					set_pixel(img_window, stripe, y, color);
 				y++;
 			}

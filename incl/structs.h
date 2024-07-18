@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   structs.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/16 13:22:27 by hwiemann          #+#    #+#             */
+/*   Updated: 2024/07/16 17:32:30 by hwiemann         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef STRUCTS_H
 # define STRUCTS_H
 
@@ -12,6 +24,15 @@
 # define TARGET_PATH "./img/fish500.png"
 # define AIR_PATH "./img/Scuba_tank.png"
 # define BUBBLE_PATH "./img/bubb800.png"
+# define C_BLUE (t_color){0, 0, 155, 255}
+# define C_SIDE (t_color){100, 0, 155, 255}
+# define C_WALL (t_color){0, 0, 0, 255}
+# define C_AIR (t_color){200,0,100,255}
+# define C_TARGET (t_color){150, 150, 0, 255}
+# define C_DOOR (t_color){100, 80, 150, 255}
+# define C_FLOOR (t_color){255, 255, 255, 255}
+# define C_PLAYER (t_color){0, 0, 255, 255}
+# define C_TRANSPARENT (t_color){0, 0, 0, 0}
 
 typedef struct s_color
 {
@@ -23,10 +44,10 @@ typedef struct s_color
 
 typedef struct s_texpaths
 {
-	char			*NO;
-	char			*SO;
-	char			*WE;
-	char			*EA;
+	char			*no;
+	char			*so;
+	char			*we;
+	char			*ea;
 	char			*floor;
 	char			*ceiling;
 	char			*door;
@@ -37,10 +58,10 @@ typedef struct s_texpaths
 
 typedef struct s_visual
 {
-	mlx_texture_t	*NO;
-	mlx_texture_t	*SO;
-	mlx_texture_t	*WE;
-	mlx_texture_t	*EA;
+	mlx_texture_t	*no;
+	mlx_texture_t	*so;
+	mlx_texture_t	*we;
+	mlx_texture_t	*ea;
 	mlx_texture_t	*door;
 	mlx_texture_t	*player;
 	mlx_texture_t	*target;
@@ -54,20 +75,9 @@ typedef struct s_visual
 	t_color			c_ceiling;
 }					t_visual;
 
-// typedef struct s_image
-// {
-// 	mlx_image_t		*NO;
-// 	mlx_image_t		*SO;
-// 	mlx_image_t		*WE;
-// 	mlx_image_t		*EA;
-// 	mlx_image_t		*door;
-// 	mlx_image_t		*player;
-// 	mlx_image_t		*target;
-// }					t_image;
-
 typedef struct s_camera
 {
-	double			cameraX;
+	double			camerax;
 	double			plane_x;
 	double			plane_y;
 }					t_camera;
@@ -91,7 +101,6 @@ typedef struct s_sprite
 	int				draw_end_x;
 	int				draw_end_y;
 	int				active;
-	// char			direction;
 	mlx_image_t		*img;
 }					t_sprite;
 

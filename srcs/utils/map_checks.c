@@ -6,8 +6,8 @@ int	parse_input_table(t_game *game)
 
 	paths = init_texpaths();
 	parse_paths(game->map_data.height, &paths, game->map_data.input_table);
-	if(!paths.EA || !paths.NO || !paths.SO
-		|| !paths.WE || !paths.ceiling)
+	if(!paths.ea || !paths.no || !paths.so
+		|| !paths.we || !paths.ceiling)
 	{
 		exit(1); // ? TODO: clean exit strategy
 		return (1);

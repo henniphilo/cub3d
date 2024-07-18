@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   targets.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vketteni <vketteni@student.42berlin.d      +#+  +:+       +#+        */
+/*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/16 14:20:43 by vketteni          #+#    #+#             */
-/*   Updated: 2024/07/16 14:20:46 by vketteni         ###   ########.fr       */
+/*   Created: 2024/07/16 13:22:16 by hwiemann          #+#    #+#             */
+/*   Updated: 2024/07/16 13:22:17 by hwiemann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	get_target(t_game *game, t_map_data *map_data)
 	player = &game->render_data.player;
 	x = (player->pos_x + player->dir_x * MOVE_SPEED);
 	y = (player->pos_y + player->dir_y * MOVE_SPEED);
-	printf("player x: %d y: %d \n", (int)x, (int)y);
 	i = 0;
 	if ((map_data->map[(int)y][(int)player->pos_x] == 'T')
 		|| map_data->map[(int)player->pos_y][(int)x] == 'T')

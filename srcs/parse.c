@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vketteni <vketteni@student.42berlin.d      +#+  +:+       +#+        */
+/*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/16 14:20:20 by vketteni          #+#    #+#             */
-/*   Updated: 2024/07/16 14:20:23 by vketteni         ###   ########.fr       */
+/*   Created: 2024/07/16 13:20:57 by hwiemann          #+#    #+#             */
+/*   Updated: 2024/07/16 13:40:28 by hwiemann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,6 @@ int	parse(t_game *game, char **argv)
 {
 	open_map(game, argv[1]);
 	if (!game->map_data.map)
-		return (1); ///TODO: handle clean exit
+		return (1);
 	return (0);
 }

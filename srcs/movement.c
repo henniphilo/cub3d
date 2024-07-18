@@ -43,8 +43,8 @@ void	player_n1_move(t_game *game, t_map_data *map_data,
 						* MOVE_SPEED * direction)][(int)player->pos_x] == 'T'
 					&& !is_target(game, render_data, (int)player->pos_x,
 						(int)(player->pos_y + player->dir_y * MOVE_SPEED * direction))))))
-		put_block_double(render_data->screen_image, c_player, player->pos_x, player->pos_y);
-	// close_doors(game, map_data);
+		put_block_double(game->img, c_player, player->pos_x, player->pos_y);
+	close_doors(game, map_data);
 }
 
 void	move_straight(t_game *game, t_map_data *map_data, t_render_data *render_data,
@@ -60,13 +60,13 @@ void	move_straight(t_game *game, t_map_data *map_data, t_render_data *render_dat
 	if ((map_data->map[(int)(next_y)][(int)(next_x)] == '0'
 		|| (map_data->map[(int)next_y][(int)next_x] == 'D' && !is_door(game,
 				render_data, next_x, next_y))
-		|| (map_data->map[(int)next_y][(int)next_x] == 'T' 
+		|| (map_data->map[(int)next_y][(int)next_x] == 'T'
 		&& !is_target(game, render_data, next_x, next_y)))
 		)
 	{
 		player->pos_x = next_x;
 		player->pos_y = next_y;
-		printf("New pos_x %.2f, pos_y %.2f\n", player->pos_x, player->pos_y);
+	//	printf("New pos_x %.2f, pos_y %.2f\n", player->pos_x, player->pos_y);
 	}
 }
 
@@ -92,7 +92,7 @@ void	move_sideways(t_game *game, t_map_data *map_data,
 	{
 		player->pos_x = next_x;
 		player->pos_y = next_y;
-		printf("New pos_x %.2f, pos_y %.2f\n", player->pos_x, player->pos_y);
+	//	printf("New pos_x %.2f, pos_y %.2f\n", player->pos_x, player->pos_y);
 	}
 }
 
@@ -132,8 +132,8 @@ void	player_n1_sideways(t_game *game, t_map_data *map_data,
 				+ side_dir_y * MOVE_SPEED)][(int)(player->pos_x)] == 'T'
 			&& !is_target(game, render_data, (int)player->pos_x,
 				(int)(player->pos_y + side_dir_y * MOVE_SPEED))))
-		put_block_double(render_data->screen_image, c_player, player->pos_x, player->pos_y);
-	//  close_doors(game, map_data);
+		put_block_double(game->img, c_player, player->pos_x, player->pos_y);
+	close_doors(game, map_data);
 }
 
 

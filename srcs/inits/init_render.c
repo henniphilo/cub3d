@@ -28,5 +28,10 @@ t_render_data	init_render_data(void)
 	render_data.player = init_player();
 	render_data.ray = init_ray();
 	render_data.raycast = init_raycast();
+	render_data.count_target = 0;
+	render_data.count_door = 0;
+	render_data.count_oxy = 0;
+	render_data.count_oxy_caught = 0;
+	render_data.count_fish_caught = 0;
 	return (render_data);
 }

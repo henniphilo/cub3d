@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_valid.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/16 13:17:50 by hwiemann          #+#    #+#             */
+/*   Updated: 2024/07/16 13:17:51 by hwiemann         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../incl/cub3d.h"
 
 void	open_map(t_game *game, char *file)
@@ -12,18 +24,15 @@ void	open_map(t_game *game, char *file)
 		printf("Error no .cub file\n");
 		exit(0);
 	}
-	init_input_table(&game->map_data, fd); // hier hight init
+	init_input_table(&game->map_data, fd);
 	close(fd);
 	fd = open(file, O_RDONLY);
-	fill_input_table(&game->map_data, fd); // hier width init
+	fill_input_table(&game->map_data, fd);
 	if (parse_input_table(game) == 1)
-		// hier drin wird actual map_data erstellt
 	{
 		printf("input error \n");
 		exit(1);
 	}
-	// printf("height %d \n width %d \n", game->map_data.height,
-		// game->map_data.width);
 	close(fd);
 }
 
@@ -50,9 +59,7 @@ int	get_map_start(unsigned int map_height, char **input_table)
 			y++;
 		}
 		if (is_line && y > 1)
-		{
 			break ;
-		}
 		map_start++;
 	}
 	return (map_start);

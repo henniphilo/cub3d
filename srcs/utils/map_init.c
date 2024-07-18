@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_init.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/16 13:17:05 by hwiemann          #+#    #+#             */
+/*   Updated: 2024/07/16 13:31:43 by hwiemann         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../incl/cub3d.h"
 
-void	parse_paths(int	map_height, t_texpaths *paths, char **input_table)
+static void	direction_paths(int	map_height, t_texpaths *paths, char **input_table)
 {
 	int	y;
 
@@ -9,20 +21,31 @@ void	parse_paths(int	map_height, t_texpaths *paths, char **input_table)
 	{
 		if (ft_strncmp(input_table[y], "NO ", 3) == 0)
 		{
-			paths->NO = get_path(input_table[y], "NO");
+			paths->no = get_path(input_table[y], "NO");
 		}
 		if (ft_strncmp(input_table[y], "SO ", 3) == 0)
 		{
-			paths->SO = get_path(input_table[y], "SO");
+			paths->so = get_path(input_table[y], "SO");
 		}
 		if (ft_strncmp(input_table[y], "WE ", 3) == 0)
 		{
-			paths->WE = get_path(input_table[y], "WE");
+			paths->we = get_path(input_table[y], "WE");
 		}
 		if (ft_strncmp(input_table[y], "EA ", 3) == 0)
 		{
-			paths->EA = get_path(input_table[y], "EA");
+			paths->ea = get_path(input_table[y], "EA");
 		}
+		y++;
+	}
+}
+
+static void	sprite_paths(int map_height, t_texpaths *paths, char **input_table)
+{
+	int	y;
+
+	y = 0;
+	while (y < map_height)
+	{
 		if (ft_strncmp(input_table[y], "DOOR ", 5) == 0)
 		{
 			paths->door = get_path(input_table[y], "DOOR");
@@ -39,6 +62,17 @@ void	parse_paths(int	map_height, t_texpaths *paths, char **input_table)
 		{
 			paths->air = get_path(input_table[y], "AIR");
 		}
+		y++;
+	}
+}
+
+static void	color_paths(int map_height, t_texpaths *paths, char **input_table)
+{
+	int	y;
+
+	y = 0;
+	while (y < map_height)
+	{
 		if (ft_strncmp(input_table[y], "F ", 2) == 0)
 		{
 			paths->floor = get_path(input_table[y], "F");
@@ -49,14 +83,13 @@ void	parse_paths(int	map_height, t_texpaths *paths, char **input_table)
 		}
 		y++;
 	}
-	printf("NO: %s\n", paths->NO);
-	printf("SO: %s\n", paths->SO);
-	printf("WE: %s\n", paths->WE);
-	printf("EA: %s\n", paths->EA);
-	printf("Door: %s\n", DOOR_PATH);
-	printf("Target: %s\n", TARGET_PATH);
-	printf("Bubbles: %s\n", BUBBLE_PATH);
-	printf("Air: %s\n", AIR_PATH);
+}
+
+void	parse_paths(int	map_height, t_texpaths *paths, char **input_table)
+{
+	direction_paths(map_height, paths, input_table);
+	sprite_paths(map_height, paths, input_table);
+	color_paths(map_height, paths, input_table);
 }
 
 char	*get_path(char *line, const char *direction)

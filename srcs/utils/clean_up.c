@@ -15,26 +15,12 @@ void	free_input_table(int map_height, char **input_table)
 
 void	free_data(t_game *game)
 {
-	int	i;
-
-	printf("in free data\n");
-	i = 0;
-	while (i < game->map_data.y_axis)
-	{
-		// free(game->map_data.map[i]);
-		i++;
-	}
-	// if (game->map_data.x_axis)
-	// 		free(game->map_data.x_axis);
-
-
-	//clean_texture(game);
+	//printf("in free data\n");
 	free(game->map_data.map);
-	free(game->visual_res.NO);
-	free(game->visual_res.SO);
-	free(game->visual_res.WE);
-	free(game->visual_res.EA);
-	free(game->visual_res.bubbles);
+	free(game->visual_res.no);
+	free(game->visual_res.so);
+	free(game->visual_res.we);
+	free(game->visual_res.ea);
 	free(game->visual_res.target);
 	free(game->visual_res.door);
 	free(game->visual_res.air);
@@ -58,6 +44,7 @@ int	terminate_game(t_game *game, int exit_code)
 	if (game)
 	{
 		free_data(game);
+		clean_img(game);
 		if (game->mlx_ptr)
 		{
 			if (game->render_data.screen_image)

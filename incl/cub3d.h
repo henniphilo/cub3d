@@ -1,20 +1,31 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/16 13:22:31 by hwiemann          #+#    #+#             */
+/*   Updated: 2024/07/16 17:19:28 by hwiemann         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 
 # include "../libft/get_next_line.h"
 # include "../libft/libft.h"
-//# include "MLX42.h"
 # include "../MLX42/include/MLX42/MLX42.h"
 # include "structs.h"
-# include <errno.h> // perror, strerror
+# include <errno.h>
 # include <math.h>
-# include <stddef.h> // Null
-# include <stdio.h>  // printf
-# include <stdlib.h> // malloc, free, exit
-# include <stdlib.h> // getenv
+# include <stddef.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <stdlib.h>
 # include <string.h>
+# include <unistd.h>
 # include <time.h>
-# include <unistd.h> // write, access, fork, execve, dup2, pipe, etc.
 
 # define MAP_WIDTH 10
 # define MAP_HEIGHT 10
@@ -23,7 +34,6 @@
 
 /* tex */
 void			load_visuals(t_visual *visual_res, t_texpaths *paths);
-// t_sprite		*init_sprite(mlx_t *mlx, const char *path, float x, float y);
 
 /* Map Parsing */
 int				check_file_ending_cub(char *file);
@@ -33,7 +43,6 @@ char			*get_path(char *line, const char *direction);
 int				parse_input_table(t_game *game);
 void			open_map(t_game *game, char *file);
 
-// void			which_color(t_game *game);
 void			parse_paths(int map_height, t_texpaths *paths,
 					char **input_table);
 void			init_input_table(t_map_data *map_data, int fd);
@@ -42,11 +51,8 @@ void			create_map(t_map_data *map_data);
 void			print_map(t_map_data *map_data);
 void			free_data(t_game *game);
 void			free_input_table(int map_height, char **input_table);
-// void	load_visualt_game *game);
-// void	get_img(t_game *game);
 void			clean_texture(t_game *game);
 void			clean_img(t_game *game);
-void			init_player_pos(t_game *game);
 void			set_north(t_game *game);
 void			set_south(t_game *game);
 void			set_east(t_game *game);
@@ -54,10 +60,7 @@ void			set_west(t_game *game);
 
 /* Mini-Map*/
 
-// void	mm_get_img(t_game *game);
-// void	mm_load_visualt_game *game);
 void			draw_mini_map(t_game *game, mlx_image_t *img, int x, int y);
-// void			key_hook(mlx_key_data_t key, void *ptr);
 void			put_pixel_double(mlx_image_t *img, double x, double y,
 					t_color color);
 void			put_pixel(mlx_image_t *img, int x, int y, t_color color);
@@ -65,6 +68,8 @@ void			put_block(mlx_image_t *img, t_color color, int x, int y);
 void			fill_half(t_game *game, t_color color, int start_y, int end_y);
 void			add_look(t_game *game, mlx_image_t *img, int start_y,
 					int end_y);
+void			add_look(t_game *game, mlx_image_t *img,
+					int start_y, int end_y);
 void			render_mini_map(t_game *game);
 void			init_position_and_direction(t_game *game);
 void			put_block_double(mlx_image_t *img, t_color color, double x,
@@ -73,8 +78,8 @@ char			get_direction(mlx_key_data_t key, char cur_direct);
 int				get_color_int(const char *color_str);
 int				is_door(t_game *game, t_render_data *render_data, int x, int y);
 int				is_air(t_game *game, t_render_data *render_data, int x, int y);
-int				is_target(t_game *game, t_render_data *render_data, int x,
-					int y);
+int				is_target(t_game *game, t_render_data *render_data,
+					int x, int y);
 t_color			int_to_color(int color);
 t_game			*mini_map_init(t_game *game);
 void			print_got_air(t_game *game);
@@ -108,11 +113,12 @@ void			setup_render_params(uint32_t x, t_render_data *render_data,
 					mlx_image_t *image);
 void			perform_dda(t_game *game, t_render_data *render_data,
 					t_map_data *map_data);
-void			draw_line(int x, t_render_data *render_data, mlx_image_t *image,
+void			draw_line(int x, t_game *game, mlx_image_t *image,
 					mlx_texture_t *tex);
-void			setup_render_params_(t_sprite *sprite,
+void			calculate_sprite_position(t_sprite *sprite,
 					t_render_data *render_data);
-// void	draw_sprite(t_sprite *sprite, t_render_data *render_data, mlx_texture_t *tex);
+void			draw_sprite(t_sprite *sprite, t_render_data *render_data,
+					mlx_texture_t *texture, mlx_image_t *img_window);
 void			render_sprites(t_game *game);
 
 /* Cleanup */
@@ -134,8 +140,8 @@ void			close_doors(t_game *game, t_map_data *map_data);
 int				is_door(t_game *game, t_render_data *render_data, int x, int y);
 
 /* Targets */
-int				is_target(t_game *game, t_render_data *render_data, int x,
-					int y);
+int				is_target(t_game *game, t_render_data *render_data,
+					int x, int y);
 void			get_target(t_game *game, t_map_data *map_data);
 
 /* Air */
