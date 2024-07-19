@@ -1,30 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hooks.c                                            :+:      :+:    :+:   */
+/*   keys.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/16 14:19:53 by vketteni          #+#    #+#             */
-/*   Updated: 2024/07/19 11:55:55 by hwiemann         ###   ########.fr       */
+/*   Created: 2024/07/19 11:11:21 by hwiemann          #+#    #+#             */
+/*   Updated: 2024/07/19 11:11:51 by hwiemann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
-
-void	scroll_hook(double xdelta, double ydelta, void *param)
-{
-	t_game			*game;
-	t_render_data	*render_data;
-
-	(void)xdelta;
-	game = (t_game *)param;
-	render_data = &game->render_data;
-	if (ydelta > 0)
-		rotate(render_data, 1);
-	else if (ydelta < 0)
-		rotate(render_data, -1);
-}
 
 void	key_hook(mlx_key_data_t keydata, void *param)
 {
@@ -38,7 +24,7 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 	if (keydata.action == MLX_PRESS)
 	{
 		keys_act(game, keydata);
-		render_data->flag_render = 1; // was ist das??? diese hier sehr gut
+		render_data->flag_render = 1;
 	}
 	if (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT)
 		keys_rotate(keydata, render_data);
@@ -100,39 +86,5 @@ void	keys_act(t_game *game, mlx_key_data_t keydata)
 	{
 		get_air(game, map_data);
 		ft_putendl_fd("Z", STDERR_FILENO);
-	}
-}
-
-void	render_ingame_messages(t_game *game)
-{
-		if (game->render_data.count_oxy_caught == 0)
-			mlx_put_string(game->mlx_ptr,
-				" You need air! Hurry! Find the tank!", 400, 0);
-		else
-			print_got_air(game);
-		if (game->render_data.count_fish_caught != 0)
-		{
-			mlx_put_string(game->mlx_ptr, " You caught fish: ", 700, 0);
-			mlx_put_string(game->mlx_ptr,
-				ft_itoa(game->render_data.count_fish_caught), 800, 0);
-		}
-}
-
-void	loop_hook(void *param)
-{
-	t_game	*game;
-	int		render_flag;
-
-	game = (t_game *)param;
-	// if (check_game_param(game) == -1)
-	// 	terminate_game(game, EXIT_FAILURE);
-	render_flag = game->render_data.flag_render;
-	if (render_flag)
-	{
-		render_ingame_messages(game);
-		render_worldmap(game) ;
-		render_sprites(game);
-		render_mini_map(game);
-		render_flag = 0;
 	}
 }
