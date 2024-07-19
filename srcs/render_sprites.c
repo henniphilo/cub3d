@@ -91,12 +91,12 @@ void	render_sprites(t_game *game)
 
 	render_data = &game->render_data;
 	i = 0;
-	while (i < render_data->count_door)
+	while (i < render_data->count_target)
 	{
-		if (render_data->doors[i].active == 1)
+		if (render_data->targets[i].active == 1)
 		{
-			calculate_sprite_position(&render_data->doors[i], render_data);
-			draw_sprite(&render_data->doors[i], render_data);
+			calculate_sprite_position(&render_data->targets[i], render_data);
+			draw_sprite(&render_data->targets[i], render_data);
 		}
 		i++;
 	}
