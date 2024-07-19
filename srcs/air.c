@@ -6,7 +6,7 @@
 /*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:18:47 by hwiemann          #+#    #+#             */
-/*   Updated: 2024/07/16 18:26:19 by hwiemann         ###   ########.fr       */
+/*   Updated: 2024/07/16 13:18:48 by hwiemann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ int	is_air(t_game *game, t_render_data *render_data, int x, int y)
 void	get_air(t_game *game, t_map_data *map_data)
 {
 	t_player	*player;
-	double		x;
-	double		y;
-	int			i;
+	double			x;
+	double			y;
+	int				i;
 
 	player = &game->render_data.player;
 	x = (player->pos_x + player->dir_x * MOVE_SPEED);
