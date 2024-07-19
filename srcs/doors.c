@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doors.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vketteni <vketteni@student.42berlin.d      +#+  +:+       +#+        */
+/*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 14:19:48 by vketteni          #+#    #+#             */
-/*   Updated: 2024/07/16 14:19:50 by vketteni         ###   ########.fr       */
+/*   Updated: 2024/07/19 13:18:50 by hwiemann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	is_door(t_game *game, t_render_data *render_data, int x, int y)
 	int	i;
 
 	i = 0;
-	// printf("is door check x %d y %d \n", x, y);
 	while (i < game->render_data.count_door)
 	{
 		if ((int)render_data->doors[i].pos_x == x
@@ -52,36 +51,43 @@ void	close_doors(t_game *game, t_map_data *map_data)
 	}
 }
 
-void	open_doors(t_game *game, t_render_data *render_data,
-		t_map_data *map_data)
+static int	check_pos(t_render_data *render_data, int i, double next_x, double next_y)
+{
+	if (((int)render_data->doors[i].pos_x == (int)next_x
+			&& (int)render_data->doors[i].pos_y
+			== (int)render_data->player.pos_y)
+		|| ((int)render_data->player.pos_x == (int)render_data->doors[i].pos_x
+			&& (int)next_y == (int)render_data->doors[i].pos_y))
+	{
+		render_data->doors[i].active = 0;
+		return (1);
+	}
+	return (0);
+}
+
+void	open_doors(t_render_data *render_data, t_map_data *map_data)
 {
 	t_player	*player;
 	double		next_x;
 	double		next_y;
 	int			i;
 
-	(void)render_data;
-	player = &game->render_data.player;
+	player = &render_data->player;
 	next_x = player->pos_x + player->dir_x * MOVE_SPEED;
 	next_y = player->pos_y + player->dir_y * MOVE_SPEED;
-	printf("next x %d y %d \n", (int)next_x, (int)next_y);
 	i = 0;
 	if ((map_data->map[(int)next_y][(int)player->pos_x] == 'D')
 		|| map_data->map[(int)player->pos_y][(int)next_x] == 'D')
 	{
-		while (i < game->render_data.count_door)
+		while (i < render_data->count_door)
 		{
-			if (((int)game->render_data.doors[i].pos_x == (int)next_x
-					&& (int)game->render_data.doors[i].pos_y == (int)player->pos_y)
-				|| ((int)player->pos_x == (int)game->render_data.doors[i].pos_x
-					&& (int)next_y == (int)game->render_data.doors[i].pos_y))
-			{
-				game->render_data.doors[i].active = 0;
-				printf("door open\n");
-				break ;
-			}
+			if (check_pos(render_data, i, next_x, next_y) == 1)
+				break;
 			i++;
 		}
+		if (check_pos(render_data, i, next_x, next_y) == 0)
+			printf("hmm the door ain't open yet. Try again!\n");
+		else
+			printf("You opend the door! Yey!\n");
 	}
-	printf("hmm the door ain't open yet. Try again!\n");
 }

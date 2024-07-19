@@ -6,7 +6,7 @@
 /*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:41:14 by hwiemann          #+#    #+#             */
-/*   Updated: 2024/07/16 17:23:39 by hwiemann         ###   ########.fr       */
+/*   Updated: 2024/07/19 12:33:58 by hwiemann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,17 +55,14 @@ static void	apply_color(mlx_image_t *image, t_color color, int x, int y)
 void	draw_line(int x, t_game *game, mlx_image_t *image, mlx_texture_t *tex)
 {
 	t_color		color;
-	t_color		color_side;
 	t_raycast	*raycast;
 	int			y;
 	int			tex_y;
 
-	color = C_BLUE;
-	color_side = C_SIDE;
 	raycast = &game->render_data.raycast;
 	y = raycast->draw_start;
 	if (game->render_data.flag_side == 1)
-		color = color_side;
+		color = game->look.cblue;
 	while (y < raycast->draw_end)
 	{
 		tex_y = (int)raycast->tex_pos;
