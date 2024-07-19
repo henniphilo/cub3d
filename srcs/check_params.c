@@ -44,7 +44,7 @@ int	check_render_data(t_render_data *render_data)
 		return (-1);
 	if (render_data->oxygen_tanks == NULL)
 		return (-1);
-	if (render_data->vis == NULL)
+	if (render_data->visual_ressources == NULL)
 		return (-1);
 	if (render_data->targets == NULL)
 		return (-1);

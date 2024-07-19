@@ -102,6 +102,7 @@ typedef struct s_sprite
 	int				draw_end_y;
 	int				active;
 	mlx_image_t		*img;
+	mlx_texture_t	*tex;
 }					t_sprite;
 
 typedef struct s_raycast
@@ -159,7 +160,7 @@ typedef struct s_render_data
 	int				flag_side;
 	int				flag_render;
 	mlx_image_t		*screen_image;
-	t_visual		*vis;
+	t_visual		*visual_ressources;
 }					t_render_data;
 
 typedef struct s_map_data

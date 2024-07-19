@@ -17,6 +17,7 @@ static void	init_target(t_game *game, double x, double y, int id)
 	game->render_data.targets[id].active = 1;
 	game->render_data.targets[id].pos_x = x + 0.5;
 	game->render_data.targets[id].pos_y = y + 0.5;
+	game->render_data.targets[id].tex = game->visual_res.target;
 	game->render_data.targets[id].img = mlx_texture_to_image(game->mlx_ptr,
 			game->visual_res.target);
 }
@@ -26,6 +27,7 @@ static void	init_door(t_game *game, double x, double y, int id)
 	game->render_data.doors[id].active = 1;
 	game->render_data.doors[id].pos_x = x + 0.5;
 	game->render_data.doors[id].pos_y = y + 0.5;
+	game->render_data.doors[id].tex = game->visual_res.door;
 	game->render_data.doors[id].img = mlx_texture_to_image(game->mlx_ptr,
 			game->visual_res.door);
 }
@@ -35,6 +37,7 @@ static void	init_air(t_game *game, double x, double y, int id)
 	game->render_data.oxygen_tanks[id].active = 1;
 	game->render_data.oxygen_tanks[id].pos_x = x + 0.5;
 	game->render_data.oxygen_tanks[id].pos_y = y + 0.5;
+	game->render_data.oxygen_tanks[id].tex = game->visual_res.air;
 	game->render_data.oxygen_tanks[id].img = mlx_texture_to_image(game->mlx_ptr,
 			game->visual_res.air);
 }

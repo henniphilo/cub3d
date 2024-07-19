@@ -24,7 +24,7 @@ int	parse_input_table(t_game *game)
 		return (-1);
 	}
 	load_visuals(&game->visual_res, &paths);
-	game->render_data.vis = &game->visual_res;
+	game->render_data.visual_ressources = &game->visual_res;
 	create_map(game);
 	free_input_table(game->map_data.height, game->map_data.input_table);
 	if ((walls_check(&game->map_data)) == 1)

@@ -115,8 +115,7 @@ void			draw_line(int x, t_game *game, mlx_image_t *image,
 					mlx_texture_t *tex);
 void			calculate_sprite_position(t_sprite *sprite,
 					t_render_data *render_data);
-void			draw_sprite(t_sprite *sprite, t_render_data *render_data,
-					mlx_texture_t *texture, mlx_image_t *img_window);
+void			draw_sprite(t_sprite *sprite, t_render_data *render_data);
 void			render_sprites(t_game *game);
 
 /* Cleanup */
