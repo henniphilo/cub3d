@@ -6,7 +6,7 @@
 /*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:17:15 by hwiemann          #+#    #+#             */
-/*   Updated: 2024/07/16 13:32:23 by hwiemann         ###   ########.fr       */
+/*   Updated: 2024/07/19 12:29:49 by hwiemann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,20 @@ void	clean_texture(t_game *game)
 void	clean_img(t_game *game)
 {
 	mlx_delete_image(game->mlx_ptr, game->visual_res.bubbles_img);
+}
+
+void	init_look(t_game *game)
+{
+	game->look.cair = int_to_color(get_color_int(C_AIR));
+	game->look.cblue = int_to_color(get_color_int(C_BLUE));
+	game->look.cdoor = int_to_color(get_color_int(C_DOOR));
+	game->look.cfloor = int_to_color(get_color_int(C_FLOOR));
+	game->look.cwall = int_to_color(get_color_int(C_WALL));
+	game->look.ctarget = int_to_color(get_color_int(C_TARGET));
+	game->look.cside = int_to_color(get_color_int(C_SIDE));
+	game->look.cplayer = int_to_color(get_color_int(C_PLAYER));
+	game->look.ctransparent.r = 0;
+	game->look.ctransparent.g = 0;
+	game->look.ctransparent.b = 0;
+	game->look.ctransparent.a = 0;
 }

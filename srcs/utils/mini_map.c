@@ -6,7 +6,7 @@
 /*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 14:47:49 by hwiemann          #+#    #+#             */
-/*   Updated: 2024/07/16 17:52:30 by hwiemann         ###   ########.fr       */
+/*   Updated: 2024/07/19 12:39:21 by hwiemann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ t_game	*mini_map_init(t_game *game)
 	int	i;
 
 	i = 0;
+	init_look(game);
 	fill_half(game, game->visual_res.c_ceiling, 0, WINDOW_HEIGHT / 2);
 	fill_half(game, game->visual_res.c_floor, WINDOW_HEIGHT / 2, WINDOW_HEIGHT);
 	mlx_image_to_window(game->mlx_ptr, game->render_data.screen_image, 0, 0);
@@ -28,7 +29,7 @@ void	render_mini_map(t_game *game)
 	int		x;
 	int		y;
 	t_color	c_player  = {0, 0, 255, 255};
-	
+
 	y = 0;
 	while (y < game->map_data.y_axis)
 	{
@@ -52,17 +53,17 @@ static t_color	choose_color(t_game *game, int x, int y)
 	if (tile == ' ' || tile == '\n' || (tile == !game->map_data.first_dir
 			&& tile != '0' && tile != 'L' && tile != 'D' && tile != 'T'
 			&& tile != '1'))
-		return (C_TRANSPARENT);
+		return (game->look.ctransparent);
 	if (tile == '1')
-		return (C_WALL);
+		return (game->look.cwall);
 	else if (tile == 'T' && is_target(game, &game->render_data, x, y))
-		return (C_TARGET);
+		return (game->look.ctarget);
 	else if (tile == 'L' && is_air(game, &game->render_data, x, y))
-		return (C_AIR);
+		return (game->look.cair);
 	else if (tile == 'D' && is_door(game, &game->render_data, x, y))
-		return (C_DOOR);
+		return (game->look.cdoor);
 	else
-		return (C_FLOOR);
+		return (game->look.cfloor);
 }
 
 void	draw_mini_map(t_game *game, mlx_image_t *img, int x, int y)

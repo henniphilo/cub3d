@@ -6,7 +6,7 @@
 /*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 11:11:21 by hwiemann          #+#    #+#             */
-/*   Updated: 2024/07/19 11:11:51 by hwiemann         ###   ########.fr       */
+/*   Updated: 2024/07/19 12:50:11 by hwiemann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	keys_act(t_game *game, mlx_key_data_t keydata)
 	}
 	if (keydata.key == MLX_KEY_SPACE)
 	{
-		open_doors(game, render_data, map_data);
+		open_doors(render_data, map_data);
 		ft_putendl_fd("SPACE", STDERR_FILENO);
 	}
 	if (keydata.key == MLX_KEY_X)

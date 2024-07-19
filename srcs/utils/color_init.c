@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color_init.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vketteni <vketteni@student.42berlin.d      +#+  +:+       +#+        */
+/*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 17:42:10 by vketteni          #+#    #+#             */
-/*   Updated: 2024/07/18 17:42:12 by vketteni         ###   ########.fr       */
+/*   Updated: 2024/07/19 12:21:52 by hwiemann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	put_pixel_double(mlx_image_t *img, double x, double y, t_color color)
 	img->pixels[pixel_i + 3] = color.a;
 }
 
-static int	get_color_value(const char *color_str, int *index)
+int	get_color_value(const char *color_str, int *index)
 {
 	int	value;
 

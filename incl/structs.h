@@ -6,7 +6,7 @@
 /*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:22:27 by hwiemann          #+#    #+#             */
-/*   Updated: 2024/07/16 17:32:30 by hwiemann         ###   ########.fr       */
+/*   Updated: 2024/07/19 12:42:39 by hwiemann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,14 @@
 # define TARGET_PATH "./img/fish500.png"
 # define AIR_PATH "./img/Scuba_tank.png"
 # define BUBBLE_PATH "./img/bubb800.png"
-# define C_BLUE (t_color){0, 0, 155, 255}
-# define C_SIDE (t_color){100, 0, 155, 255}
-# define C_WALL (t_color){0, 0, 0, 255}
-# define C_AIR (t_color){200,0,100,255}
-# define C_TARGET (t_color){150, 150, 0, 255}
-# define C_DOOR (t_color){100, 80, 150, 255}
-# define C_FLOOR (t_color){255, 255, 255, 255}
-# define C_PLAYER (t_color){0, 0, 255, 255}
-# define C_TRANSPARENT (t_color){0, 0, 0, 0}
+# define C_WALL "0, 0, 0"
+# define C_BLUE "0, 0, 155"
+# define C_AIR "200, 0, 10"
+# define C_TARGET "150, 150, 0"
+# define C_DOOR "100, 80, 150"
+# define C_FLOOR "255, 255, 255"
+# define C_SIDE "100, 0, 155"
+# define C_PLAYER "0, 0, 255"
 
 typedef struct s_color
 {
@@ -41,6 +40,19 @@ typedef struct s_color
 	uint8_t			b;
 	uint8_t			a;
 }					t_color;
+
+typedef struct s_look
+{
+	t_color			cblue;
+	t_color			cwall;
+	t_color			cair;
+	t_color			ctarget;
+	t_color			cdoor;
+	t_color			cfloor;
+	t_color			cplayer;
+	t_color			cside;
+	t_color			ctransparent;
+}					t_look;
 
 typedef struct s_texpaths
 {
@@ -181,6 +193,7 @@ typedef struct s_game
 	t_render_data	render_data;
 	t_visual		visual_res;
 	t_texpaths		texpaths;
+	t_look			look;
 }					t_game;
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:22:31 by hwiemann          #+#    #+#             */
-/*   Updated: 2024/07/16 17:19:28 by hwiemann         ###   ########.fr       */
+/*   Updated: 2024/07/19 12:50:47 by hwiemann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,11 @@ int				is_door(t_game *game, t_render_data *render_data, int x, int y);
 int				is_air(t_game *game, t_render_data *render_data, int x, int y);
 int				is_target(t_game *game, t_render_data *render_data, int x,
 					int y);
+int				get_color_value(const char *color_str, int *index);
 t_color			int_to_color(int color);
 t_game			*mini_map_init(t_game *game);
 void			print_got_air(t_game *game);
+void			init_look(t_game *game);
 
 /* Hooks */
 void			key_hook(mlx_key_data_t keydata, void *param);
@@ -135,8 +137,7 @@ uint32_t		get_pixel(mlx_texture_t *img, int x, int y);
 void			set_pixel(mlx_image_t *img, int x, int y, uint32_t color);
 
 /* Doors */
-void			open_doors(t_game *game, t_render_data *render_data,
-					t_map_data *map_data);
+void			open_doors(t_render_data *render_data, t_map_data *map_data);
 void			close_doors(t_game *game, t_map_data *map_data);
 int				is_door(t_game *game, t_render_data *render_data, int x, int y);
 
