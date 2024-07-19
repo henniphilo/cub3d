@@ -12,7 +12,6 @@
 
 #include "../../incl/cub3d.h"
 
-
 void	put_block(mlx_image_t *img, t_color color, int x, int y)
 {
 	int	i;
@@ -33,8 +32,8 @@ void	put_block(mlx_image_t *img, t_color color, int x, int y)
 
 void	put_block_double(mlx_image_t *img, t_color color, double x, double y)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 	double	ix;
 	double	iy;
 
@@ -57,7 +56,8 @@ static void	init_bg_img(t_game *game)
 {
 	(void)game;
 	game->visual_res.bubbles = mlx_load_png(BUBBLE_PATH);
-	game->visual_res.bubbles_img = mlx_texture_to_image(game->mlx_ptr, game->visual_res.bubbles);
+	game->visual_res.bubbles_img = mlx_texture_to_image(game->mlx_ptr,
+			game->visual_res.bubbles);
 	mlx_delete_texture(game->visual_res.bubbles);
 }
 
@@ -70,9 +70,9 @@ void	fill_half(t_game *game, t_color color, int start_y, int end_y)
 	while (y < end_y)
 	{
 		x = 0;
-		while (x < (int)game->img->width)
+		while (x < (int)game->render_data.screen_image->width)
 		{
-			put_pixel(game->img, x, y, color);
+			put_pixel(game->render_data.screen_image, x, y, color);
 			x++;
 		}
 		y++;

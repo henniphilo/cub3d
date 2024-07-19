@@ -20,21 +20,27 @@ static void	color_textures(t_game *game, mlx_texture_t *tex, int x, int y)
 	uint8_t		b;
 	uint8_t		a;
 
-	color_tex = ((uint32_t*)tex->pixels)[tex->width * (int)game->render_data.raycast.tex_pos + game->render_data.raycast.tex_x];
+	color_tex = ((uint32_t *)tex->pixels)[tex->width
+		* (int)game->render_data.raycast.tex_pos
+		+ game->render_data.raycast.tex_x];
 	r = (color_tex >> 24) & 0xFF;
 	g = (color_tex >> 16) & 0xFF;
 	b = (color_tex >> 8) & 0xFF;
 	a = (color_tex >> 0) & 0xFF;
 	if (r != 0 || g != 0 || b != 0)
 	{
-		game->img->pixels[(y * game->img->width + game->img->width - 1 - x)
-			* 4 + 0] = a;
-		game->img->pixels[(y * game->img->width + game->img->width - 1 - x)
-			* 4 + 1] = b;
-		game->img->pixels[(y * game->img->width + game->img->width - 1 - x)
-			* 4 + 2] = g;
-		game->img->pixels[(y * game->img->width + game->img->width - 1 - x)
-			* 4 + 3] = r;
+		game->render_data.screen_image->pixels[(y
+				* game->render_data.screen_image->width
+				+ game->render_data.screen_image->width - 1 - x) * 4 + 0] = a;
+		game->render_data.screen_image->pixels[(y
+				* game->render_data.screen_image->width
+				+ game->render_data.screen_image->width - 1 - x) * 4 + 1] = b;
+		game->render_data.screen_image->pixels[(y
+				* game->render_data.screen_image->width
+				+ game->render_data.screen_image->width - 1 - x) * 4 + 2] = g;
+		game->render_data.screen_image->pixels[(y
+				* game->render_data.screen_image->width
+				+ game->render_data.screen_image->width - 1 - x) * 4 + 3] = r;
 	}
 }
 
@@ -46,8 +52,7 @@ static void	apply_color(mlx_image_t *image, t_color color, int x, int y)
 	image->pixels[(y * image->width + x) * 4 + 3] = color.a;
 }
 
-void	draw_line(int x, t_game *game, mlx_image_t *image,
-			mlx_texture_t *tex)
+void	draw_line(int x, t_game *game, mlx_image_t *image, mlx_texture_t *tex)
 {
 	t_color		color;
 	t_color		color_side;

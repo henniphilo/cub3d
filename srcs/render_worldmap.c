@@ -105,7 +105,7 @@ void	render_worldmap(t_game *game)
 	uint32_t		x;
 	mlx_texture_t	*selected_texture;
 
-	img = game->img;
+	img = game->render_data.screen_image;
 	render_data = &game->render_data;
 	ft_memset(img->pixels, 0, img->width * img->height * 4);
 	mini_map_init(game);

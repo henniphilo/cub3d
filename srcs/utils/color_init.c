@@ -1,9 +1,20 @@
-#include "../../incl/cub3d.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   color_init.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vketteni <vketteni@student.42berlin.d      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/18 17:42:10 by vketteni          #+#    #+#             */
+/*   Updated: 2024/07/18 17:42:12 by vketteni         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "../../incl/cub3d.h"
 
 void	put_pixel(mlx_image_t *img, int x, int y, t_color color)
 {
-	int		pixel_i;
+	int	pixel_i;
 
 	if (x < 0 || x >= (int)img->width || y < 0 || y >= (int)img->height)
 		return ;
@@ -16,13 +27,12 @@ void	put_pixel(mlx_image_t *img, int x, int y, t_color color)
 
 void	put_pixel_double(mlx_image_t *img, double x, double y, t_color color)
 {
-	int		pixel_i;
-	int		ix;
-	int		iy;
+	int	pixel_i;
+	int	ix;
+	int	iy;
 
 	ix = (int)x;
 	iy = (int)y;
-
 	if (ix < 0 || ix >= (int)img->width || iy < 0 || iy >= (int)img->height)
 		return ;
 	pixel_i = (iy * img->width + ix) * 4;
@@ -37,7 +47,7 @@ static int	get_color_value(const char *color_str, int *index)
 	int	value;
 
 	value = 0;
-	while( !ft_isdigit(color_str[*index]) && color_str[*index] != '\0')
+	while (!ft_isdigit(color_str[*index]) && color_str[*index] != '\0')
 		(*index)++;
 	while (ft_isdigit(color_str[*index]))
 	{

@@ -158,6 +158,8 @@ typedef struct s_render_data
 	int				flag_hit_air;
 	int				flag_side;
 	int				flag_render;
+	mlx_image_t		*screen_image;
+	t_visual		*vis;
 }					t_render_data;
 
 typedef struct s_map_data
@@ -168,7 +170,6 @@ typedef struct s_map_data
 	int				width;
 	int				y_axis;
 	int				*x_axis;
-	t_sprite		*player;
 	char			first_dir;
 }					t_map_data;
 

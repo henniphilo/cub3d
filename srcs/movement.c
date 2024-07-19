@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   movement.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vketteni <vketteni@student.42berlin.d      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/16 14:20:17 by vketteni          #+#    #+#             */
+/*   Updated: 2024/07/16 14:20:19 by vketteni         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../incl/cub3d.h"
 
 
@@ -10,7 +22,7 @@ void	player_n1_move(t_game *game, t_map_data *map_data,
 
 	player = &game->render_data.player;
 	move_straight(game, map_data, render_data, direction);
-	put_block_double(game->img, c_floor, player->pos_x, player->pos_y);
+	put_block_double(render_data->screen_image, c_floor, player->pos_x, player->pos_y);
 	if (((map_data->map[(int)player->pos_y][(int)(player->pos_x + player->dir_x
 					* MOVE_SPEED * direction)] == '0')
 			&& (map_data->map[(int)(player->pos_y + player->dir_y
@@ -31,7 +43,7 @@ void	player_n1_move(t_game *game, t_map_data *map_data,
 						* MOVE_SPEED * direction)][(int)player->pos_x] == 'T'
 					&& !is_target(game, render_data, (int)player->pos_x,
 						(int)(player->pos_y + player->dir_y * MOVE_SPEED * direction))))))
-		put_block_double(game->img, c_player, player->pos_x, player->pos_y);
+		put_block_double(render_data->screen_image, c_player, player->pos_x, player->pos_y);
 	close_doors(game, map_data);
 }
 
@@ -96,7 +108,7 @@ void	player_n1_sideways(t_game *game, t_map_data *map_data,
 	player = &game->render_data.player;
 	side_dir_x = player->dir_y;
 	side_dir_y = player->dir_x;
-	put_block_double(game->img, c_floor, player->pos_x, player->pos_y);
+	put_block_double(render_data->screen_image, c_floor, player->pos_x, player->pos_y);
 	move_sideways(game, map_data, render_data, direction);
 	if (((map_data->map[(int)player->pos_y][(int)(player->pos_x + side_dir_x
 					* MOVE_SPEED)] == '0'
@@ -120,7 +132,7 @@ void	player_n1_sideways(t_game *game, t_map_data *map_data,
 				+ side_dir_y * MOVE_SPEED)][(int)(player->pos_x)] == 'T'
 			&& !is_target(game, render_data, (int)player->pos_x,
 				(int)(player->pos_y + side_dir_y * MOVE_SPEED))))
-		put_block_double(game->img, c_player, player->pos_x, player->pos_y);
+		put_block_double(render_data->screen_image, c_player, player->pos_x, player->pos_y);
 	close_doors(game, map_data);
 }
 

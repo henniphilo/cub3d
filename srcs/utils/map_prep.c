@@ -12,11 +12,15 @@
 
 #include "../../incl/cub3d.h"
 
-void	init_input_table(t_map_data *map_data, int fd)
+int	init_input_table(t_map_data *map_data, char *file)
 {
 	char	*line;
 	int		height;
+	int		fd;
 
+	fd = open(file, O_RDONLY);
+	if (fd < 0)
+		return (-1);
 	height = 0;
 	line = get_next_line(fd);
 	while (line != NULL)
@@ -25,40 +29,41 @@ void	init_input_table(t_map_data *map_data, int fd)
 		height++;
 		line = get_next_line(fd);
 	}
+	close(fd);
 	map_data->input_table = (char **)ft_calloc((height + 1), sizeof(char *));
 	if (!map_data->input_table)
 	{
-		printf("ft_calloc Error in init_input_table \n");
-		exit (1);  // ? TODO: clean exit
+		ft_putendl_fd("Error: Not enough memory to allocate an input table",
+			STDERR_FILENO);
+		return (-1);
 	}
 	map_data->height = height;
+	return (0);
 }
 
-void	fill_input_table(t_map_data *map_data, int fd)
+int	fill_input_table(t_map_data *map_data, char *file)
 {
 	char	*line_str;
 	int		i;
+	int		fd;
 
+	fd = open(file, O_RDONLY);
+	if (fd < 0)
+		return (-1);
 	i = 0;
 	line_str = get_next_line(fd);
 	while (line_str != NULL)
 	{
-		if (!(line_str))
-		{
-			perror("Error map_data not readable\n");
-			exit(1); // ? TODO: clean exit
-		}
 		map_data->input_table[i] = ft_strdup(line_str);
-		if (!map_data->input_table[i])
+		if (!map_data->input_table[i++])
 		{
-			printf("Error in dup line\n");
-			exit (1);
+			perror("Error in dup line\n");
+			return (-1);
 		}
 		map_data->width = (ft_strlen(line_str) - 1);
 		free(line_str);
-		i++;
 		line_str = get_next_line(fd);
 	}
+	close(fd);
+	return (0);
 }
-
-

@@ -16,6 +16,7 @@ static int	random_int(int min, int max)
 {
 	return (min + rand() % (max - min + 1));
 }
+
 void	add_look(t_game *game, mlx_image_t *img, int start_y, int end_y)
 {
 	int	rand_x;
@@ -25,14 +26,13 @@ void	add_look(t_game *game, mlx_image_t *img, int start_y, int end_y)
 
 	i = 0;
 	num_pic = random_int(0, 3);
-	//printf("num pic %d \n", num_pic);
 	while (i < num_pic)
 	{
-		//usleep(5000);
-		rand_x = random_int(0, game->img->width);
-		rand_y = random_int(start_y, end_y - game->img->height);
+		// usleep(5000);
+		rand_x = random_int(0, game->render_data.screen_image->width);
+		rand_y = random_int(start_y, end_y - game->render_data.screen_image->height);
 		mlx_image_to_window(game->mlx_ptr, img, rand_x, rand_y);
-		//usleep(5000);
+		// usleep(5000);
 		i++;
 	}
 }
@@ -40,5 +40,6 @@ void	add_look(t_game *game, mlx_image_t *img, int start_y, int end_y)
 void	print_got_air(t_game *game)
 {
 	usleep(100);
-	mlx_put_string(game->mlx_ptr, " You got air! Well done! Now catch some fish\n", 400, 0);
+	mlx_put_string(game->mlx_ptr,
+		" You got air! Well done! Now catch some fish\n", 400, 0);
 }

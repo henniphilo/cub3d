@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   clean_up.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vketteni <vketteni@student.42berlin.d      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/18 17:42:50 by vketteni          #+#    #+#             */
+/*   Updated: 2024/07/18 17:42:51 by vketteni         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../incl/cub3d.h"
 
 void	free_input_table(int map_height, char **input_table)
@@ -15,7 +27,6 @@ void	free_input_table(int map_height, char **input_table)
 
 void	free_data(t_game *game)
 {
-	//printf("in free data\n");
 	free(game->map_data.map);
 	free(game->visual_res.no);
 	free(game->visual_res.so);
@@ -47,8 +58,8 @@ int	terminate_game(t_game *game, int exit_code)
 		clean_img(game);
 		if (game->mlx_ptr)
 		{
-			if (game->img)
-				mlx_delete_image(game->mlx_ptr, game->img);
+			if (game->render_data.screen_image)
+				mlx_delete_image(game->mlx_ptr, game->render_data.screen_image);
 			mlx_terminate(game->mlx_ptr);
 		}
 		if (game->map_data.input_table)
@@ -58,5 +69,5 @@ int	terminate_game(t_game *game, int exit_code)
 		if (game->map_data.x_axis)
 			free(game->map_data.x_axis);
 	}
-	return (exit_code);
+	exit(exit_code);
 }

@@ -91,7 +91,7 @@ void	render_sprites(t_game *game)
 		{
 			calculate_sprite_position(&render_data->targets[i], render_data);
 			draw_sprite(&render_data->targets[i], render_data,
-				game->visual_res.target, game->img);
+				game->visual_res.target, game->render_data.screen_image);
 		}
 		i++;
 	}
@@ -102,7 +102,7 @@ void	render_sprites(t_game *game)
 		{
 			calculate_sprite_position(&render_data->oxygen_tanks[i], render_data);
 			draw_sprite(&render_data->oxygen_tanks[i], render_data,
-				game->visual_res.air, game->img);
+				game->visual_res.air, game->render_data.screen_image);
 		}
 		i++;
 	}

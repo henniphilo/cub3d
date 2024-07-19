@@ -12,7 +12,8 @@
 
 #include "../../incl/cub3d.h"
 
-static void	direction_paths(int	map_height, t_texpaths *paths, char **input_table)
+static void	direction_paths(int map_height, t_texpaths *paths,
+		char **input_table)
 {
 	int	y;
 
@@ -85,7 +86,7 @@ static void	color_paths(int map_height, t_texpaths *paths, char **input_table)
 	}
 }
 
-void	parse_paths(int	map_height, t_texpaths *paths, char **input_table)
+void	parse_paths(int map_height, t_texpaths *paths, char **input_table)
 {
 	direction_paths(map_height, paths, input_table);
 	sprite_paths(map_height, paths, input_table);

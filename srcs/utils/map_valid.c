@@ -14,33 +14,21 @@
 
 void	open_map(t_game *game, char *file)
 {
-	int	fd;
-
-	fd = open(file, O_RDONLY);
-	if (fd < 0)
-		perror("Error \n fd open error");
-	if (check_file_ending_cub(file) == 1)
-	{
-		printf("Error no .cub file\n");
-		exit(0);
-	}
-	init_input_table(&game->map_data, fd);
-	close(fd);
-	fd = open(file, O_RDONLY);
-	fill_input_table(&game->map_data, fd);
-	if (parse_input_table(game) == 1)
-	{
-		printf("input error \n");
-		exit(1);
-	}
-	close(fd);
+	// if (check_game_param(game) == -1)
+	// 	terminate_game(game, EXIT_FAILURE);
+	if (check_file_type(file))
+		terminate_game(game, EXIT_FAILURE);
+	if (init_input_table(&game->map_data, file) == -1
+		|| fill_input_table(&game->map_data, file) == -1
+		|| parse_input_table(game) == -1)
+		terminate_game(game, EXIT_FAILURE);
 }
 
 int	get_map_start(unsigned int map_height, char **input_table)
 {
 	int				y;
-	unsigned int	map_start;
 	int				is_line;
+	unsigned int	map_start;
 	char			*line;
 
 	map_start = 0;
@@ -60,60 +48,42 @@ int	get_map_start(unsigned int map_height, char **input_table)
 		}
 		if (is_line && y > 1)
 			break ;
-		map_start++;
+		(map_start)++;
 	}
 	return (map_start);
 }
 
-void	init_map(t_map_data *map_data, int map_start)
+static int	init_map(t_map_data *map_data, int map_start)
 {
 	map_data->y_axis = map_data->height - map_start;
 	map_data->map = (char **)ft_calloc((map_data->y_axis + 1), sizeof(char *));
 	map_data->x_axis = (int *)ft_calloc(map_data->y_axis, sizeof(int));
 	if (!map_data->map || !map_data->x_axis)
-	{
-		printf("ft_calloc Error in map or x_axis\n");
-		exit(1); // TODO: Clean exit
-	}
+		return (-1);
+	return (1);
 }
 
-void	create_map(t_map_data *map_data)
+void	create_map(t_game *game)
 {
-	int	y;
-	int	map_start;
+	int			y;
+	int			map_start;
 
+	map_start = get_map_start(game->map_data.height,
+			game->map_data.input_table);
+	if (init_map(&game->map_data, map_start) == -1)
+		terminate_game(game, EXIT_FAILURE);
 	y = 0;
-	map_start = get_map_start(map_data->height, map_data->input_table);
-	init_map(map_data, map_start);
-	while (y < map_data->y_axis)
+	while (y < game->map_data.y_axis)
 	{
-		map_data->map[y] = ft_strdup(map_data->input_table[map_start + y]);
-		if (!map_data->map[y])
+		game->map_data.map[y] =
+			ft_strdup(game->map_data.input_table[map_start + y]);
+		if (!game->map_data.map[y])
 		{
-			printf("Error in dup line \n");
-			exit(1); // ? TODO: clean exit
+			ft_putendl_fd("Error in dup line \n", STDERR_FILENO);
+			terminate_game(game, EXIT_FAILURE);
 		}
-		map_data->x_axis[y] = ft_strlen(map_data->map[y]);
+		game->map_data.x_axis[y] = ft_strlen(game->map_data.map[y]);
 		y++;
 	}
-	map_data->map[map_data->y_axis] = NULL;
-}
-
-void	print_map(t_map_data *map_data)
-{
-	int	x;
-	int	y;
-
-	y = 0;
-	while (y < map_data->height)
-	{
-		x = 0;
-		while (x < map_data->width)
-		{
-			printf("%c", map_data->map[y][x]);
-			x++;
-		}
-		printf("\n");
-		y++;
-	}
+	game->map_data.map[game->map_data.y_axis] = NULL;
 }
