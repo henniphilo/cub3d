@@ -10,14 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incl/cub3d.h"
+#include "../../incl/cub3d.h"
 
-int	is_air(t_game *game, t_render_data *render_data, int x, int y)
+int	is_air(t_render_data *render_data, int x, int y)
 {
 	int	i;
 
 	i = 0;
-	while (i < game->render_data.air_count)
+	while (i < render_data->air_count)
 	{
 		if ((int)render_data->air[i].pos_x == x
 			&& (int)render_data->air[i].pos_y == y)
@@ -27,11 +27,11 @@ int	is_air(t_game *game, t_render_data *render_data, int x, int y)
 	return (0);
 }
 
-static int	check_pos(t_render_data *render_data, int i, double next_x, double next_y)
+static int	check_pos(t_render_data *render_data, int i, double next_x,
+		double next_y)
 {
 	if (((int)render_data->air[i].pos_x == (int)next_x
-			&& (int)render_data->air[i].pos_y
-			== (int)render_data->player.pos_y)
+			&& (int)render_data->air[i].pos_y == (int)render_data->player.pos_y)
 		|| ((int)render_data->player.pos_x == (int)render_data->air[i].pos_x
 			&& (int)next_y == (int)render_data->air[i].pos_y))
 	{

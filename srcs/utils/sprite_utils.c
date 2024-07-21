@@ -49,7 +49,8 @@ void	set_textures(int sprite_count, t_sprite *sprites_arr,
 	}
 }
 
-void	set_position(int sprite_count, t_sprite *sprites_arr, char type, t_game *game)
+void	set_position(int sprite_count, t_sprite *sprites_arr, char type,
+		t_game *game)
 {
 	int	x;
 	int	y;

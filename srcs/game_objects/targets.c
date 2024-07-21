@@ -12,12 +12,12 @@
 
 #include "../../incl/cub3d.h"
 
-int	is_target(t_game *game, t_render_data *render_data, int x, int y)
+int	is_target(t_render_data *render_data, int x, int y)
 {
 	int	i;
 
 	i = 0;
-	while (i < game->render_data.target_count)
+	while (i < render_data->target_count)
 	{
 		if ((int)render_data->targets[i].pos_x == x
 			&& (int)render_data->targets[i].pos_y == y)
@@ -49,32 +49,35 @@ static int	check_pos(t_render_data *render_data, t_sprite *target, int next_x,
 	return (0);
 }
 
+void	log_target(t_sprite *target, int x, int y, t_render_data *render_data)
+{
+	if (check_pos(render_data, target, x, y) == 0)
+		printf("oops you didn't get the fish. Try again!\n");
+	else
+		printf("You caught %d fish out of %d fish in the ocean \n",
+			render_data->count_fish_caught, render_data->target_count);
+}
+
 void	get_target(t_game *game, t_map_data *map_data)
 {
 	t_player	*player;
-	double		x;
-	double		y;
+	t_sprite	*target;
+	int			x;
+	int			y;
 	int			i;
 
 	player = &game->render_data.player;
 	x = (player->pos_x + player->dir_x * MOVE_SPEED);
 	y = (player->pos_y + player->dir_y * MOVE_SPEED);
 	i = 0;
-	if ((map_data->map[(int)y][(int)player->pos_x] == 'T')
-		|| map_data->map[(int)player->pos_y][(int)x] == 'T')
+	if (map_data->map[(int)y][(int)x] == 'T')
 	{
 		while (i < game->render_data.target_count)
 		{
-			if (check_pos(&game->render_data, &game->render_data.targets[i++],
-					(int)x, (int)y) == 1)
+			target = &game->render_data.targets[i++];
+			if (check_pos(&game->render_data, target, (int)x, (int)y) == 1)
 				break ;
+			log_target(target, x, y, &game->render_data);
 		}
-		if (check_pos(&game->render_data, &game->render_data.targets[i++], x,
-				y) == 0)
-			printf("oops you didn't get the fish. Try again!\n");
-		else
-			printf("You caught %d fish out of %d fish in the ocean \n",
-				game->render_data.count_fish_caught,
-				game->render_data.target_count);
 	}
 }

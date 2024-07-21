@@ -20,7 +20,8 @@ void	init_doors(t_game *game)
 		terminate_game(game, EXIT_FAILURE);
 	set_textures(game->render_data.door_count, game->render_data.doors,
 		game->render_data.visual_ressources->door, game);
-	set_position(game->render_data.door_count, game->render_data.doors, 'D', game);
+	set_position(game->render_data.door_count, game->render_data.doors, 'D',
+		game);
 }
 
 void	init_targets(t_game *game)
@@ -31,7 +32,8 @@ void	init_targets(t_game *game)
 		terminate_game(game, EXIT_FAILURE);
 	set_textures(game->render_data.target_count, game->render_data.targets,
 		game->render_data.visual_ressources->target, game);
-	set_position(game->render_data.target_count, game->render_data.targets, 'T', game);
+	set_position(game->render_data.target_count, game->render_data.targets, 'T',
+		game);
 }
 
 void	init_air(t_game *game)

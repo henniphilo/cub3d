@@ -10,14 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incl/cub3d.h"
+#include "../../incl/cub3d.h"
 
-int	is_door(t_game *game, t_render_data *render_data, int x, int y)
+int	is_door(t_render_data *render_data, int x, int y)
 {
 	int	i;
 
 	i = 0;
-	while (i < game->render_data.door_count)
+	while (i < render_data->door_count)
 	{
 		if ((int)render_data->doors[i].pos_x == x
 			&& (int)render_data->doors[i].pos_y == y)
@@ -51,13 +51,16 @@ void	close_doors(t_game *game, t_map_data *map_data)
 	}
 }
 
-static int	check_pos(t_render_data *render_data, int i, double next_x, double next_y)
+static int	check_pos(t_render_data *render_data, int i, double next_x,
+		double next_y)
 {
-	if (((int)render_data->doors[i].pos_x == (int)next_x
-			&& (int)render_data->doors[i].pos_y
-			== (int)render_data->player.pos_y)
-		|| ((int)render_data->player.pos_x == (int)render_data->doors[i].pos_x
-			&& (int)next_y == (int)render_data->doors[i].pos_y))
+	t_sprite	door;
+
+	door = render_data->doors[i];
+	if (((int)door.pos_x == (int)next_x
+			&& (int)door.pos_y == (int)render_data->player.pos_y)
+		|| ((int)render_data->player.pos_x == (int)door.pos_x
+			&& (int)next_y == (int)door.pos_y))
 	{
 		render_data->doors[i].active = 0;
 		return (1);
@@ -82,7 +85,7 @@ void	open_doors(t_render_data *render_data, t_map_data *map_data)
 		while (i < render_data->door_count)
 		{
 			if (check_pos(render_data, i, next_x, next_y) == 1)
-				break;
+				break ;
 			i++;
 		}
 		if (check_pos(render_data, i, next_x, next_y) == 0)

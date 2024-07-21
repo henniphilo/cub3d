@@ -55,11 +55,11 @@ static t_color	choose_color(t_game *game, int x, int y)
 		return (game->look.ctransparent);
 	if (tile == '1')
 		return (game->look.cwall);
-	else if (tile == 'T' && is_target(game, &game->render_data, x, y))
+	else if (tile == 'T' && is_target(&game->render_data, x, y))
 		return (game->look.ctarget);
-	else if (tile == 'L' && is_air(game, &game->render_data, x, y))
+	else if (tile == 'L' && is_air(&game->render_data, x, y))
 		return (game->look.cair);
-	else if (tile == 'D' && is_door(game, &game->render_data, x, y))
+	else if (tile == 'D' && is_door(&game->render_data, x, y))
 		return (game->look.cdoor);
 	else
 		return (game->look.cfloor);

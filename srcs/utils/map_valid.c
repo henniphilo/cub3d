@@ -65,8 +65,9 @@ static int	init_map(t_map_data *map_data, int map_start)
 
 void	create_map(t_game *game)
 {
-	int			y;
-	int			map_start;
+	int		y;
+	int		map_start;
+	char	**input_table;
 
 	map_start = get_map_start(game->map_data.height,
 			game->map_data.input_table);
@@ -75,8 +76,8 @@ void	create_map(t_game *game)
 	y = 0;
 	while (y < game->map_data.y_axis)
 	{
-		game->map_data.map[y] =
-			ft_strdup(game->map_data.input_table[map_start + y]);
+		input_table = game->map_data.input_table;
+		game->map_data.map[y] = ft_strdup(input_table[map_start + y]);
 		if (!game->map_data.map[y])
 		{
 			ft_putendl_fd("Error in dup line \n", STDERR_FILENO);

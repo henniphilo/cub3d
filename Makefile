@@ -12,15 +12,15 @@ CFLAGS = -Wall -Wextra -Werror -g
 RM = rm -f
 
 # MAIN = cub3d
-MAIN = main check_params hooks  
+MAIN = main check_params hooks movements keys
 UTILS = mini_map_helper sprites_init bubbles map_valid map_prep map_init \
 	map_checks wall_check clean_up map_interpret color_init pixel \
-	sprite_utils check_sprites 
+	sprite_utils 
 INITS = init_camera init_texpaths init_map_data init_player init_ray \
 	init_raycast init_render init_visuals 
-RENDER = dda draw messages mini_map world_surfaces sprites set_direction \
-	set_movement
-GAME_OBJECTS = player air doors targets
+RENDER = dda draw messages mini_map world_surfaces sprites \
+	world_surfaces_helper
+GAME_OBJECTS = player player_helper air doors targets 
 
 SRC = $(addprefix srcs/, $(addsuffix .c, $(MAIN))) \
 			$(addsuffix .c, $(addprefix srcs/utils/, $(UTILS))) \

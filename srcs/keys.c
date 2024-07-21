@@ -24,7 +24,7 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 	if (keydata.action == MLX_PRESS)
 	{
 		keys_act(game, keydata);
-		render_data->flag_render = 1;
+		render_data->flag_render = 1; // was ist das??? diese hier sehr gut
 	}
 	if (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT)
 		keys_rotate(keydata, render_data);
@@ -41,13 +41,13 @@ void	keys_walk(t_game *game, mlx_key_data_t keydata)
 	render_data = &game->render_data;
 	map_data = &game->map_data;
 	if (keydata.key == MLX_KEY_W)
-		player_n1_move(game, map_data, render_data, 1);
+		move_straight(game, map_data, render_data, 1);
 	if (keydata.key == MLX_KEY_S)
-		player_n1_move(game, map_data, render_data, -1);
+		move_straight(game, map_data, render_data, -1);
 	if (keydata.key == MLX_KEY_A)
-		player_n1_sideways(game, map_data, render_data, 1);
+		move_sideways(game, map_data, render_data, 1);
 	if (keydata.key == MLX_KEY_D)
-		player_n1_sideways(game, map_data, render_data, -1);
+		move_sideways(game, map_data, render_data, -1);
 	if (game->render_data.count_oxy_caught != 0)
 		create_bubbles(game);
 }
