@@ -159,12 +159,12 @@ typedef struct s_render_data
 	t_raycast		raycast;
 	t_sprite		*targets;
 	t_sprite		*doors;
-	t_sprite		*oxygen_tanks;
-	int				count_oxy;
+	t_sprite		*air;
+	int				air_count;
 	int				count_oxy_caught;
 	int				count_fish_caught;
-	int				count_door;
-	int				count_target;
+	int				door_count;
+	int				target_count;
 	int				flag_hit_wall;
 	int				flag_hit_door;
 	int				flag_hit_target;

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incl/cub3d.h"
+#include "../../incl/cub3d.h"
 
 static void	set_draw_start_end(t_sprite *sprite)
 {
@@ -91,7 +91,7 @@ void	render_sprites(t_game *game)
 
 	render_data = &game->render_data;
 	i = 0;
-	while (i < render_data->count_target)
+	while (i < render_data->target_count)
 	{
 		if (render_data->targets[i].active == 1)
 		{
@@ -101,13 +101,13 @@ void	render_sprites(t_game *game)
 		i++;
 	}
 	i = 0;
-	while (i < render_data->count_oxy)
+	while (i < render_data->air_count)
 	{
-		if (render_data->oxygen_tanks[i].active == 1)
+		if (render_data->air[i].active == 1)
 		{
-			calculate_sprite_position(&render_data->oxygen_tanks[i],
+			calculate_sprite_position(&render_data->air[i],
 				render_data);
-			draw_sprite(&render_data->oxygen_tanks[i], render_data);
+			draw_sprite(&render_data->air[i], render_data);
 		}
 		i++;
 	}

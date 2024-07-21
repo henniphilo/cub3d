@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incl/cub3d.h"
+#include "../../incl/cub3d.h"
 
-static void	color_textures(t_game *game, mlx_texture_t *tex, int x, int y)
+static void	color_textures(t_game *game, mlx_texture_t *tex, int pixel_index)
 {
 	uint32_t	color_tex;
 	uint8_t		r;
@@ -29,27 +29,19 @@ static void	color_textures(t_game *game, mlx_texture_t *tex, int x, int y)
 	a = (color_tex >> 0) & 0xFF;
 	if (r != 0 || g != 0 || b != 0)
 	{
-		game->render_data.screen_image->pixels[(y
-				* game->render_data.screen_image->width
-				+ game->render_data.screen_image->width - 1 - x) * 4 + 0] = a;
-		game->render_data.screen_image->pixels[(y
-				* game->render_data.screen_image->width
-				+ game->render_data.screen_image->width - 1 - x) * 4 + 1] = b;
-		game->render_data.screen_image->pixels[(y
-				* game->render_data.screen_image->width
-				+ game->render_data.screen_image->width - 1 - x) * 4 + 2] = g;
-		game->render_data.screen_image->pixels[(y
-				* game->render_data.screen_image->width
-				+ game->render_data.screen_image->width - 1 - x) * 4 + 3] = r;
+		game->render_data.screen_image->pixels[pixel_index + 0] = a;
+		game->render_data.screen_image->pixels[pixel_index + 1] = b;
+		game->render_data.screen_image->pixels[pixel_index + 2] = g;
+		game->render_data.screen_image->pixels[pixel_index + 3] = r;
 	}
 }
 
-static void	apply_color(mlx_image_t *image, t_color color, int x, int y)
+static void	apply_color(mlx_image_t *image, t_color color, int pixel_index)
 {
-	image->pixels[(y * image->width + x) * 4 + 0] = color.r;
-	image->pixels[(y * image->width + x) * 4 + 1] = color.g;
-	image->pixels[(y * image->width + x) * 4 + 2] = color.b;
-	image->pixels[(y * image->width + x) * 4 + 3] = color.a;
+	image->pixels[pixel_index + 0] = color.r;
+	image->pixels[pixel_index + 1] = color.g;
+	image->pixels[pixel_index + 2] = color.b;
+	image->pixels[pixel_index + 3] = color.a;
 }
 
 void	draw_line(int x, t_game *game, mlx_image_t *image, mlx_texture_t *tex)
@@ -57,7 +49,7 @@ void	draw_line(int x, t_game *game, mlx_image_t *image, mlx_texture_t *tex)
 	t_color		color;
 	t_raycast	*raycast;
 	int			y;
-	int			tex_y;
+	int			pixel_index;
 
 	raycast = &game->render_data.raycast;
 	y = raycast->draw_start;
@@ -65,12 +57,13 @@ void	draw_line(int x, t_game *game, mlx_image_t *image, mlx_texture_t *tex)
 		color = game->look.cblue;
 	while (y < raycast->draw_end)
 	{
-		tex_y = (int)raycast->tex_pos;
+		pixel_index = (y * game->render_data.screen_image->width
+				+ game->render_data.screen_image->width - 1 - x) * 4;
 		raycast->tex_pos += raycast->tex_step_size;
 		if (tex)
-			color_textures(game, tex, x, y);
+			color_textures(game, tex, pixel_index);
 		else
-			apply_color(image, color, x, y);
+			apply_color(image, color, (y * image->width + x) * 4);
 		y++;
 	}
 }

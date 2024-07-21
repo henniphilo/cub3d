@@ -28,7 +28,6 @@ void	render_mini_map(t_game *game)
 {
 	int		x;
 	int		y;
-	t_color	c_player  = {0, 0, 255, 255};
 
 	y = 0;
 	while (y < game->map_data.y_axis)
@@ -41,7 +40,7 @@ void	render_mini_map(t_game *game)
 		}
 		y++;
 	}
-	put_block_double(game->render_data.screen_image, c_player,
+	put_block_double(game->render_data.screen_image, game->look.cplayer,
 		game->render_data.player.pos_x, game->render_data.player.pos_y);
 }
 

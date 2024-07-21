@@ -12,15 +12,21 @@ CFLAGS = -Wall -Wextra -Werror -g
 RM = rm -f
 
 # MAIN = cub3d
-MAIN = main check_params hooks render_worldmap render_sprites directions player air dda movement targets doors draw
-UTILS = mini_map_helper sprites_init bubbles map_valid map_prep map_init map_checks wall_check clean_up mini_map map_interpret color_init pixel
-INITS = init_camera init_texpaths init_map_data init_player init_ray init_raycast init_render init_visuals 
-#SRC = $(addsuffix .c, $(MAIN)) \
-			$(addsuffix .c, $(addprefix srcs/utils/, $(UTILS))) \
+MAIN = main check_params hooks  
+UTILS = mini_map_helper sprites_init bubbles map_valid map_prep map_init \
+	map_checks wall_check clean_up map_interpret color_init pixel \
+	sprite_utils check_sprites 
+INITS = init_camera init_texpaths init_map_data init_player init_ray \
+	init_raycast init_render init_visuals 
+RENDER = dda draw messages mini_map world_surfaces sprites set_direction \
+	set_movement
+GAME_OBJECTS = player air doors targets
 
 SRC = $(addprefix srcs/, $(addsuffix .c, $(MAIN))) \
 			$(addsuffix .c, $(addprefix srcs/utils/, $(UTILS))) \
 			$(addsuffix .c, $(addprefix srcs/inits/, $(INITS))) \
+			$(addsuffix .c, $(addprefix srcs/render/, $(RENDER))) \
+			$(addsuffix .c, $(addprefix srcs/game_objects/, $(GAME_OBJECTS))) \
 
 OBJ_DIR = obj
 OBJ = $(SRC:srcs/%.c=$(OBJ_DIR)/%.o)

@@ -30,7 +30,8 @@ void	add_look(t_game *game, mlx_image_t *img, int start_y, int end_y)
 	{
 		// usleep(5000);
 		rand_x = random_int(0, game->render_data.screen_image->width);
-		rand_y = random_int(start_y, end_y - game->render_data.screen_image->height);
+		rand_y = random_int(start_y, end_y
+				- game->render_data.screen_image->height);
 		mlx_image_to_window(game->mlx_ptr, img, rand_x, rand_y);
 		// usleep(5000);
 		i++;

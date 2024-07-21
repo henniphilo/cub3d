@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incl/cub3d.h"
+#include "../../incl/cub3d.h"
 
 void calculate_initial_side_distances(t_render_data* render_data) {
 	t_ray		*ray;

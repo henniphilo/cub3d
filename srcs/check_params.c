@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_params.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vketteni <vketteni@student.42berlin.d      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/21 14:42:42 by vketteni          #+#    #+#             */
+/*   Updated: 2024/07/21 14:42:44 by vketteni         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../incl/cub3d.h"
 
 int	check_game_param(t_game *game)
@@ -42,7 +54,7 @@ int	check_render_data(t_render_data *render_data)
 		return (-1);
 	if (render_data->doors == NULL)
 		return (-1);
-	if (render_data->oxygen_tanks == NULL)
+	if (render_data->air == NULL)
 		return (-1);
 	if (render_data->visual_ressources == NULL)
 		return (-1);

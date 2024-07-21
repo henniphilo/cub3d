@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incl/cub3d.h"
+#include "../../incl/cub3d.h"
 
 void	player_n1_move(t_game *game, t_map_data *map_data,
 		t_render_data *render_data, int direction)

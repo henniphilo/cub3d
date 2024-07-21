@@ -103,21 +103,6 @@ void	keys_act(t_game *game, mlx_key_data_t keydata)
 	}
 }
 
-void	render_ingame_messages(t_game *game)
-{
-		if (game->render_data.count_oxy_caught == 0)
-			mlx_put_string(game->mlx_ptr,
-				" You need air! Hurry! Find the tank!", 400, 0);
-		else
-			print_got_air(game);
-		if (game->render_data.count_fish_caught != 0)
-		{
-			mlx_put_string(game->mlx_ptr, " You caught fish: ", 700, 0);
-			mlx_put_string(game->mlx_ptr,
-				ft_itoa(game->render_data.count_fish_caught), 800, 0);
-		}
-}
-
 void	loop_hook(void *param)
 {
 	t_game	*game;
@@ -130,7 +115,7 @@ void	loop_hook(void *param)
 	if (render_flag)
 	{
 		render_ingame_messages(game);
-		render_worldmap(game) ;
+		render_worldmap(game);
 		render_sprites(game);
 		render_mini_map(game);
 		render_flag = 0;
