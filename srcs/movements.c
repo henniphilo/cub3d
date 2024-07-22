@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   movement.c                                         :+:      :+:    :+:   */
+/*   movements.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vketteni <vketteni@student.42berlin.d      +#+  +:+       +#+        */
+/*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 14:20:17 by vketteni          #+#    #+#             */
-/*   Updated: 2024/07/16 14:20:19 by vketteni         ###   ########.fr       */
+/*   Updated: 2024/07/22 17:13:13 by hwiemann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,9 @@ void	move_straight(t_game *game, t_minimap *minimap,
 			|| (minimap->map[(int)next_y][(int)next_x] == 'D'
 				&& !is_door(render, next_x, next_y))
 			|| (minimap->map[(int)next_y][(int)next_x] == 'T'
-				&& !is_target(render, next_x, next_y))))
+				&& !is_target(render, next_x, next_y))
+			|| (minimap->map[(int)next_y][(int)next_x] == 'L'
+				&& !is_air(render, next_x, next_y))))
 	{
 		player->pos_x = next_x;
 		player->pos_y = next_y;

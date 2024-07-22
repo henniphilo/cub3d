@@ -6,7 +6,7 @@
 /*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:22:16 by hwiemann          #+#    #+#             */
-/*   Updated: 2024/07/19 13:19:57 by hwiemann         ###   ########.fr       */
+/*   Updated: 2024/07/22 17:21:18 by hwiemann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,9 @@ void	get_target(t_game *game, t_minimap *minimap)
 			target = &game->render.targets[i++];
 			if (check_pos(&game->render, target, (int)x, (int)y) == 1)
 				break ;
-			log_target(target, x, y, &game->render);
 		}
+		log_target(target, x, y, &game->render);
 	}
+	else
+		printf("oops you didn't get the fish. Try again!\n");
 }
