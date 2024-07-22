@@ -16,7 +16,7 @@ void	set_player_pos(double x, double y, t_game *game)
 {
 	t_player	*player;
 
-	player = &game->render_data.player;
+	player = &game->render.player;
 	player->pos_x = x + 0.5;
 	player->pos_y = y + 0.5;
 }
@@ -40,24 +40,24 @@ t_game	*set_player(t_game *game)
 	char	direction;
 
 	y = 1;
-	while (y < game->map_data.y_axis)
+	while (y < game->minimap.y_axis)
 	{
 		x = 1;
-		while (x < game->map_data.x_axis[y])
+		while (x < game->minimap.x_axis[y])
 		{
-			direction = game->map_data.map[y][x];
+			direction = game->minimap.map[y][x];
 			if (direction == 'N' || direction == 'E'
 				|| direction == 'W' || direction == 'S')
 			{
 				set_player_dir(direction, game);
 				set_player_pos(x, y, game);
-				game->map_data.map[y][x] = '0';
+				game->minimap.map[y][x] = '0';
 				return (game);
 			}
 			x++;
 		}
 		y++;
 	}
-	printf("first dir is %c\n", game->map_data.first_dir);
+	printf("first dir is %c\n", game->minimap.first_dir);
 	return (NULL);
 }

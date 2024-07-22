@@ -32,11 +32,11 @@
 # define SSIZE 10
 
 /* tex */
-void			load_visuals(t_visual *visual_res, t_texpaths *paths);
+void			load_visuals(t_ressources *visual_res, t_texpaths *paths);
 
 /* Map Parsing */
 int				check_file_type(char *file);
-int				walls_check(t_map_data *map_data);
+int				walls_check(t_minimap *minimap);
 int				get_map_start(unsigned int map_height, char **cub_input_table);
 char			*get_path(char *line, const char *direction);
 int				parse_input_table(t_game *game);
@@ -44,8 +44,8 @@ void			open_map(t_game *game, char *file);
 
 void			parse_paths(int map_height, t_texpaths *paths,
 					char **input_table);
-int				init_input_table(t_map_data *map_data, char *file);
-int				fill_input_table(t_map_data *map_data, char *file);
+int				init_input_table(t_minimap *minimap, char *file);
+int				fill_input_table(t_minimap *minimap, char *file);
 void			create_map(t_game *game);
 void			free_data(t_game *game);
 void			free_input_table(int map_height, char **input_table);
@@ -84,38 +84,38 @@ void			init_look(t_game *game);
 void			key_hook(mlx_key_data_t keydata, void *param);
 void			loop_hook(void *param);
 void			scroll_hook(double xdelta, double ydelta, void *param);
-void			keys_rotate(mlx_key_data_t keydata, t_render_data *render_data);
+void			keys_rotate(mlx_key_data_t keydata, t_render *render);
 void			keys_act(t_game *game, mlx_key_data_t keydata);
 void			keys_walk(t_game *game, mlx_key_data_t keydata);
 
 /* Initialize data */
 t_game			*get_mlx(t_game *game);
 void			init_sprites(t_game *game);
-t_map_data		init_map_data(void);
+t_minimap		init_map_data(void);
 void			init_data(t_game *game);
 void			init_sprite_count(t_game *game);
 t_camera		init_camera(void);
 t_texpaths		init_texpaths(void);
 t_player		init_player(void);
-t_visual		init_visuals(void);
+t_ressources		init_visuals(void);
 t_raycast		init_raycast(void);
 t_ray			init_ray(void);
-t_render_data	init_render_data(void);
+t_render	init_render_data(void);
 t_game			*set_player(t_game *game);
 
 /* Rendering */
 void			render_surfaces(t_game *game);
-void			setup_render_params(uint32_t x, t_render_data *render_data,
+void			setup_render_params(uint32_t x, t_render *render,
 					mlx_image_t *image);
-void	perform_dda(t_render_data *render_data, t_map_data *map_data);
+void	perform_dda(t_render *render, t_minimap *minimap);
 void			draw_line(int x, t_game *game, mlx_image_t *image,
 					mlx_texture_t *tex);
 // void			calculate_sprite_position(t_sprite *sprite,
-// 					t_render_data *render_data);
-// void			draw_sprite(t_sprite *sprite, t_render_data *render_data);
+// 					t_render_data *render);
+// void			draw_sprite(t_sprite *sprite, t_render_data *render);
 void			render_sprites(t_game *game);
 void	render_ingame_messages(t_game *game);
-// void	calculate_surfaces(int x, t_render_data *render_data,
+// void	calculate_surfaces(int x, t_render_data *render,
 // 		mlx_image_t *image, mlx_texture_t *tex);
 void	render_logic(t_game *game, int x);
 
@@ -126,23 +126,23 @@ int				terminate_game(t_game *game, int exit_code);
 /* Argument checks */
 void			argv_check(int argc, char **argv);
 int				check_game_param(t_game *game);
-int				check_map_data(t_map_data *map_data);
-int				check_render_data(t_render_data *render_data);
-int				check_visual(t_visual *vis);
+int				check_map_data(t_minimap *minimap);
+int				check_render_data(t_render *render);
+int				check_visual(t_ressources *vis);
 
 /* Drawing utils */
 uint32_t		get_pixel(mlx_texture_t *img, int x, int y);
 void			set_pixel(mlx_image_t *img, int x, int y, uint32_t color);
 
 /* Sprites */
-void			open_doors(t_render_data *render_data, t_map_data *map_data);
-void			close_doors(t_game *game, t_map_data *map_data);
-int				is_door(t_render_data *render_data, int x, int y);
-int				is_target(t_render_data *render_data, int x,
+void			open_doors(t_render *render, t_minimap *minimap);
+void			close_doors(t_game *game, t_minimap *minimap);
+int				is_door(t_render *render, int x, int y);
+int				is_target(t_render *render, int x,
 					int y);
-void			get_target(t_game *game, t_map_data *map_data);
-int				is_air(t_render_data *render_data, int x, int y);
-void			get_air(t_game *game, t_map_data *map_data);
+void			get_target(t_game *game, t_minimap *minimap);
+int				is_air(t_render *render, int x, int y);
+void			get_air(t_game *game, t_minimap *minimap);
 void			create_bubbles(t_game *game);
 void			init_sprites_count(t_game *game);
 void			set_textures(int sprite_count, t_sprite *sprites_arr,
@@ -151,14 +151,14 @@ void			set_position(int sprite_count, t_sprite *sprites_arr, char type,
 					t_game *game);
 
 /* Movements */
-void			rotate(t_render_data *render_data, int direction);
-void			move_straight(t_game *game, t_map_data *map_data,
-					t_render_data *render_data, int direction);
-void			move_sideways(t_game *game, t_map_data *map_data,
-					t_render_data *render_data, int direction);
+void			rotate(t_render *render, int direction);
+void			move_straight(t_game *game, t_minimap *minimap,
+					t_render *render, int direction);
+void			move_sideways(t_game *game, t_minimap *minimap,
+					t_render *render, int direction);
 
 /*extra am ende rausnehmen*/
-void			check_sprites(t_game *game, t_render_data *render_data,
+void			check_sprites(t_game *game, t_render *render,
 					int sprite_type);
 
 #endif

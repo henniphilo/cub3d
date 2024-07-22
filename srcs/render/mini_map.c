@@ -18,51 +18,54 @@ t_game	*mini_map_init(t_game *game)
 
 	i = 0;
 	init_look(game);
-	fill_half(game, game->visual_res.c_ceiling, 0, WINDOW_HEIGHT / 2);
-	fill_half(game, game->visual_res.c_floor, WINDOW_HEIGHT / 2, WINDOW_HEIGHT);
-	mlx_image_to_window(game->mlx_ptr, game->render_data.screen_image, 0, 0);
+	fill_half(game, game->render.res.c_ceiling, 0, WINDOW_HEIGHT / 2);
+	fill_half(game, game->render.res.c_floor, WINDOW_HEIGHT / 2,
+		WINDOW_HEIGHT);
+	mlx_image_to_window(game->mlx_ptr, game->render.screen_image, 0, 0);
 	return (game);
 }
 
 void	render_mini_map(t_game *game)
 {
-	int		x;
-	int		y;
+	int	x;
+	int	y;
 
 	y = 0;
-	while (y < game->map_data.y_axis)
+	while (y < game->minimap.y_axis)
 	{
 		x = 0;
-		while (x < game->map_data.x_axis[y])
+		while (x < game->minimap.x_axis[y])
 		{
-			draw_mini_map(game, game->render_data.screen_image, x, y);
+			draw_mini_map(game, game->render.screen_image, x, y);
 			x++;
 		}
 		y++;
 	}
-	put_block_double(game->render_data.screen_image, game->look.cplayer,
-		game->render_data.player.pos_x, game->render_data.player.pos_y);
+	put_block_double(game->render.screen_image, game->minimap.cplayer,
+		game->render.player.pos_x, game->render.player.pos_y);
 }
 
 static t_color	choose_color(t_game *game, int x, int y)
 {
 	char	tile;
 
-	tile = game->map_data.map[y][x];
-	if (tile == ' ' || tile == '\n' || (tile == !game->map_data.first_dir
-			&& tile != '0' && tile != 'L' && tile != 'D' && tile != 'T'
-			&& tile != '1'))
-		return (game->look.ctransparent);
+	tile = game->minimap.map[y][x];
+	if (tile == ' ' || tile == '\n' 
+	// || (tile == !game->minimap.first_dir
+	// 		&& tile != '0' && tile != 'L' && tile != 'D' && tile != 'T'
+	// 		&& tile != '1')
+			)
+		return (game->minimap.ctransparent);
 	if (tile == '1')
-		return (game->look.cwall);
-	else if (tile == 'T' && is_target(&game->render_data, x, y))
-		return (game->look.ctarget);
-	else if (tile == 'L' && is_air(&game->render_data, x, y))
-		return (game->look.cair);
-	else if (tile == 'D' && is_door(&game->render_data, x, y))
-		return (game->look.cdoor);
+		return (game->minimap.cwall);
+	else if (tile == 'T' && is_target(&game->render, x, y))
+		return (game->minimap.ctarget);
+	else if (tile == 'L' && is_air(&game->render, x, y))
+		return (game->minimap.cair);
+	else if (tile == 'D' && is_door(&game->render, x, y))
+		return (game->minimap.cdoor);
 	else
-		return (game->look.cfloor);
+		return (game->minimap.cfloor);
 }
 
 void	draw_mini_map(t_game *game, mlx_image_t *img, int x, int y)

@@ -12,57 +12,57 @@
 
 #include "../../incl/cub3d.h"
 
-int	is_air(t_render_data *render_data, int x, int y)
+int	is_air(t_render *render, int x, int y)
 {
 	int	i;
 
 	i = 0;
-	while (i < render_data->air_count)
+	while (i < render->air_count)
 	{
-		if ((int)render_data->air[i].pos_x == x
-			&& (int)render_data->air[i].pos_y == y)
-			return (render_data->air[i].active);
+		if ((int)render->air[i].pos_x == x
+			&& (int)render->air[i].pos_y == y)
+			return (render->air[i].active);
 		i++;
 	}
 	return (0);
 }
 
-static int	check_pos(t_render_data *render_data, int i, double next_x,
+static int	check_pos(t_render *render, int i, double next_x,
 		double next_y)
 {
-	if (((int)render_data->air[i].pos_x == (int)next_x
-			&& (int)render_data->air[i].pos_y == (int)render_data->player.pos_y)
-		|| ((int)render_data->player.pos_x == (int)render_data->air[i].pos_x
-			&& (int)next_y == (int)render_data->air[i].pos_y))
+	if (((int)render->air[i].pos_x == (int)next_x
+			&& (int)render->air[i].pos_y == (int)render->player.pos_y)
+		|| ((int)render->player.pos_x == (int)render->air[i].pos_x
+			&& (int)next_y == (int)render->air[i].pos_y))
 	{
-		render_data->air[i].active = 0;
-		render_data->count_oxy_caught += 1;
+		render->air[i].active = 0;
+		render->count_oxy_caught += 1;
 		return (1);
 	}
 	return (0);
 }
 
-void	get_air(t_game *game, t_map_data *map_data)
+void	get_air(t_game *game, t_minimap *minimap)
 {
 	t_player	*player;
 	double		x;
 	double		y;
 	int			i;
 
-	player = &game->render_data.player;
+	player = &game->render.player;
 	x = (player->pos_x + player->dir_x * MOVE_SPEED);
 	y = (player->pos_y + player->dir_y * MOVE_SPEED);
 	i = 0;
-	if ((map_data->map[(int)y][(int)player->pos_x] == 'L')
-		|| map_data->map[(int)player->pos_y][(int)x] == 'L')
+	if ((minimap->map[(int)y][(int)player->pos_x] == 'L')
+		|| minimap->map[(int)player->pos_y][(int)x] == 'L')
 	{
-		while (i < game->render_data.air_count)
+		while (i < game->render.air_count)
 		{
-			if (check_pos(&game->render_data, i, x, y) == 1)
+			if (check_pos(&game->render, i, x, y) == 1)
 				break ;
 			i++;
 		}
-		if (check_pos(&game->render_data, i, x, y) == 0)
+		if (check_pos(&game->render, i, x, y) == 0)
 			printf("Hurry! You need air!\n");
 		else
 			printf("You collected air! Well done! \n");

@@ -18,63 +18,45 @@ int	check_game_param(t_game *game)
 		return (-1);
 	if (game->mlx_ptr == NULL)
 		return (-1);
-	if (check_map_data(&game->map_data))
+	if (check_map_data(&game->minimap))
 		return (-1);
-	if (check_render_data(&game->render_data))
-		return (-1);
-	if (check_visual(&game->visual_res))
+	if (check_render_data(&game->render))
 		return (-1);
 	return (0);
 }
 
-int	check_map_data(t_map_data *map_data)
+int	check_map_data(t_minimap *minimap)
 {
 	char	first_dir;
 
-	if (map_data == NULL)
+	if (minimap == NULL)
 		return (-1);
-	if (map_data->height < 0 || map_data->width < 0 || map_data->y_axis < 0)
+	if (minimap->height < 0 || minimap->width < 0 || minimap->y_axis < 0)
 		return (-1);
-	if (map_data->input_table == NULL)
+	if (minimap->input_table == NULL)
 		return (-1);
-	if (map_data->map == NULL)
+	if (minimap->map == NULL)
 		return (-1);
-	if (map_data->x_axis == NULL)
+	if (minimap->x_axis == NULL)
 		return (-1);
-	first_dir = map_data->first_dir;
+	first_dir = minimap->first_dir;
 	if (first_dir != 'N' && first_dir != 'S' && first_dir != 'E'
 		&& first_dir != 'W')
 		return (-1);
 	return (0);
 }
 
-int	check_render_data(t_render_data *render_data)
-{
-	if (render_data == NULL)
-		return (-1);
-	if (render_data->doors == NULL)
-		return (-1);
-	if (render_data->air == NULL)
-		return (-1);
-	if (render_data->visual_ressources == NULL)
-		return (-1);
-	if (render_data->targets == NULL)
-		return (-1);
-	if (render_data->screen_image == NULL)
-		return (-1);
-	return (0);
-}
 
-int	check_visual(t_visual *vis)
+int	check_visual_res(t_ressources *vis)
 {
 	if (vis == NULL)
 		return (-1);
 	if (vis->air == NULL)
 		return (-1);
-	// if (vis->bubbles == NULL)
-	// 	return (-1);
-	// if (vis->bubbles_img == NULL)
-	// 	return (-1);
+	if (vis->bubbles == NULL)
+		return (-1);
+	if (vis->bubbles_img == NULL)
+		return (-1);
 	if (vis->door == NULL)
 		return (-1);
 	if (vis->ea == NULL)
@@ -85,12 +67,29 @@ int	check_visual(t_visual *vis)
 		return (-1);
 	if (vis->we == NULL)
 		return (-1);
-	// if (vis->player == NULL)
-	// 	return (-1);
+	if (vis->player == NULL)
+		return (-1);
 	if (vis->target == NULL)
 		return (-1);
-	// if (vis->target_img == NULL)
-	// 	return (-1);
+	if (vis->target_img == NULL)
+		return (-1);
+	return (0);
+}
+
+int	check_render_data(t_render *render)
+{
+	if (render == NULL)
+		return (-1);
+	if (render->doors == NULL)
+		return (-1);
+	if (render->air == NULL)
+		return (-1);
+	if (render->targets == NULL)
+		return (-1);
+	if (render->screen_image == NULL)
+		return (-1);
+	if (check_visual_res(&render->res))
+		return (-1);
 	return (0);
 }
 

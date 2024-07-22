@@ -12,9 +12,9 @@
 
 #include "../../incl/cub3d.h"
 
-t_map_data	init_map_data(void)
+t_minimap	init_map_data(void)
 {
-	t_map_data	map;
+	t_minimap	map;
 
 	map.input_table = NULL;
 	map.height = 0;

@@ -17,17 +17,16 @@ int	parse_input_table(t_game *game)
 	t_texpaths	paths;
 
 	paths = init_texpaths();
-	parse_paths(game->map_data.height, &paths, game->map_data.input_table);
+	parse_paths(game->minimap.height, &paths, game->minimap.input_table);
 	if (!paths.ea || !paths.no || !paths.so || !paths.we || !paths.ceiling)
 	{
 		ft_putendl_fd("Error: Textures missing", STDERR_FILENO);
 		return (-1);
 	}
-	load_visuals(&game->visual_res, &paths);
-	game->render_data.visual_ressources = &game->visual_res;
+	load_visuals(&game->render.res, &paths);
 	create_map(game);
-	free_input_table(game->map_data.height, game->map_data.input_table);
-	if ((walls_check(&game->map_data)) == 1)
+	free_input_table(game->minimap.height, game->minimap.input_table);
+	if ((walls_check(&game->minimap)) == 1)
 	{
 		ft_putendl_fd("Error: Walls fail", STDERR_FILENO);
 		return (-1);

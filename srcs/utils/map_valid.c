@@ -18,8 +18,8 @@ void	open_map(t_game *game, char *file)
 	// 	terminate_game(game, EXIT_FAILURE);
 	if (check_file_type(file))
 		terminate_game(game, EXIT_FAILURE);
-	if (init_input_table(&game->map_data, file) == -1
-		|| fill_input_table(&game->map_data, file) == -1
+	if (init_input_table(&game->minimap, file) == -1
+		|| fill_input_table(&game->minimap, file) == -1
 		|| parse_input_table(game) == -1)
 		terminate_game(game, EXIT_FAILURE);
 }
@@ -53,12 +53,12 @@ int	get_map_start(unsigned int map_height, char **input_table)
 	return (map_start);
 }
 
-static int	init_map(t_map_data *map_data, int map_start)
+static int	init_map(t_minimap *minimap, int map_start)
 {
-	map_data->y_axis = map_data->height - map_start;
-	map_data->map = (char **)ft_calloc((map_data->y_axis + 1), sizeof(char *));
-	map_data->x_axis = (int *)ft_calloc(map_data->y_axis, sizeof(int));
-	if (!map_data->map || !map_data->x_axis)
+	minimap->y_axis = minimap->height - map_start;
+	minimap->map = (char **)ft_calloc((minimap->y_axis + 1), sizeof(char *));
+	minimap->x_axis = (int *)ft_calloc(minimap->y_axis, sizeof(int));
+	if (!minimap->map || !minimap->x_axis)
 		return (-1);
 	return (1);
 }
@@ -69,22 +69,22 @@ void	create_map(t_game *game)
 	int		map_start;
 	char	**input_table;
 
-	map_start = get_map_start(game->map_data.height,
-			game->map_data.input_table);
-	if (init_map(&game->map_data, map_start) == -1)
+	map_start = get_map_start(game->minimap.height,
+			game->minimap.input_table);
+	if (init_map(&game->minimap, map_start) == -1)
 		terminate_game(game, EXIT_FAILURE);
 	y = 0;
-	while (y < game->map_data.y_axis)
+	while (y < game->minimap.y_axis)
 	{
-		input_table = game->map_data.input_table;
-		game->map_data.map[y] = ft_strdup(input_table[map_start + y]);
-		if (!game->map_data.map[y])
+		input_table = game->minimap.input_table;
+		game->minimap.map[y] = ft_strdup(input_table[map_start + y]);
+		if (!game->minimap.map[y])
 		{
 			ft_putendl_fd("Error in dup line \n", STDERR_FILENO);
 			terminate_game(game, EXIT_FAILURE);
 		}
-		game->map_data.x_axis[y] = ft_strlen(game->map_data.map[y]);
+		game->minimap.x_axis[y] = ft_strlen(game->minimap.map[y]);
 		y++;
 	}
-	game->map_data.map[game->map_data.y_axis] = NULL;
+	game->minimap.map[game->minimap.y_axis] = NULL;
 }

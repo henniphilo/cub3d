@@ -12,26 +12,27 @@
 
 #include "../../incl/cub3d.h"
 
-t_render_data	init_render_data(void)
+t_render	init_render_data(void)
 {
-	t_render_data	render_data;
+	t_render	render;
 
-	render_data.doors = NULL;
-	render_data.targets = NULL;
-	render_data.screen_image = NULL;
-	render_data.flag_hit_wall = 0;
-	render_data.flag_hit_door = 0;
-	render_data.flag_hit_target = 0;
-	render_data.flag_side = 0;
-	render_data.flag_render = 1;
-	render_data.camera = init_camera();
-	render_data.player = init_player();
-	render_data.ray = init_ray();
-	render_data.raycast = init_raycast();
-	render_data.target_count = 0;
-	render_data.door_count = 0;
-	render_data.air_count = 0;
-	render_data.count_oxy_caught = 0;
-	render_data.count_fish_caught = 0;
-	return (render_data);
+	render.doors = NULL;
+	render.targets = NULL;
+	render.screen_image = NULL;
+	render.flag_hit_wall = 0;
+	render.flag_hit_door = 0;
+	render.flag_hit_target = 0;
+	render.flag_side = 0;
+	render.flag_render = 1;
+	render.camera = init_camera();
+	render.player = init_player();
+	render.ray = init_ray();
+	render.raycast = init_raycast();
+	render.target_count = 0;
+	render.door_count = 0;
+	render.air_count = 0;
+	render.count_oxy_caught = 0;
+	render.count_fish_caught = 0;
+	render.res = init_visuals();
+	return (render);
 }

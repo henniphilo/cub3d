@@ -31,26 +31,26 @@ static void	set_draw_start_end(t_sprite *sprite)
 }
 
 static void	calculate_sprite_position(t_sprite *sprite,
-		t_render_data *render_data)
+		t_render *render)
 {
-	sprite->dist_x = sprite->pos_x - render_data->player.pos_x;
-	sprite->dist_y = sprite->pos_y - render_data->player.pos_y;
-	sprite->inverse_determinate = 1.0 / (render_data->camera.plane_x
-			* render_data->player.dir_y - render_data->player.dir_x
-			* render_data->camera.plane_y);
+	sprite->dist_x = sprite->pos_x - render->player.pos_x;
+	sprite->dist_y = sprite->pos_y - render->player.pos_y;
+	sprite->inverse_determinate = 1.0 / (render->camera.plane_x
+			* render->player.dir_y - render->player.dir_x
+			* render->camera.plane_y);
 	sprite->transform_x = sprite->inverse_determinate
-		* (render_data->player.dir_y * sprite->dist_x
-			- render_data->player.dir_x * sprite->dist_y);
+		* (render->player.dir_y * sprite->dist_x
+			- render->player.dir_x * sprite->dist_y);
 	sprite->transform_y = sprite->inverse_determinate
-		* (-render_data->camera.plane_y * sprite->dist_x
-			+ render_data->camera.plane_x * sprite->dist_y);
+		* (-render->camera.plane_y * sprite->dist_x
+			+ render->camera.plane_x * sprite->dist_y);
 	sprite->screen_x = (int)((WINDOW_WIDTH / 2) * (1 + sprite->transform_x
 				/ sprite->transform_y));
 	set_draw_start_end(sprite);
 }
 
 static void	draw_stripe(int x, int y, t_sprite *sprite,
-		t_render_data *render_data)
+		t_render *render)
 {
 	int			d;
 	uint32_t	color;
@@ -59,10 +59,10 @@ static void	draw_stripe(int x, int y, t_sprite *sprite,
 	sprite->tex_y = ((d * sprite->img->height) / sprite->height) / 256;
 	color = get_pixel(sprite->tex, sprite->tex_x, sprite->tex_y);
 	if (color != 0xFF000000)
-		set_pixel(render_data->screen_image, x, y, color);
+		set_pixel(render->screen_image, x, y, color);
 }
 
-static void	draw_sprite(t_sprite *sprite, t_render_data *render_data)
+static void	draw_sprite(t_sprite *sprite, t_render *render)
 {
 	int	stripe;
 	int	y;
@@ -74,11 +74,11 @@ static void	draw_sprite(t_sprite *sprite, t_render_data *render_data)
 						+ sprite->screen_x)) * sprite->img->width
 				/ sprite->width) / 256;
 		if (sprite->transform_y > 0 && stripe > 0 && stripe < WINDOW_WIDTH
-			&& sprite->transform_y < render_data->z_buffer[stripe])
+			&& sprite->transform_y < render->z_buffer[stripe])
 		{
 			y = sprite->draw_start_y;
 			while (y < sprite->draw_end_y)
-				draw_stripe(stripe, y++, sprite, render_data);
+				draw_stripe(stripe, y++, sprite, render);
 		}
 		stripe++;
 	}
@@ -86,28 +86,28 @@ static void	draw_sprite(t_sprite *sprite, t_render_data *render_data)
 
 void	render_sprites(t_game *game)
 {
-	t_render_data	*render_data;
+	t_render	*render;
 	int				i;
 
-	render_data = &game->render_data;
+	render = &game->render;
 	i = 0;
-	while (i < render_data->target_count)
+	while (i < render->target_count)
 	{
-		if (render_data->targets[i].active == 1)
+		if (render->targets[i].active == 1)
 		{
-			calculate_sprite_position(&render_data->targets[i], render_data);
-			draw_sprite(&render_data->targets[i], render_data);
+			calculate_sprite_position(&render->targets[i], render);
+			draw_sprite(&render->targets[i], render);
 		}
 		i++;
 	}
 	i = 0;
-	while (i < render_data->air_count)
+	while (i < render->air_count)
 	{
-		if (render_data->air[i].active == 1)
+		if (render->air[i].active == 1)
 		{
-			calculate_sprite_position(&render_data->air[i],
-				render_data);
-			draw_sprite(&render_data->air[i], render_data);
+			calculate_sprite_position(&render->air[i],
+				render);
+			draw_sprite(&render->air[i], render);
 		}
 		i++;
 	}

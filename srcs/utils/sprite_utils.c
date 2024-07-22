@@ -18,17 +18,17 @@ void	init_sprites_count(t_game *game)
 	int	y;
 
 	y = 0;
-	while (y < game->map_data.y_axis)
+	while (y < game->minimap.y_axis)
 	{
 		x = 0;
-		while (x < game->map_data.x_axis[y])
+		while (x < game->minimap.x_axis[y])
 		{
-			if (game->map_data.map[y][x] == 'T')
-				game->render_data.target_count += 1;
-			else if (game->map_data.map[y][x] == 'D')
-				game->render_data.door_count += 1;
-			else if (game->map_data.map[y][x] == 'L')
-				game->render_data.air_count += 1;
+			if (game->minimap.map[y][x] == 'T')
+				game->render.target_count += 1;
+			else if (game->minimap.map[y][x] == 'D')
+				game->render.door_count += 1;
+			else if (game->minimap.map[y][x] == 'L')
+				game->render.air_count += 1;
 			x++;
 		}
 		y++;
@@ -58,12 +58,12 @@ void	set_position(int sprite_count, t_sprite *sprites_arr, char type,
 
 	i = 0;
 	y = 0;
-	while (y < game->map_data.y_axis && i < sprite_count)
+	while (y < game->minimap.y_axis && i < sprite_count)
 	{
 		x = 0;
-		while (x < game->map_data.x_axis[y] && i < sprite_count)
+		while (x < game->minimap.x_axis[y] && i < sprite_count)
 		{
-			if (game->map_data.map[y][x] == type)
+			if (game->minimap.map[y][x] == type)
 			{
 				sprites_arr[i].pos_x = x + 0.5;
 				sprites_arr[i].pos_y = y + 0.5;

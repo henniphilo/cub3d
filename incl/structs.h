@@ -41,19 +41,6 @@ typedef struct s_color
 	uint8_t			a;
 }					t_color;
 
-typedef struct s_look
-{
-	t_color			cblue;
-	t_color			cwall;
-	t_color			cair;
-	t_color			ctarget;
-	t_color			cdoor;
-	t_color			cfloor;
-	t_color			cplayer;
-	t_color			cside;
-	t_color			ctransparent;
-}					t_look;
-
 typedef struct s_texpaths
 {
 	char			*no;
@@ -68,7 +55,7 @@ typedef struct s_texpaths
 	char			*air;
 }					t_texpaths;
 
-typedef struct s_visual
+typedef struct s_ressources
 {
 	mlx_texture_t	*no;
 	mlx_texture_t	*so;
@@ -80,12 +67,10 @@ typedef struct s_visual
 	mlx_texture_t	*bubbles;
 	mlx_image_t		*bubbles_img;
 	mlx_texture_t	*air;
-
 	mlx_image_t		*target_img;
-
 	t_color			c_floor;
 	t_color			c_ceiling;
-}					t_visual;
+}					t_ressources;
 
 typedef struct s_camera
 {
@@ -150,8 +135,9 @@ typedef struct s_player
 	double			dir_y;
 }					t_player;
 
-typedef struct s_render_data
+typedef struct s_render
 {
+	mlx_image_t		*screen_image;
 	double			z_buffer[WINDOW_WIDTH];
 	t_player		player;
 	t_camera		camera;
@@ -171,11 +157,11 @@ typedef struct s_render_data
 	int				flag_hit_air;
 	int				flag_side;
 	int				flag_render;
-	mlx_image_t		*screen_image;
-	t_visual		*visual_ressources;
-}					t_render_data;
+	t_ressources	res;
 
-typedef struct s_map_data
+}					t_render;
+
+typedef struct s_minimap
 {
 	char			**input_table;
 	char			**map;
@@ -184,17 +170,22 @@ typedef struct s_map_data
 	int				y_axis;
 	int				*x_axis;
 	char			first_dir;
-}					t_map_data;
+	t_color			cblue;
+	t_color			cwall;
+	t_color			cair;
+	t_color			ctarget;
+	t_color			cdoor;
+	t_color			cfloor;
+	t_color			cplayer;
+	t_color			cside;
+	t_color			ctransparent;
+}					t_minimap;
 
 typedef struct s_game
 {
 	mlx_t			*mlx_ptr;
-	mlx_image_t		*img;
-	t_map_data		map_data;
-	t_render_data	render_data;
-	t_visual		visual_res;
-	t_texpaths		texpaths;
-	t_look			look;
+	t_minimap		minimap;
+	t_render		render;
 }					t_game;
 
 #endif
