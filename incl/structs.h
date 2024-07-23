@@ -6,7 +6,7 @@
 /*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:22:27 by hwiemann          #+#    #+#             */
-/*   Updated: 2024/07/22 18:45:12 by hwiemann         ###   ########.fr       */
+/*   Updated: 2024/07/23 15:13:10 by hwiemann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 /* Constants */
 # define WINDOW_WIDTH 1200
 # define WINDOW_HEIGHT 800
-//# define WINDOW_WIDTH 1920
-//# define WINDOW_HEIGHT 1080
+// # define WINDOW_WIDTH 1920
+// # define WINDOW_HEIGHT 1080
 # define MOVE_SPEED 0.33
 # define ROT_SPEED 0.05
 # define DOOR_PATH "./img/door3.png"

@@ -6,7 +6,7 @@
 /*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:22:31 by hwiemann          #+#    #+#             */
-/*   Updated: 2024/07/19 12:50:47 by hwiemann         ###   ########.fr       */
+/*   Updated: 2024/07/23 14:55:27 by hwiemann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void			load_visuals(t_ressources *visual_res, t_texpaths *paths);
 /* Map Parsing */
 int				check_file_type(char *file);
 int				walls_check(t_minimap *minimap);
+int				check_adjacent(t_minimap *minimap);
 int				get_map_start(unsigned int map_height, char **cub_input_table);
 char			*get_path(char *line, const char *direction);
 int				parse_input_table(t_game *game);
@@ -49,8 +50,6 @@ int				fill_input_table(t_minimap *minimap, char *file);
 void			create_map(t_game *game);
 void			free_data(t_game *game);
 void			free_input_table(int map_height, char **input_table);
-void			clean_texture(t_game *game);
-void			clean_img(t_game *game);
 void			set_north(t_game *game);
 void			set_south(t_game *game);
 void			set_east(t_game *game);
@@ -69,7 +68,6 @@ void			add_look(t_game *game, mlx_image_t *img, int start_y,
 void			add_look(t_game *game, mlx_image_t *img, int start_y,
 					int end_y);
 void			render_mini_map(t_game *game);
-void			init_position_and_direction(t_game *game);
 void			put_block_double(mlx_image_t *img, t_color color, double x,
 					double y);
 char			get_direction(mlx_key_data_t key, char cur_direct);
@@ -93,7 +91,6 @@ t_game			*get_mlx(t_game *game);
 void			init_sprites(t_game *game);
 t_minimap		init_map_data(void);
 void			init_data(t_game *game);
-void			init_sprite_count(t_game *game);
 t_camera		init_camera(void);
 t_texpaths		init_texpaths(void);
 t_player		init_player(void);
@@ -110,13 +107,8 @@ void			setup_render_params(uint32_t x, t_render *render,
 void			perform_dda(t_render *render, t_minimap *minimap);
 void			draw_line(int x, t_game *game, mlx_image_t *image,
 					mlx_texture_t *tex);
-// void			calculate_sprite_position(t_sprite *sprite,
-// 					t_render_data *render);
-// void			draw_sprite(t_sprite *sprite, t_render_data *render);
 void			render_sprites(t_game *game);
 void			render_ingame_messages(t_game *game);
-// void	calculate_surfaces(int x, t_render_data *render,
-// 		mlx_image_t *image, mlx_texture_t *tex);
 void			render_logic(t_game *game, int x);
 
 /* Cleanup */
@@ -156,8 +148,5 @@ void			move_straight(t_game *game, t_minimap *minimap,
 					t_render *render, int direction);
 void			move_sideways(t_game *game, t_minimap *minimap,
 					t_render *render, int direction);
-
-/*extra am ende rausnehmen*/
-void			check_sprites(t_game *game, t_render *render, int sprite_type);
 
 #endif

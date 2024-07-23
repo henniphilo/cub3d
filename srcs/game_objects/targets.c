@@ -6,7 +6,7 @@
 /*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:22:16 by hwiemann          #+#    #+#             */
-/*   Updated: 2024/07/22 17:21:18 by hwiemann         ###   ########.fr       */
+/*   Updated: 2024/07/23 15:18:14 by hwiemann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ static int	check_pos(t_render *render, t_sprite *target, int next_x,
 		|| (player_x == target_x && (int)next_y == target_y))
 	{
 		target->active = 0;
-		render->count_fish_caught += 1;
 		return (1);
 	}
 	return (0);
@@ -76,7 +75,10 @@ void	get_target(t_game *game, t_minimap *minimap)
 		{
 			target = &game->render.targets[i++];
 			if (check_pos(&game->render, target, (int)x, (int)y) == 1)
+			{
+				game->render.count_fish_caught += 1;
 				break ;
+			}
 		}
 		log_target(target, x, y, &game->render);
 	}
