@@ -6,7 +6,7 @@
 /*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 14:20:17 by vketteni          #+#    #+#             */
-/*   Updated: 2024/07/23 16:11:18 by hwiemann         ###   ########.fr       */
+/*   Updated: 2024/07/23 17:26:33 by hwiemann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ void	move_straight(t_game *game, t_minimap *minimap,
 			player->pos_x, player->pos_y);
 	}
 	close_doors(game, minimap);
+	if (game->render.count_oxy_caught != 0)
+		create_bubbles(game);
 }
 
 void	move_sideways(t_game *game, t_minimap *minimap,
@@ -66,6 +68,8 @@ void	move_sideways(t_game *game, t_minimap *minimap,
 			render->player.pos_x, render->player.pos_y);
 	}
 	close_doors(game, minimap);
+	if (game->render.count_oxy_caught != 0)
+		create_bubbles(game);
 }
 
 void	rotate(t_render *render, int direction)
@@ -96,6 +100,5 @@ void	create_bubbles(t_game *game)
 		add_look(game, game->render.res.bubbles_img, 0, WINDOW_HEIGHT / 2);
 		add_look(game, game->render.res.bubbles_img, WINDOW_HEIGHT / 2,
 			WINDOW_HEIGHT);
-		//mlx_delete_image(game->render.mlx_ptr, game->render.res.bubbles_img);
 	}
 }

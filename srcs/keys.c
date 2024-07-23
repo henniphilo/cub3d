@@ -6,7 +6,7 @@
 /*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 11:11:21 by hwiemann          #+#    #+#             */
-/*   Updated: 2024/07/23 15:52:16 by hwiemann         ###   ########.fr       */
+/*   Updated: 2024/07/23 17:24:56 by hwiemann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ void	keys_walk(t_game *game, mlx_key_data_t keydata)
 		move_sideways(game, minimap, render, 1);
 	if (keydata.key == MLX_KEY_D)
 		move_sideways(game, minimap, render, -1);
-	if (game->render.count_oxy_caught != 0)
-		create_bubbles(game);
+	// if (game->render.count_oxy_caught != 0)
+	// 	create_bubbles(game);
 }
 
 void	keys_rotate(mlx_key_data_t keydata, t_render *render)

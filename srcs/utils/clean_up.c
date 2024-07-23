@@ -6,7 +6,7 @@
 /*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 17:42:50 by vketteni          #+#    #+#             */
-/*   Updated: 2024/07/23 16:09:44 by hwiemann         ###   ########.fr       */
+/*   Updated: 2024/07/23 18:03:14 by hwiemann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void	free_ressources(t_ressources *res, mlx_t *mlx)
 	{
 		if (res->air)
 			mlx_delete_texture(res->air);
-		if (res->bubbles)
-			mlx_delete_texture(res->bubbles);
+		// if (res->bubbles)
+		// 	mlx_delete_texture(res->bubbles);
 		if (res->door)
 			mlx_delete_texture(res->door);
 		if (res->ea)
