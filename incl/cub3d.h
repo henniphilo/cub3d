@@ -97,27 +97,27 @@ void			init_sprite_count(t_game *game);
 t_camera		init_camera(void);
 t_texpaths		init_texpaths(void);
 t_player		init_player(void);
-t_ressources		init_visuals(void);
+t_ressources	init_visuals(void);
 t_raycast		init_raycast(void);
 t_ray			init_ray(void);
-t_render	init_render_data(void);
+t_render		init_render_data(void);
 t_game			*set_player(t_game *game);
 
 /* Rendering */
 void			render_surfaces(t_game *game);
 void			setup_render_params(uint32_t x, t_render *render,
 					mlx_image_t *image);
-void	perform_dda(t_render *render, t_minimap *minimap);
+void			perform_dda(t_render *render, t_minimap *minimap);
 void			draw_line(int x, t_game *game, mlx_image_t *image,
 					mlx_texture_t *tex);
 // void			calculate_sprite_position(t_sprite *sprite,
 // 					t_render_data *render);
 // void			draw_sprite(t_sprite *sprite, t_render_data *render);
 void			render_sprites(t_game *game);
-void	render_ingame_messages(t_game *game);
+void			render_ingame_messages(t_game *game);
 // void	calculate_surfaces(int x, t_render_data *render,
 // 		mlx_image_t *image, mlx_texture_t *tex);
-void	render_logic(t_game *game, int x);
+void			render_logic(t_game *game, int x);
 
 /* Cleanup */
 void			free_string_arr(char **string_arr);
@@ -126,7 +126,7 @@ int				terminate_game(t_game *game, int exit_code);
 /* Argument checks */
 void			argv_check(int argc, char **argv);
 int				check_game_param(t_game *game);
-int				check_map_data(t_minimap *minimap);
+int				check_minimap(t_minimap *minimap);
 int				check_render_data(t_render *render);
 int				check_visual(t_ressources *vis);
 
@@ -138,8 +138,7 @@ void			set_pixel(mlx_image_t *img, int x, int y, uint32_t color);
 void			open_doors(t_render *render, t_minimap *minimap);
 void			close_doors(t_game *game, t_minimap *minimap);
 int				is_door(t_render *render, int x, int y);
-int				is_target(t_render *render, int x,
-					int y);
+int				is_target(t_render *render, int x, int y);
 void			get_target(t_game *game, t_minimap *minimap);
 int				is_air(t_render *render, int x, int y);
 void			get_air(t_game *game, t_minimap *minimap);
@@ -149,6 +148,7 @@ void			set_textures(int sprite_count, t_sprite *sprites_arr,
 					mlx_texture_t *texture, t_game *game);
 void			set_position(int sprite_count, t_sprite *sprites_arr, char type,
 					t_game *game);
+void			init_bg_img(t_game *game);
 
 /* Movements */
 void			rotate(t_render *render, int direction);
@@ -158,7 +158,6 @@ void			move_sideways(t_game *game, t_minimap *minimap,
 					t_render *render, int direction);
 
 /*extra am ende rausnehmen*/
-void			check_sprites(t_game *game, t_render *render,
-					int sprite_type);
+void			check_sprites(t_game *game, t_render *render, int sprite_type);
 
 #endif

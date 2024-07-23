@@ -40,8 +40,7 @@ void	calculate_initial_side_distances(t_render *render)
 	}
 }
 
-void	setup_render_params(uint32_t x, t_render *render,
-		mlx_image_t *image)
+void	setup_render_params(uint32_t x, t_render *render, mlx_image_t *image)
 {
 	t_ray		*ray;
 	t_camera	*camera;
@@ -64,8 +63,8 @@ void	setup_render_params(uint32_t x, t_render *render,
 void	render_surfaces(t_game *game)
 {
 	t_render	*render;
-	mlx_image_t		*img;
-	uint32_t		x;
+	mlx_image_t	*img;
+	uint32_t	x;
 
 	img = game->render.screen_image;
 	render = &game->render;

@@ -17,13 +17,11 @@ t_ressources	init_visuals(void)
 	t_ressources	res;
 
 	res.door = NULL;
-	res.player = NULL;
 	res.target = NULL;
 	res.air = NULL;
 	res.ea = NULL;
 	res.no = NULL;
 	res.so = NULL;
 	res.we = NULL;
-	res.target_img = NULL;
 	return (res);
 }

@@ -22,8 +22,7 @@ t_game	*get_mlx(t_game *game)
 		ft_putendl_fd("Failed to initialize MLX42", STDERR_FILENO);
 		return (NULL);
 	}
-	mlx = mlx_init((WINDOW_WIDTH), (WINDOW_HEIGHT),
-			"cub3d", false);
+	mlx = mlx_init((WINDOW_WIDTH), (WINDOW_HEIGHT), "cub3d", false);
 	if (!mlx)
 	{
 		ft_putendl_fd("Failed to initialize MLX42", STDERR_FILENO);
@@ -36,14 +35,13 @@ t_game	*get_mlx(t_game *game)
 		return (NULL);
 	}
 	game->render.screen_image = img;
-	game->mlx_ptr = mlx;
+	game->render.mlx_ptr = mlx;
 	return (game);
 }
 
 void	init_data(t_game *game)
 {
 	game->render = init_render_data();
-	game->mlx_ptr = NULL;
 	game->minimap = init_map_data();
 }
 
@@ -58,14 +56,10 @@ int	main(int argc, char **argv)
 	set_player(&game);
 	get_mlx(&game);
 	init_sprites(&game);
-	mlx_loop_hook(game.mlx_ptr, loop_hook, &game);
-	mlx_put_string(game.mlx_ptr, "Hurry! You need air!\n", 100, 0);
-	mlx_key_hook(game.mlx_ptr, key_hook, &game);
-	mlx_scroll_hook(game.mlx_ptr, scroll_hook, &game);
-	mlx_loop(game.mlx_ptr);
-	//terminate_game(&game, 0);
-	//free_data(&game);
-	//clean_img(&game);
-	// clean_texture(&game);
+	mlx_loop_hook(game.render.mlx_ptr, loop_hook, &game);
+	mlx_put_string(game.render.mlx_ptr, "Hurry! You need air!\n", 100, 0);
+	mlx_key_hook(game.render.mlx_ptr, key_hook, &game);
+	mlx_scroll_hook(game.render.mlx_ptr, scroll_hook, &game);
+	mlx_loop(game.render.mlx_ptr);
 	return (EXIT_SUCCESS);
 }

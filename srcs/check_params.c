@@ -16,19 +16,15 @@ int	check_game_param(t_game *game)
 {
 	if (!game)
 		return (-1);
-	if (game->mlx_ptr == NULL)
-		return (-1);
-	if (check_map_data(&game->minimap))
+	if (check_minimap(&game->minimap))
 		return (-1);
 	if (check_render_data(&game->render))
 		return (-1);
 	return (0);
 }
 
-int	check_map_data(t_minimap *minimap)
+int	check_minimap(t_minimap *minimap)
 {
-	char	first_dir;
-
 	if (minimap == NULL)
 		return (-1);
 	if (minimap->height < 0 || minimap->width < 0 || minimap->y_axis < 0)
@@ -39,13 +35,8 @@ int	check_map_data(t_minimap *minimap)
 		return (-1);
 	if (minimap->x_axis == NULL)
 		return (-1);
-	first_dir = minimap->first_dir;
-	if (first_dir != 'N' && first_dir != 'S' && first_dir != 'E'
-		&& first_dir != 'W')
-		return (-1);
 	return (0);
 }
-
 
 int	check_visual_res(t_ressources *vis)
 {
@@ -67,11 +58,7 @@ int	check_visual_res(t_ressources *vis)
 		return (-1);
 	if (vis->we == NULL)
 		return (-1);
-	if (vis->player == NULL)
-		return (-1);
 	if (vis->target == NULL)
-		return (-1);
-	if (vis->target_img == NULL)
 		return (-1);
 	return (0);
 }
@@ -87,6 +74,8 @@ int	check_render_data(t_render *render)
 	if (render->targets == NULL)
 		return (-1);
 	if (render->screen_image == NULL)
+		return (-1);
+	if (render->mlx_ptr == NULL)
 		return (-1);
 	if (check_visual_res(&render->res))
 		return (-1);

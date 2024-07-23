@@ -22,11 +22,10 @@ void	load_visuals(t_ressources *res, t_texpaths *paths)
 		res->we = mlx_load_png(paths->we);
 	if (paths->ea)
 		res->ea = mlx_load_png(paths->ea);
-	if (!res->no || !res->we
-	|| !res->so || !res->ea)
+	if (!res->no || !res->we || !res->so || !res->ea)
 	{
 		printf("texture are missing\n");
-		exit (1);
+		exit(1);
 	}
 	res->door = mlx_load_png(DOOR_PATH);
 	if (!res->door)
@@ -39,31 +38,6 @@ void	load_visuals(t_ressources *res, t_texpaths *paths)
 		printf("air texture missing\n");
 	res->c_ceiling = int_to_color(get_color_int(paths->ceiling));
 	res->c_floor = int_to_color(get_color_int(paths->floor));
-}
-
-void	clean_texture(t_game *game)
-{
-	if (game->render.res.no)
-		mlx_delete_texture(game->render.res.no);
-	if (game->render.res.so)
-		mlx_delete_texture(game->render.res.so);
-	if (game->render.res.we)
-		mlx_delete_texture(game->render.res.we);
-	if (game->render.res.ea)
-		mlx_delete_texture(game->render.res.ea);
-	if (game->render.res.door)
-		mlx_delete_texture(game->render.res.door);
-	if (game->render.res.target)
-		mlx_delete_texture(game->render.res.target);
-	if (game->render.res.player)
-		mlx_delete_texture(game->render.res.player);
-	if (game->render.res.air)
-		mlx_delete_texture(game->render.res.air);
-}
-
-void	clean_img(t_game *game)
-{
-	mlx_delete_image(game->mlx_ptr, game->render.res.bubbles_img);
 }
 
 void	init_look(t_game *game)

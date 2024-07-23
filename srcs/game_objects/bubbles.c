@@ -31,7 +31,7 @@ void	add_look(t_game *game, mlx_image_t *img, int start_y, int end_y)
 		rand_x = random_int(0, game->render.screen_image->width);
 		rand_y = random_int(start_y, end_y
 				- game->render.screen_image->height);
-		mlx_image_to_window(game->mlx_ptr, img, rand_x, rand_y);
+		mlx_image_to_window(game->render.mlx_ptr, img, rand_x, rand_y);
 		i++;
 	}
 }
@@ -39,6 +39,6 @@ void	add_look(t_game *game, mlx_image_t *img, int start_y, int end_y)
 void	print_got_air(t_game *game)
 {
 	usleep(100);
-	mlx_put_string(game->mlx_ptr,
+	mlx_put_string(game->render.mlx_ptr,
 		" You got air! Well done! Now catch some fish\n", 400, 0);
 }

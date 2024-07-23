@@ -15,7 +15,7 @@ RM = rm -f
 MAIN = main check_params hooks movements keys
 UTILS = mini_map_helper sprites_init  map_valid map_prep map_init \
 	map_checks wall_check clean_up map_interpret color_init pixel \
-	sprite_utils 
+	sprite_utils free_arrays
 INITS = init_camera init_texpaths init_map_data init_player init_ray \
 	init_raycast init_render init_visuals 
 RENDER = dda draw messages mini_map world_surfaces sprites \

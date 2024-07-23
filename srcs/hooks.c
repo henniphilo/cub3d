@@ -14,7 +14,7 @@
 
 void	scroll_hook(double xdelta, double ydelta, void *param)
 {
-	t_game			*game;
+	t_game		*game;
 	t_render	*render;
 
 	(void)xdelta;
@@ -32,8 +32,8 @@ void	loop_hook(void *param)
 	int		render_flag;
 
 	game = (t_game *)param;
-	// if (check_game_param(game) == -1)
-	// 	terminate_game(game, EXIT_FAILURE);
+	if (check_game_param(game) == -1)
+		terminate_game(game, EXIT_FAILURE);
 	render_flag = game->render.flag_render;
 	if (render_flag)
 	{

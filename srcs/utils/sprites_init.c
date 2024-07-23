@@ -49,11 +49,12 @@ void	init_air(t_game *game)
 
 void	init_sprites(t_game *game)
 {
+	if (!game || check_minimap(&game->minimap))
+		terminate_game(game, EXIT_FAILURE);
 	init_sprites_count(game);
 	init_doors(game);
 	init_targets(game);
 	init_air(game);
-	// check_sprites(game, &game->render, 0);
-	// check_sprites(game, &game->render, 1);
-	// check_sprites(game, &game->render, 2);
+	init_look(game);
+	init_bg_img(game);
 }

@@ -44,7 +44,8 @@ void	set_textures(int sprite_count, t_sprite *sprites_arr,
 	while (i < sprite_count)
 	{
 		sprites_arr[i].tex = texture;
-		sprites_arr[i].img = mlx_texture_to_image(game->mlx_ptr, texture);
+		sprites_arr[i].img = mlx_texture_to_image(game->render.mlx_ptr,
+				texture);
 		i++;
 	}
 }

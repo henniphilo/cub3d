@@ -14,9 +14,9 @@
 
 void	key_hook(mlx_key_data_t keydata, void *param)
 {
-	t_game			*game;
+	t_game		*game;
 	t_render	*render;
-	t_minimap		*minimap;
+	t_minimap	*minimap;
 
 	game = (t_game *)param;
 	render = &game->render;
@@ -24,7 +24,7 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 	if (keydata.action == MLX_PRESS)
 	{
 		keys_act(game, keydata);
-		render->flag_render = 1; // was ist das??? diese hier sehr gut
+		render->flag_render = 1;
 	}
 	if (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT)
 		keys_rotate(keydata, render);
@@ -36,7 +36,7 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 void	keys_walk(t_game *game, mlx_key_data_t keydata)
 {
 	t_render	*render;
-	t_minimap		*minimap;
+	t_minimap	*minimap;
 
 	render = &game->render;
 	minimap = &game->minimap;
@@ -63,14 +63,14 @@ void	keys_rotate(mlx_key_data_t keydata, t_render *render)
 void	keys_act(t_game *game, mlx_key_data_t keydata)
 {
 	t_render	*render;
-	t_minimap		*minimap;
+	t_minimap	*minimap;
 
 	render = &game->render;
 	minimap = &game->minimap;
 	if (keydata.key == MLX_KEY_ESCAPE)
 	{
 		free_data(game);
-		mlx_close_window(game->mlx_ptr);
+		mlx_close_window(game->render.mlx_ptr);
 	}
 	if (keydata.key == MLX_KEY_SPACE)
 	{

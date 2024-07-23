@@ -17,11 +17,9 @@ t_game	*mini_map_init(t_game *game)
 	int	i;
 
 	i = 0;
-	init_look(game);
 	fill_half(game, game->render.res.c_ceiling, 0, WINDOW_HEIGHT / 2);
-	fill_half(game, game->render.res.c_floor, WINDOW_HEIGHT / 2,
-		WINDOW_HEIGHT);
-	mlx_image_to_window(game->mlx_ptr, game->render.screen_image, 0, 0);
+	fill_half(game, game->render.res.c_floor, WINDOW_HEIGHT / 2, WINDOW_HEIGHT);
+	mlx_image_to_window(game->render.mlx_ptr, game->render.screen_image, 0, 0);
 	return (game);
 }
 
@@ -50,11 +48,11 @@ static t_color	choose_color(t_game *game, int x, int y)
 	char	tile;
 
 	tile = game->minimap.map[y][x];
-	if (tile == ' ' || tile == '\n' 
-	// || (tile == !game->minimap.first_dir
-	// 		&& tile != '0' && tile != 'L' && tile != 'D' && tile != 'T'
-	// 		&& tile != '1')
-			)
+	if (tile == ' ' || tile == '\n'
+		// || (tile == !game->minimap.first_dir
+		// 		&& tile != '0' && tile != 'L' && tile != 'D' && tile != 'T'
+		// 		&& tile != '1')
+	)
 		return (game->minimap.ctransparent);
 	if (tile == '1')
 		return (game->minimap.cwall);

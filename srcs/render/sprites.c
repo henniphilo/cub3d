@@ -30,27 +30,23 @@ static void	set_draw_start_end(t_sprite *sprite)
 		sprite->draw_end_x = WINDOW_WIDTH - 1;
 }
 
-static void	calculate_sprite_position(t_sprite *sprite,
-		t_render *render)
+static void	calculate_sprite_position(t_sprite *sprite, t_render *render)
 {
 	sprite->dist_x = sprite->pos_x - render->player.pos_x;
 	sprite->dist_y = sprite->pos_y - render->player.pos_y;
 	sprite->inverse_determinate = 1.0 / (render->camera.plane_x
 			* render->player.dir_y - render->player.dir_x
 			* render->camera.plane_y);
-	sprite->transform_x = sprite->inverse_determinate
-		* (render->player.dir_y * sprite->dist_x
-			- render->player.dir_x * sprite->dist_y);
-	sprite->transform_y = sprite->inverse_determinate
-		* (-render->camera.plane_y * sprite->dist_x
-			+ render->camera.plane_x * sprite->dist_y);
+	sprite->transform_x = sprite->inverse_determinate * (render->player.dir_y
+			* sprite->dist_x - render->player.dir_x * sprite->dist_y);
+	sprite->transform_y = sprite->inverse_determinate * (-render->camera.plane_y
+			* sprite->dist_x + render->camera.plane_x * sprite->dist_y);
 	sprite->screen_x = (int)((WINDOW_WIDTH / 2) * (1 + sprite->transform_x
 				/ sprite->transform_y));
 	set_draw_start_end(sprite);
 }
 
-static void	draw_stripe(int x, int y, t_sprite *sprite,
-		t_render *render)
+static void	draw_stripe(int x, int y, t_sprite *sprite, t_render *render)
 {
 	int			d;
 	uint32_t	color;
@@ -87,7 +83,7 @@ static void	draw_sprite(t_sprite *sprite, t_render *render)
 void	render_sprites(t_game *game)
 {
 	t_render	*render;
-	int				i;
+	int			i;
 
 	render = &game->render;
 	i = 0;
@@ -105,8 +101,7 @@ void	render_sprites(t_game *game)
 	{
 		if (render->air[i].active == 1)
 		{
-			calculate_sprite_position(&render->air[i],
-				render);
+			calculate_sprite_position(&render->air[i], render);
 			draw_sprite(&render->air[i], render);
 		}
 		i++;

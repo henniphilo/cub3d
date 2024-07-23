@@ -39,6 +39,7 @@ t_game	*set_player(t_game *game)
 	int		y;
 	char	direction;
 
+	check_minimap(&game->minimap);
 	y = 1;
 	while (y < game->minimap.y_axis)
 	{
@@ -58,6 +59,5 @@ t_game	*set_player(t_game *game)
 		}
 		y++;
 	}
-	printf("first dir is %c\n", game->minimap.first_dir);
 	return (NULL);
 }

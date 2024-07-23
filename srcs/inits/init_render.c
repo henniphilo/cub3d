@@ -16,6 +16,8 @@ t_render	init_render_data(void)
 {
 	t_render	render;
 
+	render.mlx_ptr = NULL;
+	render.screen_image = NULL;
 	render.doors = NULL;
 	render.targets = NULL;
 	render.screen_image = NULL;

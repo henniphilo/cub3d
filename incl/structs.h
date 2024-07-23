@@ -62,12 +62,10 @@ typedef struct s_ressources
 	mlx_texture_t	*we;
 	mlx_texture_t	*ea;
 	mlx_texture_t	*door;
-	mlx_texture_t	*player;
 	mlx_texture_t	*target;
 	mlx_texture_t	*bubbles;
 	mlx_image_t		*bubbles_img;
 	mlx_texture_t	*air;
-	mlx_image_t		*target_img;
 	t_color			c_floor;
 	t_color			c_ceiling;
 }					t_ressources;
@@ -158,7 +156,7 @@ typedef struct s_render
 	int				flag_side;
 	int				flag_render;
 	t_ressources	res;
-
+	mlx_t			*mlx_ptr;
 }					t_render;
 
 typedef struct s_minimap
@@ -169,7 +167,6 @@ typedef struct s_minimap
 	int				width;
 	int				y_axis;
 	int				*x_axis;
-	char			first_dir;
 	t_color			cblue;
 	t_color			cwall;
 	t_color			cair;
@@ -183,7 +180,6 @@ typedef struct s_minimap
 
 typedef struct s_game
 {
-	mlx_t			*mlx_ptr;
 	t_minimap		minimap;
 	t_render		render;
 }					t_game;

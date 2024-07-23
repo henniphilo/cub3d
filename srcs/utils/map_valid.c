@@ -14,8 +14,6 @@
 
 void	open_map(t_game *game, char *file)
 {
-	// if (check_game_param(game) == -1)
-	// 	terminate_game(game, EXIT_FAILURE);
 	if (check_file_type(file))
 		terminate_game(game, EXIT_FAILURE);
 	if (init_input_table(&game->minimap, file) == -1
