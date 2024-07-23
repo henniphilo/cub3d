@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   messages.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vketteni <vketteni@student.42berlin.d      +#+  +:+       +#+        */
+/*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 18:53:49 by vketteni          #+#    #+#             */
-/*   Updated: 2024/07/21 18:53:53 by vketteni         ###   ########.fr       */
+/*   Updated: 2024/07/23 15:55:29 by hwiemann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,4 @@ void	render_ingame_messages(t_game *game)
 			" You need air! Hurry! Find the tank!", 400, 0);
 	else
 		print_got_air(game);
-	if (game->render.count_fish_caught != 0)
-	{
-		mlx_put_string(game->render.mlx_ptr, " You caught fish: ", 700, 0);
-		mlx_put_string(game->render.mlx_ptr,
-			ft_itoa(game->render.count_fish_caught), 800, 0);
-	}
 }

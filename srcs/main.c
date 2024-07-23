@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vketteni <vketteni@student.42berlin.d      +#+  +:+       +#+        */
+/*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 14:20:07 by vketteni          #+#    #+#             */
-/*   Updated: 2024/07/16 14:20:13 by vketteni         ###   ########.fr       */
+/*   Updated: 2024/07/23 15:52:54 by hwiemann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,6 @@ int	main(int argc, char **argv)
 	mlx_key_hook(game.render.mlx_ptr, key_hook, &game);
 	mlx_scroll_hook(game.render.mlx_ptr, scroll_hook, &game);
 	mlx_loop(game.render.mlx_ptr);
+	mlx_terminate(game.render.mlx_ptr);
 	return (EXIT_SUCCESS);
 }

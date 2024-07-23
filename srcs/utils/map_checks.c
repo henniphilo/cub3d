@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_checks.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vketteni <vketteni@student.42berlin.d      +#+  +:+       +#+        */
+/*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 17:40:12 by vketteni          #+#    #+#             */
-/*   Updated: 2024/07/18 17:40:16 by vketteni         ###   ########.fr       */
+/*   Updated: 2024/07/23 16:02:16 by hwiemann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	parse_input_table(t_game *game)
 		return (-1);
 	}
 	load_visuals(&game->render.res, &paths);
+	free_paths(&paths);
 	create_map(game);
 	free_input_table(game->minimap.height, game->minimap.input_table);
 	if ((walls_check(&game->minimap)) == 1)

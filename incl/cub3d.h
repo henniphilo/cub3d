@@ -6,7 +6,7 @@
 /*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:22:31 by hwiemann          #+#    #+#             */
-/*   Updated: 2024/07/23 14:55:27 by hwiemann         ###   ########.fr       */
+/*   Updated: 2024/07/23 16:01:56 by hwiemann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ void			render_logic(t_game *game, int x);
 /* Cleanup */
 void			free_string_arr(char **string_arr);
 int				terminate_game(t_game *game, int exit_code);
+void			free_paths(t_texpaths *paths);
 
 /* Argument checks */
 void			argv_check(int argc, char **argv);

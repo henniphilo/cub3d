@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clean_up.c                                         :+:      :+:    :+:   */
+/*   free_arrays.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 17:42:50 by vketteni          #+#    #+#             */
-/*   Updated: 2024/07/19 11:52:57 by hwiemann         ###   ########.fr       */
+/*   Updated: 2024/07/23 16:01:18 by hwiemann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,18 @@ void	free_string_arr(char **string_arr)
 		i++;
 	}
 	free(string_arr);
+}
+void	free_paths(t_texpaths *paths)
+{
+	if (paths)
+	{
+		if (paths->we)
+			free(paths->we);
+		if (paths->so)
+			free(paths->so);
+		if (paths->ea)
+			free(paths->ea);
+		if (paths->no)
+			free(paths->no);
+	}
 }

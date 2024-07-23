@@ -6,7 +6,7 @@
 /*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 14:20:17 by vketteni          #+#    #+#             */
-/*   Updated: 2024/07/22 17:13:13 by hwiemann         ###   ########.fr       */
+/*   Updated: 2024/07/23 16:11:18 by hwiemann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,5 +96,6 @@ void	create_bubbles(t_game *game)
 		add_look(game, game->render.res.bubbles_img, 0, WINDOW_HEIGHT / 2);
 		add_look(game, game->render.res.bubbles_img, WINDOW_HEIGHT / 2,
 			WINDOW_HEIGHT);
+		//mlx_delete_image(game->render.mlx_ptr, game->render.res.bubbles_img);
 	}
 }
