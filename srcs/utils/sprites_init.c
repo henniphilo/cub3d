@@ -6,7 +6,7 @@
 /*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 14:47:47 by hwiemann          #+#    #+#             */
-/*   Updated: 2024/07/16 14:52:17 by hwiemann         ###   ########.fr       */
+/*   Updated: 2024/07/22 17:56:53 by hwiemann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,4 @@ void	init_sprites(t_game *game)
 	init_doors(game);
 	init_targets(game);
 	init_air(game);
-	// check_sprites(game, &game->render, 0);
-	// check_sprites(game, &game->render, 1);
-	// check_sprites(game, &game->render, 2);
 }
