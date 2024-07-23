@@ -49,6 +49,8 @@ void	move_sideways(t_game *game, t_minimap *minimap,
 	double	next_x;
 	double	next_y;
 
+	if (game->render.count_oxy_caught != 0)
+		create_bubbles(game);
 	side_dir_x = (render->player.dir_y);
 	side_dir_y = -(render->player.dir_x);
 	next_x = render->player.pos_x + side_dir_x * MOVE_SPEED * direction;
@@ -96,6 +98,5 @@ void	create_bubbles(t_game *game)
 		add_look(game, game->render.res.bubbles_img, 0, WINDOW_HEIGHT / 2);
 		add_look(game, game->render.res.bubbles_img, WINDOW_HEIGHT / 2,
 			WINDOW_HEIGHT);
-		//mlx_delete_image(game->render.mlx_ptr, game->render.res.bubbles_img);
 	}
 }

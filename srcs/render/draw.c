@@ -24,10 +24,6 @@ static void	color_textures(t_game *game, mlx_texture_t *tex, int pixel_index)
 	if (tex_pos >= 0 && tex_pos < tex->height && tex_x >= 0
 		&& tex_x < tex->width)
 	{
-		color.r = 0;
-		color.g = 0;
-		color.b = 0;
-		color.a = 0;
 		color_tex = ((uint32_t *)tex->pixels)[tex->width * tex_pos + tex_x];
 		color.r = (color_tex >> 24) & 0xFF;
 		color.g = (color_tex >> 16) & 0xFF;

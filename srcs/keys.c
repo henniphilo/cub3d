@@ -27,7 +27,7 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 		render->flag_render = 1;
 	}
 	if (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT)
-		keys_rotate(keydata, render);
+		keys_rotate(keydata, game);
 	if (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT
 		|| keydata.action == MLX_RELEASE)
 		keys_walk(game, keydata);
@@ -40,6 +40,8 @@ void	keys_walk(t_game *game, mlx_key_data_t keydata)
 
 	render = &game->render;
 	minimap = &game->minimap;
+	if (keydata.key == MLX_KEY_ESCAPE)
+		return ;
 	if (keydata.key == MLX_KEY_W)
 		move_straight(game, minimap, render, 1);
 	if (keydata.key == MLX_KEY_S)
@@ -52,12 +54,16 @@ void	keys_walk(t_game *game, mlx_key_data_t keydata)
 		create_bubbles(game);
 }
 
-void	keys_rotate(mlx_key_data_t keydata, t_render *render)
+void	keys_rotate(mlx_key_data_t keydata, t_game *game)
 {
+	if (keydata.key == MLX_KEY_ESCAPE)
+		return ;
 	if (keydata.key == MLX_KEY_LEFT)
-		rotate(render, -1);
+		rotate(&game->render, -1);
 	if (keydata.key == MLX_KEY_RIGHT)
-		rotate(render, 1);
+		rotate(&game->render, 1);
+	if (game->render.count_oxy_caught != 0)
+		create_bubbles(game);
 }
 
 void	keys_act(t_game *game, mlx_key_data_t keydata)
