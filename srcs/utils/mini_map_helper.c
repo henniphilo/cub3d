@@ -57,7 +57,6 @@ void	init_bg_img(t_game *game)
 	game->render.res.bubbles = mlx_load_png(BUBBLE_PATH);
 	game->render.res.bubbles_img = mlx_texture_to_image(game->render.mlx_ptr,
 			game->render.res.bubbles);
-	
 }
 
 void	fill_half(t_game *game, t_color color, int start_y, int end_y)

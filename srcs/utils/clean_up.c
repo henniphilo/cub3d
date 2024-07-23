@@ -43,9 +43,8 @@ void	free_ressources(t_ressources *res, mlx_t *mlx)
 			mlx_delete_texture(res->we);
 		if (res->target)
 			mlx_delete_texture(res->target);
-		(void)mlx;
-		// if (res->bubbles_img)
-		// 	mlx_delete_image(mlx, res->bubbles_img);
+		if (res->bubbles_img)
+			mlx_delete_image(mlx, res->bubbles_img);
 	}
 }
 

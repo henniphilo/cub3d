@@ -82,7 +82,7 @@ void			init_look(t_game *game);
 void			key_hook(mlx_key_data_t keydata, void *param);
 void			loop_hook(void *param);
 void			scroll_hook(double xdelta, double ydelta, void *param);
-void			keys_rotate(mlx_key_data_t keydata, t_render *render);
+void			keys_rotate(mlx_key_data_t keydata, t_game *game);
 void			keys_act(t_game *game, mlx_key_data_t keydata);
 void			keys_walk(t_game *game, mlx_key_data_t keydata);
 

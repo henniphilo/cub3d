@@ -51,6 +51,8 @@ void	move_sideways(t_game *game, t_minimap *minimap,
 	double	next_x;
 	double	next_y;
 
+	if (game->render.count_oxy_caught != 0)
+		create_bubbles(game);
 	side_dir_x = (render->player.dir_y);
 	side_dir_y = -(render->player.dir_x);
 	next_x = render->player.pos_x + side_dir_x * MOVE_SPEED * direction;

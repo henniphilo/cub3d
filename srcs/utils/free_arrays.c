@@ -37,17 +37,31 @@ void	free_string_arr(char **string_arr)
 	}
 	free(string_arr);
 }
+
 void	free_paths(t_texpaths *paths)
 {
-	if (paths)
-	{
-		if (paths->we)
-			free(paths->we);
-		if (paths->so)
-			free(paths->so);
-		if (paths->ea)
-			free(paths->ea);
-		if (paths->no)
-			free(paths->no);
-	}
+	if (paths && paths->we)
+		free(paths->we);
+	if (paths && paths->so)
+		free(paths->so);
+	if (paths && paths->ea)
+		free(paths->ea);
+	if (paths && paths->no)
+		free(paths->no);
+	if (paths && paths->air)
+		free(paths->no);
+	if (paths && paths->bubbles)
+		free(paths->bubbles);
+	if (paths && paths->door)
+		free(paths->door);
+	if (paths && paths->air)
+		free(paths->air);
+	if (paths && paths->target)
+		free(paths->target);
+	if (paths && paths->floor)
+		free(paths->floor);
+	if (paths && paths->door)
+		free(paths->door);
+	if (paths && paths->ceiling)
+		free(paths->ceiling);
 }
