@@ -8,7 +8,7 @@ LIBFA = libft.a
 
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
 RM = rm -f
 
 # MAIN = cub3d
