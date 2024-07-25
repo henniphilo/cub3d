@@ -61,6 +61,8 @@ int	main(int argc, char **argv)
 	mlx_key_hook(game.render.mlx_ptr, key_hook, &game);
 	mlx_scroll_hook(game.render.mlx_ptr, scroll_hook, &game);
 	mlx_loop(game.render.mlx_ptr);
+	free_data(&game);
 	mlx_terminate(game.render.mlx_ptr);
+	
 	return (EXIT_SUCCESS);
 }

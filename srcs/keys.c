@@ -75,7 +75,7 @@ void	keys_act(t_game *game, mlx_key_data_t keydata)
 	minimap = &game->minimap;
 	if (keydata.key == MLX_KEY_ESCAPE)
 	{
-		free_data(game);
+		// free_data(game);
 		mlx_close_window(game->render.mlx_ptr);
 	}
 	if (keydata.key == MLX_KEY_SPACE)

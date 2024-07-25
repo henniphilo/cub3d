@@ -6,8 +6,7 @@ LIBFT = libft
 LIBFA = libft.a
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g
-SANITIZE_FLAGS = -fsanitize=address -fsanitize=undefined
+CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
 RM = rm -f
 
 MAIN = main check_params hooks movements keys
