@@ -24,11 +24,17 @@ BONUS = bonus_main sprites_init sprite_utils air doors targets bubbles \
 	world_surfaces_helper_bonus check_params hooks keys_bonus mini_map_helper map_valid map_prep \
 	map_checks wall_check wall_check_helper color_init pixel wall_check_bonus
 
-SRC = $(addprefix srcs/, $(addsuffix .c, $(MAIN))) \
-			$(addsuffix .c, $(addprefix srcs/utils/, $(UTILS))) \
-			$(addsuffix .c, $(addprefix srcs/inits/, $(INITS))) \
-			$(addsuffix .c, $(addprefix srcs/render/, $(RENDER))) \
-			$(addsuffix .c, $(addprefix srcs/game_objects/, $(GAME_OBJECTS))) \
+SRC = $(addprefix cub3d/srcs/, $(addsuffix .c, $(MAIN))) \
+			$(addsuffix .c, $(addprefix cub3d/srcs/utils/, $(UTILS))) \
+			$(addsuffix .c, $(addprefix cub3d/srcs/inits/, $(INITS))) \
+			$(addsuffix .c, $(addprefix cub3d/srcs/render/, $(RENDER))) \
+			$(addsuffix .c, $(addprefix cub3d/srcs/game_objects/, $(GAME_OBJECTS))) \
+
+SRC_BONUS =  = $(addprefix bonus/srcs/, $(addsuffix .c, $(MAIN))) \
+			$(addsuffix .c, $(addprefix bonus/srcs/utils/, $(UTILS))) \
+			$(addsuffix .c, $(addprefix bonus/srcs/inits/, $(INITS))) \
+			$(addsuffix .c, $(addprefix bonus/srcs/render/, $(RENDER))) \
+			$(addsuffix .c, $(addprefix bonus/srcs/game_objects/, $(GAME_OBJECTS))) \
 
 OBJ_DIR = obj
 OBJ = $(SRC:srcs/%.c=$(OBJ_DIR)/%.o)
