@@ -17,6 +17,8 @@ t_ressources	init_visuals(void)
 	t_ressources	res;
 
 	res.door = NULL;
+	res.bubbles_img = NULL;
+	res.bubbles = NULL;
 	res.target = NULL;
 	res.air = NULL;
 	res.ea = NULL;

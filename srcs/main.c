@@ -63,6 +63,5 @@ int	main(int argc, char **argv)
 	mlx_loop(game.render.mlx_ptr);
 	free_data(&game);
 	mlx_terminate(game.render.mlx_ptr);
-	
 	return (EXIT_SUCCESS);
 }

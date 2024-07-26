@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   wall_check.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/16 13:18:42 by hwiemann          #+#    #+#             */
-/*   Updated: 2024/07/23 14:54:33 by hwiemann         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../../incl/cub3d.h"
 
 static int	check_top(t_minimap *minimap)
@@ -82,20 +70,22 @@ static int	check_sides(t_minimap *minimap)
 	return (0);
 }
 
-static int	check_allowed_symbols(t_minimap *minimap)
+static int	check_allowed_symbols_bonus(t_minimap *minimap)
 {
 	int		x;
 	int		y;
 	char	pos;
 
 	x = 0;
-	while (y < minimap->height)
+	y = 0;
+	while (y < minimap->y_axis)
 	{
 		while (x < minimap->x_axis[y] && minimap->map[y][x] != '\n')
 		{
 			pos = minimap->map[y][x];
-			if (pos != 'W' || pos != 'S' || pos != 'N' || pos != 'E'
-				|| pos != '0' || pos != '1')
+			if (pos != 'W' && pos != 'S' && pos != 'N' && pos != 'E'
+				&& pos != '0' && pos != '1' && pos != 'T' && pos != 'L'
+				&& pos != 'D')
 				return (1);
 			x++;
 		}
@@ -106,7 +96,7 @@ static int	check_allowed_symbols(t_minimap *minimap)
 
 int	walls_check(t_minimap *minimap)
 {
-	if (check_allowed_symbols(minimap))
+	if (check_allowed_symbols_bonus(minimap))
 		return (1);
 	if (check_adjacent(minimap))
 		return (1);

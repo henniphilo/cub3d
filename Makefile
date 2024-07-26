@@ -6,15 +6,13 @@ LIBA = libmlx42.a
 LIBFT = libft
 LIBFA = libft.a
 
-
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g 
 RM = rm -f
 
-# MAIN = cub3d
 MAIN = main check_params hooks movements keys
 UTILS = mini_map_helper sprites_init  map_valid map_prep map_init \
-	map_checks wall_check wall_check_helper clean_up map_interpret color_init pixel \
+	map_checks wall_check_bonus wall_check_helper clean_up map_interpret color_init pixel \
 	sprite_utils free_arrays
 INITS = init_camera init_texpaths init_map_data init_player init_ray \
 	init_raycast init_render init_visuals
@@ -33,8 +31,6 @@ OBJ = $(SRC:srcs/%.c=$(OBJ_DIR)/%.o)
 
 all: setup $(OBJ_DIR) $(NAME)
 
-# %.o: %.c
-# 	$(CC) $(CFLAGS) -Iinclude -I$(LIBFT) -I/usr/include -Imlx_linux -I$(LIB)/include/MLX42 -O3 -c $< -o $@
 $(OBJ_DIR)/%.o: srcs/%.c
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -Iinclude -I$(LIBFT) -I/usr/include -Imlx_linux -I$(LIB)/include/MLX42 -c $< -o $@

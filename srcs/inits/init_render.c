@@ -19,6 +19,7 @@ t_render	init_render_data(void)
 	render.mlx_ptr = NULL;
 	render.screen_image = NULL;
 	render.doors = NULL;
+	render.air = NULL;
 	render.targets = NULL;
 	render.screen_image = NULL;
 	render.flag_hit_wall = 0;
