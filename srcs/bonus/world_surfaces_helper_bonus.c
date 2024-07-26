@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   world_surfaces_helper.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vketteni <vketteni@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 18:28:29 by vketteni          #+#    #+#             */
-/*   Updated: 2024/07/26 11:46:02 by hwiemann         ###   ########.fr       */
+/*   Updated: 2024/07/21 18:28:33 by vketteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,14 @@ void	render_logic(t_game *game, int x)
 	selected_texture = select_texture(&game->render);
 	if (selected_texture != NULL)
 	{
+		calculate_surfaces(x, &game->render,
+			game->render.screen_image, selected_texture);
+		draw_line(x, game, game->render.screen_image, selected_texture);
+	}
+	if (game->render.flag_hit_door == 1 && is_door(&game->render,
+			game->render.ray.grid_pos_x, game->render.ray.grid_pos_y))
+	{
+		selected_texture = game->render.res.door;
 		calculate_surfaces(x, &game->render,
 			game->render.screen_image, selected_texture);
 		draw_line(x, game, game->render.screen_image, selected_texture);

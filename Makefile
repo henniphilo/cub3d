@@ -6,18 +6,24 @@ LIBFT = libft
 LIBFA = libft.a
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g
+SANITIZE_FLAGS = -fsanitize=address -fsanitize=undefined
 RM = rm -f
 
 MAIN = main check_params hooks movements keys
-UTILS = mini_map_helper sprites_init map_valid map_prep map_init \
+UTILS = mini_map_helper map_valid map_prep map_init \
 	map_checks wall_check wall_check_helper clean_up map_interpret color_init pixel \
-	sprite_utils free_arrays
+	free_arrays
 INITS = init_camera init_texpaths init_map_data init_player init_ray \
 	init_raycast init_render init_visuals
 RENDER = dda draw messages mini_map world_surfaces sprites \
 	world_surfaces_helper
-GAME_OBJECTS = player player_helper air doors targets bubbles
+GAME_OBJECTS = player player_helper
+BONUS = bonus_main sprites_init sprite_utils air doors targets bubbles \
+	clean_up_bonus dda_bonus free_arrays_bonus init_render_bonus init_visuals_bonus \
+	map_init_bonus map_interpret_bonus mini_map_bonus movements_bonus sprite_utils_bonus \
+	world_surfaces_helper_bonus check_params hooks keys_bonus mini_map_helper map_valid map_prep \
+	map_checks wall_check wall_check_helper color_init pixel
 
 SRC = $(addprefix srcs/, $(addsuffix .c, $(MAIN))) \
 			$(addsuffix .c, $(addprefix srcs/utils/, $(UTILS))) \

@@ -6,7 +6,7 @@
 /*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 14:47:49 by hwiemann          #+#    #+#             */
-/*   Updated: 2024/07/26 11:43:05 by hwiemann         ###   ########.fr       */
+/*   Updated: 2024/07/26 11:42:28 by hwiemann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,12 @@ static t_color	choose_color(t_game *game, int x, int y)
 		return (game->minimap.ctransparent);
 	if (tile == '1')
 		return (game->minimap.cwall);
+	else if (tile == 'T' && is_target(&game->render, x, y))
+		return (game->minimap.ctarget);
+	else if (tile == 'L' && is_air(&game->render, x, y))
+		return (game->minimap.cair);
+	else if (tile == 'D' && is_door(&game->render, x, y))
+		return (game->minimap.cdoor);
 	else
 		return (game->minimap.cfloor);
 }

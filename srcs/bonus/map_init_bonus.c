@@ -6,7 +6,7 @@
 /*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:17:05 by hwiemann          #+#    #+#             */
-/*   Updated: 2024/07/26 11:55:00 by hwiemann         ###   ########.fr       */
+/*   Updated: 2024/07/16 13:31:43 by hwiemann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,33 @@ static void	direction_paths(int map_height, t_texpaths *paths,
 	}
 }
 
+static void	sprite_paths(int map_height, t_texpaths *paths, char **input_table)
+{
+	int	y;
+
+	y = 0;
+	while (y < map_height)
+	{
+		if (ft_strncmp(input_table[y], "DOOR ", 5) == 0)
+		{
+			paths->door = get_path(input_table[y], "DOOR");
+		}
+		if (ft_strncmp(input_table[y], "TARGET ", 7) == 0)
+		{
+			paths->target = get_path(input_table[y], "TARGET");
+		}
+		if (ft_strncmp(input_table[y], "BUBBLES ", 8) == 0)
+		{
+			paths->bubbles = get_path(input_table[y], "BUBBLES");
+		}
+		if (ft_strncmp(input_table[y], "AIR ", 4) == 0)
+		{
+			paths->air = get_path(input_table[y], "AIR");
+		}
+		y++;
+	}
+}
+
 static void	color_paths(int map_height, t_texpaths *paths, char **input_table)
 {
 	int	y;
@@ -62,6 +89,7 @@ static void	color_paths(int map_height, t_texpaths *paths, char **input_table)
 void	parse_paths(int map_height, t_texpaths *paths, char **input_table)
 {
 	direction_paths(map_height, paths, input_table);
+	sprite_paths(map_height, paths, input_table);
 	color_paths(map_height, paths, input_table);
 }
 

@@ -6,11 +6,11 @@
 /*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 11:11:21 by hwiemann          #+#    #+#             */
-/*   Updated: 2024/07/26 12:02:37 by hwiemann         ###   ########.fr       */
+/*   Updated: 2024/07/26 12:01:39 by hwiemann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incl/cub3d.h"
+#include "../../incl/cub3d.h"
 
 void	key_hook(mlx_key_data_t keydata, void *param)
 {
@@ -60,6 +60,8 @@ void	keys_rotate(mlx_key_data_t keydata, t_game *game)
 		rotate(&game->render, -1);
 	if (keydata.key == MLX_KEY_RIGHT)
 		rotate(&game->render, 1);
+	if (game->render.count_oxy_caught != 0)
+		create_bubbles(game);
 }
 
 void	keys_act(t_game *game, mlx_key_data_t keydata)
@@ -72,5 +74,20 @@ void	keys_act(t_game *game, mlx_key_data_t keydata)
 	if (keydata.key == MLX_KEY_ESCAPE)
 	{
 		mlx_close_window(game->render.mlx_ptr);
+	}
+	if (keydata.key == MLX_KEY_SPACE)
+	{
+		open_doors(render, minimap);
+		ft_putendl_fd("SPACE", STDERR_FILENO);
+	}
+	if (keydata.key == MLX_KEY_X)
+	{
+		get_target(game, minimap);
+		ft_putendl_fd("X", STDERR_FILENO);
+	}
+	if (keydata.key == MLX_KEY_Z)
+	{
+		get_air(game, minimap);
+		ft_putendl_fd("Z", STDERR_FILENO);
 	}
 }
