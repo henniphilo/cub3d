@@ -27,6 +27,7 @@ SRC = $(addprefix srcs/, $(addsuffix .c, $(MAIN))) \
 
 OBJ_DIR = obj
 OBJ = $(SRC:srcs/%.c=$(OBJ_DIR)/%.o)
+OBJ_BONUS = $(SRC:srcs/%.c=$(OBJ_DIR)/%.o)
 
 all: setup $(OBJ_DIR) $(NAME)
 
@@ -47,6 +48,9 @@ $(LIBFT)/$(LIBFA):
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
 
+BONUS: $(NAME) $(OBJ_BONUS)
+	$(CC) $(CFLAGS) $(SANITIZE_FLAGS) $(OBJ_BONUS) -L$(LIB) -lmlx42 -L$(LIBFT) -lft -ldl -lglfw -lm -lpthread -o $(NAME)
+
 # Debug build
 debug: $(OBJ) $(LIBFT)/$(LIBFA)
 	$(CC) $(CFLAGS) $(SANITIZE_FLAGS) $(OBJ) -L$(LIBFT) -lft -ldl -lmlx42 -g3 -o $(NAME)
@@ -56,7 +60,7 @@ clean:
 	$(MAKE) -C $(LIBFT) clean
 	$(RM) -r $(OBJ_DIR)
 
-fclean: clean
+fclean: clean 
 	$(MAKE) -C $(LIBFT) fclean
 	$(RM) $(NAME)
 
