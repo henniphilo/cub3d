@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_params.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vketteni <vketteni@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 14:42:42 by vketteni          #+#    #+#             */
-/*   Updated: 2024/07/28 18:46:26 by hwiemann         ###   ########.fr       */
+/*   Updated: 2024/07/21 14:42:44 by vketteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,14 @@ int	check_visual_res(t_ressources *vis)
 {
 	if (vis == NULL)
 		return (-1);
+	if (vis->air == NULL)
+		return (-1);
+	if (vis->bubbles == NULL)
+		return (-1);
+	if (vis->bubbles_img == NULL)
+		return (-1);
+	if (vis->door == NULL)
+		return (-1);
 	if (vis->ea == NULL)
 		return (-1);
 	if (vis->so == NULL)
@@ -50,12 +58,20 @@ int	check_visual_res(t_ressources *vis)
 		return (-1);
 	if (vis->we == NULL)
 		return (-1);
+	if (vis->target == NULL)
+		return (-1);
 	return (0);
 }
 
 int	check_render_data(t_render *render)
 {
 	if (render == NULL)
+		return (-1);
+	if (render->doors == NULL)
+		return (-1);
+	if (render->air == NULL)
+		return (-1);
+	if (render->targets == NULL)
 		return (-1);
 	if (render->screen_image == NULL)
 		return (-1);

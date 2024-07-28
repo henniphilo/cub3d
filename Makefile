@@ -11,12 +11,12 @@ CFLAGS = -Wall -Wextra -Werror -g
 RM = rm -f
 
 MAIN = main check_params hooks movements keys
-BONUS_MAIN = bonus_main check_params
+BONUS_MAIN = bonus_main check_params_bonus
 MANDATORY = init_render init_visuals dda mini_map world_surfaces_helper clean_up map_interpret map_init wall_check free_arrays
 
 UTILS = mini_map_helper map_valid map_prep \
 	map_checks  wall_check_helper color_init pixel \
-	
+
 INITS = init_camera init_texpaths init_map_data init_player init_ray \
 	init_raycast
 RENDER = draw world_surfaces \
