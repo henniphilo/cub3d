@@ -48,16 +48,4 @@ void	free_paths(t_texpaths *paths)
 		free(paths->ea);
 	if (paths && paths->no)
 		free(paths->no);
-	if (paths && paths->bubbles)
-		free(paths->bubbles);
-	if (paths && paths->air)
-		free(paths->air);
-	if (paths && paths->target)
-		free(paths->target);
-	if (paths && paths->floor)
-		free(paths->floor);
-	if (paths && paths->door)
-		free(paths->door);
-	if (paths && paths->ceiling)
-		free(paths->ceiling);
 }

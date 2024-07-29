@@ -27,6 +27,8 @@
 		"istream": "c",
 		"ostream": "c",
 		"initializer_list": "c",
-		"utility": "c"
+		"utility": "c",
+		"chrono": "c",
+		"cmath": "c"
 	}
 }

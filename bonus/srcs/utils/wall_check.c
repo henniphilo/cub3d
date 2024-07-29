@@ -82,8 +82,34 @@ static int	check_sides(t_minimap *minimap)
 	return (0);
 }
 
+static int	check_allowed_symbols_bonus(t_minimap *minimap)
+{
+	int		x;
+	int		y;
+	char	pos;
+
+	x = 0;
+	y = 0;
+	while (y < minimap->y_axis)
+	{
+		while (x < minimap->x_axis[y] && minimap->map[y][x] != '\n')
+		{
+			pos = minimap->map[y][x];
+			if (pos != 'W' && pos != 'S' && pos != 'N' && pos != 'E'
+				&& pos != '0' && pos != '1' && pos != 'T' && pos != 'L'
+				&& pos != 'D' && pos != ' ' && pos != '\n')
+				return (1);
+			x++;
+		}
+		y++;
+	}
+	return (0);
+}
+
 int	walls_check(t_minimap *minimap)
 {
+	if (check_allowed_symbols_bonus(minimap))
+		return (1);
 	if (check_adjacent(minimap))
 		return (1);
 	if (check_bottom(minimap))

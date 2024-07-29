@@ -85,7 +85,7 @@ static int	check_allowed_symbols_bonus(t_minimap *minimap)
 			pos = minimap->map[y][x];
 			if (pos != 'W' && pos != 'S' && pos != 'N' && pos != 'E'
 				&& pos != '0' && pos != '1' && pos != 'T' && pos != 'L'
-				&& pos != 'D')
+				&& pos != 'D' && pos != ' ' && pos != '\n')
 				return (1);
 			x++;
 		}
