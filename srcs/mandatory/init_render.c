@@ -1,26 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_texpaths_bonus.c                              :+:      :+:    :+:   */
+/*   init_render.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/16 14:17:44 by vketteni          #+#    #+#             */
-/*   Updated: 2024/07/26 11:37:58 by hwiemann         ###   ########.fr       */
+/*   Created: 2024/07/16 14:17:42 by vketteni          #+#    #+#             */
+/*   Updated: 2024/07/26 13:29:14 by hwiemann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incl/cub3d.h"
 
-t_texpaths	init_texpaths(void)
+t_render	init_render_data(void)
 {
-	t_texpaths	paths;
+	t_render	render;
 
-	paths.ceiling = NULL;
-	paths.floor = NULL;
-	paths.ea = NULL;
-	paths.no = NULL;
-	paths.so = NULL;
-	paths.we = NULL;
-	return (paths);
+	render.mlx_ptr = NULL;
+	render.screen_image = NULL;
+	render.screen_image = NULL;
+	render.flag_hit_wall = 0;
+	render.flag_side = 0;
+	render.flag_render = 1;
+	render.camera = init_camera();
+	render.player = init_player();
+	render.ray = init_ray();
+	render.raycast = init_raycast();
+	render.res = init_visuals();
+	return (render);
 }

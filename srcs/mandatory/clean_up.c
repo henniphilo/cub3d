@@ -6,7 +6,7 @@
 /*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 17:42:50 by vketteni          #+#    #+#             */
-/*   Updated: 2024/07/23 18:03:14 by hwiemann         ###   ########.fr       */
+/*   Updated: 2024/07/28 17:33:41 by hwiemann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,6 @@ void	free_ressources(t_ressources *res, mlx_t *mlx)
 {
 	if (res)
 	{
-		if (res->air)
-			mlx_delete_texture(res->air);
-		// if (res->bubbles)
-		// 	mlx_delete_texture(res->bubbles);
-		if (res->door)
-			mlx_delete_texture(res->door);
 		if (res->ea)
 			mlx_delete_texture(res->ea);
 		if (res->so)
@@ -41,25 +35,14 @@ void	free_ressources(t_ressources *res, mlx_t *mlx)
 			mlx_delete_texture(res->no);
 		if (res->we)
 			mlx_delete_texture(res->we);
-		if (res->target)
-			mlx_delete_texture(res->target);
-		if (res->bubbles_img)
-			mlx_delete_image(mlx, res->bubbles_img);
 	}
+	(void)mlx;
 }
 
 void	free_render(t_render *render)
 {
 	if (render)
 	{
-		if (render->doors)
-			free(render->doors);
-		if (render->air)
-			free(render->air);
-		if (render->targets)
-			free(render->targets);
-		if (render->screen_image)
-			mlx_delete_image(render->mlx_ptr, render->screen_image);
 		if (render->mlx_ptr)
 			mlx_close_window(render->mlx_ptr);
 	}

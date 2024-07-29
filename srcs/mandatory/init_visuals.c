@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_texpaths_bonus.c                              :+:      :+:    :+:   */
+/*   init_visuals.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/16 14:17:44 by vketteni          #+#    #+#             */
-/*   Updated: 2024/07/26 11:37:58 by hwiemann         ###   ########.fr       */
+/*   Created: 2024/07/16 14:17:47 by vketteni          #+#    #+#             */
+/*   Updated: 2024/07/26 13:29:24 by hwiemann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incl/cub3d.h"
 
-t_texpaths	init_texpaths(void)
+t_ressources	init_visuals(void)
 {
-	t_texpaths	paths;
+	t_ressources	res;
 
-	paths.ceiling = NULL;
-	paths.floor = NULL;
-	paths.ea = NULL;
-	paths.no = NULL;
-	paths.so = NULL;
-	paths.we = NULL;
-	return (paths);
+	res.ea = NULL;
+	res.no = NULL;
+	res.so = NULL;
+	res.we = NULL;
+	return (res);
 }

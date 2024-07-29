@@ -6,7 +6,7 @@
 /*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 14:47:49 by hwiemann          #+#    #+#             */
-/*   Updated: 2024/07/19 12:39:21 by hwiemann         ###   ########.fr       */
+/*   Updated: 2024/07/26 11:42:28 by hwiemann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,7 @@ static t_color	choose_color(t_game *game, int x, int y)
 	char	tile;
 
 	tile = game->minimap.map[y][x];
-	if (tile == ' ' || tile == '\n'
-		// || (tile == !game->minimap.first_dir
-		// 		&& tile != '0' && tile != 'L' && tile != 'D' && tile != 'T'
-		// 		&& tile != '1')
-	)
+	if (tile == ' ' || tile == '\n')
 		return (game->minimap.ctransparent);
 	if (tile == '1')
 		return (game->minimap.cwall);

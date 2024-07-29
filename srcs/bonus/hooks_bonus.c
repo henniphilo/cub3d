@@ -6,7 +6,7 @@
 /*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 14:19:53 by vketteni          #+#    #+#             */
-/*   Updated: 2024/07/28 18:47:18 by hwiemann         ###   ########.fr       */
+/*   Updated: 2024/07/19 12:50:08 by hwiemann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ void	loop_hook(void *param)
 	render_flag = game->render.flag_render;
 	if (render_flag)
 	{
-	//	render_ingame_messages(game);
+		render_ingame_messages(game);
 		render_surfaces(game);
-	//	render_sprites(game);
+		render_sprites(game);
 		render_mini_map(game);
 		render_flag = 0;
 	}
