@@ -3,8 +3,8 @@
     "tasks": [
         {
             "type": "shell",
-            "label": "make",
-            "command": "make",
+            "label": "make bonus",
+            "command": "make bonus",
             "group": {
                 "kind": "build",
                 "isDefault": true

@@ -14,9 +14,6 @@
 
 t_game	*mini_map_init(t_game *game)
 {
-	int	i;
-
-	i = 0;
 	fill_half(game, game->render.res.c_ceiling, 0, WINDOW_HEIGHT / 2);
 	fill_half(game, game->render.res.c_floor, WINDOW_HEIGHT / 2, WINDOW_HEIGHT);
 	mlx_image_to_window(game->render.mlx_ptr, game->render.screen_image, 0, 0);

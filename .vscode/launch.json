@@ -5,20 +5,25 @@
             "name": "gcc - Build and debug active file",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/cub3d",
-            "args": ["maps/test.cub"],
+            "program": "${workspaceFolder}/cub3d_bonus",
+            "args": ["maps/test2.cub"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "externalConsole": false,
-            "MIMode": "gdb",
+            "MIMode": "lldb",
             "setupCommands": [
                 {
                     "description": "Enable pretty-printing for gdb",
                     "text": "-enable-pretty-printing",
                     "ignoreFailures": true
                 }
+                {
+                    "description": "Set breakpoint at malloc_error_break",
+                    "text": "break set -n malloc_error_break",
+                    "ignoreFailures": true
+                }
             ],
-            "preLaunchTask": "make"
+            "preLaunchTask": "make bonus"
         }
     ]
 }

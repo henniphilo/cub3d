@@ -16,11 +16,9 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 {
 	t_game		*game;
 	t_render	*render;
-	t_minimap	*minimap;
 
 	game = (t_game *)param;
 	render = &game->render;
-	minimap = &game->minimap;
 	if (keydata.action == MLX_PRESS)
 	{
 		keys_act(game, keydata);
@@ -64,11 +62,6 @@ void	keys_rotate(mlx_key_data_t keydata, t_game *game)
 
 void	keys_act(t_game *game, mlx_key_data_t keydata)
 {
-	t_render	*render;
-	t_minimap	*minimap;
-
-	render = &game->render;
-	minimap = &game->minimap;
 	if (keydata.key == MLX_KEY_ESCAPE)
 	{
 		mlx_close_window(game->render.mlx_ptr);

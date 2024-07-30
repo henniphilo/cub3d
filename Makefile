@@ -7,7 +7,8 @@ LIBFT = ./libft
 LIBFA = libft.a
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror -g -arch arm64
+LDFLAGS = -arch arm64
 RM = rm -f
 
 MAIN = main check_params hooks movements keys
@@ -52,14 +53,14 @@ bonus: setup $(OBJ_DIR) $(NAME_BONUS)
 # Compiling .o files
 $(OBJ_DIR)/%.o: srcs/%.c
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) $(SANITIZE_FLAGS) -Iinclude -I$(LIBFT) -I/usr/include -Imlx_linux -I$(LIB)/include/MLX42 -c $< -o $@
+	$(CC) $(CFLAGS) $(LDFLAGS) -Iinclude -I$(LIBFT) -I/usr/include -Imlx_linux -I$(LIB)/include/MLX42 -c $< -o $@
 
 # Linking the executable
 $(NAME): $(OBJ) $(LIB)/$(LIBA) $(LIBFT)/$(LIBFA)
-	$(CC) $(CFLAGS) $(SANITIZE_FLAGS) $(OBJ) -L$(LIB) -lmlx42 -L$(LIBFT) -lft -ldl -lglfw -lm -lpthread -o $(NAME)
+	$(CC) $(CFLAGS) $(LDFLAGS) $(OBJ) -L$(LIB) -lmlx42 -L$(LIBFT) -lft -ldl -L/opt/homebrew/lib -lglfw -lm -lpthread -o $(NAME)
 
 $(NAME_BONUS): $(OBJ_BONUS) $(LIB)/$(LIBA) $(LIBFT)/$(LIBFA)
-	$(CC) $(CFLAGS) $(SANITIZE_FLAGS) $(OBJ_BONUS) -L$(LIB) -lmlx42 -L$(LIBFT) -lft -ldl -lglfw -lm -lpthread -o $(NAME_BONUS)
+	$(CC) $(CFLAGS) $(LDFLAGS) $(OBJ_BONUS) -L$(LIB) -lmlx42 -L$(LIBFT) -lft -ldl -L/opt/homebrew/lib -lglfw -lm -lpthread -o $(NAME_BONUS)
 
 # Ensure libft is built
 $(LIBFT)/$(LIBFA):
@@ -71,7 +72,7 @@ $(OBJ_DIR):
 
 # Debug build
 debug: $(OBJ) $(LIBFT)/$(LIBFA)
-	$(CC) $(CFLAGS) $(SANITIZE_FLAGS) $(OBJ) -L$(LIBFT) -lft -ldl -lmlx42 -g3 -o $(NAME)
+	$(CC) $(CFLAGS) $(LDFLAGS) $(OBJ) -L$(LIBFT) -lft -ldl -lmlx42 -g3 -o $(NAME)
 
 clean:
 	$(MAKE) -C $(LIB) clean
