@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_arrays_bonus.c                                :+:      :+:    :+:   */
+/*   free_arrays.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 17:42:50 by vketteni          #+#    #+#             */
-/*   Updated: 2024/07/26 11:53:23 by hwiemann         ###   ########.fr       */
+/*   Updated: 2024/07/23 16:01:18 by hwiemann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,20 @@ void	free_paths(t_texpaths *paths)
 		free(paths->ea);
 	if (paths && paths->no)
 		free(paths->no);
+	if (paths && paths->air)
+		free(paths->no);
+	if (paths && paths->bubbles)
+		free(paths->bubbles);
+	if (paths && paths->door)
+		free(paths->door);
+	if (paths && paths->air)
+		free(paths->air);
+	if (paths && paths->target)
+		free(paths->target);
+	if (paths && paths->floor)
+		free(paths->floor);
+	if (paths && paths->door)
+		free(paths->door);
+	if (paths && paths->ceiling)
+		free(paths->ceiling);
 }
