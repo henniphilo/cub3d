@@ -7,8 +7,8 @@ LIBFT = ./libft
 LIBFA = libft.a
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g -arch arm64
-LDFLAGS = -arch arm64
+CFLAGS = -Wall -Wextra -Werror -g # -arch arm64
+#LDFLAGS = -arch arm64
 RM = rm -f
 
 MAIN = main check_params hooks movements keys
