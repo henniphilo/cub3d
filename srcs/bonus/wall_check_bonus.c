@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   wall_check_bonus.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/30 17:27:01 by hwiemann          #+#    #+#             */
+/*   Updated: 2024/08/01 10:55:43 by hwiemann         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../incl/cub3d.h"
 
 static int	check_top(t_minimap *minimap)
@@ -76,10 +88,10 @@ static int	check_allowed_symbols_bonus(t_minimap *minimap)
 	int		y;
 	char	pos;
 
-	x = 0;
 	y = 0;
 	while (y < minimap->y_axis)
 	{
+		x = 0;
 		while (x < minimap->x_axis[y] && minimap->map[y][x] != '\n')
 		{
 			pos = minimap->map[y][x];
@@ -87,6 +99,8 @@ static int	check_allowed_symbols_bonus(t_minimap *minimap)
 				&& pos != '0' && pos != '1' && pos != 'T' && pos != 'L'
 				&& pos != 'D' && pos != ' ' && pos != '\n')
 				return (1);
+			if (pos == 'W' || pos == 'S' || pos == 'N' || pos == 'E')
+				set_fir_dir(minimap, pos);
 			x++;
 		}
 		y++;

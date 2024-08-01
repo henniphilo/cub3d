@@ -6,7 +6,7 @@
 /*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 14:20:07 by vketteni          #+#    #+#             */
-/*   Updated: 2024/07/28 17:34:54 by hwiemann         ###   ########.fr       */
+/*   Updated: 2024/07/30 17:20:31 by hwiemann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,11 @@ int	main(int argc, char **argv)
 	open_map(&game, argv[1]);
 	set_player(&game);
 	get_mlx(&game);
-	//init_sprites(&game);
 	mlx_loop_hook(game.render.mlx_ptr, loop_hook, &game);
 	mlx_key_hook(game.render.mlx_ptr, key_hook, &game);
 	mlx_scroll_hook(game.render.mlx_ptr, scroll_hook, &game);
 	mlx_loop(game.render.mlx_ptr);
 	free_data(&game);
 	mlx_terminate(game.render.mlx_ptr);
-
 	return (EXIT_SUCCESS);
 }

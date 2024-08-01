@@ -6,7 +6,7 @@
 /*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 17:42:10 by vketteni          #+#    #+#             */
-/*   Updated: 2024/07/19 12:21:52 by hwiemann         ###   ########.fr       */
+/*   Updated: 2024/08/01 11:43:42 by hwiemann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,19 @@ void	put_pixel_double(mlx_image_t *img, double x, double y, t_color color)
 int	get_color_value(const char *color_str, int *index)
 {
 	int	value;
+	int	i;
 
+	i = -1;
 	value = 0;
+	while (color_str[++i])
+	{
+		if (color_str[i] != ',' && color_str[i] != ' '
+			&& !ft_isdigit(color_str[i]))
+		{
+			printf("Error color input invalid\n");
+			return (-1);
+		}
+	}
 	while (!ft_isdigit(color_str[*index]) && color_str[*index] != '\0')
 		(*index)++;
 	while (ft_isdigit(color_str[*index]))
@@ -54,6 +65,7 @@ int	get_color_value(const char *color_str, int *index)
 		value = value * 10 + (color_str[*index] - '0');
 		(*index)++;
 	}
+	printf("value is %d \n", value);
 	return (value);
 }
 
@@ -68,6 +80,22 @@ int	get_color_int(const char *color_str)
 	r = get_color_value(color_str, &i);
 	g = get_color_value(color_str, &i);
 	b = get_color_value(color_str, &i);
+	if (r > 250 || r < 0)
+	{
+		printf("Error color invalid r is %d \n", r);
+		r = 250;
+	}
+	if (g > 250 || g < 0)
+	{
+		printf("Error color invalid g is %d \n", g);
+		g = 250;
+	}
+	if (b > 250 || b < 0)
+	{
+		printf("Error color invalid b is %d \n", b);
+		b = 250;
+	}
+	printf("r %d g %d b %d\n", r, g, b);
 	return ((r << 16) | (g << 8) | b);
 }
 

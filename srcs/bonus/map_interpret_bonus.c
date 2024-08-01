@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_interpret.c                                    :+:      :+:    :+:   */
+/*   map_interpret_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:17:15 by hwiemann          #+#    #+#             */
-/*   Updated: 2024/07/19 12:29:49 by hwiemann         ###   ########.fr       */
+/*   Updated: 2024/08/01 11:41:03 by hwiemann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	load_visuals(t_ressources *res, t_texpaths *paths)
 		res->ea = mlx_load_png(paths->ea);
 	if (!res->no || !res->we || !res->so || !res->ea)
 	{
-		printf("texture are missing\n");
+		printf("Error texture are missing\n");
 		exit(1);
 	}
 	res->door = mlx_load_png(DOOR_PATH);
@@ -36,7 +36,9 @@ void	load_visuals(t_ressources *res, t_texpaths *paths)
 	res->air = mlx_load_png(AIR_PATH);
 	if (!res->air)
 		printf("air texture missing\n");
+	printf("ceiling: ");
 	res->c_ceiling = int_to_color(get_color_int(paths->ceiling));
+	printf("floor: ");
 	res->c_floor = int_to_color(get_color_int(paths->floor));
 }
 

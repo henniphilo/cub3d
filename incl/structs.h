@@ -6,7 +6,7 @@
 /*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:22:27 by hwiemann          #+#    #+#             */
-/*   Updated: 2024/07/23 15:13:10 by hwiemann         ###   ########.fr       */
+/*   Updated: 2024/08/01 11:34:36 by hwiemann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@
 # define C_AIR "200, 0, 10"
 # define C_TARGET "150, 150, 0"
 # define C_DOOR "100, 80, 150"
-# define C_FLOOR "255, 255, 255"
+# define C_FLOOR "250, 250, 250"
 # define C_SIDE "100, 0, 155"
-# define C_PLAYER "0, 0, 255"
+# define C_PLAYER "0, 0, 250"
 
 typedef struct s_color
 {
@@ -167,6 +167,7 @@ typedef struct s_minimap
 	int				width;
 	int				y_axis;
 	int				*x_axis;
+	char			fir_dir;
 	t_color			cblue;
 	t_color			cwall;
 	t_color			cair;

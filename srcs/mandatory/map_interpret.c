@@ -6,7 +6,7 @@
 /*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:17:15 by hwiemann          #+#    #+#             */
-/*   Updated: 2024/07/26 11:57:22 by hwiemann         ###   ########.fr       */
+/*   Updated: 2024/07/30 17:31:34 by hwiemann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	load_visuals(t_ressources *res, t_texpaths *paths)
 		res->ea = mlx_load_png(paths->ea);
 	if (!res->no || !res->we || !res->so || !res->ea)
 	{
-		printf("texture are missing\n");
+		printf("Error texture are missing\n");
 		exit(1);
 	}
 	res->c_ceiling = int_to_color(get_color_int(paths->ceiling));

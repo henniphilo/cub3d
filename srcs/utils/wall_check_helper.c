@@ -6,7 +6,7 @@
 /*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:18:42 by hwiemann          #+#    #+#             */
-/*   Updated: 2024/07/28 17:47:23 by hwiemann         ###   ########.fr       */
+/*   Updated: 2024/08/01 10:55:07 by hwiemann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,12 @@ int	check_adjacent(t_minimap *minimap)
 		y++;
 	}
 	return (0);
+}
+
+void	set_fir_dir(t_minimap *minimap, char pos)
+{
+	if (minimap->fir_dir == 'X')
+		minimap->fir_dir = pos;
+	else
+		pos = '0';
 }

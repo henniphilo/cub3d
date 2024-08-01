@@ -7,8 +7,7 @@ LIBFT = ./libft
 LIBFA = libft.a
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g # -arch arm64
-#LDFLAGS = -arch arm64
+CFLAGS = -Wall -Wextra -Werror -g 
 RM = rm -f
 
 MAIN = main check_params hooks movements keys
@@ -73,16 +72,12 @@ $(OBJ_DIR):
 BONUS: $(NAME) $(OBJ_BONUS)
 	$(CC) $(CFLAGS) $(SANITIZE_FLAGS) $(OBJ_BONUS) -L$(LIB) -lmlx42 -L$(LIBFT) -lft -ldl -lglfw -lm -lpthread -o $(NAME)
 
-# Debug build
-debug: $(OBJ) $(LIBFT)/$(LIBFA)
-	$(CC) $(CFLAGS) $(LDFLAGS) $(OBJ) -L$(LIBFT) -lft -ldl -lmlx42 -g3 -o $(NAME)
-
 clean:
 	$(MAKE) -C $(LIB) clean
 	$(MAKE) -C $(LIBFT) clean
 	$(RM) -r $(OBJ_DIR)
 
-fclean: clean 
+fclean: clean
 	$(MAKE) -C $(LIBFT) fclean
 	$(RM) $(NAME) $(NAME_BONUS)
 

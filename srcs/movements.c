@@ -6,7 +6,7 @@
 /*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 14:20:17 by vketteni          #+#    #+#             */
-/*   Updated: 2024/07/26 12:04:37 by hwiemann         ###   ########.fr       */
+/*   Updated: 2024/07/30 17:21:02 by hwiemann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,10 @@ void	move_straight(t_game *game, t_minimap *minimap,
 	next_x = player->pos_x + player->dir_x * MOVE_SPEED * direction;
 	next_y = player->pos_y + player->dir_y * MOVE_SPEED * direction;
 	player = &game->render.player;
-	put_block_double(render->screen_image, game->minimap.cfloor,
-		player->pos_x, player->pos_y);
 	if (minimap->map[(int)(next_y)][(int)(next_x)] == '0')
 	{
 		player->pos_x = next_x;
 		player->pos_y = next_y;
-		put_block_double(render->screen_image, game->minimap.cplayer,
-			player->pos_x, player->pos_y);
 	}
 }
 
@@ -42,18 +38,15 @@ void	move_sideways(t_game *game, t_minimap *minimap,
 	double	next_x;
 	double	next_y;
 
+	(void)game;
 	side_dir_x = (render->player.dir_y);
 	side_dir_y = -(render->player.dir_x);
 	next_x = render->player.pos_x + side_dir_x * MOVE_SPEED * direction;
 	next_y = render->player.pos_y + side_dir_y * MOVE_SPEED * direction;
-	put_block_double(render->screen_image, game->minimap.cfloor,
-		render->player.pos_x, render->player.pos_y);
 	if (minimap->map[(int)(next_y)][(int)(next_x)] == '0')
 	{
 		render->player.pos_x = next_x;
 		render->player.pos_y = next_y;
-		put_block_double(render->screen_image, game->minimap.cplayer,
-			render->player.pos_x, render->player.pos_y);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 11:32:21 by hwiemann          #+#    #+#             */
-/*   Updated: 2024/07/28 18:29:09 by hwiemann         ###   ########.fr       */
+/*   Updated: 2024/07/30 17:20:48 by hwiemann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,5 @@ int	main(int argc, char **argv)
 	mlx_loop(game.render.mlx_ptr);
 	free_data(&game);
 	mlx_terminate(game.render.mlx_ptr);
-
 	return (EXIT_SUCCESS);
 }

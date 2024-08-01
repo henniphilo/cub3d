@@ -6,7 +6,7 @@
 /*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:18:42 by hwiemann          #+#    #+#             */
-/*   Updated: 2024/07/28 18:39:33 by hwiemann         ###   ########.fr       */
+/*   Updated: 2024/08/01 10:56:09 by hwiemann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,19 +88,18 @@ static int	check_allowed_symbols(t_minimap *minimap)
 	int		y;
 	char	pos;
 
-	printf("Minimap height: %d\n", minimap->y_axis);
 	y = 0;
 	while (y < minimap->y_axis)
 	{
-		printf("Line %d width: %d\n", y, minimap->x_axis[y]);
 		x = 0;
 		while (x < minimap->x_axis[y] && minimap->map[y][x] != '\n')
 		{
 			pos = minimap->map[y][x];
-			printf("Checking symbol at (%d, %d): %c\n", y, x, pos);
 			if (pos != 'W' && pos != 'S' && pos != 'N' && pos != 'E'
 				&& pos != '0' && pos != '1' && pos != ' ' && pos != '\n')
 				return (1);
+			if (pos == 'W' || pos == 'S' || pos == 'N' || pos == 'E')
+				set_fir_dir(minimap, pos);
 			x++;
 		}
 		y++;
@@ -112,27 +111,22 @@ int	walls_check(t_minimap *minimap)
 {
 	if (check_allowed_symbols(minimap))
 	{
-		printf("return in allowed sym\n");
 		return (1);
 	}
 	if (check_adjacent(minimap))
 	{
-		printf("return in adjacent\n");
 		return (1);
 	}
 	if (check_bottom(minimap))
 	{
-		printf("return in check bottom\n");
 		return (1);
 	}
 	if (check_top(minimap))
 	{
-		printf("return in check top\n");
 		return (1);
 	}
 	if (check_sides(minimap))
 	{
-		printf("return in check sides\n");
 		return (1);
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: hwiemann <hwiemann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:22:31 by hwiemann          #+#    #+#             */
-/*   Updated: 2024/07/23 16:01:56 by hwiemann         ###   ########.fr       */
+/*   Updated: 2024/08/01 10:55:25 by hwiemann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int				get_map_start(unsigned int map_height, char **cub_input_table);
 char			*get_path(char *line, const char *direction);
 int				parse_input_table(t_game *game);
 void			open_map(t_game *game, char *file);
+void			set_fir_dir(t_minimap *minimap, char pos);
 
 void			parse_paths(int map_height, t_texpaths *paths,
 					char **input_table);
