@@ -10,13 +10,13 @@
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "externalConsole": false,
-            "MIMode": "lldb",
+            "MIMode": "gdb",
             "setupCommands": [
                 {
                     "description": "Enable pretty-printing for gdb",
                     "text": "-enable-pretty-printing",
                     "ignoreFailures": true
-                }
+                },
                 {
                     "description": "Set breakpoint at malloc_error_break",
                     "text": "break set -n malloc_error_break",

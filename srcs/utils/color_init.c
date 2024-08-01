@@ -53,10 +53,7 @@ int	get_color_value(const char *color_str, int *index)
 	{
 		if (color_str[i] != ',' && color_str[i] != ' '
 			&& !ft_isdigit(color_str[i]))
-		{
-			printf("Error color input invalid\n");
 			return (-1);
-		}
 	}
 	while (!ft_isdigit(color_str[*index]) && color_str[*index] != '\0')
 		(*index)++;
@@ -65,7 +62,6 @@ int	get_color_value(const char *color_str, int *index)
 		value = value * 10 + (color_str[*index] - '0');
 		(*index)++;
 	}
-	printf("value is %d \n", value);
 	return (value);
 }
 
@@ -82,20 +78,19 @@ int	get_color_int(const char *color_str)
 	b = get_color_value(color_str, &i);
 	if (r > 250 || r < 0)
 	{
-		printf("Error color invalid r is %d \n", r);
 		r = 250;
+		printf("Error color invalid r is set to %d \n", r);
 	}
 	if (g > 250 || g < 0)
 	{
-		printf("Error color invalid g is %d \n", g);
 		g = 250;
+		printf("Error color invalid g is set to %d \n", g);
 	}
 	if (b > 250 || b < 0)
 	{
-		printf("Error color invalid b is %d \n", b);
 		b = 250;
+		printf("Error color invalid b is set to %d \n", b);
 	}
-	printf("r %d g %d b %d\n", r, g, b);
 	return ((r << 16) | (g << 8) | b);
 }
 

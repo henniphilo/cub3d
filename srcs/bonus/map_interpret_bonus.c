@@ -36,9 +36,7 @@ void	load_visuals(t_ressources *res, t_texpaths *paths)
 	res->air = mlx_load_png(AIR_PATH);
 	if (!res->air)
 		printf("air texture missing\n");
-	printf("ceiling: ");
 	res->c_ceiling = int_to_color(get_color_int(paths->ceiling));
-	printf("floor: ");
 	res->c_floor = int_to_color(get_color_int(paths->floor));
 }
 

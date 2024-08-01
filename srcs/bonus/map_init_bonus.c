@@ -109,7 +109,7 @@ char	*get_path(char *line, const char *direction)
 		while (*path_start == ' ')
 			path_start++;
 		path_end = path_start;
-		while (*path_end != ' ' && *path_end != '\n' && *path_end != '\0')
+		while (*path_end != '\n' && *path_end != '\0')
 			path_end++;
 		len = path_end - path_start;
 		path = (char *)ft_calloc(len + 1, sizeof(char));
